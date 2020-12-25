@@ -4,7 +4,7 @@ export const FOOTER_FILE_URL = "../footer/footer.html";
 
 
 
-const readDocument = (fileLocation) => {
+const readDocument = (fileLocation, htmlElement) => {
     // console.log(fileLocation);
     // console.log(window.location);
     return fetch(fileLocation)
@@ -13,30 +13,31 @@ const readDocument = (fileLocation) => {
     })
     .then(data => {
         console.log(data);
-        var header = createNewHeader(data);
+        var header = createNewHeader(data, htmlElement);
         return header;
     })
 }
 
-const createNewHeader = (htmlAsText) => {
+const createNewHeader = (htmlAsText, htmlElement) => {
     //console.log(htmlAsText);
     var NewHTML = document.createElement("new-html");
     //console.log(NewHTML);
     NewHTML.innerHTML = htmlAsText;
-    var appHeader = NewHTML.querySelectorAll(".footer");
+    console.warn(htmlElement);
+    var appHeader = NewHTML.querySelectorAll(htmlElement);
     //console.log(appHeader[0]);
     return appHeader;
 }
 
-const copyAppHTMLElment = (fileLocation) => {
-    const htmlAsText = readDocument(fileLocation);
+const copyAppHTMLElment = (fileLocation, htmlElement) => {
+    const htmlAsText = readDocument(fileLocation, htmlElement);
     return htmlAsText;
 }
 
 export const getAppHeader = (fileLocation) => {
-    return copyAppHTMLElment(fileLocation);
+    return copyAppHTMLElment(fileLocation, ".header");
 }
 
 export const getAppFooter = (fileLocation) => {
-    return copyAppHTMLElment(fileLocation);
+    return copyAppHTMLElment(fileLocation, ".footer");
 }
