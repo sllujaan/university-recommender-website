@@ -1,0 +1,20 @@
+:root {
+    --margin-var: 10px;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    top: 0;
+    position: fixed;
+    width: 100%;
+    background-color:green;
+    padding: 10px;
+    font-style: normal;
+    font-weight: bold;
+    font-family:'Courier New', Courier, monospace;
+}
