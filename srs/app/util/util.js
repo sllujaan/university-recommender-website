@@ -12,6 +12,7 @@ const readDocument = (fileLocation) => {
         return res.text();
     })
     .then(data => {
+        console.log(data);
         var header = createNewHeader(data);
         return header;
     })
@@ -22,7 +23,7 @@ const createNewHeader = (htmlAsText) => {
     var NewHTML = document.createElement("new-html");
     //console.log(NewHTML);
     NewHTML.innerHTML = htmlAsText;
-    var appHeader = NewHTML.querySelectorAll(".header");
+    var appHeader = NewHTML.querySelectorAll(".footer");
     //console.log(appHeader[0]);
     return appHeader;
 }
