@@ -2,6 +2,5 @@
 
 
 .home-body {
-    margin-top: 100px;
-    padding: var(--margin-var);
+    margin-top: var(--margin-var);
 }
