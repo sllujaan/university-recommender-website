@@ -41,3 +41,16 @@ export const getAppHeader = (fileLocation) => {
 export const getAppFooter = (fileLocation) => {
     return copyAppHTMLElment(fileLocation, ".footer");
 }
+
+
+export const loadHeaderFooter = (headerContainer, footerContainer) => {
+    getAppHeader(HEADER_FILE_URL, headerContainer)
+    .then(header => {
+        headerContainer.append(header[0])
+    })
+
+    getAppFooter(FOOTER_FILE_URL, footerContainer)
+    .then(footer => {
+        footerContainer.append(footer[0])
+    })
+}

@@ -1,5 +1,6 @@
 :root {
     --margin-var: 50px;
+    --header-z-index: 100;
 }
 
 
@@ -10,6 +11,7 @@ body {
 
 .header {
     top: 0;
+    z-index: var(--header-z-index);
     position: fixed;
     width: 100%;
     background-color:green;
