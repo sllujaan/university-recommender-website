@@ -4,5 +4,5 @@
 
 .app-body {
     background-color: gray;
-    margin-top: var(--margin-var);
+    margin-top: var(--app-body-margin-top);
 }
