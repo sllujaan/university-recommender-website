@@ -1,0 +1,8 @@
+@import "../header/header.css";
+@import "../footer/footer.css";
+
+
+.app-body {
+    background-color: gray;
+    margin-top: var(--app-body-margin-top);
+}

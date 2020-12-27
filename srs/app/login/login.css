@@ -1,0 +1,27 @@
+@import "../header/header.css";
+@import "../footer/footer.css";
+
+
+.app-body {
+    background-color: gray;
+    margin-top: var(--app-body-margin-top);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+.login-contianer {
+    background-color: purple;
+    padding: 10px;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form input {
+    display: block;
+}
