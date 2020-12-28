@@ -3,7 +3,7 @@
 
 
 .app-body {
-    background-color: gray;
+    /* background-color: gray; */
     margin-top: var(--app-body-margin-top);
     display: flex;
     align-items: center;
@@ -13,15 +13,60 @@
 
 
 
-.login-contianer {
+/* .login-contianer {
     background-color: purple;
-    padding: 10px;
     width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+} */
+
+form {
+    background-color: red;
+    width: 50%;
+    border: 1px solid white;
+    border-radius: 15px 50px 30px;
+
+    background: linear-gradient(145deg, #dadada, #ffffff);
+    box-shadow:  30px 30px 59px #b1b1b1, 
+                 -30px -30px 59px #ffffff;
+
 }
 
 form input {
     display: block;
+    padding: 10px;
+    width: 80%;
+
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+
+    border: 1px solid white;
+    border-radius: 25px;
+
+}
+
+form input[type="submit"] {
+    background-color: orange;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+   
+}
+
+form input:focus {
+    outline-width: 0;
+}
+
+
+@media only screen and (max-width: 600px) {
+    form {
+        width: 100%;
+    }
 }
