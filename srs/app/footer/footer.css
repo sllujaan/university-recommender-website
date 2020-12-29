@@ -1,6 +1,7 @@
 
 :root {
     --app-maximum-width: 990px;
+    --footer-z-index: 100;
 }
 
 
@@ -20,6 +21,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    z-index: var(--footer-z-index);
 
 }
 

@@ -28,13 +28,11 @@
 
 form {
     background-color: red;
-    width: 50%;
     border: 1px solid white;
-    border-radius: 15px 50px 30px;
 
-    background: linear-gradient(145deg, #dadada, #ffffff);
-    box-shadow:  30px 30px 59px #b1b1b1, 
-                 -30px -30px 59px #ffffff;
+    width: calc(var(--app-maximum-width) / 2);
+
+    border-radius: 4px;
 
 }
 
@@ -51,8 +49,8 @@ form input {
     margin-top: 10px;
 
 
-    border: 1px solid white;
-    border-radius: 25px;
+    border: none;
+    border-radius: 2px;
 
 }
 
@@ -70,7 +68,7 @@ form input:focus {
 }
 
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 500px) {
     form {
         width: 100%;
     }
