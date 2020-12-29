@@ -1,11 +1,36 @@
 
+:root {
+    --app-maximum-width: 990px;
+}
+
 
 body {
     margin: 0;
     padding: 0;
+    position: relative;
+    min-height: 100vh;
 }
 
 .footer {
+    background-color: green;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.footer-body {
     background-color: orange;
-    padding: 10px;
+    width: 100%;
+}
+
+@media only screen and (min-width: 990px) {
+    .footer-body {
+        width: var(--app-maximum-width);
+    }
 }

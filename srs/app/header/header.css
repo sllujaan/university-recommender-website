@@ -1,12 +1,17 @@
 :root {
     --app-body-margin-top: 50px;
     --header-z-index: 100;
+    --app-maximum-width: 990px;
 }
 
 
 body {
     margin: 0;
     padding: 0;
+
+    position: relative;
+    min-height: 100vh;
+
 }
 
 .header {
@@ -15,8 +20,24 @@ body {
     position: fixed;
     width: 100%;
     background-color:green;
-    padding: 10px;
-    font-style: normal;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+        /* font-style: normal;
     font-weight: bold;
-    font-family:'Courier New', Courier, monospace;
+    font-family:'Courier New', Courier, monospace; */
+}
+
+.header-body {
+    background-color: orange;
+    width: 100%;
+}
+
+@media only screen and (min-width: 990px) {
+    .header-body {
+        width: var(--app-maximum-width);
+    }
 }
