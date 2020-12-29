@@ -16,14 +16,22 @@
 
     
     <div class="app-body">
-        <form action="#" method="post">
-            <input type="text" placeholder="Enter Name">
-            <input type="password" placeholder="Enter Password">
-            <input align="center" type="submit" value="Sign in">
-        </form>
+        <div class="auth-card">
+
+            <form action="#" method="post">
+                <div class="auth-cart-title">Login</div>
+                <div class="form-content">
+                    <input type="text" placeholder="Enter Name" autofocus>
+                    <input type="password" placeholder="Enter Password">
+                    <div class="auth-error">Invalid User Name or Password</div>
+                </div>
+                <input id="auth-submit" align="center" type="submit" value="Sign in">
+            </form>
+        </div>
+        
     </div>
 
-    
+
     <div class="footer-container"></div>
     
 </body>
