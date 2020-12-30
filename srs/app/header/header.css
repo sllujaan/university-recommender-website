@@ -2,6 +2,9 @@
     --app-body-margin-top: 50px;
     --header-z-index: 100;
     --app-maximum-width: 990px;
+
+    --color-purpule: #5f0f4e;
+    --color-white: white;
 }
 
 
@@ -32,7 +35,8 @@ body {
 }
 
 .header-body {
-    background-color: orange;
+    background-color: var(--color-purpule);
+    color: var(--color-white);
     width: 100%;
 }
 
