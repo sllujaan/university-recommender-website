@@ -20,7 +20,7 @@ body {
 .header {
     top: 0;
     z-index: var(--header-z-index);
-    position: fixed;
+    position: relative;
     width: 100%;
     background-color:green;
 
@@ -40,8 +40,36 @@ body {
     width: 100%;
 }
 
+.header-body a, .header-body i {
+    float: left;
+    display: none;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.header-body a:first-child {
+    display: block;
+}
+
+.header-body i {
+    float: right;
+    display: block;
+}
+
+.header-body a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
 @media only screen and (min-width: 990px) {
     .header-body {
         width: var(--app-maximum-width);
+    }
+
+    .header-body a {
+        display: block;
     }
 }

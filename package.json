@@ -1,0 +1,20 @@
+{
+  "name": "university-recommender-website",
+  "version": "1.0.0",
+  "description": "University Recommender Website will help Students choose best University that fits to his/her needs, at earliest as possible and as soon as they finish last course/degree program.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sllujaan/university-recommender-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sllujaan/university-recommender-website/issues"
+  },
+  "homepage": "https://github.com/sllujaan/university-recommender-website#readme"
+}

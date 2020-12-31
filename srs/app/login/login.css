@@ -24,6 +24,8 @@
     --font-weight-large: 700;
 
     --letter-spacing-1: 2px;
+
+    --font-family-base-1: "Gotham SSm", Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
 }
 
 * {
@@ -44,6 +46,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 
@@ -75,11 +78,7 @@ body {
     font-size: var(--font-size-large);
     font-weight: var(--font-weight-2);
 
-    letter-spacing: var(--letter-spacing-1);
 
-    font-stretch: 100%;
-    text-indent: 0px;
-    text-rendering: auto;
 
 }
 
