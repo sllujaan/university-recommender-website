@@ -28,9 +28,7 @@
     --font-family-base-1: "Gotham SSm", Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
 }
 
-* {
-    font-family: var(--font-family-base);
-}
+
 
 body {
     background-color: var(--gray-2);

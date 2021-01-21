@@ -102,8 +102,39 @@ body {
     left: 2px;
 }
 
+
+
 /*----------------------------------------------------------------*/
 
+@media only screen and (max-width: 950px) {
+
+    .header-container {
+        background-color: orange;
+    }
+
+    .header-container > :first-child {
+        background-color: green;
+        display: block;
+        width: 100%;
+    }
+
+    .header-container > 
+    *:not(:first-child):not(:nth-child(2)):not(:last-child)
+    {
+        display: none;
+    }
+
+    .header-container > :nth-child(2)
+    {
+        text-align: center;
+    }
+
+    .header-container > :last-child
+    {
+        text-align: right;
+    }
+
+}
 
 
 

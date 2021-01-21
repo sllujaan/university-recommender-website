@@ -3,7 +3,7 @@ import {
 } from "../util/util.js";
 
 var headerContainer = document.querySelectorAll(".header-container")[0];
-var footerContainer = document.querySelectorAll(".footer-container")[0];
+var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var submitInput = document.querySelectorAll('#auth-submit')[0];
 var errorText = document.querySelectorAll('.error-text')[0];
 var inputs = document.querySelectorAll('input');
