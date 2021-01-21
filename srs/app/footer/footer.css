@@ -31,9 +31,65 @@ body {
     background-color: orange;
     width: 100%;
 }
-
+/* 
 @media only screen and (min-width: 990px) {
     .footer-body {
         width: var(--app-maximum-width);
     }
+} */
+
+
+
+/*--------------------Footer css---------------------------------*/
+.footer-container {
+    background-color: #1d4354;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 13px 0;
 }
+
+
+.footer-container > * {
+    width: 100%;
+}
+
+.footer-container > :first-child {
+    /* background-color: green; */
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-top > * {
+    /* background-color: orange; */
+    width: 250px;
+    height: 100px;
+}
+
+.container-top > * > * {
+    padding-bottom: 5px;
+}
+
+.footer-container > :nth-child(2) {
+    text-align: center;
+    width: 60%;
+    padding: 10px 0;
+    border-top: 1px solid #2b5468;
+    border-bottom: 1px solid #2b5468;
+    margin-top: 10px;
+}
+
+
+
+.footer-container > :last-child {
+    text-align: center;
+    margin: 20px;
+}
+
+
+
+/*---------------------------------------------------------------*/

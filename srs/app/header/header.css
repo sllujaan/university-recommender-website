@@ -41,6 +41,76 @@ body {
     position: relative;
 }
 
+
+/*--------------------Header css---------------------------------*/
+
+.header-container {
+    background-color: #1d4354;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 0;
+}
+
+.header-container > div {
+    position: relative;
+    /* background-color: orange; */
+    color: white;
+    margin: 0 10px;
+}
+
+::placeholder {
+
+}
+
+.search-bar-nav > input {
+    background-color: #2b5468;
+    width: 300px;
+    border-radius: 50px;
+    padding: 8px;
+    text-decoration: none;
+    border: none;
+    text-indent: 25px;
+}
+
+.search-bar-nav > input::placeholder {
+    color: white;
+}
+
+.search-bar-nav > i {
+    position: absolute;
+    left: 4px;
+    top: 6px;
+    /* background-color: orange; */
+    padding: 1px 4px;
+}
+
+.person {
+    /* background-color: orange; */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #6fda44;
+    position: relative;
+
+}
+
+.person > i {
+    position: absolute;
+    font-size: xx-large;
+    top: -13px;
+    left: 2px;
+}
+
+/*----------------------------------------------------------------*/
+
+
+
+
+
+/* 
+
+
 .header-body a {
     float: left;
     display: none;
@@ -90,4 +160,4 @@ body {
         display: block;
         text-align: left;
     }
-}
+} */
