@@ -127,19 +127,28 @@ body {
 @media only screen and (max-width: 1100px) {
 
     .header-container {
-        background-color: orange;
+        /* background-color: orange; */
     }
 
-    .header-container > :first-child {
-        background-color: green;
+
+    .header-container > * {
+        display: none;
+    }
+
+    .header-container > :first-child,
+    .header-container > :nth-child(2),
+    .header-container > :last-child {
         display: block;
         width: 100%;
+        /* background-color: green; */
+        padding: none;
+        margin: none;
     }
 
-    .header-container > 
-    *:not(:first-child):not(:nth-child(2)):not(:last-child)
-    {
-        display: none;
+    .header-container > :first-child >i:hover,
+    .header-container > :nth-child(2),
+    .header-container > :last-child >i:hover {
+        cursor: pointer;
     }
 
     .header-container > :nth-child(2)
