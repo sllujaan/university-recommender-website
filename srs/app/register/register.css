@@ -37,7 +37,7 @@ body {
 .app-body {
     /* background-color: gray; */
     position: relative;
-    margin-top: 100px;
+    margin-top: 20px;
     width: 100%;
 
 
@@ -238,5 +238,5 @@ form input:focus {
 
 
 .footer-container-wrapper {
-    background-color: green;
+    /* background-color: green; */
 }

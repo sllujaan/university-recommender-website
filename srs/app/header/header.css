@@ -5,6 +5,7 @@
 
     --color-purpule: #5f0f4e;
     --color-white: white;
+
 }
 
 
@@ -59,6 +60,10 @@ body {
     margin: 0 10px;
 }
 
+.header-container > :first-child, .header-container > :last-child {
+    display: none;
+}
+
 ::placeholder {
 
 }
@@ -104,9 +109,22 @@ body {
 
 
 
+/*-----------------------------Header Sidebar--------------------------------*/
+.header-sidebar {
+    background-color: var(--color-purpule);
+    position: fixed;
+    top: 0;
+    right: 99%;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+
+
 /*----------------------------------------------------------------*/
 
-@media only screen and (max-width: 950px) {
+@media only screen and (max-width: 1100px) {
 
     .header-container {
         background-color: orange;
