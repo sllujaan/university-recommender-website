@@ -1,6 +1,11 @@
 import {
     loadHeaderFooter
 } from "../util/util.js";
+import { loadHeaderJS } from "../header/header.js";
+
+
+
+
 
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
@@ -15,6 +20,9 @@ console.log(inputs);
 
 loadHeaderFooter(headerContainer, footerContainer);
 
+setTimeout(() => {
+    loadHeaderJS(document);
+}, 2000);
 
 
 document.forms[0].addEventListener("submit", e => {
