@@ -154,6 +154,15 @@ form input {
     border-radius: 6px;
 }
 
+form select {
+    width: 100%;
+    padding: 10px 20px;
+    
+    border: 1px solid var(--gray-1);
+    border-radius: 6px;
+}
+
+
 form input[type="submit"] {
     border: none;
     color: var(--color-white);

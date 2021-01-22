@@ -32,7 +32,7 @@
         <div class="auth-card">
 
             <form action="#" method="post">
-                <div class="auth-cart-title">Register</div>
+                <div class="auth-cart-title">Register Now</div>
                 <div class="form-content-container">
 
                     <!---------------------Name---------------------->
@@ -64,7 +64,33 @@
 
                     <!---------------------re-password----------------->
                     <div class="form-content">
-                        <input type="password" name="re-password" id="user-repassword" placeholder="Password">
+                        <input type="password" name="re-password" id="user-repassword" placeholder="Retype Password">
+                    </div>
+
+                    <div class="form-content error-text">
+                        Invalid User Name or Password!
+                    </div>
+
+                    <!--------------------------Country----------------->
+                    <div class="form-content">
+                        <select name="country" id="user-country" required>
+                            <option value="" selected disabled hidden>Select Country</option>
+                            <option value="id">Pakistan</option>
+                            <option value="id">Afghanistan</option>
+                        </select>
+                    </div>
+
+                    <div class="form-content error-text">
+                        Invalid User Name or Password!
+                    </div>
+
+                    <!--------------------------City----------------->
+                    <div class="form-content">
+                        <select name="city" id="user-city" required>
+                            <option value="" selected disabled hidden>Select City</option>
+                            <option value="id">Faisalabad</option>
+                            <option value="id">Lahore</option>
+                        </select>
                     </div>
 
                     <div class="form-content error-text">
@@ -73,12 +99,28 @@
                     
                     <!---------------------Program-------------------->
                     <div class="form-content">
-                        <input type="text" name="name" id="auth-name" placeholder="User Name" autofocus>
+                        <select name="program" id="user-program" required>
+                            <option value="" selected disabled hidden>Select Program</option>
+                            <option value="id">Computer Science</option>
+                            <option value="id">Software Engineering</option>
+                        </select>
+                    </div>
+
+                    <div class="form-content error-text">
+                        Invalid User Name or Password!
                     </div>
 
                     <!--------------Admission Start Date--------------->
                     <div class="form-content">
-                        <input type="text" name="name" id="auth-name" placeholder="User Name" autofocus>
+                        <select name="program" id="user-program" required>
+                            <option value="" selected disabled hidden>Select Admission Start Date</option>
+                            <option value="id">10 feb 2021</option>
+                            <option value="id">10 march 2021</option>
+                        </select>
+                    </div>
+
+                    <div class="form-content error-text">
+                        Invalid User Name or Password!
                     </div>
 
 
@@ -96,6 +138,12 @@
                     <div class="form-content percentage">
                         <input type="number" name="s_education_pct" id="s_education_pct" placeholder="Enter Secondary Education Marks percentage" min="0" max="100" >
                         <div>%</div>
+                    </div>
+
+                    <!--------------------------Budget----------------->
+                    <div class="form-content percentage">
+                        <input type="number" name="budget_US_$" id="user_budget_US_$" placeholder="Enter Budget" min="1" max="100" >
+                        <div>$</div>
                     </div>
 
                     <!-----------------Entry Test Marsk----------------->
