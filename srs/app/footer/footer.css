@@ -10,6 +10,12 @@ body {
     padding: 0;
     position: relative;
     min-height: 100vh;
+    
+}
+
+body > .app-body {
+    background-color: green;
+    padding-bottom: 320px;
 }
 
 .footer {
@@ -23,6 +29,7 @@ body {
     justify-content: center;
 
     z-index: var(--footer-z-index);
+
 
 }
 
