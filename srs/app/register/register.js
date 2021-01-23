@@ -1,4 +1,3 @@
-import { loadHeaderJS } from "../header/header.js";
 import {
     loadHeaderFooter
 } from "../util/util.js";
@@ -12,7 +11,33 @@ var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var submitInput = document.querySelectorAll('#auth-submit')[0];
 var errorText = document.querySelectorAll('.error-text')[0];
 var inputs = document.querySelectorAll('input');
-console.log(inputs);
+
+var name = inputs[0];
+var email = inputs[1];
+
+name.addEventListener("change", e => {
+    if(e.target.value !== "jake") {
+        displayNameConflictError(e);
+    }
+})
+
+email.addEventListener("change", e => {
+    if(e.target.value !== "jake") {
+        displayEmailConflictError(e);
+    }
+})
+
+
+
+const displayNameConflictError = (e) => {
+    var errElement = document.getElementById("name-error");
+    errElement.innerHTML = "Name &quot;" + e.target.value + "&quot; already exists";
+}
+
+const displayEmailConflictError = (e) => {
+    var errElement = document.getElementById("email-error");
+    errElement.innerHTML = "Email &quot;" + e.target.value + "&quot; already exists";
+}
 
 
 
