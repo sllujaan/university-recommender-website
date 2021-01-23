@@ -1,7 +1,7 @@
+import { loadHeaderJS } from "../header/header.js";
 import {
     loadHeaderFooter
 } from "../util/util.js";
-import { loadHeaderJS } from "../header/header.js";
 
 
 
@@ -20,10 +20,9 @@ console.log(inputs);
 
 loadHeaderFooter(headerContainer, footerContainer);
 
-setTimeout(() => {
-    loadHeaderJS(document);
-}, 2000);
-
+// setTimeout(() => {
+//     loadHeaderJS(document);
+// }, 2000);
 
 document.forms[0].addEventListener("submit", e => {
     e.preventDefault();

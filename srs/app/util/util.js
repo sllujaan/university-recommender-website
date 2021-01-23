@@ -1,4 +1,6 @@
 
+import { loadHeaderJS } from "../header/header.js";
+
 export const HEADER_FILE_URL = "../header/header.html";
 export const FOOTER_FILE_URL = "../footer/footer.html";
 
@@ -47,6 +49,7 @@ export const loadHeaderFooter = (headerContainer, footerContainer) => {
     getAppHeader(HEADER_FILE_URL, headerContainer)
     .then(header => {
         headerContainer.append(header[0])
+        loadHeaderJS(document);
     })
 
     getAppFooter(FOOTER_FILE_URL, footerContainer)
