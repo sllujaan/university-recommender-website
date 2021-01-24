@@ -10,6 +10,8 @@ var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var submitInput = document.querySelectorAll('#auth-submit')[0];
 var errorText = document.querySelectorAll('.error-text')[0];
 var inputs = document.querySelectorAll('input');
+var userProram = document.getElementById("user-program");
+var userCountry = document.getElementById("user-country");
 loadHeaderFooter(headerContainer, footerContainer);
 
 
@@ -126,20 +128,55 @@ const EnableInputs = (e) => {
 
 
 const getProgramsDB = () => {
-    fetch(URL_PROGRAM, {
-        cache: 'force-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    })
+    fetch(URL_PROGRAM)
     .then(res => {
         if(res.status !== 200) {alert("There was an error while fetching Programs from Database!");}
         else {return res.json();}
     })
     .then(programs => {
-        console.log(programs)
+        initProgramInForm(programs);
     })
     .catch(err => {
         displayServerError();
         console.error(err);
     })
+}
+
+const getContriesDB = () => {
+    fetch(URL_PROGRAM)
+    .then(res => {
+        if(res.status !== 200) {alert("There was an error while fetching Programs from Database!");}
+        else {return res.json();}
+    })
+    .then(programs => {
+        initProgramInForm(programs);
+    })
+    .catch(err => {
+        displayServerError();
+        console.error(err);
+    })
+}
+
+const initProgramInForm = (programs) => {
+    console.log(programs);
+    programs.forEach(program => {
+        var option = document.createElement("option");
+        option.setAttribute("value", program.Program_ID);
+        option.innerText = program.Name;
+        userProram.append(option);
+    })
+    userProram.disabled = false;
+}
+
+const initCountryInForm = (Countries) => {
+    console.log(Countries);
+    Countries.forEach(Country => {
+        var option = document.createElement("option");
+        option.setAttribute("value", Country.Program_ID);
+        option.innerText = Country.Name;
+        userProram.append(option);
+    })
+    userCountry.disabled = false;
 }
 
 
