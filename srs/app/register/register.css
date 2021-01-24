@@ -85,12 +85,14 @@ body {
     color: red;
     font-size: var(--font-size-medium);
     font-weight: var(--font-weight-1);
+    padding-left: 10px;
 }
 
 .success-text {
     color: #37a000;
     font-size: var(--font-size-medium);
     font-weight: var(--font-weight-1);
+    padding-left: 10px;
 }
 
 .disabled {
@@ -249,4 +251,10 @@ form input:focus {
 
 .footer-container-wrapper {
     /* background-color: green; */
+}
+
+
+
+.no-display {
+    display: none;
 }

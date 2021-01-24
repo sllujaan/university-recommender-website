@@ -14,6 +14,9 @@ var inputs = document.querySelectorAll('input');
 var userProram = document.getElementById("user-program");
 var userCountry = document.getElementById("user-country");
 var userCity = document.getElementById("user-city");
+var userPassword = document.getElementById("user-password");
+var userRepassword = document.getElementById("user-repassword");
+
 loadHeaderFooter(headerContainer, footerContainer);
 
 
@@ -218,4 +221,15 @@ userCountry.addEventListener("change", e => {
     console.log(e.target.value);
 
     getCitiesDB(e.target.value);
+})
+
+userRepassword.addEventListener("change", e => {
+    const password = userPassword.value;
+    const repassword = e.target.value;
+
+    if(password !== repassword) {
+        displayConflictError()
+        console.log("passwords are not the same.");
+    }
+
 })
