@@ -1,6 +1,7 @@
 import { loadHeaderFooter } from "../util/util.js";
 import {
-    URL_REGISTER_NAME, URL_REGISTER_EMAIL, URL_PROGRAM
+    URL_REGISTER_NAME, URL_REGISTER_EMAIL, URL_PROGRAM,
+    URL_COUNTRY, URL_CITY
 } from "../urls/urlResolver.js";
 
 
@@ -12,6 +13,7 @@ var errorText = document.querySelectorAll('.error-text')[0];
 var inputs = document.querySelectorAll('input');
 var userProram = document.getElementById("user-program");
 var userCountry = document.getElementById("user-country");
+var userCity = document.getElementById("user-city");
 loadHeaderFooter(headerContainer, footerContainer);
 
 
@@ -142,14 +144,30 @@ const getProgramsDB = () => {
     })
 }
 
-const getContriesDB = () => {
-    fetch(URL_PROGRAM)
+const getCountriesDB = () => {
+    fetch(URL_COUNTRY)
     .then(res => {
-        if(res.status !== 200) {alert("There was an error while fetching Programs from Database!");}
+        if(res.status !== 200) {alert("There was an error while fetching Countries from Database!");}
         else {return res.json();}
     })
     .then(programs => {
-        initProgramInForm(programs);
+        initCountryInForm(programs);
+    })
+    .catch(err => {
+        displayServerError();
+        console.error(err);
+    })
+}
+
+const getCitiesDB = (CountryID) => {
+    const URL = URL_CITY + "?id=" + CountryID;
+    fetch(URL)
+    .then(res => {
+        if(res.status !== 200) {alert("There was an error while fetching Cities from Database!");}
+        else {return res.json();}
+    })
+    .then(programs => {
+        initCityInForm(programs);
     })
     .catch(err => {
         displayServerError();
@@ -172,12 +190,32 @@ const initCountryInForm = (Countries) => {
     console.log(Countries);
     Countries.forEach(Country => {
         var option = document.createElement("option");
-        option.setAttribute("value", Country.Program_ID);
+        option.setAttribute("value", Country.Country_ID);
         option.innerText = Country.Name;
-        userProram.append(option);
+        userCountry.append(option);
     })
     userCountry.disabled = false;
 }
 
+const initCityInForm = (cities) => {
+    console.log(cities);
+    cities.forEach(city => {
+        var option = document.createElement("option");
+        option.setAttribute("value", city.City_ID);
+        option.innerText = city.Name;
+        userCity.append(option);
+    })
+    userCity.disabled = false;
+}
+
 
 getProgramsDB();
+getCountriesDB();
+
+
+
+userCountry.addEventListener("change", e => {
+    console.log(e.target.value);
+
+    getCitiesDB(e.target.value);
+})
