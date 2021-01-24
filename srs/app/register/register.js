@@ -267,17 +267,20 @@ const handleOnSubmit = (e) => {
         return;
     }
 
-    const requestData = `name=${userName.value}
-                        &password=${userPassword.value}
-                        &email=${userEmail.value}
-                        &country_id=${userCountry.value}
-                        &city_id=${userCity.value}
-                        &program_id=${userProram.value}
-                        &start_admission_date=${userAddmissionDate.value}
-                        &budget_us_%24=${userBudgetUS$.value}
-                        &s_education_pct=${userSeducationPct.value/100}
-                        &h_education_pct=${userHeducationPct.value/100}
-                        &etm_pct=${1}`;
+    const name = `name=${userName.value}&`;
+    const email = `email=${userEmail.value}&`;
+    const password = `password=${userPassword.value}&`;
+    const countryID = `country_id=${userCountry.value}&`;
+    const cityID = `city_id=${userCity.value}&`;
+    const programID = `program_id=${userProram.value}&`;
+    const admissionDate = `start_admission_date=${userAddmissionDate.value}&`;
+    const sEdu = `s_education_pct=${userSeducationPct.value/100}&`;
+    const hEdu = `h_education_pct=${userHeducationPct.value/100}&`;
+    const etm = `etm_pct=${1}&`;
+    const budget = `budget_us_%24=${userBudgetUS$.value}`;
+
+
+    const requestData = name+email+password+countryID+cityID+programID+admissionDate+sEdu+hEdu+etm+budget;
 
     
     disableInputs(e);                  
