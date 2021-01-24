@@ -8,9 +8,6 @@ import {
 var FORM_VALID = false;
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
-var submitInput = document.querySelectorAll('#auth-submit')[0];
-var errorText = document.querySelectorAll('.error-text')[0];
-var inputs = document.querySelectorAll('input');
 
 var userName = document.getElementById("user-name");
 var userEmail = document.getElementById("user-email");
@@ -23,6 +20,7 @@ var userAddmissionDate= document.getElementById("user-addmission-date");
 var userHeducationPct = document.getElementById("user-h_education_pct");
 var userSeducationPct = document.getElementById("user-s_education_pct");
 var userBudgetUS$ = document.getElementById("user_budget_US_$");
+var submitInput = document.getElementById("auth-submit");
 
 loadHeaderFooter(headerContainer, footerContainer);
 
@@ -47,14 +45,13 @@ const validateFieldDB = async (e, url) => {
     const fieldName = e.target.getAttribute("name");
     const fieldValue = e.target.value;
     var errElement = e.target.parentElement.nextElementSibling;
-    const reqeustData = fieldName + "=" + fieldValue;
-    console.log(reqeustData);
+    const requestData = fieldName + "=" + fieldValue;
 
     fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: reqeustData // body data type must match "Content-Type" header
+        body: requestData // body data type must match "Content-Type" header
     })
     .then(res => {
         switch (res.status) {
@@ -120,7 +117,6 @@ const disableInputs = (e) => {
     e.target.setAttribute("style", "pointer-events: none; user-select: none;");
     submitInput.setAttribute("style", "background-color: #d1d1d1; color: gray; cursor: default;");
     submitInput.value = "Signing In...";
-    errorText.innerHTML = "&nbsp;";
 }
 
 const EnableInputs = (e) => {
@@ -244,34 +240,19 @@ userRepassword.addEventListener("change", e => {
 
 
 
-const sumbitForm = (URL, requestData) => {
-    const fieldName = e.target.getAttribute("name");
-    const fieldValue = e.target.value;
-    var errElement = e.target.parentElement.nextElementSibling;
-    const reqeustData = fieldName + "=" + fieldValue;
-    console.log(reqeustData);
-
-    fetch(url, {
+const sumbitForm = (e, URL, requestData) => {
+    fetch(URL, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: reqeustData // body data type must match "Content-Type" header
+        body: requestData // body data type must match "Content-Type" header
     })
     .then(res => {
-        switch (res.status) {
-            case 409:
-                displayConflictError(errElement , e.target.value, fieldName);
-                break;
-            case 200:
-                displayInputOK(errElement, e.target.value);
-                break;
-            default:
-                displayServerError();
-                break;
-        }
+        if(res.status !== 200) {EnableInputs(e);alert("Error while serving the request!")}
+        else {EnableInputs(e);alert("SUCCESS!");}
     })
     .catch(err => {
-        displayServerError();
+        EnableInputs(e);
         console.error(err);
     })
 }
@@ -286,15 +267,6 @@ const handleOnSubmit = (e) => {
         return;
     }
 
-
-    console.log("submit it..");
-    console.log(e.target);
-
-    const UserName = e.target.querySelectorAll("#user");
-
-    const inputs = e.target.querySelectorAll("input");
-    const selects = e.target.querySelectorAll("select");
-
     const requestData = `name=${userName.value}
                         &password=${userPassword.value}
                         &email=${userEmail.value}
@@ -308,17 +280,8 @@ const handleOnSubmit = (e) => {
                         &etm_pct=${1}`;
 
     
-    
-
-    console.log(requestData);
-
-    
-
-
-
-    console.log(inputs[0].type);
-
-    disableInputs(e);
+    disableInputs(e);                  
+    sumbitForm(e, URL_USER_REGISTER, requestData);
 
     setTimeout(() => {
         EnableInputs(e);
