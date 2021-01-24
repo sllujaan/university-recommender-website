@@ -1,7 +1,7 @@
 import { loadHeaderFooter } from "../util/util.js";
 import {
     URL_REGISTER_NAME, URL_REGISTER_EMAIL, URL_PROGRAM,
-    URL_COUNTRY, URL_CITY
+    URL_COUNTRY, URL_CITY, URL_USER_REGISTER
 } from "../urls/urlResolver.js";
 
 
@@ -11,24 +11,32 @@ var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var submitInput = document.querySelectorAll('#auth-submit')[0];
 var errorText = document.querySelectorAll('.error-text')[0];
 var inputs = document.querySelectorAll('input');
-var userProram = document.getElementById("user-program");
-var userCountry = document.getElementById("user-country");
-var userCity = document.getElementById("user-city");
+
+var userName = document.getElementById("user-name");
+var userEmail = document.getElementById("user-email");
 var userPassword = document.getElementById("user-password");
 var userRepassword = document.getElementById("user-repassword");
+var userCountry = document.getElementById("user-country");
+var userCity = document.getElementById("user-city");
+var userProram = document.getElementById("user-program");
+var userAddmissionDate= document.getElementById("user-addmission-date");
+var userHeducationPct = document.getElementById("user-h_education_pct");
+var userSeducationPct = document.getElementById("user-s_education_pct");
+var userBudgetUS$ = document.getElementById("user_budget_US_$");
 
 loadHeaderFooter(headerContainer, footerContainer);
 
 
-var name = inputs[0];
-var email = inputs[1];
 
-name.addEventListener("change", e => {
+// var name = inputs[0];
+// var email = inputs[1];
+
+userName.addEventListener("change", e => {
     //nameIsValidDB(e);
     validateFieldDB(e, URL_REGISTER_NAME);
 })
 
-email.addEventListener("change", e => {
+userEmail.addEventListener("change", e => {
     validateFieldDB(e, URL_REGISTER_EMAIL);
 })
 
@@ -233,6 +241,45 @@ userRepassword.addEventListener("change", e => {
 
 
 
+
+
+
+const sumbitForm = (URL, requestData) => {
+    const fieldName = e.target.getAttribute("name");
+    const fieldValue = e.target.value;
+    var errElement = e.target.parentElement.nextElementSibling;
+    const reqeustData = fieldName + "=" + fieldValue;
+    console.log(reqeustData);
+
+    fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: reqeustData // body data type must match "Content-Type" header
+    })
+    .then(res => {
+        switch (res.status) {
+            case 409:
+                displayConflictError(errElement , e.target.value, fieldName);
+                break;
+            case 200:
+                displayInputOK(errElement, e.target.value);
+                break;
+            default:
+                displayServerError();
+                break;
+        }
+    })
+    .catch(err => {
+        displayServerError();
+        console.error(err);
+    })
+}
+
+
+
+
+
 const handleOnSubmit = (e) => {
     if(!FORM_VALID) {
         userRepassword.focus();
@@ -242,6 +289,34 @@ const handleOnSubmit = (e) => {
 
     console.log("submit it..");
     console.log(e.target);
+
+    const UserName = e.target.querySelectorAll("#user");
+
+    const inputs = e.target.querySelectorAll("input");
+    const selects = e.target.querySelectorAll("select");
+
+    const requestData = `name=${userName.value}
+                        &password=${userPassword.value}
+                        &email=${userEmail.value}
+                        &country_id=${userCountry.value}
+                        &city_id=${userCity.value}
+                        &program_id=${userProram.value}
+                        &start_admission_date=${userAddmissionDate.value}
+                        &budget_us_%24=${userBudgetUS$.value}
+                        &s_education_pct=${userSeducationPct.value/100}
+                        &h_education_pct=${userHeducationPct.value/100}
+                        &etm_pct=${1}`;
+
+    
+    
+
+    console.log(requestData);
+
+    
+
+
+
+    console.log(inputs[0].type);
 
     disableInputs(e);
 
