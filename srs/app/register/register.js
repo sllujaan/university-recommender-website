@@ -1,5 +1,7 @@
 import { loadHeaderFooter } from "../util/util.js";
-import { URL_REGISTER_NAME, URL_REGISTER_EMAIL } from "../urls/urlResolver.js";
+import {
+    URL_REGISTER_NAME, URL_REGISTER_EMAIL, URL_PROGRAM
+} from "../urls/urlResolver.js";
 
 
 
@@ -81,7 +83,9 @@ const displayServerError = () => {
         errElment.innerHTML = "Server Error!";
     })
 
-    alert("net::ERR_CONNECTION_REFUSED\nMake sure that back-end server in running properly.");
+    alert("net::ERR_CONNECTION_REFUSED\n\
+    1. Make sure that back-end server is running properly.\n\
+    2. Make sure Database service is also running properly.");
 }
 
 
@@ -119,3 +123,24 @@ const EnableInputs = (e) => {
     submitInput.setAttribute("style", "background-color: #5f0f4e; color: white; cursor: pointer;");
     submitInput.value = "Sign in";
 }
+
+
+const getProgramsDB = () => {
+    fetch(URL_PROGRAM, {
+        cache: 'force-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    })
+    .then(res => {
+        if(res.status !== 200) {alert("There was an error while fetching Programs from Database!");}
+        else {return res.json();}
+    })
+    .then(programs => {
+        console.log(programs)
+    })
+    .catch(err => {
+        displayServerError();
+        console.error(err);
+    })
+}
+
+
+getProgramsDB();
