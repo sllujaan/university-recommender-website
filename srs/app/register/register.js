@@ -224,12 +224,17 @@ userCountry.addEventListener("change", e => {
 })
 
 userRepassword.addEventListener("change", e => {
+    const repassErrorEl = document.getElementById("repassword-error");
     const password = userPassword.value;
     const repassword = e.target.value;
 
     if(password !== repassword) {
-        displayConflictError()
+        repassErrorEl.innerHTML = "Passwords do not match!";
         console.log("passwords are not the same.");
+    }
+    else {
+        repassErrorEl.innerHTML = "*";
+        repassErrorEl.style.setProperty("color", "#37a000");
     }
 
 })
