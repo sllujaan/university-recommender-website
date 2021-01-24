@@ -14,9 +14,6 @@ var name = inputs[0];
 var email = inputs[1];
 
 name.addEventListener("change", e => {
-    if(e.target.value !== "jake") {
-        displayNameConflictError(e);
-    }
 
     nameIsValidDB(e);
 })
@@ -43,10 +40,23 @@ const nameIsValidDB = async (e) => {
         body: reqeustData // body data type must match "Content-Type" header
     })
     .then(res => {
-        if(res.status === 409) displayNameConflictError(e);
-        else displayServerError();
+
+        switch (res.status) {
+            case 409:
+                displayConflictError(document.getElementById("name-error"), e.target.value, "Name")
+                //displayNameConflictError(e);
+                break;
+            case 200:
+                displayInputOK(document.getElementById("name-error"), e.target.value);
+                //displayNameOK(e);
+                break;
+            default:
+                displayServerError();
+                break;
+        }
     })
     .catch(err => {
+        displayServerError();
         console.error(err);
     })
 
@@ -81,12 +91,25 @@ const nameIsValidDB = async (e) => {
 
 
 
+const displayConflictError = (errElement, text, textPrefix) => {
+    errElement.classList.remove("success-text");
+    errElement.classList.add("error-text");
+    errElement.innerHTML = textPrefix + " &quot;" + text + "&quot; already exists";
+}
+
+const displayInputOK = (errElement, text) => {
+    errElement.classList.remove("error-text");
+    errElement.classList.add("success-text");
+    errElement.innerHTML = text + "&nbsp;&#10004;";
+}
 
 
 
 
 const displayNameConflictError = (e) => {
     var errElement = document.getElementById("name-error");
+    errElement.classList.remove("success-text");
+    errElement.classList.add("error-text");
     errElement.innerHTML = "Name &quot;" + e.target.value + "&quot; already exists";
 }
 
@@ -99,13 +122,19 @@ const displayServerError = () => {
     var errElements = document.querySelectorAll(".error-text");
     errElements.forEach(errElment => {
         console.log(errElment);
+        errElment.innerHTML = "Server Error!";
     })
-    console.log(errElements);
+
+    alert("net::ERR_CONNECTION_REFUSED\nMake sure that back-end server in running properly.");
 }
 
-const displayNameOK = () => {
-    var errElements = document.querySelectorAll("error-text");
-    console.log(errElements);
+
+
+const displayNameOK = (e) => {
+    var errElement = document.getElementById("name-error");
+    errElement.classList.remove("error-text");
+    errElement.classList.add("success-text");
+    errElement.innerHTML = e.target.value + "&nbsp;&#10004;";
 }
 
 
@@ -142,6 +171,7 @@ const handleOnSubmit = (e) => {
 const showAuthError = (e) => {
     errorText.innerText = "Invalid User Name or Password!";
 }
+
 
 const disableInputs = (e) => {
 
@@ -190,4 +220,9 @@ const EnableInputs = (e) => {
     // submitInput.value = "Sign in";
     // submitInput.disabled = false;
     // submitInput.setAttribute("style", "background-color: #5f0f4e; color: white; cursor: pointer;");
+}
+
+
+const disableElement = (elment) => {
+    elment.setAttribute("style", "background-color: #d1d1d1; color: gray; cursor: default;");
 }
