@@ -5,7 +5,7 @@ import {
 } from "../urls/urlResolver.js";
 
 
-
+var FORM_VALID = false;
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var submitInput = document.querySelectorAll('#auth-submit')[0];
@@ -104,29 +104,19 @@ document.forms[0].addEventListener("submit", e => {
 })
 
 
-const handleOnSubmit = (e) => {
-    console.log("submit it..");
-    console.log(e.target);
 
-    disableInputs(e);
-
-    setTimeout(() => {
-        showAuthError(e);
-        EnableInputs(e);
-    }, 2000);
-}
 
 
 
 const disableInputs = (e) => {
-    e.target.setAttribute("style", "pointer-events: none;");
+    e.target.setAttribute("style", "pointer-events: none; user-select: none;");
     submitInput.setAttribute("style", "background-color: #d1d1d1; color: gray; cursor: default;");
     submitInput.value = "Signing In...";
     errorText.innerHTML = "&nbsp;";
 }
 
 const EnableInputs = (e) => {
-    e.target.setAttribute("style", "pointer-events: all;");
+    e.target.setAttribute("style", "pointer-events: all; user-select: auto;");
     submitInput.setAttribute("style", "background-color: #5f0f4e; color: white; cursor: pointer;");
     submitInput.value = "Sign in";
 }
@@ -229,12 +219,33 @@ userRepassword.addEventListener("change", e => {
     const repassword = e.target.value;
 
     if(password !== repassword) {
+        FORM_VALID = false;
         repassErrorEl.innerHTML = "Passwords do not match!";
         console.log("passwords are not the same.");
     }
     else {
+        FORM_VALID = true;
         repassErrorEl.innerHTML = "*";
         repassErrorEl.style.setProperty("color", "#37a000");
     }
 
 })
+
+
+
+const handleOnSubmit = (e) => {
+    if(!FORM_VALID) {
+        userRepassword.focus();
+        return;
+    }
+
+
+    console.log("submit it..");
+    console.log(e.target);
+
+    disableInputs(e);
+
+    setTimeout(() => {
+        EnableInputs(e);
+    }, 2000);
+}
