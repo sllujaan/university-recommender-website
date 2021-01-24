@@ -1,7 +1,5 @@
-import {
-    loadHeaderFooter
-} from "../util/util.js";
-
+import { loadHeaderFooter } from "../util/util.js";
+import { REGISTER_NAME } from "../urls/urlResolver.js";
 
 
 
@@ -19,6 +17,8 @@ name.addEventListener("change", e => {
     if(e.target.value !== "jake") {
         displayNameConflictError(e);
     }
+
+    nameIsValidDB(e);
 })
 
 email.addEventListener("change", e => {
@@ -26,6 +26,62 @@ email.addEventListener("change", e => {
         displayEmailConflictError(e);
     }
 })
+
+
+const nameIsValidDB = async (e) => {
+    const reqeustData = "name=" + e.target.value;
+    console.log(reqeustData);
+
+    fetch(REGISTER_NAME, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: reqeustData // body data type must match "Content-Type" header
+    })
+    .then(res => {
+        if(res.status === 409) displayNameConflictError(e);
+        else displayServerError();
+    })
+    .catch(err => {
+        console.error(err);
+    })
+
+}
+
+
+
+
+// fetch("http://localhost/university-recommender-website-server-api/register/name.php", {
+//     method: 'POST', // *GET, POST, PUT, DELETE, etc.
+//     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+//     headers: {
+//         'Content-Type': 'application/x-www-form-urlencoded'
+//     },
+//     body: "name=admin" // body data type must match "Content-Type" header
+// })
+// .then(res => res.text())
+// .then(text => {
+//     console.log(text);
+// })
+// .catch(err => {
+//     console.error(err);
+// })
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -37,6 +93,19 @@ const displayNameConflictError = (e) => {
 const displayEmailConflictError = (e) => {
     var errElement = document.getElementById("email-error");
     errElement.innerHTML = "Email &quot;" + e.target.value + "&quot; already exists";
+}
+
+const displayServerError = () => {
+    var errElements = document.querySelectorAll(".error-text");
+    errElements.forEach(errElment => {
+        console.log(errElment);
+    })
+    console.log(errElements);
+}
+
+const displayNameOK = () => {
+    var errElements = document.querySelectorAll("error-text");
+    console.log(errElements);
 }
 
 

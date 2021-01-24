@@ -87,6 +87,12 @@ body {
     font-weight: var(--font-weight-1);
 }
 
+.error-text {
+    color: #37a000;
+    font-size: var(--font-size-medium);
+    font-weight: var(--font-weight-1);
+}
+
 
 
 
