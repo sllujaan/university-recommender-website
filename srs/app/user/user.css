@@ -48,6 +48,31 @@ body {
 }
 
 
+.table-container {
+    overflow-x: auto;
+}
+
+
+table {
+    border-bottom: 1px solid black;
+    border-radius: 10px;
+}
+
+table * {
+    padding: 10px;
+}
+
+table th {
+    background-color: green;
+}
+
+
+
+
+
+
+
+
 
 
 /* .login-contianer {
