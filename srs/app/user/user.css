@@ -104,9 +104,17 @@ body {
     overflow-x: auto;
 }
 
+.user-name-heading {
+    border-top-left-radius: 10px;
+}
+
+.user-program-heading {
+    border-top-right-radius: 10px;
+}
+
 
 table {
-    border-bottom: 1px solid black;
+    border-bottom: 4px solid #37a000;
     border-radius: 10px;
 }
 
@@ -115,7 +123,7 @@ table * {
 }
 
 table th {
-    background-color: green;
+    background-color: #37a000;
 }
 
 

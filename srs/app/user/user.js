@@ -68,11 +68,11 @@ const showUnauthorizedMsg = () => {
 
 
 const users = [
-    {name: "jake", email: "jake@email", country: "us", city: "new york", program: "CS"},
-    {name: "jake", email: "jake@email", country: "us", city: "new york", program: "CS"},
-    {name: "jake", email: "jake@email", country: "us", city: "new york", program: "CS"},
-    {name: "jake", email: "jake@email", country: "us", city: "new york", program: "CS"},
-    {name: "jake", email: "jake@email", country: "us", city: "new york", program: "CS"}
+    {Name: "jake", Email: "jake@email", Country: "us", City: "new york", Program: "CS"},
+    {Name: "jake", Email: "jake@email", Country: "us", City: "new york", Program: "CS"},
+    {Name: "jake", Email: "jake@email", Country: "us", City: "new york", Program: "CS"},
+    {Name: "jake", Email: "jake@email", Country: "us", City: "new york", Program: "CS"},
+    {Name: "jake", Email: "jake@email", Country: "us", City: "new york", Program: "CS"},
 ]
 
 const initUsersInTable = (users) => {
@@ -129,11 +129,16 @@ const getUsersDB = () => {
         return;
     }
 
+    console.log(requestData);
+
     fetch(URL_USERS, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'no-cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        headers: {'Content-Type': 'application/json'},
-        body: requestData // body data type must match "Content-Type" header
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({"session_id":"6c549eb55a5825b3a91af449ad4308cf","user_id":1}) // body data type must match "Content-Type" header
     })
     .then(res => {
         switch (res.status) {
@@ -141,8 +146,8 @@ const getUsersDB = () => {
                 showUnauthorizedMsg();
                 break;
             case 200:
+                alert("SUCCESS!");
                 return res.json();
-        
             default:
                 showRequestServiceFailed();
                 alert("There was an error while fetching Programs from Database!");
@@ -161,7 +166,35 @@ const getUsersDB = () => {
 }
 
 
-getUsersDB();
+
+
+const getUsersNew = () => {
+
+    fetch(URL_USERS, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({"session_id":"85c52b42bc29a6808ae9fe285a175311","user_id":1}) // body data type must match "Content-Type" header
+    })
+    .then(res => {
+        console.log(res.status);
+        if(res.status === 200) return res.json();
+        else res.text();
+    })
+    .then(users => {
+        console.log(users);
+    })
+    .catch(err => {
+        console.error(err);
+    })
+}
+
+
+hideBusy();
+initUsersInTable(users);
+
 
 searchUser.addEventListener("keyup", e => {
     searchTable(e.target.value);
