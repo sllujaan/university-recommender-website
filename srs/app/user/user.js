@@ -4,7 +4,7 @@ import { URL_USER_LOGIN } from "../urls/urlResolver.js";
 
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
-var userRows = document.querySelectorAll(".user-row");
+var userTable = document.getElementById("user-table");
 var searchUser = document.getElementById("search-user");
 
 
@@ -14,6 +14,7 @@ loadHeaderFooter(headerContainer, footerContainer);
 
 
 const searchTable = (searchValue) => {
+    var userRows = document.querySelectorAll(".user-row");
     userRows.forEach(userRow => {
         const userName = userRow.getElementsByClassName("user-name")[0].innerText;
         // console.log(userName);
@@ -38,13 +39,16 @@ const showElement = (element) => {
 
 
 const users = [
-    {name: "jake"},
-    {name: "mike"},
+    {name: "jake", email: "jake@email", country: "us", city: "new york", program: "CS"},
+    {name: "jake", email: "jake@email", country: "us", city: "new york", program: "CS"},
+    {name: "jake", email: "jake@email", country: "us", city: "new york", program: "CS"},
+    {name: "jake", email: "jake@email", country: "us", city: "new york", program: "CS"},
+    {name: "jake", email: "jake@email", country: "us", city: "new york", program: "CS"}
 ]
 
 const initUsersInTable = (users) => {
     users.forEach(user => {
-
+        userTable.append(generateUserRow(user));
     })
 }
 
@@ -58,28 +62,24 @@ const generateUserRow = (user) => {
 
     tr.setAttribute("class", "user-row");
     tdName.setAttribute("class", "user-name");
-    tdName = user.name;
-    tdEmail = user.email;
-    tdCountry = user.country;
-    tdCity = user.city;
-    tdProgram = user.program;
+    tdName.innerText = user.name;
+    tdEmail.innerText = user.email;
+    tdCountry.innerText = user.country;
+    tdCity.innerText = user.city;
+    tdProgram.innerText = user.program;
 
     tr.append(tdName);
     tr.append(tdEmail);
     tr.append(tdCountry);
     tr.append(tdCity);
     tr.append(tdProgram);
-    
+
+    return tr;
 }
 
-<tr class="user-row">
-                    <td class="user-name">jake</td>
-                    <td>name</td>
-                    <td>name</td>
-                    <td>name</td>
-                    <td>name</td>
-                </tr>
 
+
+initUsersInTable(users);
 
 
 searchUser.addEventListener("keyup", e => {
