@@ -66,11 +66,26 @@ const sumbitForm = (e, URL, requestData) => {
         body: requestData // body data type must match "Content-Type" header
     })
     .then(res => {
-        if(res.status !== 200) {EnableInputs(e);alert("Error while serving the request!")}
-        else {EnableInputs(e);alert("SUCCESS!");}
+        console.log(res.status);
+        switch (res.status) {
+            case 401:
+                EnableInputs(e);
+                displayInputsError(errorElement, "Name or Password are Invalid!");
+                break;
+            case 200:
+                return res.json();
+            default:
+                EnableInputs(e);
+                alert("Error while serving the request!");
+                break;
+        }
+    })
+    .then(data => {
+        console.log(data);
     })
     .catch(err => {
         EnableInputs(e);
+        displayServerError();
         console.error(err);
     })
 }
@@ -84,15 +99,13 @@ const handleOnSubmit = (e) => {
     const password = `password=${userPassword.value}`;
     const requestData = name + password;
 
+    console.log(requestData);
     disableInputs(e);                  
     sumbitForm(e, URL_USER_LOGIN, requestData);
-    console.log(requestData);
 
-    setTimeout(() => {
-        displayInputsError(errorElement, "Name or password are Invalid!");
-        EnableInputs(e);
-    }, 2000);
 }
+
+
 
 
 
@@ -104,12 +117,6 @@ document.forms[0].addEventListener("submit", e => {
     e.preventDefault();
     
     handleOnSubmit(e);
-
-    // disableInputs(e);
-    // setTimeout(() => {
-    //     displayInputsError(errorElement, "Name or password are Invalid!");
-    //     EnableInputs(e);
-    // }, 2000);
     
 })
 
