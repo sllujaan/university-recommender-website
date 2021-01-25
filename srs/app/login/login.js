@@ -1,92 +1,115 @@
-import {
-    loadHeaderFooter
-} from "../util/util.js";
+import { loadHeaderFooter } from "../util/util.js";
+import { URL_USER_LOGIN } from "../urls/urlResolver.js";
 
-var headerContainer = document.querySelectorAll(".header-container")[0];
+
+var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
-var submitInput = document.querySelectorAll('#auth-submit')[0];
-var errorText = document.querySelectorAll('.error-text')[0];
-var inputs = document.querySelectorAll('input');
-console.log(inputs);
-
-
-
-
+var userName = document.getElementById("user-name");
+var userPassword = document.getElementById("user-password");
+var errorElement = document.getElementById("name-password-error");
+var submitInput = document.getElementById("auth-submit");
 
 loadHeaderFooter(headerContainer, footerContainer);
 
 
 
-document.forms[0].addEventListener("submit", e => {
-    e.preventDefault();
-    handleOnSubmit(e);
-    
-})
+
+const displayInputsError = (errElement, text) => {
+    errElement.classList.remove("success-text");
+    errElement.classList.add("error-text");
+    errElement.innerHTML = text;
+}
+
+
+const displayServerError = () => {
+    var errElements = document.querySelectorAll(".error-text");
+    errElements.forEach(errElment => {
+        console.log(errElment);
+        errElment.innerHTML = "Server Error!";
+    })
+
+    alert("net::ERR_CONNECTION_REFUSED\n\
+    1. Make sure that back-end server is running properly.\n\
+    2. Make sure Database service is also running properly.");
+}
+
+
+
+
+
+const disableInputs = (e) => {
+    errorElement.innerHTML = "*";
+    e.target.setAttribute("style", "pointer-events: none; user-select: none;");
+    submitInput.setAttribute("style", "background-color: #d1d1d1; color: gray; cursor: default;");
+    submitInput.value = "Signing In...";
+}
+
+const EnableInputs = (e) => {
+    e.target.setAttribute("style", "pointer-events: all; user-select: auto;");
+    submitInput.setAttribute("style", "background-color: #5f0f4e; color: white; cursor: pointer;");
+    submitInput.value = "Sign in";
+}
+
+
+
+
+
+
+
+
+
+const sumbitForm = (e, URL, requestData) => {
+    fetch(URL, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: requestData // body data type must match "Content-Type" header
+    })
+    .then(res => {
+        if(res.status !== 200) {EnableInputs(e);alert("Error while serving the request!")}
+        else {EnableInputs(e);alert("SUCCESS!");}
+    })
+    .catch(err => {
+        EnableInputs(e);
+        console.error(err);
+    })
+}
+
+
+
 
 
 const handleOnSubmit = (e) => {
-    console.log("submit it..");
-    console.log(e.target);
+    const name = `name=${userName.value}&`;
+    const password = `password=${userPassword.value}`;
+    const requestData = name + password;
 
-    disableInputs(e);
+    disableInputs(e);                  
+    sumbitForm(e, URL_USER_LOGIN, requestData);
+    console.log(requestData);
 
     setTimeout(() => {
-        showAuthError(e);
+        displayInputsError(errorElement, "Name or password are Invalid!");
         EnableInputs(e);
     }, 2000);
 }
 
 
 
-const showAuthError = (e) => {
-    errorText.innerText = "Invalid User Name or Password!";
-}
-
-const disableInputs = (e) => {
 
 
-    // inputs.forEach(input => {
 
-    //     input.setAttribute("style", "background-color: #d1d1d1; color: gray; cursor: default;");
-    //     input.disabled = true;
-    //     if(input.getAttribute("type") === "submit") {
-    //         input.value = "Signing In...";
-    //         errorText.innerHTML = "&nbsp;";
-    //     }
+
+document.forms[0].addEventListener("submit", e => {
+    e.preventDefault();
     
-    // })
+    handleOnSubmit(e);
 
-
-    e.target.setAttribute("style", "pointer-events: none;");
-    submitInput.setAttribute("style", "background-color: #d1d1d1; color: gray; cursor: default;");
-    submitInput.value = "Signing In...";
-    errorText.innerHTML = "&nbsp;";
-
+    // disableInputs(e);
+    // setTimeout(() => {
+    //     displayInputsError(errorElement, "Name or password are Invalid!");
+    //     EnableInputs(e);
+    // }, 2000);
     
-    // submitInput.value = "Signing in ...";
-    // submitInput.disabled = true;
-    // submitInput.setAttribute("style", "background-color: #d1d1d1; color: gray; cursor: default;");
-}
+})
 
-const EnableInputs = (e) => {
-
-
-    // inputs.forEach(input => {
-
-    //     input.setAttribute("style", "background-color: white; color: black;");
-    //     input.disabled = false;
-    //     if(input.getAttribute("type") === "submit") {
-    //         input.setAttribute("style", "cursor: pointer;");
-    //         input.value = "Sign In";
-    //     }
-    
-    // })
-
-    e.target.setAttribute("style", "pointer-events: all;");
-    submitInput.setAttribute("style", "background-color: #5f0f4e; color: white; cursor: pointer;");
-    submitInput.value = "Sign in";
-
-    // submitInput.value = "Sign in";
-    // submitInput.disabled = false;
-    // submitInput.setAttribute("style", "background-color: #5f0f4e; color: white; cursor: pointer;");
-}

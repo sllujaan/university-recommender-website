@@ -36,8 +36,8 @@ body {
 
 .app-body {
     /* background-color: gray; */
-    position: absolute;
-    margin-top: 100px;
+    position: relative;
+    margin-top: 20px;
     width: 100%;
 
 
@@ -76,8 +76,6 @@ body {
     font-size: var(--font-size-large);
     font-weight: var(--font-weight-2);
 
-
-
 }
 
 
@@ -85,8 +83,20 @@ body {
     color: red;
     font-size: var(--font-size-medium);
     font-weight: var(--font-weight-1);
+    padding-left: 10px;
 }
 
+.success-text {
+    color: #37a000;
+    font-size: var(--font-size-medium);
+    font-weight: var(--font-weight-1);
+    padding-left: 10px;
+}
+
+.disabled {
+    background-color: gray;
+    pointer-events: none;
+}
 
 
 
@@ -111,6 +121,27 @@ form {
     flex-wrap: wrap;
 }
 
+/* fieldset {
+    background-color: orange;
+    width: 100%;
+    margin: 0 30px;
+    padding: 0 20px;
+}
+*/
+.form-content-container .percentage {
+    position: relative;
+    /* background-color: orange; */
+}
+
+.form-content-container .percentage :last-child {
+    padding: 10px 3px;
+    /* background-color: green; */
+    color: gray;
+    position: absolute;
+    top: 0;
+    right: 0;
+} 
+
 
 .form-content {
     /* background-color: green; */
@@ -132,6 +163,15 @@ form input {
     border: 1px solid var(--gray-1);
     border-radius: 6px;
 }
+
+form select {
+    width: 100%;
+    padding: 10px 20px;
+    
+    border: 1px solid var(--gray-1);
+    border-radius: 6px;
+}
+
 
 form input[type="submit"] {
     border: none;
@@ -203,4 +243,16 @@ form input:focus {
     .form-content {
         width: 95%;
     }
+}
+
+
+
+.footer-container-wrapper {
+    /* background-color: green; */
+}
+
+
+
+.no-display {
+    display: none;
 }
