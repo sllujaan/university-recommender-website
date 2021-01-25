@@ -1,5 +1,5 @@
 import { loadHeaderFooter } from "../util/util.js";
-import { URL_USER_LOGIN } from "../urls/urlResolver.js";
+import { URL_USERS } from "../urls/urlResolver.js";
 
 
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
@@ -37,6 +37,11 @@ const showElement = (element) => {
     element.setAttribute("style", "display: table-row;");
 }
 
+const displayServerError = () => {
+    alert("net::ERR_CONNECTION_REFUSED\n\
+    1. Make sure that back-end server is running properly.\n\
+    2. Make sure Database service is also running properly.");
+}
 
 const users = [
     {name: "jake", email: "jake@email", country: "us", city: "new york", program: "CS"},
@@ -62,11 +67,11 @@ const generateUserRow = (user) => {
 
     tr.setAttribute("class", "user-row");
     tdName.setAttribute("class", "user-name");
-    tdName.innerText = user.name;
-    tdEmail.innerText = user.email;
-    tdCountry.innerText = user.country;
-    tdCity.innerText = user.city;
-    tdProgram.innerText = user.program;
+    tdName.innerText = user.Name;
+    tdEmail.innerText = user.Email;
+    tdCountry.innerText = user.Country;
+    tdCity.innerText = user.City;
+    tdProgram.innerText = user.Program;
 
     tr.append(tdName);
     tr.append(tdEmail);
@@ -79,8 +84,25 @@ const generateUserRow = (user) => {
 
 
 
-initUsersInTable(users);
+const getUsersDB = () => {
+    fetch(URL_USERS)
+    .then(res => {
+        if(res.status !== 200) {alert("There was an error while fetching Programs from Database!");}
+        else {return res.json();}
+    })
+    .then(users => {
+        if(users) initUsersInTable(users);
+    })
+    .catch(err => {
+        displayServerError();
+        console.error(err);
+    })
+}
 
+
+//initUsersInTable(users);
+
+getUsersDB();
 
 searchUser.addEventListener("keyup", e => {
     searchTable(e.target.value);

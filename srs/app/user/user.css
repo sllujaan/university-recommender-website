@@ -47,6 +47,10 @@ body {
     flex-wrap: wrap;
 }
 
+.table-container {
+    display: none;
+}
+
 .search-bar {
     width: 100%;
     position: relative;
