@@ -35,15 +35,22 @@ const showElement = (element) => {
     element.setAttribute("style", "display: table-row;");
 }
 
-const displayServerError = () => {
-    alert("net::ERR_CONNECTION_REFUSED\n\
-    1. Make sure that back-end server is running properly.\n\
-    2. Make sure Database service is also running properly.");
+const showRequestServiceFailed = () => {
     var serverError = document.getElementById("server-error");
     hideBusy();
     serverError.setAttribute("style", "display: block; color: red;");
 }
+
+const displayServerError = () => {
+    alert("net::ERR_CONNECTION_REFUSED\n\
+    1. Make sure that back-end server is running properly.\n\
+    2. Make sure Database service is also running properly.");
+    showRequestServiceFailed();
+}
+
+
 const showTable = () => {
+    hideBusy();
     var tableContainer = document.getElementsByClassName("table-container")[0];
     tableContainer.setAttribute("style", "display: block;");
 }
@@ -69,6 +76,7 @@ const users = [
 ]
 
 const initUsersInTable = (users) => {
+    showTable();
     users.forEach(user => {
         userTable.append(generateUserRow(user));
     })
@@ -113,28 +121,36 @@ console.log(getUserData());
 
 
 const getUsersDB = () => {
-    fetch(URL_USERS)
-    .then(res => {
 
+    const requestData = getUserData();
+
+    if(!requestData) {
+        showUnauthorizedMsg();
+        return;
+    }
+
+    fetch(URL_USERS, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {'Content-Type': 'application/json'},
+        body: requestData // body data type must match "Content-Type" header
+    })
+    .then(res => {
         switch (res.status) {
             case 401:
-            
+                showUnauthorizedMsg();
                 break;
             case 200:
-                
-                break;
+                return res.json();
         
             default:
+                showRequestServiceFailed();
+                alert("There was an error while fetching Programs from Database!");
                 break;
         }
-
-        if(res.status !== 200) {alert("There was an error while fetching Programs from Database!");}
-        else {return res.json();}
     })
     .then(users => {
         if(users) {
-            hideBusy();
-            showTable();
             initUsersInTable(users);
         };
     })
