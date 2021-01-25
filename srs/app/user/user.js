@@ -6,8 +6,6 @@ var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var userTable = document.getElementById("user-table");
 var searchUser = document.getElementById("search-user");
-
-
 loadHeaderFooter(headerContainer, footerContainer);
 
 
@@ -41,6 +39,10 @@ const displayServerError = () => {
     alert("net::ERR_CONNECTION_REFUSED\n\
     1. Make sure that back-end server is running properly.\n\
     2. Make sure Database service is also running properly.");
+}
+const showTable = () => {
+    var tableContainer = document.getElementsByClassName("table-container")[0];
+    tableContainer.setAttribute("style", "display: block;");
 }
 
 const users = [
@@ -107,3 +109,9 @@ getUsersDB();
 searchUser.addEventListener("keyup", e => {
     searchTable(e.target.value);
 })
+
+
+
+setTimeout(() => {
+    showTable();
+}, 5000);
