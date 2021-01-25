@@ -14,7 +14,6 @@ const readDocument = (fileLocation, htmlElement) => {
         return res.text();
     })
     .then(data => {
-        console.log(data);
         var header = createNewHeader(data, htmlElement);
         return header;
     })

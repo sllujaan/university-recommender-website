@@ -100,10 +100,34 @@ const generateUserRow = (user) => {
 }
 
 
+const getUserData = () => {
+    const sessionId = localStorage.getItem("session_id");
+    const userId = parseInt(localStorage.getItem("user_id"));
+
+    if(!sessionId || !userId) return null;
+    else return {"session_id": sessionId, "user_id": userId};
+}
+
+console.log(getUserData());
+
+
 
 const getUsersDB = () => {
     fetch(URL_USERS)
     .then(res => {
+
+        switch (res.status) {
+            case 401:
+            
+                break;
+            case 200:
+                
+                break;
+        
+            default:
+                break;
+        }
+
         if(res.status !== 200) {alert("There was an error while fetching Programs from Database!");}
         else {return res.json();}
     })
