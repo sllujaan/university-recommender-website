@@ -68,6 +68,9 @@ body {
     animation-iteration-count: infinite;
 }
 
+#unauthorized-contianer {
+    display: none;
+}
 
 
 .search-bar {

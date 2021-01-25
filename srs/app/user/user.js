@@ -39,11 +39,26 @@ const displayServerError = () => {
     alert("net::ERR_CONNECTION_REFUSED\n\
     1. Make sure that back-end server is running properly.\n\
     2. Make sure Database service is also running properly.");
+    var serverError = document.getElementById("server-error");
+    hideBusy();
+    serverError.setAttribute("style", "display: block; color: red;");
 }
 const showTable = () => {
     var tableContainer = document.getElementsByClassName("table-container")[0];
     tableContainer.setAttribute("style", "display: block;");
 }
+
+const hideBusy = () => {
+    var busy = document.getElementById("busy");
+    busy.setAttribute("style", "display: none;");
+}
+
+const showUnauthorizedMsg = () => {
+    var unauthorizedContianer = document.getElementById("unauthorized-contianer");
+    hideBusy();
+    unauthorizedContianer.setAttribute("style", "display: block;");
+}
+
 
 const users = [
     {name: "jake", email: "jake@email", country: "us", city: "new york", program: "CS"},
@@ -93,7 +108,11 @@ const getUsersDB = () => {
         else {return res.json();}
     })
     .then(users => {
-        if(users) initUsersInTable(users);
+        if(users) {
+            hideBusy();
+            showTable();
+            initUsersInTable(users);
+        };
     })
     .catch(err => {
         displayServerError();
@@ -101,8 +120,6 @@ const getUsersDB = () => {
     })
 }
 
-
-//initUsersInTable(users);
 
 getUsersDB();
 
@@ -112,6 +129,6 @@ searchUser.addEventListener("keyup", e => {
 
 
 
-setTimeout(() => {
-    showTable();
-}, 5000);
+// setTimeout(() => {
+//     showUnauthorizedMsg();
+// }, 3000);
