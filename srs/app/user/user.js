@@ -113,7 +113,7 @@ const getUserData = () => {
     const userId = parseInt(localStorage.getItem("user_id"));
 
     if(!sessionId || !userId) return null;
-    else return {"session_id": sessionId, "user_id": userId};
+    else return "session_id="+sessionId+"&user_id="+userId;
 }
 
 console.log(getUserData());
@@ -133,12 +133,11 @@ const getUsersDB = () => {
 
     fetch(URL_USERS, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'no-cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: JSON.stringify({"session_id":"6c549eb55a5825b3a91af449ad4308cf","user_id":1}) // body data type must match "Content-Type" header
+        body: requestData // body data type must match "Content-Type" header
     })
     .then(res => {
         switch (res.status) {
@@ -192,8 +191,7 @@ const getUsersNew = () => {
 }
 
 
-hideBusy();
-initUsersInTable(users);
+getUsersDB();
 
 
 searchUser.addEventListener("keyup", e => {
