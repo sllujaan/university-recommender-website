@@ -56,3 +56,13 @@ export const loadHeaderFooter = (headerContainer, footerContainer) => {
         footerContainer.append(footer[0])
     })
 }
+
+
+
+//make sure that header has been loaded
+const initAuthorizedUserFeatures = () => {
+    const authorizedContainers = document.querySelectorAll(".authorized-container");
+    if(!authorizedContainers) return;
+
+    console.log(authorizedContainers);
+}
