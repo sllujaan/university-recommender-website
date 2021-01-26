@@ -49,6 +49,7 @@ export const loadHeaderFooter = (headerContainer, footerContainer) => {
     .then(header => {
         headerContainer.append(header[0])
         loadHeaderJS(document);
+        initAuthorizedUserFeatures();
     })
 
     getAppFooter(FOOTER_FILE_URL, footerContainer)
@@ -59,10 +60,42 @@ export const loadHeaderFooter = (headerContainer, footerContainer) => {
 
 
 
+const isUserLoggedIn = () => {
+    const userLogin = localStorage.getItem("user_login");
+    const userName = localStorage.getItem("user_name");
+    if(userLogin === "true" && userName) return true;
+    else return false;
+}
+
+
+
+const showAuthorizedFeatures = (authorizedContainers) => {
+    authorizedContainers.forEach(container => {
+        container.classList.remove("authorized-container");
+    })
+}
+
+const hideAuthorizedFeatures = (authorizedContainers) => {
+    authorizedContainers.forEach(container => {
+        container.classList.add("authorized-container");
+    })
+}
+
+
 //make sure that header has been loaded
 const initAuthorizedUserFeatures = () => {
     const authorizedContainers = document.querySelectorAll(".authorized-container");
     if(!authorizedContainers) return;
 
+    if(isUserLoggedIn()) {
+        showAuthorizedFeatures(authorizedContainers);
+    }
+    else {
+        hideAuthorizedFeatures(authorizedContainers);
+    }
+
     console.log(authorizedContainers);
 }
+
+
+
