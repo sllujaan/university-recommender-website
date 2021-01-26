@@ -140,12 +140,12 @@ const getUsersDB = () => {
         body: requestData // body data type must match "Content-Type" header
     })
     .then(res => {
+        console.log(res);
         switch (res.status) {
             case 401:
                 showUnauthorizedMsg();
                 break;
             case 200:
-                alert("SUCCESS!");
                 return res.json();
             default:
                 showRequestServiceFailed();

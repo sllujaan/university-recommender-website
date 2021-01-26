@@ -57,7 +57,6 @@ const sumbitForm = (e, URL, requestData) => {
         body: requestData // body data type must match "Content-Type" header
     })
     .then(res => {
-        console.log(res.status);
         switch (res.status) {
             case 401:
                 EnableInputs(e);
@@ -73,7 +72,10 @@ const sumbitForm = (e, URL, requestData) => {
     })
     .then(data => {
         console.log(data);
-        if(data) saveUserData(data.session_id, data.user_id, userName.value);
+        if(data) {
+            saveUserData(data.session_id, data.user_id, userName.value);
+            window.location.href = "../user/user.html";
+        }
     })
     .catch(err => {
         EnableInputs(e);
