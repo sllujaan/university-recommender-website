@@ -48,7 +48,7 @@ const setFormValidityVars = (fieldName, value) => {
         case "name":
             NAME_VALID = value;
             break;
-        case "name":
+        case "email":
             EMAIL_VALID = value;
             break;
         default:
@@ -272,7 +272,7 @@ const sumbitForm = (e, URL, requestData) => {
     })
     .then(res => {
         if(res.status !== 200) {EnableInputs(e);alert("Error while serving the request!")}
-        else {EnableInputs(e);alert("SUCCESS!");}
+        else {window.location.href = "../user/user.html";}
     })
     .catch(err => {
         EnableInputs(e);
@@ -319,7 +319,7 @@ const handleOnSubmit = (e) => {
     disableInputs(e);                  
     sumbitForm(e, URL_USER_REGISTER, requestData);
 
-    setTimeout(() => {
-        EnableInputs(e);
-    }, 2000);
+    // setTimeout(() => {
+    //     EnableInputs(e);
+    // }, 2000);
 }
