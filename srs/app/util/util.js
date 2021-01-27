@@ -70,15 +70,36 @@ const isUserLoggedIn = () => {
 
 
 
+const getLoginLinks = () => {
+    var loginLink = document.getElementById("login-link-container");
+    var loginLinkResponsive = document.getElementById("login-link-container-resp");
+    return {loginLink: loginLink, loginLinkResponsive: loginLinkResponsive};
+}
+const hideLoginButtons = () => {
+    var loginLinks = getLoginLinks();
+    loginLinks.loginLink.setAttribute("style", "display: none;");
+    loginLinks.loginLinkResponsive.setAttribute("style", "display: none;");
+
+}
+
+const showLoginButtons = () => {
+    var loginLinks = getLoginLinks();
+    loginLinks.loginLink.setAttribute("style", "display: initial;");
+    loginLinks.loginLinkResponsive.setAttribute("style", "display: initial;");
+}
+
+
 const showAuthorizedFeatures = (authorizedContainers) => {
     authorizedContainers.forEach(container => {
         container.classList.remove("authorized-container");
+        hideLoginButtons();
     })
 }
 
 const hideAuthorizedFeatures = (authorizedContainers) => {
     authorizedContainers.forEach(container => {
         container.classList.add("authorized-container");
+        showLoginButtons();
     })
 }
 
