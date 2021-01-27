@@ -84,23 +84,39 @@ const hideLoginButtons = () => {
 
 const showLoginButtons = () => {
     var loginLinks = getLoginLinks();
-    loginLinks.loginLink.setAttribute("style", "display: initial;");
-    loginLinks.loginLinkResponsive.setAttribute("style", "display: initial;");
+    loginLinks.loginLink.removeAttribute("style");
+    loginLinks.loginLinkResponsive.removeAttribute("style");
+}
+
+
+const initUserName = (userName) => {
+    var userNameEl = document.getElementById("user-name-uuid");
+    var userNameRespEl = document.getElementById("user-name-uuid-resp");
+
+    userNameEl.innerText = userName;
+    userNameRespEl.innerText = userName;
 }
 
 
 const showAuthorizedFeatures = (authorizedContainers) => {
     authorizedContainers.forEach(container => {
         container.classList.remove("authorized-container");
-        hideLoginButtons();
+        container.classList.remove("person-resp-hide");
+        
     })
+
+    initUserName(localStorage.getItem("user_name"));
+    hideLoginButtons();
+
 }
 
 const hideAuthorizedFeatures = (authorizedContainers) => {
     authorizedContainers.forEach(container => {
         container.classList.add("authorized-container");
-        showLoginButtons();
+        
     })
+
+    showLoginButtons();
 }
 
 
