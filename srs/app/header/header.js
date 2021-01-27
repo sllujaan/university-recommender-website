@@ -12,18 +12,29 @@ const resolveLinkColorActivation = (DOM) => {
     var linkLogin = DOM.getElementById("link-login");
     var linkRegister = DOM.getElementById("link-register");
 
+
+    //responsive elements---------
+    var linkUsersAuthResp = DOM.getElementById("link-usersAuth-resp");
+    var linkUsersResp = DOM.getElementById("link-users-resp");
+    var linkLoginResp = DOM.getElementById("link-login-resp");
+    var linkRegisterResp = DOM.getElementById("link-register-resp");
+
     switch (page) {
         case "userAuth.html":
             linkUsersAuth.setAttribute("style", "color: #6fda44;");
+            linkUsersAuthResp.setAttribute("style", "color: #6fda44;");
             break;
         case "user.html":
             linkUsers.setAttribute("style", "color: #6fda44;");
+            linkUsersResp.setAttribute("style", "color: #6fda44;");
             break;
         case "login.html":
             linkLogin.setAttribute("style", "color: #6fda44;");
+            linkLoginResp.setAttribute("style", "color: #6fda44;");
             break;
         case "register.html":
             linkRegister.setAttribute("style", "color: #6fda44;");
+            linkRegisterResp.setAttribute("style", "color: #6fda44;");
             break;
         default:
             break;
