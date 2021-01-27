@@ -137,19 +137,15 @@ const getUsersDB = () => {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: "session_id=9646712f9ea83cf51e16b7ceede95653&user_id=1" // body data type must match "Content-Type" header
+        body: requestData // body data type must match "Content-Type" header
     })
     .then(res => {
-        console.log(res);
-        return res.text();
         switch (res.status) {
             case 401:
                 showUnauthorizedMsg();
                 break;
             case 200:
-                console.log(res.text());
-                break;
-                //return res.json();
+                return res.json();
             default:
                 showRequestServiceFailed();
                 alert("There was an error while fetching Programs from Database!");
@@ -157,8 +153,6 @@ const getUsersDB = () => {
         }
     })
     .then(users => {
-        console.log(users);
-        return;
         if(users) {
             initUsersInTable(users);
         };
@@ -172,39 +166,10 @@ const getUsersDB = () => {
 
 
 
-const getUsersNew = () => {
-
-    fetch(URL_USERS, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({"session_id":"85c52b42bc29a6808ae9fe285a175311","user_id":1}) // body data type must match "Content-Type" header
-    })
-    .then(res => {
-        console.log(res.status);
-        if(res.status === 200) return res.json();
-        else res.text();
-    })
-    .then(users => {
-        console.log(users);
-    })
-    .catch(err => {
-        console.error(err);
-    })
-}
-
-
-getUsersDB();
 
 
 searchUser.addEventListener("keyup", e => {
     searchTable(e.target.value);
 })
 
-
-
-// setTimeout(() => {
-//     showUnauthorizedMsg();
-// }, 3000);
+getUsersDB();
