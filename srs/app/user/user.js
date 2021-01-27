@@ -131,7 +131,8 @@ const getUsersDB = () => {
                 return res.json();
             default:
                 showRequestServiceFailed();
-                alert("There was an error while fetching Programs from Database!");
+                alert("There was an error while fetching Users from Database!");
+                displayServerError();
                 break;
         }
     })
