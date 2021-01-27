@@ -1,5 +1,5 @@
 import { loadHeaderFooter } from "../util/util.js";
-import { URL_USERS } from "../urls/urlResolver.js";
+import { URL_USERS, URL_USERS_AUTH } from "../urls/urlResolver.js";
 
 
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
@@ -131,22 +131,25 @@ const getUsersDB = () => {
 
     console.log(requestData);
 
-    fetch(URL_USERS, {
+    fetch(URL_USERS_AUTH, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: requestData // body data type must match "Content-Type" header
+        body: "session_id=9646712f9ea83cf51e16b7ceede95653&user_id=1" // body data type must match "Content-Type" header
     })
     .then(res => {
         console.log(res);
+        return res.text();
         switch (res.status) {
             case 401:
                 showUnauthorizedMsg();
                 break;
             case 200:
-                return res.json();
+                console.log(res.text());
+                break;
+                //return res.json();
             default:
                 showRequestServiceFailed();
                 alert("There was an error while fetching Programs from Database!");
@@ -154,6 +157,8 @@ const getUsersDB = () => {
         }
     })
     .then(users => {
+        console.log(users);
+        return;
         if(users) {
             initUsersInTable(users);
         };
