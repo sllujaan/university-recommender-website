@@ -122,29 +122,11 @@ console.log(getUserData());
 
 const getUsersDB = () => {
 
-    const requestData = getUserData();
-
-    if(!requestData) {
-        showUnauthorizedMsg();
-        return;
-    }
-
-    console.log(requestData);
-
     fetch(URL_USERS, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: requestData // body data type must match "Content-Type" header
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
     })
     .then(res => {
-        console.log(res);
         switch (res.status) {
-            case 401:
-                showUnauthorizedMsg();
-                break;
             case 200:
                 return res.json();
             default:
@@ -165,41 +147,10 @@ const getUsersDB = () => {
 }
 
 
-
-
-const getUsersNew = () => {
-
-    fetch(URL_USERS, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({"session_id":"85c52b42bc29a6808ae9fe285a175311","user_id":1}) // body data type must match "Content-Type" header
-    })
-    .then(res => {
-        console.log(res.status);
-        if(res.status === 200) return res.json();
-        else res.text();
-    })
-    .then(users => {
-        console.log(users);
-    })
-    .catch(err => {
-        console.error(err);
-    })
-}
-
-
-getUsersDB();
-
-
 searchUser.addEventListener("keyup", e => {
     searchTable(e.target.value);
 })
 
 
+getUsersDB();
 
-// setTimeout(() => {
-//     showUnauthorizedMsg();
-// }, 3000);
