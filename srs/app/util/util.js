@@ -47,6 +47,7 @@ export const getAppFooter = (fileLocation) => {
 export const loadHeaderFooter = (headerContainer, footerContainer) => {
     getAppHeader(HEADER_FILE_URL, headerContainer)
     .then(header => {
+        console.log("initiating header...");
         headerContainer.append(header[0])
         loadHeaderJS(document);
         initAuthorizedUserFeatures();
@@ -85,12 +86,15 @@ const hideAuthorizedFeatures = (authorizedContainers) => {
 //make sure that header has been loaded
 const initAuthorizedUserFeatures = () => {
     const authorizedContainers = document.querySelectorAll(".authorized-container");
+    console.log(authorizedContainers);
     if(!authorizedContainers) return;
 
     if(isUserLoggedIn()) {
+        console.warn("user is logged in!");
         showAuthorizedFeatures(authorizedContainers);
     }
     else {
+        console.warn("user is not logged in!");
         hideAuthorizedFeatures(authorizedContainers);
     }
 

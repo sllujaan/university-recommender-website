@@ -96,10 +96,24 @@ const handleOnSubmit = (e) => {
 }
 
 
+const SESSION_ID = "session_id";
+const USER_ID = "user_id";
+const USER_NAME = "user_name";
+const USER_LOGIN = "user_login";
+
+
 const saveUserData = (sessionId, userId, userName) => {
-    localStorage.setItem("session_id", sessionId);
-    localStorage.setItem("user_id", userId);
-    localStorage.setItem("user_name", userName);
+    localStorage.setItem(SESSION_ID, sessionId);
+    localStorage.setItem(USER_ID, userId);
+    localStorage.setItem(USER_NAME, userName);
+    localStorage.setItem(USER_LOGIN, true);
+}
+
+const removeUserData = () => {
+    localStorage.removeItem(SESSION_ID);
+    localStorage.removeItem(USER_ID);
+    localStorage.removeItem(USER_NAME);
+    localStorage.removeItem(USER_LOGIN);
 }
 
 
@@ -108,3 +122,5 @@ document.forms[0].addEventListener("submit", e => {
     handleOnSubmit(e);
 })
 
+
+removeUserData();

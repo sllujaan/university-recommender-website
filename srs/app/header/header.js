@@ -1,10 +1,37 @@
 
 
+
+
+const resolveLinkColorActivation = (DOM) => {
+    var path = window.location.pathname;
+    var page = path.split("/").pop();
+    console.log( page );
+
+    var linkUsersAuth = DOM.getElementById("link-users-auth");
+    var linkUsers = DOM.getElementById("link-users");
+    var linkLogin = DOM.getElementById("link-login");
+    var linkRegister = DOM.getElementById("link-login");
+
+    switch (page) {
+        case "userAuth.html":
+            linkUsersAuth.classList.add("link-active");
+            break;
+        default:
+            break;
+    }
+    
+}
+
+
+
+
 export function loadHeaderJS(DOM) {
     var body = DOM.getElementsByTagName("body")[0];
     var barResponsive = DOM.getElementById("bar-responsive");
     var headerSidebar = DOM.getElementById("header-sidebar");
     var closeBar = DOM.getElementById("close-bar");
+
+    //resolveLinkColorActivation(DOM);
 
     barResponsive.addEventListener("click", e => {
         console.log(body);
