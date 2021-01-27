@@ -123,7 +123,6 @@ const hideAuthorizedFeatures = (authorizedContainers) => {
 //make sure that header has been loaded
 const initAuthorizedUserFeatures = () => {
     const authorizedContainers = document.querySelectorAll(".authorized-container");
-    console.log(authorizedContainers);
     if(!authorizedContainers) return;
 
     if(isUserLoggedIn()) {
