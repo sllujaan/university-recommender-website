@@ -216,9 +216,9 @@ form input[type="submit"]:hover {
 
 
 .signup-container {
-    /* background-color: orange; */
-    
+    /* background-color: orange; */    
 }
+
 .signup-container > a {
     /* background-color: green; */
     color: #37a000;
