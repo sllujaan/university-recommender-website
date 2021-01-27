@@ -37,7 +37,7 @@ body {
 .app-body {
     /* background-color: gray; */
     position: relative;
-    margin-top: 20px;
+    margin-top: 80px;
     width: 100%;
 
 
@@ -176,13 +176,13 @@ form select {
 form input[type="submit"] {
     border: none;
     color: var(--color-white);
-    background-color: var(--color-purpule);
+    background-color: #37a000;
     cursor: pointer;
 
     font-weight: var(--font-weight-1);
     font-size: var(--font-size-base-1);
 
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
     padding: 8px 0;
 
 
@@ -190,6 +190,43 @@ form input[type="submit"] {
 
 form input[type="submit"]:hover {
    
+}
+
+
+
+
+.separator {
+    background-color: orange;
+    margin: 20px 0px;
+    position: relative;
+    border-bottom: 1px solid lightgray;
+    
+    
+}
+
+.separator span {
+    background-color: white;
+    color: gray;
+    position: absolute;
+    left: 48%;
+    text-align: center;
+    padding: 0px 5px;
+    
+}
+
+
+.signup-container {
+    /* background-color: orange; */
+    
+}
+.signup-container > a {
+    /* background-color: green; */
+    width: 100%;
+    text-decoration: none;
+    text-align: center;
+
+    border: 1px solid lightgray;
+    padding: 10px;
 }
 
 /* form input {

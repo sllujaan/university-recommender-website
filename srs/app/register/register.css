@@ -176,12 +176,13 @@ form select {
 form input[type="submit"] {
     border: none;
     color: var(--color-white);
-    background-color: var(--color-purpule);
+    background-color: #37a000;
     cursor: pointer;
 
     font-weight: var(--font-weight-1);
     font-size: var(--font-size-base-1);
 
+    margin-top: 10px;
     margin-bottom: 50px;
     padding: 8px 0;
 
@@ -189,7 +190,7 @@ form input[type="submit"] {
 }
 
 form input[type="submit"]:hover {
-   
+    
 }
 
 /* form input {

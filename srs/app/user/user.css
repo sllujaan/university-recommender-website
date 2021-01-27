@@ -116,10 +116,12 @@ body {
 table {
     border-bottom: 4px solid #37a000;
     border-radius: 10px;
+    text-align: center;
 }
 
 table * {
     padding: 10px;
+    border-bottom: 1px solid lightgray;
 }
 
 table th {
