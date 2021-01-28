@@ -14,6 +14,29 @@ loadHeaderFooter(headerContainer, footerContainer);
 
 
 
+const getURLToken = () => {
+    const url_string = window.location.href;
+    const url = new URL(url_string);
+    const token = url.searchParams.get("token");
+    return token;
+}
+
+
+const handleUserNavigation = () => {
+
+    switch (getURLToken()) {
+        case "usersAuth":
+            window.location.href = "../userAuth/userAuth.html";
+            break;
+        default:
+            window.location.href = "../user/user.html";
+            break;
+    }
+}
+
+console.log(getURLToken());
+
+
 const displayInputsError = (errElement, text) => {
     errElement.classList.remove("success-text");
     errElement.classList.add("error-text");
@@ -74,7 +97,7 @@ const sumbitForm = (e, URL, requestData) => {
         console.log(data);
         if(data) {
             saveUserData(data.session_id, data.user_id, userName.value);
-            window.location.href = "../user/user.html";
+            handleUserNavigation();
         }
     })
     .catch(err => {
@@ -83,6 +106,7 @@ const sumbitForm = (e, URL, requestData) => {
         console.error(err);
     })
 }
+
 
 
 const handleOnSubmit = (e) => {
