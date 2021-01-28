@@ -218,6 +218,8 @@ const initCountryInForm = (Countries) => {
 
 const initCityInForm = (cities) => {
     console.log(cities);
+    userCity.innerHTML = null;
+    
     cities.forEach(city => {
         var option = document.createElement("option");
         option.setAttribute("value", city.City_ID);
@@ -235,7 +237,8 @@ getCountriesDB();
 
 userCountry.addEventListener("change", e => {
     console.log(e.target.value);
-
+    
+    userCity.disabled = true;
     getCitiesDB(e.target.value);
 })
 
