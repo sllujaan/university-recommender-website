@@ -109,6 +109,10 @@ body > .app-body {
     margin: 20px;
 }
 
+.container-middle {
+    max-width: var(--app-maximum-width);
+}
+
 
 
 
