@@ -60,7 +60,6 @@ body {
     display: none;
 }
 
-
 .search-bar {
     width: 100%;
     position: relative;
@@ -86,8 +85,6 @@ body {
     border-bottom-right-radius: 4px;
 }
 
-
-
 .table-container {
     overflow-x: auto;
 }
@@ -99,7 +96,6 @@ body {
 .user-program-heading {
     border-top-right-radius: 10px;
 }
-
 
 table {
     border-bottom: 4px solid #37a000;
@@ -120,47 +116,21 @@ table td {
     background-color: white;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* .login-contianer {
-    background-color: purple;
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */
-
 .auth-card {
     width: 99%;
-
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .auth-cart-title {
-    /* background-color: var(--color-purpule); */
     color: var(--color-black);
     padding: 10px;
     border-radius: 2px;
     text-align: center;
-    
     font-size: var(--font-size-large);
     font-weight: var(--font-weight-2);
-
 }
-
 
 .error-text {
     color: red;
@@ -181,68 +151,43 @@ table td {
     pointer-events: none;
 }
 
-
-
 form {
     background-color: white;
     border: 1px solid var(--gray-1);
-
     width: calc(var(--app-maximum-width) / 2);
-
     border-radius: 4px;
-
 }
 
-
 .form-content-container {
-    /* background-color: orange; */
-    /* height: 100px; */
-
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-/* fieldset {
-    background-color: orange;
-    width: 100%;
-    margin: 0 30px;
-    padding: 0 20px;
-}
-*/
 .form-content-container .percentage {
     position: relative;
-    /* background-color: orange; */
 }
 
 .form-content-container .percentage :last-child {
     padding: 10px 3px;
-    /* background-color: green; */
     color: gray;
     position: absolute;
     top: 0;
     right: 0;
 } 
 
-
 .form-content {
-    /* background-color: green; */
     width: 80%;
     margin: 5px 0;
-
     display: flex;
     align-items: center;
     justify-content: left;
-    
 }
-
-
 
 form input {
     width: 100%;
     padding: 10px 20px;
-    
     border: 1px solid var(--gray-1);
     border-radius: 6px;
 }
@@ -250,59 +195,20 @@ form input {
 form select {
     width: 100%;
     padding: 10px 20px;
-    
     border: 1px solid var(--gray-1);
     border-radius: 6px;
 }
-
 
 form input[type="submit"] {
     border: none;
     color: var(--color-white);
     background-color: var(--color-purpule);
     cursor: pointer;
-
     font-weight: var(--font-weight-1);
     font-size: var(--font-size-base-1);
-
     margin-bottom: 50px;
     padding: 8px 0;
-
-
 }
-
-form input[type="submit"]:hover {
-   
-}
-
-/* form input {
-    display: block;
-    padding: 10px;
-    width: 80%;
-
-    
-
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 10px;
-    margin-top: 10px;
-
-
-    border: 1px solid var(--gray-1);
-    border-radius: 2px;
-
-}
-
-form input[type="submit"] {
-    background-color: orange;
-    cursor: pointer;
-}
-
-form input[type="submit"]:hover {
-   
-} */
 
 form input:focus {
     outline-width: 0;
@@ -313,7 +219,6 @@ form input:focus {
     text-align: center;
 }
 
-
 @media only screen and (max-width: 500px) {
     body {
         background-color: var(--color-white);
@@ -322,19 +227,10 @@ form input:focus {
         width: inherit;
         border: none;
     }
-
     .form-content {
         width: 95%;
     }
 }
-
-
-
-.footer-container-wrapper {
-    /* background-color: green; */
-}
-
-
 
 .no-display {
     display: none;
