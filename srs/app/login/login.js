@@ -10,6 +10,14 @@ var userPassword = document.getElementById("user-password");
 var errorElement = document.getElementById("name-password-error");
 var submitInput = document.getElementById("auth-submit");
 
+/**
+ * local storage variables names.
+ */
+const SESSION_ID = "session_id";
+const USER_ID = "user_id";
+const USER_NAME = "user_name";
+const USER_LOGIN = "user_login";
+
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
@@ -57,7 +65,6 @@ const displayInputsError = (errElement, text) => {
 const displayServerError = () => {
     var errElements = document.querySelectorAll(".error-text");
     errElements.forEach(errElment => {
-        console.log(errElment);
         errElment.innerHTML = "Server Error!";
     })
 
@@ -107,13 +114,13 @@ const sumbitForm = (e, URL, requestData) => {
     })
     .then(res => {
         switch (res.status) {
-            case 401:   //unauthorized
+            case 401:   //unauthorized user
                 EnableInputs(e);
                 displayInputsError(errorElement, "Name or Password are Invalid!");
                 break;
             case 200:   //login success
                 //convert response text into json format. it returns another promise
-                //which is hand
+                //which is handled in the next .then(jsonData => {}) function
                 return res.json(); 
             default:    //login error
                 EnableInputs(e);
@@ -122,14 +129,13 @@ const sumbitForm = (e, URL, requestData) => {
                 break;
         }
     })
-    .then(data => {
-        console.log(data);
-        if(data) {
-            saveUserData(data.session_id, data.user_id, userName.value);
+    .then(jsonData => {
+        if(jsonData) {
+            saveUserData(jsonData.session_id, jsonData.user_id, userName.value);
             handleUserNavigation();
         }
     })
-    .catch(err => {
+    .catch(err => {     //there was an error while sending the request or server did not response.
         EnableInputs(e);
         displayServerError();
         console.error(err);
@@ -138,6 +144,12 @@ const sumbitForm = (e, URL, requestData) => {
 
 
 
+/**
+ * handles form submission process.
+ * used when user clicks login button.
+ * it takes all user inputs and prepares the request to send to the backend server.
+ * @param {Event} e 
+ */
 const handleOnSubmit = (e) => {
     const name = `name=${userName.value}&`;
     const password = `password=${userPassword.value}`;
@@ -145,16 +157,16 @@ const handleOnSubmit = (e) => {
 
     disableInputs(e);                  
     sumbitForm(e, URL_USER_LOGIN, requestData);
-
 }
 
-
-const SESSION_ID = "session_id";
-const USER_ID = "user_id";
-const USER_NAME = "user_name";
-const USER_LOGIN = "user_login";
-
-
+/**
+ * stores user's authentication data in browser's local storage.
+ * user's authentication data (recieved on login success).
+ * used in frontend.
+ * @param {string} sessionId 
+ * @param {number} userId 
+ * @param {string} userName 
+ */
 const saveUserData = (sessionId, userId, userName) => {
     localStorage.setItem(SESSION_ID, sessionId);
     localStorage.setItem(USER_ID, userId);
@@ -162,6 +174,9 @@ const saveUserData = (sessionId, userId, userName) => {
     localStorage.setItem(USER_LOGIN, true);
 }
 
+/**
+ * removes user's authentication data from browser's local storage.
+ */
 const removeUserData = () => {
     localStorage.removeItem(SESSION_ID);
     localStorage.removeItem(USER_ID);
@@ -169,11 +184,15 @@ const removeUserData = () => {
     localStorage.removeItem(USER_LOGIN);
 }
 
-
+/**
+ * fired when user clicks login button or hits enter key.
+ */
 document.forms[0].addEventListener("submit", e => {
     e.preventDefault();
     handleOnSubmit(e);
 })
 
 
+//because this is login page.
+//remove user's authentication data from browser's local storage.
 removeUserData();

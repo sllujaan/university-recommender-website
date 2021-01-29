@@ -10,7 +10,6 @@
     --color-white: white;
     --color-black: black;
 
-    --font-family-base: "Gotham SSm", "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-size-base: 14px;
     --font-size-base-1: 18px;
     --font-size-1: 22px;
@@ -24,8 +23,6 @@
     --font-weight-large: 700;
 
     --letter-spacing-1: 2px;
-
-    --font-family-base-1: "Gotham SSm", Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
 }
 
 
