@@ -2,6 +2,7 @@ import { loadHeaderFooter } from "../util/util.js";
 import { URL_USER_LOGIN } from "../urls/urlResolver.js";
 
 
+/*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var userName = document.getElementById("user-name");
@@ -9,11 +10,14 @@ var userPassword = document.getElementById("user-password");
 var errorElement = document.getElementById("name-password-error");
 var submitInput = document.getElementById("auth-submit");
 
+
+/*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
 
 
-
-
+/**
+ * get token value from the url
+ */
 const getURLToken = () => {
     const url_string = window.location.href;
     const url = new URL(url_string);
@@ -22,8 +26,10 @@ const getURLToken = () => {
 }
 
 
+/**
+ * handle user navigation on login success!
+ */
 const handleUserNavigation = () => {
-
     switch (getURLToken()) {
         case "usersAuth":
             window.location.href = "../userAuth/userAuth.html";
@@ -34,16 +40,20 @@ const handleUserNavigation = () => {
     }
 }
 
-console.log(getURLToken());
-
-
+/**
+ * display input errors
+ * @param {Element} errElement 
+ * @param {string} text 
+ */
 const displayInputsError = (errElement, text) => {
     errElement.classList.remove("success-text");
     errElement.classList.add("error-text");
     errElement.innerHTML = text;
 }
 
-
+/**
+ * display server error
+ */
 const displayServerError = () => {
     var errElements = document.querySelectorAll(".error-text");
     errElements.forEach(errElment => {
@@ -56,7 +66,11 @@ const displayServerError = () => {
     2. Make sure Database service is also running properly.");
 }
 
-
+/**
+ * disable inputs
+ * used when user clicks on login button.
+ * @param {Event} e 
+ */
 const disableInputs = (e) => {
     errorElement.innerHTML = "*";
     e.target.setAttribute("style", "pointer-events: none; user-select: none;");
@@ -64,14 +78,26 @@ const disableInputs = (e) => {
     submitInput.value = "Signing In...";
 }
 
+/**
+ * enable inputs
+ * used when there is an error while login.
+ * @param {Event} e 
+ */
 const EnableInputs = (e) => {
     e.target.setAttribute("style", "pointer-events: all; user-select: auto;");
-    submitInput.setAttribute("style", "background-color: #5f0f4e; color: white; cursor: pointer;");
+    submitInput.removeAttribute("style");
     submitInput.value = "Sign in";
 }
 
 
-
+/**
+ * submit form data.
+ * used when clicks login button.
+ * user name and password are sent to backend server to validate the user.
+ * @param {Event} e 
+ * @param {string} URL 
+ * @param {string} requestData 
+ */
 const sumbitForm = (e, URL, requestData) => {
     fetch(URL, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -81,15 +107,18 @@ const sumbitForm = (e, URL, requestData) => {
     })
     .then(res => {
         switch (res.status) {
-            case 401:
+            case 401:   //unauthorized
                 EnableInputs(e);
                 displayInputsError(errorElement, "Name or Password are Invalid!");
                 break;
-            case 200:
-                return res.json();
-            default:
+            case 200:   //login success
+                //convert response text into json format. it returns another promise
+                //which is hand
+                return res.json(); 
+            default:    //login error
                 EnableInputs(e);
                 alert("Error while serving the request!");
+                displayServerError();
                 break;
         }
     })
