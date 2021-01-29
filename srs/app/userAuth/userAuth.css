@@ -120,10 +120,15 @@ table {
 
 table * {
     padding: 10px;
+    border-bottom: 1px solid lightgray;
 }
 
 table th {
     background-color: #37a000;
+}
+
+table td {
+    background-color: white;
 }
 
 
