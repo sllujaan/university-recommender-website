@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <!--Bootstrap urls-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <!------------------>
+
+    <!--fontawesome urls-->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <!------------------>
+
+    <script src="../header/header.js" defer type="module"></script>
+
+
+    <script src="./requests.js" defer type="module"></script>
+
+    <link rel="stylesheet" href="./requests.css">
+    
+    <title>Requests</title>
+</head>
+<body>
+
+    <div class="header-container-wrapper"></div>
+
+    
+    <div class="app-body">
+        <div class="auth-container">
+            <h3 id="server-error" style="color: red; display: none;">Failed to serve the request!</h3>
+            <h3 id="unauthorized-contianer" style="text-align: center;"><div class="unauthorized"><span style="color: red;">Unauthorized</span> please <span><a href="../login/login.html">Login</a></span> to access this page!</div></h3>
+            <div id="busy" class="spinner"><i class="fa fa-spinner fa-2x" aria-hidden="true"></i></div>
+        </div>
+        <div class="table-container">
+
+            <h3 style="font-weight: bold;">Requests</h3>
+            <table id="user-table">
+                <tr>
+                    <th class="user-name-heading">Name</th>
+                    <th>Email</th>
+                    <th>Country</th>
+                    <th>City</th>
+                    <th class="user-program-heading">Program</th>
+                </tr>
+                <!-- <tr class="user-row">
+                    <td class="user-name">jake</td>
+                    <td>name</td>
+                    <td>name</td>
+                    <td>name</td>
+                    <td>name</td>
+                </tr>
+                <tr class="user-row">
+                    <td class="user-name">johsnon</td>
+                    <td>name</td>
+                    <td>name</td>
+                    <td>name</td>
+                    <td>name</td>
+                </tr>
+                <tr class="user-row">
+                    <td class="user-name">mike</td>
+                    <td>name</td>
+                    <td>name</td>
+                    <td>name</td>
+                    <td>name</td>
+                </tr>
+                <tr class="user-row">
+                    <td class="user-name">pete</td>
+                    <td>name</td>
+                    <td>name</td>
+                    <td>name</td>
+                    <td>name</td>
+                </tr> -->
+            </table>
+        </div>
+        
+    </div>
+
+    
+    <div class="footer-container-wrapper"></div>
+    
+</body>
+</html>
