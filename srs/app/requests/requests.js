@@ -5,10 +5,12 @@ import { URL_REQUESTS } from "../urls/urlResolver.js";
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var userTable = document.getElementById("user-table");
-var searchUser = document.getElementById("search-user");
+var buttonView = null;
+var backCoverRequestDetails = document.querySelectorAll(".back-cover-request-details")[0];
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
+
 
 
 /**
@@ -59,6 +61,26 @@ const initUsersInTable = (users) => {
     })
 }
 
+
+
+const showRequestDetails = () => {
+    backCoverRequestDetails.classList.remove("hide");
+}
+
+const handleViewDetails = (e) => {
+    console.log(e);
+    showRequestDetails();
+}
+
+
+const getViewDetailsButton =  () => {
+    var btn = document.createElement("button");
+    btn.setAttribute("class", "btn-view");
+    btn.innerText = "View Details";
+    btn.addEventListener("click", handleViewDetails);
+    return btn;
+}
+
 /**
  * generate new user row for table.
  * @param {JSON} user 
@@ -69,7 +91,7 @@ const generateUserRow = (user) => {
     var tdEmail = document.createElement("td");
     var tdCountry = document.createElement("td");
     var tdCity = document.createElement("td");
-    var tdProgram = document.createElement("td");
+    var tdButton = document.createElement("td");
 
     tr.setAttribute("class", "user-row");
     tdName.setAttribute("class", "user-name");
@@ -77,13 +99,13 @@ const generateUserRow = (user) => {
     tdEmail.innerText = user.Email;
     tdCountry.innerText = user.Country;
     tdCity.innerText = user.City;
-    tdProgram.innerText = user.Program;
+    tdButton.append(getViewDetailsButton());
 
     tr.append(tdName);
     tr.append(tdEmail);
     tr.append(tdCountry);
     tr.append(tdCity);
-    tr.append(tdProgram);
+    tr.append(tdButton);
 
     return tr;
 }
@@ -116,6 +138,8 @@ const getRequestsDB = () => {
         console.error(err);
     })
 }
+
+
 
 
 /*get and initialize users in users table*/
