@@ -140,6 +140,9 @@ const getRequestsDB = () => {
 }
 
 
+backCoverRequestDetails.addEventListener("click", e => {
+    e.target.classList.add("hide");
+})
 
 
 /*get and initialize users in users table*/
