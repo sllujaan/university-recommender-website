@@ -27,7 +27,7 @@ body {
 
 .app-body {
     position: relative;
-    margin-top: 80px;
+    margin-top: 0px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -91,6 +91,9 @@ body {
     border: none;
 }
 
+.view {
+    display: none;
+}
 
 #searches-recommended-resp {
     display: none;
@@ -153,11 +156,24 @@ body {
 
 select {
     width: 100%;
-    padding: 15px 20px;
+    padding: 12px 20px;
     border: 1px solid var(--gray-1);
     border-radius: 6px;
     font-size: large;
     margin: 10px;
+}
+
+.container-opts {
+    background-color: orange;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+
+    display: none;
+
 }
 
 
@@ -176,6 +192,15 @@ select {
 
     .search-bar {
         display: none;
+    }
+
+    .view {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 0px 10px;
+        font-size: large;
+        font-weight: bold;
     }
 
     #searches-recommended-resp {
