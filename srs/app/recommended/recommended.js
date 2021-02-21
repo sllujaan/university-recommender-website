@@ -11,6 +11,7 @@ var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var body = document.querySelectorAll("body")[0];
 var containerOpts = document.querySelectorAll(".container-opts")[0];
 var universitiesContainer = document.querySelectorAll(".Universities-container")[1];
+var btnLoadMore = document.querySelectorAll(".btn-load-more")[0];
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
@@ -31,6 +32,7 @@ document.addEventListener("click", e => {
     console.log(e.target);
 
     const isSelectOption = (e.target.id === "searches-recommended-resp") || (e.target.parentElement.id === "searches-recommended-resp");
+    const isLoadMore = (e.target.id === "load-more-button");
 
     if(isSelectOption) {
         showContainerOpts();
@@ -38,6 +40,15 @@ document.addEventListener("click", e => {
     else {
         hideContainerOpts();
     }
+
+
+    if(isLoadMore) {
+        console.log("loadmore")
+        loadMore();
+    }
+
+    
+
     
 })
 
@@ -66,6 +77,26 @@ const showCouldNotLoadError = () => {
     universitiesContainer.innerHTML = "<div>Sorry We could'nt load please try again!</div>";
 }
 
+const removeLoadMoreButton = () => {
+    btnLoadMore.remove();
+}
+
+const addLoadMoreButton = () => {
+    var div = document.createElement("div");
+    div.classList.add("btn-load-more");
+
+    div.innerHTML = `
+        <br>
+            <div style="text-align: center;">
+                <input id="load-more-button" type="button" value="Load More Universities" style="background-color: white; color: #37a000;font-weight: bold; font-size: small; padding: 4px 10px; border-radius: 4px; border: 1px solid #d1d1d1;">
+            </div>
+        <br>
+        `;
+    console.log(div);
+    btnLoadMore = div;
+    universitiesContainer.append(div);
+}
+
 
 const loadUniversites = (universities) => {
     var div = document.createDocumentFragment();
@@ -87,19 +118,38 @@ const loadUniversites = (universities) => {
 
 
 
+// removeLoadMoreButton();
+// showContainerBusy();
+// setTimeout(() => {
+    
+//     hideContainerBusy();
+//     loadUniversites(UNIVERSITES);
+//     addLoadMoreButton();
 
-showContainerBusy();
-setTimeout(() => {
-    hideContainerBusy();
-    loadUniversites(UNIVERSITES);
+
+//     removeLoadMoreButton();
+//     showContainerBusy();
+//     //showCouldNotLoadError();
+// }, 2000);
+
+
+// setTimeout(() => {
+//     hideContainerBusy();
+//     loadUniversites(UNIVERSITES);
+//     addLoadMoreButton();
+// }, 3000);
+
+
+
+
+const loadMore = () => {
+    removeLoadMoreButton();
     showContainerBusy();
-    //showCouldNotLoadError();
-}, 2000);
 
+    setTimeout(() => {
+        hideContainerBusy();
+        loadUniversites(UNIVERSITES);
+        addLoadMoreButton();
+    }, 2000);
 
-setTimeout(() => {
-    hideContainerBusy();
-    loadUniversites(UNIVERSITES);
-}, 3000);
-
-
+}
