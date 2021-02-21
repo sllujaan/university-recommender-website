@@ -56,8 +56,19 @@ const showContainerBusy = () => {
 }
 
 const hideContainerBusy = () => {
-    universitiesContainer.append(getBusyContainer(10));
+    universitiesContainer.innerHTML = null;
+    
 }
 
 
 showContainerBusy();
+
+
+const showCouldNotLoadError = () => {
+    universitiesContainer.innerHTML = "<div>Sorry We could'nt load please try again!</div>";
+}
+
+setTimeout(() => {
+    hideContainerBusy();
+    showCouldNotLoadError();
+}, 2000);
