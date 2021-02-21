@@ -138,4 +138,12 @@ const initAuthorizedUserFeatures = () => {
 }
 
 
+export const disableScroll = (element) => {
+    element.style.setProperty("overflow", "hidden");
+}
+
+export const enableScroll = (element) => {
+    element.style.setProperty("overflow", "auto");
+}
+
 
