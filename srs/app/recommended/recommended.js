@@ -7,12 +7,13 @@ var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var body = document.querySelectorAll("body")[0];
 var containerOpts = document.querySelectorAll(".container-opts")[0];
-
-console.log(body);
+var universitiesContainer = document.querySelectorAll(".Universities-container")[1];
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
 
+
+console.log(universitiesContainer);
 
 
 document.addEventListener("click", e => {
@@ -30,7 +31,7 @@ document.addEventListener("click", e => {
 
 const getBusyContainer = (count) => {
 
-    var div = document.createElement("div");
+    var div = document.createDocumentFragment();
     for (let i = 0; i < count; i++) {
         var uniContainer = document.createElement("div");
         uniContainer.classList.add("university-container");
@@ -49,6 +50,14 @@ const getBusyContainer = (count) => {
 }
 
 
-console.log(getBusyContainer(1000));
+
+const showContainerBusy = () => {
+    universitiesContainer.append(getBusyContainer(10));
+}
+
+const hideContainerBusy = () => {
+    universitiesContainer.append(getBusyContainer(10));
+}
 
 
+showContainerBusy();
