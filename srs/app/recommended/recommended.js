@@ -1,4 +1,7 @@
-import { loadHeaderFooter, enableScroll, disableScroll } from "../util/util.js";
+import { 
+    loadHeaderFooter, enableScroll, disableScroll,
+    getBusyContainer
+ } from "../util/util.js";
 import { URL_USER_LOGIN } from "../urls/urlResolver.js";
 
 
@@ -13,43 +16,41 @@ var universitiesContainer = document.querySelectorAll(".Universities-container")
 loadHeaderFooter(headerContainer, footerContainer);
 
 
-console.log(universitiesContainer);
+const UNIVERSITES = [
+    {name: "University of the Punjab", description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", location: "Pakistan"},
+    {name: "University of the Punjab", description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", location: "Pakistan"},
+    {name: "University of the Punjab", description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", location: "Pakistan"},
+    {name: "University of the Punjab", description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", location: "Pakistan"},
+    {name: "University of the Punjab", description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", location: "Pakistan"}
+]
+
+
 
 
 document.addEventListener("click", e => {
     console.log(e.target);
 
-    if(e.target.id === "searches-recommended-resp") {
-        console.log("yes");
-        containerOpts.style.setProperty("top", "0");
-        disableScroll(body);
+    const isSelectOption = (e.target.id === "searches-recommended-resp") || (e.target.parentElement.id === "searches-recommended-resp");
+
+    if(isSelectOption) {
+        showContainerOpts();
+    }
+    else {
+        hideContainerOpts();
     }
     
 })
 
 
-
-const getBusyContainer = (count) => {
-
-    var div = document.createDocumentFragment();
-    for (let i = 0; i < count; i++) {
-        var uniContainer = document.createElement("div");
-        uniContainer.classList.add("university-container");
-
-        uniContainer.innerHTML = `
-            <div class="container-busy">
-                <div class="busy-1"></div>
-                <div class="busy-1"></div>
-                <div class="busy-1"></div>
-            </div>`;
-
-        div.append(uniContainer);
-    }
-
-    return div;
+const showContainerOpts = () => {
+    containerOpts.style.setProperty("top", "0");
+    disableScroll(body);
 }
 
-
+const hideContainerOpts = () => {
+    containerOpts.style.setProperty("top", "100vh");
+    enableScroll(body);
+}
 
 const showContainerBusy = () => {
     universitiesContainer.append(getBusyContainer(10));
@@ -60,15 +61,34 @@ const hideContainerBusy = () => {
     
 }
 
-
-showContainerBusy();
-
-
 const showCouldNotLoadError = () => {
     universitiesContainer.innerHTML = "<div>Sorry We could'nt load please try again!</div>";
 }
 
+
+const loadUniversites = (universities) => {
+    var div = document.createDocumentFragment();
+    universities.forEach(university => {
+        var universityContainer = document.createElement("div");
+        universityContainer.classList.add("university-container");
+        universityContainer.innerHTML = `
+        <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5>${university.name}</h5></div>
+        <div class="description" style="color: #222;">${university.description}</div>
+        <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;${university.location}</span></div><br>
+                `;
+        div.append(universityContainer);
+    });
+    universitiesContainer.append(div);
+}
+
+
+
+
+
+
+showContainerBusy();
 setTimeout(() => {
     hideContainerBusy();
-    showCouldNotLoadError();
+    loadUniversites(UNIVERSITES);
+    //showCouldNotLoadError();
 }, 2000);

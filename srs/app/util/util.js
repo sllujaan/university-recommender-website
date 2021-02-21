@@ -147,3 +147,24 @@ export const enableScroll = (element) => {
 }
 
 
+export const getBusyContainer = (count) => {
+
+    var div = document.createDocumentFragment();
+    for (let i = 0; i < count; i++) {
+        var uniContainer = document.createElement("div");
+        uniContainer.classList.add("university-container");
+
+        uniContainer.innerHTML = `
+            <div class="container-busy">
+                <div class="busy-1"></div>
+                <div class="busy-1"></div>
+                <div class="busy-1"></div>
+            </div>`;
+
+        div.append(uniContainer);
+    }
+
+    return div;
+}
+
+
