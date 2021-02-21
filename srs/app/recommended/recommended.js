@@ -150,6 +150,6 @@ const loadMore = () => {
         hideContainerBusy();
         loadUniversites(UNIVERSITES);
         addLoadMoreButton();
-    }, 2000);
+    }, 3000);
 
 }

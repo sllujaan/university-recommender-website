@@ -203,19 +203,23 @@ body {
 
 .container-busy > * {
     background-color: lightgray;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
+    margin: 20px 30px;
     padding-bottom: 20px;
+    width: 0%;
 }
 
 .container-busy > :nth-child(1) {
-    width: 100%;
+    /* width: 100%; */
+    width: 0%;
     animation: busy_motion_1;
     animation-duration: 2s;
     animation-iteration-count: infinite;
 }
 
 .container-busy > :nth-child(2) {
-    width: 70%;
+    /* width: 70%; */
+    width: 0%;
     animation: busy_motion_2;
     animation-duration: 2s;
     animation-iteration-count: infinite;
@@ -223,7 +227,8 @@ body {
 }
 
 .container-busy > :nth-child(3) {
-    width: 40%;
+    /* width: 40%; */
+    width: 0%;
     animation: busy_motion_3;
     animation-duration: 2s;
     animation-iteration-count: infinite;
@@ -232,21 +237,21 @@ body {
 
 
 @keyframes busy_motion_1 {
-    0%   {width: 100%;}
-    50%   {width: 0%;}
-    100% {width: 100%;}
+    0%   {width: 0%;}
+    50%   {width: 90%;}
+    100% {width: 0%;}
 }
 
 @keyframes busy_motion_2 {
-    0%   {width: 70%;}
-    50%   {width: 0%;}
-    100% {width: 70%;}
+    0%   {width: 0%;}
+    50%   {width: 70%;}
+    100% {width: 0%;}
 }
 
 @keyframes busy_motion_3 {
-    0%   {width: 40%;}
-    50%   {width: 0%;}
-    100% {width: 40%;}
+    0%   {width: 0%;}
+    50%   {width: 40%;}
+    100% {width: 0%;}
 }
 
 
