@@ -149,11 +149,12 @@ export const enableScroll = (element) => {
 
 export const getBusyContainer = (count) => {
 
-    var div = document.createDocumentFragment();
+    var div = document.createElement("div");
+    div.classList.add("busy-bundle");
     for (let i = 0; i < count; i++) {
         var uniContainer = document.createElement("div");
         uniContainer.classList.add("university-container");
-
+        uniContainer.classList.add("busy-generated");
         uniContainer.innerHTML = `
             <div class="container-busy">
                 <div class="busy-1"></div>

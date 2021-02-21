@@ -57,7 +57,8 @@ const showContainerBusy = () => {
 }
 
 const hideContainerBusy = () => {
-    universitiesContainer.innerHTML = null;
+    var busy_bundle = universitiesContainer.getElementsByClassName("busy-bundle")[0];
+    busy_bundle.remove();
     
 }
 
@@ -68,6 +69,7 @@ const showCouldNotLoadError = () => {
 
 const loadUniversites = (universities) => {
     var div = document.createDocumentFragment();
+
     universities.forEach(university => {
         var universityContainer = document.createElement("div");
         universityContainer.classList.add("university-container");
@@ -90,5 +92,14 @@ showContainerBusy();
 setTimeout(() => {
     hideContainerBusy();
     loadUniversites(UNIVERSITES);
+    showContainerBusy();
     //showCouldNotLoadError();
 }, 2000);
+
+
+setTimeout(() => {
+    hideContainerBusy();
+    loadUniversites(UNIVERSITES);
+}, 3000);
+
+
