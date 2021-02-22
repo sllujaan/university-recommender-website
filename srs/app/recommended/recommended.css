@@ -133,6 +133,7 @@ body {
 
 .container-opts > .container-opts-top {
     position: relative;
+    cursor: pointer;
 }
 
 .container-opts .close-symbol  {
@@ -143,6 +144,7 @@ body {
     font-size: x-large;
     font-weight: bold;
     color: gray; 
+    
 }
 
 
@@ -151,12 +153,30 @@ body {
     padding: 10px 20px;
     font-weight: bold;
     border-bottom: 1px solid #d1d1d1;
+    
 }
 
 .container-opts > .saved-searches-title {
     padding: 10px 20px;
     font-weight: bold;
     font-size: large;
+}
+
+.container-opts > .container-saved-searches {
+    background-color: white;
+    height: 100%;
+    font-size: large;
+}
+
+.container-opts > .container-saved-searches * {
+    /* background-color: green; */
+    padding: 10px 20px;
+    font-size: normal;
+}
+
+.container-opts > .container-saved-searches *:hover {
+    background-color: #f1f2f4;
+    cursor: pointer;
 }
 
 
