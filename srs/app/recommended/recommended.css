@@ -204,7 +204,18 @@ body {
     padding: 10px 20px;
     font-weight: 500;
     margin-left: 20px;
+    cursor: pointer;
 
+}
+
+.side-bar > *:hover {
+    background-color: white;
+}
+
+.saved-search-item-selected {
+    border-left: 4px solid #37a000;
+    padding-left: 16px;
+    font-weight: bold;
 }
 
 
@@ -224,7 +235,7 @@ body {
 
 }
 
-.Universities-container > .title:hover {
+.search-link:hover {
     cursor: pointer;
     color:  #48a000;
     text-decoration: underline;
@@ -235,6 +246,13 @@ body {
     /* background-color: orange; */
     padding: 0 30px;
     border-bottom: 1px solid #d1d1d1;
+}
+
+.Universities-container > .university-container h5:hover {
+    cursor: pointer;
+    color:  #48a000;
+    text-decoration: underline;
+    -webkit-line-clamp: 1;
 }
 
 .Universities-container > .university-container > * {

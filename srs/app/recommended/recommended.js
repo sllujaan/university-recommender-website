@@ -82,7 +82,7 @@ const removeLoadMoreButton = () => {
 }
 
 const emptyContainer = (container) => {
-    container.innerHTML = `<div class="title title-opts"><h2 style="font-weight: bold;">Recommended</h2></div>`;
+    container.innerHTML = `<div class="title title-opts search-link"><h2 style="font-weight: bold;">Recommended</h2></div>`;
 }
 
 const changeContainerTitle = (title) => {
