@@ -12,6 +12,7 @@ var body = document.querySelectorAll("body")[0];
 var containerOpts = document.querySelectorAll(".container-opts")[0];
 var universitiesContainer = document.querySelectorAll(".Universities-container")[1];
 var btnLoadMore = document.querySelectorAll(".btn-load-more")[0];
+var savedSearchItemSelected = document.querySelectorAll(".saved-search-item-selected")[0];
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
@@ -33,19 +34,39 @@ document.addEventListener("click", e => {
 
     const isSelectOption = (e.target.id === "searches-recommended-resp") || (e.target.parentElement.id === "searches-recommended-resp");
     const isLoadMore = (e.target.id === "load-more-button");
+    const idUniDetails = e.target.classList.contains("uni-name");
 
-    if(isSelectOption) {
-        showContainerOpts();
-    }
-    else {
-        hideContainerOpts();
+    const TRUE_VALUE = true;
+
+    switch (TRUE_VALUE) {
+        case isSelectOption:
+            showContainerOpts();
+            break;
+        case isLoadMore:
+            loadMore();
+            break;
+        case idUniDetails:
+            showUniDetails(2);
+            break;
+    
+        default:
+            hideContainerOpts();
+            break;
     }
 
 
-    if(isLoadMore) {
-        console.log("loadmore")
-        loadMore();
-    }
+    // if(isSelectOption) {
+    //     showContainerOpts();
+    // }
+    // else {
+    //     hideContainerOpts();
+    // }
+
+
+    // if(isLoadMore) {
+    //     console.log("loadmore")
+    //     loadMore();
+    // }
 
     
 
@@ -111,6 +132,12 @@ const addLoadMoreButton = () => {
     universitiesContainer.append(div);
 }
 
+const showUniDetails = (id) => {
+    disableScroll(body);
+    var containerUniDetails = document.querySelectorAll(".container-uni-details")[0];
+    containerUniDetails.style.setProperty("left", "0%");
+}
+
 
 
 
@@ -121,7 +148,7 @@ const loadUniversites = (universities) => {
         var universityContainer = document.createElement("div");
         universityContainer.classList.add("university-container");
         universityContainer.innerHTML = `
-        <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5>${university.name}</h5></div>
+        <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5 id="${Math.random()}" class="uni-name">${university.name}</h5></div>
         <div class="description" style="color: #222;">${university.description}</div>
         <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;${university.location}</span></div><br>
                 `;
@@ -154,7 +181,7 @@ const loadFirst = () => {
         hideContainerBusy();
         loadUniversites(UNIVERSITES);
         addLoadMoreButton();
-    }, 3000);
+    }, 1000);
 
 }
 
