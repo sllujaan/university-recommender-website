@@ -81,6 +81,15 @@ const removeLoadMoreButton = () => {
     btnLoadMore.remove();
 }
 
+const emptyContainer = (container) => {
+    container.innerHTML = `<div class="title title-opts"><h2 style="font-weight: bold;">Recommended</h2></div>`;
+}
+
+const changeContainerTitle = (title) => {
+    var titleOpts = document.querySelectorAll(".title-opts > h2")[0];
+    if(titleOpts) titleOpts.innerHTML = title;
+}
+
 const addLoadMoreButton = () => {
     var div = document.createElement("div");
     div.classList.add("btn-load-more");
@@ -98,6 +107,8 @@ const addLoadMoreButton = () => {
 }
 
 
+
+
 const loadUniversites = (universities) => {
     var div = document.createDocumentFragment();
 
@@ -112,6 +123,34 @@ const loadUniversites = (universities) => {
         div.append(universityContainer);
     });
     universitiesContainer.append(div);
+}
+
+const loadMore = () => {
+    removeLoadMoreButton();
+    showContainerBusy();
+
+    setTimeout(() => {
+        hideContainerBusy();
+        loadUniversites(UNIVERSITES);
+        addLoadMoreButton();
+    }, 3000);
+
+}
+
+
+const loadFirst = () => {
+    emptyContainer(universitiesContainer);
+    changeContainerTitle("loading your feed...");
+    removeLoadMoreButton();
+    showContainerBusy();
+
+    setTimeout(() => {
+        changeContainerTitle("Recommneded aaaaaa");
+        hideContainerBusy();
+        loadUniversites(UNIVERSITES);
+        addLoadMoreButton();
+    }, 3000);
+
 }
 
 
@@ -141,15 +180,6 @@ const loadUniversites = (universities) => {
 
 
 
+loadFirst();
 
-const loadMore = () => {
-    removeLoadMoreButton();
-    showContainerBusy();
 
-    setTimeout(() => {
-        hideContainerBusy();
-        loadUniversites(UNIVERSITES);
-        addLoadMoreButton();
-    }, 3000);
-
-}
