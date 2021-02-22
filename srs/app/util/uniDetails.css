@@ -7,7 +7,7 @@
 /*----------------university details container------------*/
 .container-uni-details {
     position: fixed;
-    width: 100%;
+    width: var(--app-maximum-width);
     height: 100%;
     top: 0;
     left: 0%;
@@ -21,19 +21,25 @@
 .container-uni-details-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     background-color: green;
 }
 
 .container-uni-details-wrapper > * {
     background-color: gray;
-    padding: 20px;
+    /* padding: 20px; */
     margin-top: 20px;
 }
 
 .container-uni-details-wrapper > .title-description {
     width: 70%;
+}
+
+.title-description h2 {
+    font-weight: bolder;
+    padding: 20px 0;
+    border: 1px solid lightgray;
 }
 
 .container-uni-details-wrapper > .about-uni {
