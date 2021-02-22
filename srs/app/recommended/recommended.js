@@ -90,6 +90,11 @@ const changeContainerTitle = (title) => {
     if(titleOpts) titleOpts.innerHTML = title;
 }
 
+const changeRespOptsTitle = (title) => {
+    var selected = document.querySelectorAll(".container-opts .selected")[0];
+    if(selected) selected.innerHTML = title;
+}
+
 const addLoadMoreButton = () => {
     var div = document.createElement("div");
     div.classList.add("btn-load-more");
@@ -181,5 +186,6 @@ const loadFirst = () => {
 
 
 loadFirst();
+changeRespOptsTitle("new title");
 
 
