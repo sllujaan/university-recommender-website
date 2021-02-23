@@ -66,3 +66,6 @@ function openTabDetails(evt, cityName) {
     document.getElementById(cityName).style.display = "block";
     evt.target.classList.add("active");
 }
+
+
+

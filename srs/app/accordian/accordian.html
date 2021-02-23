@@ -25,6 +25,9 @@
 <body>
 
     <!----------Accordian-------------->
+    <div class="container-accordian-programs">
+
+    
         <button class="accordion accordian-program">
           <div class="accordian-program-item" style="font-weight: bold;">BSc (Honours) Economics and Mathematics (Joint Major)</div>
           <i class="fa fa-caret-down fa-2x accordian-program-item caret-accordian" aria-hidden="true"></i>
@@ -32,22 +35,25 @@
         <div class="panel" style="display: none;">
           <!-----------------panel data--------------------->
           <div class="tab">
+            <button class="tablinks">Overview</button>
+            <button class="tablinks">Admission Criteria</button>
+            <button class="tablinks">Fees</button>
             <button class="tablinks">London</button>
             <button class="tablinks">Paris</button>
             <button class="tablinks">Tokyo</button>
           </div>
 
-          <div id="London" class="tabcontent">
+          <div id="Overview" class="tabcontent">
             <h3>London</h3>
             <p>London is the capital city of England.</p>
           </div>
           
-          <div id="Paris" class="tabcontent">
+          <div id="Admission Criteria" class="tabcontent">
             <h3>Paris</h3>
             <p>Paris is the capital of France.</p> 
           </div>
           
-          <div id="Tokyo" class="tabcontent">
+          <div id="Fees" class="tabcontent">
             <h3>Tokyo</h3>
             <p>Tokyo is the capital of Japan.</p>
           </div>
@@ -83,7 +89,7 @@
       </div>
     <!------------------------------------>
 
-
+  </div>
     
 </body>
 </html>
