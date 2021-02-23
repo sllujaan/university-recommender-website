@@ -3,6 +3,12 @@
 var openedprogramPanelEl = null;
 
 
+const PROGRAMS = [
+    {"University_ID":"59","Program_ID":"1","Description":"CS1","Fee_Total":"500","Fee_Description":"CS1","MM_PCT":"0","MM_PN":"CS1"},
+    {"University_ID":"59","Program_ID":"2","Description":"CS2","Fee_Total":"500","Fee_Description":"CS2","MM_PCT":"0","MM_PN":"CS2"}
+];
+
+
 document.addEventListener("click", e => {
 
     const isProgramAccordian = e.target.classList.contains("accordian-program-item");
@@ -69,3 +75,47 @@ function openTabDetails(evt, cityName) {
 
 
 
+const getProgramAccordian = (program) => {
+
+    var div = document.createElement("div");
+    div.classList.add("acc-p");
+    div.innerHTML = `
+        <button class="accordion accordian-program">
+        <div class="accordian-program-item" style="font-weight: bold;">${program.Name}</div>
+        <i class="fa fa-caret-down fa-2x accordian-program-item caret-accordian" aria-hidden="true"></i>
+        </button>
+        <div class="panel" style="display: none;">
+        <!-----------------panel data--------------------->
+        <div class="tab">
+            <button class="tablinks">Overview</button>
+            <button class="tablinks">Admission Criteria</button>
+            <button class="tablinks">Fees</button>
+            <button class="tablinks">London</button>
+            <button class="tablinks">Paris</button>
+            <button class="tablinks">Tokyo</button>
+        </div>
+
+        <div id="Overview" class="tabcontent">
+            <h3>Overview</h3>
+            <p>${program.Description}</p>
+        </div>
+        
+        <div id="Admission Criteria" class="tabcontent">
+            <h3>Admission Criteria</h3>
+            <h4>Local and International Applicants</h4>
+            <p>Paris is the capital of France.</p> 
+        </div>
+        
+        <div id="Fees" class="tabcontent">
+            <h3>Tokyo</h3>
+            <p>Tokyo is the capital of Japan.</p>
+        </div>
+
+        <!------------------------------------------------>
+        </div>
+    `;
+    return div;
+}
+
+
+console.log(getProgramAccordian(PROGRAMS[0]));
