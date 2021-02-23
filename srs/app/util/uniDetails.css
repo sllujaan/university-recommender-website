@@ -27,6 +27,7 @@
     flex-wrap: wrap;
     margin: 20px;
     border: 1px solid lightgray;
+    border-radius: 10px;
 }
 
 .container-uni-details-wrapper > * {
@@ -43,6 +44,7 @@
     width: 100%;
     border: 0;
     padding: 20px;
+    border-radius: 10px;
 }
 
 .container-uni-details-wrapper > .title-description {
@@ -63,6 +65,7 @@
     width: 70%;
     border: 0;
     border-right: 1px solid lightgray;
+    border-bottom-left-radius: 10px;
 }
 
 .container-uni-details-wrapper > .empty {
@@ -86,6 +89,7 @@
         width: 100%;
         order: 1;
         margin-top: 0;
+        border-right: none;
     }
     
     .container-uni-details-wrapper > .about-uni {
@@ -95,6 +99,7 @@
     .container-uni-details-wrapper > .programs {
         width: 100%;
         order: 2;
+        border-right: none;
     }
 
 }
