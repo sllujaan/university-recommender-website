@@ -48,15 +48,27 @@ document.addEventListener("click", e => {
 const toggleAccordian = (accordianEl) => {
     //document.querySelectorAll(".caret-accordian")[0];
     var panel = accordianEl.nextElementSibling;
+    var overivew = panel.getElementsByClassName("tablinks")[0];
     var caretIcon = accordianEl.querySelectorAll(".caret-accordian")[0];
     console.log(caretIcon);
+    console.log(overivew);
     if (panel.style.display === "block") {
         panel.style.display = "none";
         toggleCaretIcon(caretIcon, false);
     } else {
         panel.style.display = "block";
         toggleCaretIcon(caretIcon, true);
+        overivew.click();
+    }
+}
 
+const SelectTabs = (e) => {
+    var overviews = document.getElementsByClassName("Overview");
+    console.log(overviews);
+    if(overviews) {
+        for (let i = 0; i < overviews.length; i++) {
+            overviews[i].click();
+        }
     }
 }
 
@@ -191,6 +203,7 @@ const getProgramAccordian = (universityDetails, programDetails) => {
       <!------------------------------------------------>
     </div>
     `;
+
     return div;
 }
 
