@@ -154,7 +154,7 @@ const getProgramAccordian = (universityDetails, programDetails) => {
         <h3>Admission Criteria</h3>
         <h4>Local and International Applicants</h4>
         <h4>Your Aggregate Marsks: 400</h4>
-        <p>${programDetails.Admission_Criteria}</p> 
+        <p>${universityDetails.Admission_Criteria}</p> 
       </div>
       
       <div id="Fees" class="tabcontent Fees">
