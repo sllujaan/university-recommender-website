@@ -3,6 +3,9 @@
 var openedprogramPanelEl = null;
 
 
+var containerAccordianPrograms = document.querySelectorAll(".container-accordian-programs")[0];
+
+
 const PROGRAMS = [
     {"University_ID":"2","Program_ID":"1","Description":"description","Admission_Fee":"100","Registration_Fee":"200","Security_Fee":"10","Admission_Processing_Fee":"0","Enrollment_Fee_Per_Semester":"0","Tuition_Fee_per_Credit_Hour":"0","Convocation_Fee":"0","Fee_Total":"400","Fee_Description":"fee description","MM_PCT":"0.7","MM_PN":"fsc","Name":"CS (Computer Science)","Duration_Years":"4"},
     {"University_ID":"2","Program_ID":"2","Description":"description","Admission_Fee":"100","Registration_Fee":"200","Security_Fee":"10","Admission_Processing_Fee":"0","Enrollment_Fee_Per_Semester":"0","Tuition_Fee_per_Credit_Hour":"0","Convocation_Fee":"0","Fee_Total":"400","Fee_Description":"fee description","MM_PCT":"0.7","MM_PN":"fsc","Name":"Economics","Duration_Years":"4"}
@@ -35,7 +38,8 @@ document.addEventListener("click", e => {
     }
 
     if(isAccordianTab) {
-        openTabDetails(e, e.target.innerText);
+        console.log("accordian tab");
+        openTabDetailsNew(e, e.target.innerText);
     }
 
 
@@ -73,8 +77,30 @@ const toggleCaretIcon = (iconEl, up) => {
 }
 
 
+const openTabDetailsNew = (e, tabName) => {
+    var panel = e.target.parentElement.parentElement;
+    console.log(panel);
+
+    //make sure other opened tabs are closed
+    var tabcontent = panel.getElementsByClassName("tabcontent");
+    console.log(tabcontent);
+    for (var i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+
+    var tablinks = panel.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    var contentClassName = tabName.replace(/\s+/g, '');
+    panel.getElementsByClassName(contentClassName)[0].style.display = "block";
+    e.target.classList.add("active");
+}
+
 
 function openTabDetails(evt, cityName) {
+    console.log(evt);
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
@@ -93,44 +119,93 @@ function openTabDetails(evt, cityName) {
 const getProgramAccordian = (universityDetails) => {
     console.log(universityDetails);
     const {University} = universityDetails[0];
-    const {University_Program} = universityDetails[1];
+    var {University_Program} = universityDetails[1];
+    University_Program = University_Program[0];
+    console.log(University_Program);
 
     var div = document.createElement("div");
     div.classList.add("acc-p");
     div.innerHTML = `
-        <button class="accordion accordian-program">
-        <div class="accordian-program-item" style="font-weight: bold;">${University_Program.Name}</div>
-        <i class="fa fa-caret-down fa-2x accordian-program-item caret-accordian" aria-hidden="true"></i>
-        </button>
-        <div class="panel" style="display: none;">
-        <!-----------------panel data--------------------->
-        <div class="tab">
-            <button class="tablinks">Overview</button>
-            <button class="tablinks">Admission Criteria</button>
-            <button class="tablinks">Fees</button>
-        </div>
+    <button class="accordion accordian-program">
+      <div class="accordian-program-item" style="font-weight: bold;">${University_Program.Name}</div>
+      <i class="fa fa-caret-down fa-2x accordian-program-item caret-accordian" aria-hidden="true"></i>
+    </button>
+    <div class="panel" style="display: none;">
+      <!-----------------panel data--------------------->
+      <div class="tab">
+        <button class="tablinks">Overview</button>
+        <button class="tablinks">Admission Criteria</button>
+        <button class="tablinks">Fees</button>
+      </div>
 
-        <div id="Overview" class="tabcontent">
-            <h3>Program Duration (${University_Program.Duration_Years}-Years)</h3>
-            <p>${University_Program.Description}</p>
-        </div>
-        
-        <div id="Admission Criteria" class="tabcontent">
-            <h3>Admission Criteria</h3>
-            <h4>Local and International Applicants</h4>
-            <p>Paris is the capital of France.</p> 
-        </div>
-        
-        <div id="Fees" class="tabcontent">
-            <h3>Tokyo</h3>
-            <p>Tokyo is the capital of Japan.</p>
-        </div>
+      <div id="Overview" class="tabcontent Overview">
+        <h3>Program Duration (4-Years)</h3>
+        <p>${University_Program.Description}</p>
+      </div>
+      
+      <div id="Admission Criteria" class="tabcontent AdmissionCriteria">
+        <h3>Admission Criteria</h3>
+        <h4>Local and International Applicants</h4>
+        <h4>Your Aggregate Marsks: 400</h4>
+        <p>${University_Program.Admission_Criteria}</p> 
+      </div>
+      
+      <div id="Fees" class="tabcontent Fees">
+        <p>
+          <div class="tablel-vertical">
+            <h3 style="font-weight: bold;">Fees Structure</h3>
+            <table>
+              <tr>
+                <th>Admission Fee</th>
+                <td>${University_Program.Admission_Fee}</td>
+              </tr>
+              <tr>
+                <th>Registration Fee</th>
+                <td>${University_Program.Registration_Fee}</td>
+              </tr>
+              <tr>
+                <th>Security Fee</th>
+                <td>${University_Program.Security_Fee}</td>
+              </tr>
+              <tr>
+                <th>Admission Processing Fee</th>
+                <td>${University_Program.Admission_Processing_Fee}</td>
+              </tr>
+              <tr>
+                <th>Enrollment Fee Per Semester</th>
+                <td>${University_Program.Enrollment_Fee_Per_Semester}</td>
+              </tr>
+              <tr>
+                <th>Tuition Fee per credit hour</th>
+                <td>${University_Program.Tuition_Fee_per_Credit_Hour}</td>
+              </tr>
+              <tr>
+                <th>Convocation Fee</th>
+                <td>${University_Program.Convocation_Fee}</td>
+              </tr>
+              <tr>
+                <th>Total Fee (Semester)</th>
+                <td>${University_Program.Fee_Total}</td>
+              </tr>
+            </table>
+          </div>
+        </p>
+        <p>Fees Structure Description</p>
+      </div>
 
-        <!------------------------------------------------>
-        </div>
+      <!------------------------------------------------>
+    </div>
     `;
     return div;
 }
 
 
 console.log(getProgramAccordian(UNIVERSITY_DETAILS));
+
+
+const loadPrograms = () => {
+    var div = getProgramAccordian(UNIVERSITY_DETAILS);
+    containerAccordianPrograms.append(div);
+}
+
+loadPrograms();

@@ -152,6 +152,7 @@ table th {
 
 table td {
   background-color: white;
+  width: 200px;
 }
 
 .tablel-vertical > table {
