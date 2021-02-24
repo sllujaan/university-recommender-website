@@ -108,9 +108,6 @@ const getProgramAccordian = (universityDetails) => {
             <button class="tablinks">Overview</button>
             <button class="tablinks">Admission Criteria</button>
             <button class="tablinks">Fees</button>
-            <button class="tablinks">London</button>
-            <button class="tablinks">Paris</button>
-            <button class="tablinks">Tokyo</button>
         </div>
 
         <div id="Overview" class="tabcontent">

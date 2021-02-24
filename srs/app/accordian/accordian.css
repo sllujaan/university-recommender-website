@@ -115,3 +115,40 @@ body {
 
 
 /*---------------------------------------------------------------*/
+
+
+
+
+/*------------------------table css----------------------*/
+
+.table-container {
+  overflow-x: auto;
+}
+
+.user-name-heading {
+  border-top-left-radius: 10px;
+}
+
+.user-program-heading {
+  border-top-right-radius: 10px;
+}
+
+table {
+  border-bottom: 4px solid #37a000;
+  border-radius: 10px;
+  text-align: center;
+}
+
+table * {
+  padding: 10px;
+  border-bottom: 1px solid lightgray;
+}
+
+table th {
+  background-color: #37a000;
+}
+
+table td {
+  background-color: white;
+}
+/*----------------------------------------------------------*/

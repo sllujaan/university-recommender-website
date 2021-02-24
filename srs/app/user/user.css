@@ -85,6 +85,8 @@ body {
     border-bottom-right-radius: 4px;
 }
 
+/*------------------------table css----------------------*/
+
 .table-container {
     overflow-x: auto;
 }
@@ -115,7 +117,7 @@ table th {
 table td {
     background-color: white;
 }
-
+/*----------------------------------------------------------*/
 .auth-card {
     width: 99%;
     display: flex;
