@@ -125,6 +125,8 @@ body {
   overflow-x: auto;
 }
 
+
+
 .user-name-heading {
   border-top-left-radius: 10px;
 }
@@ -151,4 +153,10 @@ table th {
 table td {
   background-color: white;
 }
+
+.tablel-vertical > table {
+  border: 1px solid lightgray;
+}
 /*----------------------------------------------------------*/
+
+
