@@ -4,8 +4,23 @@ var openedprogramPanelEl = null;
 
 
 const PROGRAMS = [
-    {"University_ID":"59","Program_ID":"1","Description":"CS1","Fee_Total":"500","Fee_Description":"CS1","MM_PCT":"0","MM_PN":"CS1"},
-    {"University_ID":"59","Program_ID":"2","Description":"CS2","Fee_Total":"500","Fee_Description":"CS2","MM_PCT":"0","MM_PN":"CS2"}
+    {"University_ID":"2","Program_ID":"1","Description":"description","Admission_Fee":"100","Registration_Fee":"200","Security_Fee":"10","Admission_Processing_Fee":"0","Enrollment_Fee_Per_Semester":"0","Tuition_Fee_per_Credit_Hour":"0","Convocation_Fee":"0","Fee_Total":"400","Fee_Description":"fee description","MM_PCT":"0.7","MM_PN":"fsc","Name":"CS (Computer Science)","Duration_Years":"4"},
+    {"University_ID":"2","Program_ID":"2","Description":"description","Admission_Fee":"100","Registration_Fee":"200","Security_Fee":"10","Admission_Processing_Fee":"0","Enrollment_Fee_Per_Semester":"0","Tuition_Fee_per_Credit_Hour":"0","Convocation_Fee":"0","Fee_Total":"400","Fee_Description":"fee description","MM_PCT":"0.7","MM_PN":"fsc","Name":"Economics","Duration_Years":"4"}
+];
+
+const UNIVERSITY_DETAILS = [
+    {
+        "University":
+            {"University_ID":"2","Name":"punjab University","Description":"description of LUMS University","Country_ID":"137","City_ID":"200","Admission_Criteria":"70% marks in FSC","Start_Admission_Date":"2021-05-01","End_Admission_Date":"2021-06-01","Total_ETM":"200","S_Education_MC_PCT":"0.6","H_Education_MC_PCT":"0.7","PCT_MC_ETM":"0.8","Phone":"00-988327422039","Web_Link":"www.lums.com","Email":"lums@gmail.com","Address":"block 4 lahore pakistan","Name_Country":"Pakistan","Name_City":"Bolton"}
+    },
+    
+    {
+        "University_Program":
+            [
+                {"University_ID":"2","Program_ID":"1","Description":"description","Admission_Fee":"100","Registration_Fee":"200","Security_Fee":"10","Admission_Processing_Fee":"0","Enrollment_Fee_Per_Semester":"0","Tuition_Fee_per_Credit_Hour":"0","Convocation_Fee":"0","Fee_Total":"400","Fee_Description":"fee description","MM_PCT":"0.7","MM_PN":"fsc","Name":"CS (Computer Science)","Duration_Years":"4"},
+                {"University_ID":"2","Program_ID":"2","Description":"description","Admission_Fee":"100","Registration_Fee":"200","Security_Fee":"10","Admission_Processing_Fee":"0","Enrollment_Fee_Per_Semester":"0","Tuition_Fee_per_Credit_Hour":"0","Convocation_Fee":"0","Fee_Total":"400","Fee_Description":"fee description","MM_PCT":"0.7","MM_PN":"fsc","Name":"Economics","Duration_Years":"4"}
+            ]
+    }
 ];
 
 
@@ -75,13 +90,16 @@ function openTabDetails(evt, cityName) {
 
 
 
-const getProgramAccordian = (program) => {
+const getProgramAccordian = (universityDetails) => {
+    console.log(universityDetails);
+    const {University} = universityDetails[0];
+    const {University_Program} = universityDetails[1];
 
     var div = document.createElement("div");
     div.classList.add("acc-p");
     div.innerHTML = `
         <button class="accordion accordian-program">
-        <div class="accordian-program-item" style="font-weight: bold;">${program.Name}</div>
+        <div class="accordian-program-item" style="font-weight: bold;">${University_Program.Name}</div>
         <i class="fa fa-caret-down fa-2x accordian-program-item caret-accordian" aria-hidden="true"></i>
         </button>
         <div class="panel" style="display: none;">
@@ -96,8 +114,8 @@ const getProgramAccordian = (program) => {
         </div>
 
         <div id="Overview" class="tabcontent">
-            <h3>Overview</h3>
-            <p>${program.Description}</p>
+            <h3>Program Duration (${University_Program.Duration_Years}-Years)</h3>
+            <p>${University_Program.Description}</p>
         </div>
         
         <div id="Admission Criteria" class="tabcontent">
@@ -118,4 +136,4 @@ const getProgramAccordian = (program) => {
 }
 
 
-console.log(getProgramAccordian(PROGRAMS[0]));
+console.log(getProgramAccordian(UNIVERSITY_DETAILS));
