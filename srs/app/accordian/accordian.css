@@ -26,8 +26,8 @@ body {
 .accordion i {
     position: absolute;
     color: #37a000;
-    right: 0;
-    top: 0;
+    right: 2px;
+    top: 2px;
     padding: 10px;
     /* background-color: orange; */
 }
@@ -159,5 +159,19 @@ table td {
   border: 1px solid lightgray;
 }
 /*----------------------------------------------------------*/
+
+.accordian-program {
+  padding: 0;
+  border: 1px solid lightgray;
+  margin: 4px 0px;
+  border-radius: 10px;
+}
+
+.accordian-program-item {
+  /* background-color: orange; */
+  background-color: white;
+  padding: 18px 10px;
+  border-radius: 10px;
+}
 
 
