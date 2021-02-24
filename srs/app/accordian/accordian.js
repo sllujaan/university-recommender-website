@@ -116,18 +116,13 @@ function openTabDetails(evt, cityName) {
 
 
 
-const getProgramAccordian = (universityDetails) => {
-    console.log(universityDetails);
-    const {University} = universityDetails[0];
-    var {University_Program} = universityDetails[1];
-    University_Program = University_Program[0];
-    console.log(University_Program);
+const getProgramAccordian = (universityDetails, programDetails) => {
 
     var div = document.createElement("div");
     div.classList.add("acc-p");
     div.innerHTML = `
     <button class="accordion accordian-program">
-      <div class="accordian-program-item" style="font-weight: bold;">${University_Program.Name}</div>
+      <div class="accordian-program-item" style="font-weight: bold;">${programDetails.Name}</div>
       <i class="fa fa-caret-down fa-2x accordian-program-item caret-accordian" aria-hidden="true"></i>
     </button>
     <div class="panel" style="display: none;">
@@ -140,14 +135,14 @@ const getProgramAccordian = (universityDetails) => {
 
       <div id="Overview" class="tabcontent Overview">
         <h3>Program Duration (4-Years)</h3>
-        <p>${University_Program.Description}</p>
+        <p>${programDetails.Description}</p>
       </div>
       
       <div id="Admission Criteria" class="tabcontent AdmissionCriteria">
         <h3>Admission Criteria</h3>
         <h4>Local and International Applicants</h4>
         <h4>Your Aggregate Marsks: 400</h4>
-        <p>${University_Program.Admission_Criteria}</p> 
+        <p>${programDetails.Admission_Criteria}</p> 
       </div>
       
       <div id="Fees" class="tabcontent Fees">
@@ -157,35 +152,35 @@ const getProgramAccordian = (universityDetails) => {
             <table>
               <tr>
                 <th>Admission Fee</th>
-                <td>${University_Program.Admission_Fee}</td>
+                <td>${programDetails.Admission_Fee}</td>
               </tr>
               <tr>
                 <th>Registration Fee</th>
-                <td>${University_Program.Registration_Fee}</td>
+                <td>${programDetails.Registration_Fee}</td>
               </tr>
               <tr>
                 <th>Security Fee</th>
-                <td>${University_Program.Security_Fee}</td>
+                <td>${programDetails.Security_Fee}</td>
               </tr>
               <tr>
                 <th>Admission Processing Fee</th>
-                <td>${University_Program.Admission_Processing_Fee}</td>
+                <td>${programDetails.Admission_Processing_Fee}</td>
               </tr>
               <tr>
                 <th>Enrollment Fee Per Semester</th>
-                <td>${University_Program.Enrollment_Fee_Per_Semester}</td>
+                <td>${programDetails.Enrollment_Fee_Per_Semester}</td>
               </tr>
               <tr>
                 <th>Tuition Fee per credit hour</th>
-                <td>${University_Program.Tuition_Fee_per_Credit_Hour}</td>
+                <td>${programDetails.Tuition_Fee_per_Credit_Hour}</td>
               </tr>
               <tr>
                 <th>Convocation Fee</th>
-                <td>${University_Program.Convocation_Fee}</td>
+                <td>${programDetails.Convocation_Fee}</td>
               </tr>
               <tr>
                 <th>Total Fee (Semester)</th>
-                <td>${University_Program.Fee_Total}</td>
+                <td>${programDetails.Fee_Total}</td>
               </tr>
             </table>
           </div>
@@ -200,12 +195,20 @@ const getProgramAccordian = (universityDetails) => {
 }
 
 
-console.log(getProgramAccordian(UNIVERSITY_DETAILS));
+//console.log(getProgramAccordian(UNIVERSITY_DETAILS));
 
 
-const loadPrograms = () => {
-    var div = getProgramAccordian(UNIVERSITY_DETAILS);
-    containerAccordianPrograms.append(div);
+const loadPrograms = (universityDetails) => {
+
+    const {University} = universityDetails[0];
+    var {University_Program} = universityDetails[1];
+    console.log(University_Program);
+    
+    University_Program.forEach(programDetails => {
+        var div = getProgramAccordian(University, programDetails);
+        containerAccordianPrograms.append(div);
+    });
+
 }
 
-loadPrograms();
+loadPrograms(UNIVERSITY_DETAILS);
