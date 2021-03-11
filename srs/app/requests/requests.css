@@ -183,10 +183,13 @@ table td {
 .container-request-details {
     position: relative;
     background-color: white;
-    width: 50%;
-    padding: 10px;
+    width: 70%;
+    padding: 20px;
 
     border-radius: 10px;
+
+    max-height: 100vh;
+    overflow: auto;
 
 
 }
@@ -195,6 +198,15 @@ table td {
     display: none;
 }
 
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons-container > * {
+    margin: 20px;
+}
 
 
 
@@ -292,5 +304,15 @@ form input:focus {
     .form-content {
         width: 95%;
     }
+
+    .buttons-container {
+        flex-wrap: wrap;
+    }
+
+    .buttons-container > * {
+        margin: 5px;
+    }
+
+
 }
 

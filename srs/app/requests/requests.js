@@ -12,6 +12,10 @@ var backCoverRequestDetails = document.querySelectorAll(".back-cover-request-det
 loadHeaderFooter(headerContainer, footerContainer);
 
 
+var USERS_REQUESTS = null;
+var CURRENT_VIEWED_USER = null;
+
+
 
 /**
  * show error while fetching users from database.
@@ -55,6 +59,10 @@ const hideBusy = () => {
  * @param {JSON} users 
  */
 const initUsersInTable = (users) => {
+    //push user in global array for future use
+    USERS_REQUESTS = users;
+    console.log(USERS_REQUESTS);
+
     showTable();
     users.forEach(user => {
         userTable.append(generateUserRow(user));
@@ -63,19 +71,24 @@ const initUsersInTable = (users) => {
 
 
 
-const showRequestDetails = () => {
+const showRequestDetails = (user) => {
+
     backCoverRequestDetails.classList.remove("hide");
 }
 
 const handleViewDetails = (e) => {
     console.log(e);
-    showRequestDetails();
+    const userID = e.target.getAttribute("data-user-id");
+    const user = USERS_REQUESTS.filter(user => user.User_ID === userID);
+    setCurrentViewedUser(user[0]);
+    showRequestDetails(user[0]);
 }
 
 
-const getViewDetailsButton =  () => {
+const getViewDetailsButton =  (id) => {
     var btn = document.createElement("button");
     btn.setAttribute("class", "btn-view");
+    btn.setAttribute("data-user-id", id);
     btn.innerText = "View Details";
     btn.addEventListener("click", handleViewDetails);
     return btn;
@@ -99,7 +112,7 @@ const generateUserRow = (user) => {
     tdEmail.innerText = user.Email;
     tdCountry.innerText = user.Country;
     tdCity.innerText = user.City;
-    tdButton.append(getViewDetailsButton());
+    tdButton.append(getViewDetailsButton(user.User_ID));
 
     tr.append(tdName);
     tr.append(tdEmail);
@@ -140,8 +153,40 @@ const getRequestsDB = () => {
 }
 
 
-backCoverRequestDetails.addEventListener("click", e => {
-    e.target.classList.add("hide");
+const setCurrentViewedUser = (user) => {
+    CURRENT_VIEWED_USER = user;
+}
+
+const clearCurrentViewedUser = () => {
+    CURRENT_VIEWED_USER = null;
+}
+
+
+document.addEventListener("click", e => {
+    const isbackCoverRequestDetails = (e.target === backCoverRequestDetails);
+    const isRequestAccept = (e.target.id === "request-accept");
+    const isRequestReject = (e.target.id === "request-reject");
+    const TRUE_VALUE = true;
+
+    console.log(e.target);
+
+    switch (TRUE_VALUE) {
+        case isbackCoverRequestDetails:
+            clearCurrentViewedUser();
+            backCoverRequestDetails.classList.add("hide");
+            break;
+        case isRequestAccept:
+            console.log("accept", CURRENT_VIEWED_USER.User_ID);
+            break;
+        case isRequestReject:
+            console.log("reject", CURRENT_VIEWED_USER.User_ID);
+            break;
+        
+        default:
+            break;
+    }
+
+    //backCoverRequestDetails.classList.add("hide");
 })
 
 
