@@ -25,21 +25,14 @@ var userSeducationPct = document.getElementById("user-s_education_pct");
 var userEtmPct = document.getElementById("user-etm_pct");
 var userBudgetUS$ = document.getElementById("user_budget_US_$");
 var submitInput = document.getElementById("auth-submit");
-
+var stage1Container = document.querySelectorAll(".stage1-container")[0];
+var stage2Container = document.querySelectorAll(".stage2-container")[0];
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
 
 
-/*fired when user name input is changed*/
-userName.addEventListener("change", e => {
-    validateInputFieldDB(e, URL_REGISTER_NAME);
-});
 
-/*fired when user email input is changed*/
-userEmail.addEventListener("change", e => {
-    validateInputFieldDB(e, URL_REGISTER_EMAIL);
-});
 
 
 /**
@@ -142,11 +135,6 @@ const displayServerError = () => {
 }
 
 
-/*fired when user click submit button or hits enter key.*/
-document.forms[0].addEventListener("submit", e => {
-    e.preventDefault();
-    handleOnSubmit(e);
-});
 
 /**
  * disable inputs on form submition
@@ -270,12 +258,6 @@ const initCityInForm = (cities) => {
     userCity.disabled = false;
 }
 
-/*fired when user selects country.*/
-userCountry.addEventListener("change", e => {
-    console.log(e.target.value);
-    userCity.disabled = true;
-    getCitiesDB(e.target.value);
-})
 
 
 /**
@@ -343,7 +325,24 @@ const handleOnSubmit = (e) => {
 }
 
 
-//initialize programs in the form.
-getProgramsDB();
-//initialize countries in the form.
-getCountriesDB();
+
+
+
+const goToNextStage = () => {
+    stage1Container.setAttribute("style", "right: 100%");
+    stage2Container.setAttribute("style", "left: 0%");
+}
+
+const goToPrevStage = () => {
+    stage1Container.setAttribute("style", "right: 0%");
+    stage2Container.setAttribute("style", "left: 100%");
+}
+
+
+setTimeout(() => {
+    goToNextStage();
+}, 2000);
+
+setTimeout(() => {
+    goToPrevStage();
+}, 3500);

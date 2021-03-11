@@ -35,6 +35,70 @@ body {
     flex-wrap: wrap;
 }
 
+.stage-tabs {
+    /* background-color: orange; */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stage-tabs > * {
+    /* background-color: purple; */
+    width: 50%;
+    padding-left: 10px;
+}
+
+.stage-tabs .stage-uni-details-tab {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.stage-tabs .line-separator {
+    border: 5px solid lightgray;
+    border-radius: 20px;
+}
+
+
+
+
+.stage-panels {
+    background-color: green;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+@media only screen and (max-width: 500px) {
+
+    .stage-tabs {
+        flex-wrap: wrap;
+    }
+
+    .stage-tabs > * {
+        width: 100%;
+    }
+
+    .stage-tabs .stage-uni-details-tab {
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    .stage-tabs .line-separator {
+        height: 70px;
+        margin-left: 20px;
+        border: none;
+        border-left: 10px solid lightgray;
+        border-radius: 0px;
+    }
+}
+
+
+
+
 .auth-card {
     width: 99%;
     display: flex;
@@ -132,6 +196,7 @@ form input[type="submit"] {
     margin-top: 10px;
     padding: 8px 0;
 }
+
 
 .separator {
     background-color: orange;
