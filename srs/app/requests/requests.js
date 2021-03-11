@@ -1,5 +1,5 @@
 import { loadHeaderFooter, getUserCredentialsLocalStorage } from "../util/util.js";
-import { URL_REQUESTS } from "../urls/urlResolver.js";
+import { URL_REQUESTS, URL_REQUEST_ACCEPT, URL_REQUEST_REJECT } from "../urls/urlResolver.js";
 
 /*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
@@ -14,6 +14,8 @@ loadHeaderFooter(headerContainer, footerContainer);
 
 var USERS_REQUESTS = null;
 var CURRENT_VIEWED_USER = null;
+const REQUEST_ACCEPT = 0x0ff;
+const REQUEST_REJECT = 0x0ef;
 
 
 
@@ -134,6 +136,9 @@ const getRequestsDB = () => {
         switch (res.status) {
             case 200:   //OK, Users found
                 return res.json();  //convert response text to json format.
+            case 404:
+                alert("no requests found.");
+                return;
             default:    //other response from backend server.
                 showRequestServiceFailed();
                 alert("There was an error while fetching Users from Database!");
@@ -198,10 +203,20 @@ const prepareRequestData = (userID) => {
 }
 
 const acceptRequest = (userID) => {
+    processFetchRequest(REQUEST_ACCEPT, userID);
+}
 
+const rejectRequest = (userID) => {
+    processFetchRequest(REQUEST_REJECT, userID);
+}
+
+const processFetchRequest = (requestType, userID) => {
     const requestData = prepareRequestData(userID);
     console.log(requestData);
-    return;
+
+    var url = null;
+    url = (requestType === REQUEST_ACCEPT ? (URL_REQUEST_ACCEPT) : (null))
+    url = (requestType === REQUEST_ACCEPT ? (URL_REQUEST_REJECT) : (null))
 
     fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -210,30 +225,12 @@ const acceptRequest = (userID) => {
         body: requestData // body data type must match "Content-Type" header
     })
     .then(res => {
-        switch (res.status) {
-            case 409:   //conflict, user name exists in the database.
-                setFormValidityVars(fieldName, false);
-                displayConflictError(errElement , e.target.value, fieldName);
-                break;
-            case 200:   //ok user name does not exit in the database.
-                setFormValidityVars(fieldName, true);
-                displayInputOK(errElement, e.target.value);
-                break;
-            default:    //other response from backend server
-                setFormValidityVars(fieldName, false);
-                displayServerError();
-                break;
-        }
+        if(res.status !== 200) {throw new Error("Something went wrong while processing the request!");}
+        else {alert("request processed successfully!");}
     })
     .catch(err => {     //there was an error while sending the request or server did not response.
-        setFormValidityVars(fieldName, false);
-        displayServerError();
         console.error(err);
     })
-}
-
-const rejectRequest = (userID) => {
-
 }
 
 
