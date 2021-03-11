@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <!--Bootstrap urls-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <!------------------>
+
+    <!--fontawesome urls-->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <!------------------>
+
+    <script src="../header/header.js" defer type="module"></script>
+
+
+    <script src="./addUniversity.js" defer type="module"></script>
+
+    <link rel="stylesheet" href="./addUniversity.css">
+    
+    <title>Add New University</title>
+</head>
+<body>
+
+    <div class="header-container-wrapper"></div>
+
+    
+    <div class="app-body">
+        <div class="auth-card">
+
+            <form action="#" method="post">
+                <div class="auth-cart-title">Add University</div>
+                <div class="form-content-container">
+
+                    <!---------------------Name---------------------->
+                    <div class="form-content">
+                        <input type="text" name="name" id="user-name" placeholder="University Name" required autofocus>
+                    </div>
+
+                    <div id="name-error" class="form-content error-text">
+                        *
+                    </div>
+
+                    <!---------------------email---------------------->
+                    <div class="form-content">
+                        <input type="text" name="email" id="user-email" placeholder="Description"  required>
+                    </div>
+
+                    <!--------------------------Country----------------->
+                    <div class="form-content">
+                        <select name="country" id="user-country" required disabled>
+                            <option value="" selected disabled hidden>Select Country</option>
+                            <!-- <option value="id">Pakistan</option>
+                            <option value="id">Afghanistan</option> -->
+                        </select>
+                    </div>
+
+                    <!--------------------------City----------------->
+                    <div class="form-content">
+                        <select name="city" id="user-city" required disabled>
+                            <option value="" selected disabled hidden>Select City</option>
+                            <!-- <option value="id">Faisalabad</option>
+                            <option value="id">Lahore</option> -->
+                        </select>
+                    </div>
+                    
+                    <!---------------------Program-------------------->
+                    <div class="form-content">
+                        <select name="program" id="user-program" required disabled>
+                            <option value="" selected disabled hidden>Select Program</option>
+                            <!-- <option value="id">Computer Science</option>
+                            <option value="id">Software Engineering</option> -->
+                        </select>
+                    </div>
+
+                    <!--------------Admission Start Date--------------->
+                    <div class="form-content">
+                        <select name="date" id="user-addmission-date" required>
+                            <option value="" selected disabled hidden>Select Admission Start Date</option>
+                            <option value="2021-02-01">Feb 2021</option>
+                            <option value="2021-08-01">Aug 2021</option>
+                            <option value="2022-02-01">Feb 2022</option>
+                            <option value="2022-08-01">Aug 2022</option>
+                            <option value="2023-02-01">Feb 2023</option>
+                            <option value="2023-08-01">Aug 2023</option>
+                            <option value="2024-02-01">Feb 2024</option>
+                            <option value="2024-08-01">Aug 2024</option>
+                            <option value="2025-02-01">Feb 2025</option>
+                            <option value="2025-08-01">Aug 2025</option>
+                        </select>
+                    </div>
+
+
+                    <!--------------Secondary Ecuation----------------->
+                    <!---Abbrevations:
+                            h_education_pct: secondary education percentage---->
+                    <div class="form-content percentage">
+                        <input type="number" name="h_education_pct" id="user-h_education_pct" placeholder="Enter Higher Education Marks percentage" min="0" max="100" required>
+                        <div>%</div>
+                    </div>
+
+                    <!-----------------Higher Ecuation----------------->
+                    <!---Abbrevations:
+                            s_education_pct: secondary education percentage---->
+                    <div class="form-content percentage">
+                        <input type="number" name="s_education_pct" id="user-s_education_pct" placeholder="Enter Secondary Education Marks percentage" min="0" max="100" required>
+                        <div>%</div>
+                    </div>
+
+                    <!-----------------Entry Test Marsk----------------->
+                    <!---Abbrevations:
+                        etm_pct: entry test marsk percentage---->
+                    <div class="form-content percentage">
+                        <input type="number" name="etm_pct" id="user-etm_pct" placeholder="Enter Entery Test Marks Percentage" min="0" max="100" required>
+                        <div>%</div>
+                    </div>
+    
+
+                    <!--------------------------Budget----------------->
+                    <div class="form-content percentage">
+                        <input type="number" name="budget_US_$" id="user_budget_US_$" placeholder="Enter Budget" min="1" max="100" required>
+                        <div>$</div>
+                    </div>
+
+                    
+                    <!-----------------Submit Button----------------->
+                    <div class="form-content">
+                        <input id="auth-submit" type="submit" value="Submit">
+                    </div>
+
+                    <!-----------------Separatro----------------->
+                    <div class="form-content separator">
+                        <span>or</span>
+                    </div>
+
+                    <!-----------------login button----------------->
+                    <div class="form-content login-container">
+                        <a href="../login/login.html">Login</a>
+                    </div>
+
+                </div>
+                
+            </form>
+        </div>
+        
+    </div>
+
+    
+    
+
+    
+    <div class="footer-container-wrapper"></div>
+    
+</body>
+</html>
