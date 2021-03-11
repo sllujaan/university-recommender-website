@@ -3,6 +3,9 @@ import {
     getBusyContainer
  } from "../util/util.js";
 import { loadPrograms, UNIVERSITY_DETAILS } from "../accordian/accordian.js";
+import {
+    URL_UNIVERSITY_DETAILS
+} from "../urls/urlResolver.js";
 
 
 /*dom elements*/
@@ -139,9 +142,10 @@ const addLoadMoreButton = () => {
 }
 
 const showUniDetails = (id) => {
-    disableScroll(body);
-    setUniDetails(UNIVERSITY_DETAILS);
-    containerUniDetails.style.setProperty("left", "0%");
+    fetchUniverstyDetails(id);
+
+    //setUniDetails(UNIVERSITY_DETAILS);
+    //containerUniDetails.style.setProperty("left", "0%");
 
 }
 
@@ -160,7 +164,7 @@ const loadUniversites = (universities) => {
         var universityContainer = document.createElement("div");
         universityContainer.classList.add("university-container");
         universityContainer.innerHTML = `
-        <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5 id="${1}" class="uni-name">${university.name}</h5></div>
+        <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5 id="${2}" class="uni-name">${university.name}</h5></div>
         <div class="description" style="color: #222;">${university.description}</div>
         <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;${university.location}</span></div><br>
                 `;
@@ -199,6 +203,37 @@ const setUniDetails = (universityDetails) => {
     detailsUniLink.setAttribute("placeholder", University.Web_Link);
     detailsUniLinkCopy.setAttribute("data-uni-link", University.Web_Link);
 
+
+    loadPrograms(universityDetails);
+
+}
+
+
+const showUniDetailsSomethingWentWrong = () => {
+    //display appropriate message when university details are loaded correctly.
+}
+
+
+
+const fetchUniverstyDetails = (id) => {
+    const queriedURL = URL_UNIVERSITY_DETAILS + `?id=${id}`;
+
+    fetch(queriedURL)
+    .then(res => {
+        if(res.status !== 200) { throw new Error("Something went wrong while fetching University Details from Database!"); }
+        else {return res.json();}
+    })
+    .then(universityDetails => {
+        console.log(universityDetails);
+        disableScroll(body);
+        setUniDetails(universityDetails);
+        containerUniDetails.style.setProperty("left", "0%");
+    })
+    .catch(err => {
+        //displayServerError();
+        alert(err);
+        console.error(err);
+    })
 }
 
 

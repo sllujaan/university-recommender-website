@@ -217,6 +217,7 @@ export const loadPrograms = (universityDetails) => {
     var {University_Program} = universityDetails[1];
     console.log(University_Program);
     
+    containerAccordianPrograms.innerHTML = null;
     University_Program.forEach(programDetails => {
         var div = getProgramAccordian(University, programDetails);
         containerAccordianPrograms.append(div);
@@ -224,4 +225,4 @@ export const loadPrograms = (universityDetails) => {
 
 }
 
-loadPrograms(UNIVERSITY_DETAILS);
+//loadPrograms(UNIVERSITY_DETAILS);

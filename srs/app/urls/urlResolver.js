@@ -15,3 +15,4 @@ export const URL_USER_LOGIN = URL_BASE + "login/login.php";
 export const URL_USERS = URL_BASE + "util/users.php";
 export const URL_USERS_AUTH = URL_BASE + "util/usersAuth.php";
 export const URL_REQUESTS = URL_BASE + "request/requests.php";
+export const URL_UNIVERSITY_DETAILS = URL_BASE + "util/universityDetails.php";
