@@ -168,4 +168,9 @@ export const getBusyContainer = (count) => {
     return div;
 }
 
+export const getUserCredentialsLocalStorage = () => {
+    const sessionID = localStorage.getItem("session_id");
+    const userID = localStorage.getItem("user_id");
 
+    return {session_id:sessionID, user_id:userID};
+}

@@ -1,4 +1,4 @@
-import { loadHeaderFooter } from "../util/util.js";
+import { loadHeaderFooter, getUserCredentialsLocalStorage } from "../util/util.js";
 import { URL_REQUESTS } from "../urls/urlResolver.js";
 
 /*dom elements*/
@@ -177,6 +177,7 @@ document.addEventListener("click", e => {
             break;
         case isRequestAccept:
             console.log("accept", CURRENT_VIEWED_USER.User_ID);
+            acceptRequest(CURRENT_VIEWED_USER.User_ID);
             break;
         case isRequestReject:
             console.log("reject", CURRENT_VIEWED_USER.User_ID);
@@ -188,6 +189,52 @@ document.addEventListener("click", e => {
 
     //backCoverRequestDetails.classList.add("hide");
 })
+
+
+const prepareRequestData = (userID) => {
+    const userCredentials = getUserCredentialsLocalStorage();
+    var requestData = `session_id=${userCredentials.session_id}&user_id=${userCredentials.user_id}&user_id_requested=${userID}`;
+    return requestData;
+}
+
+const acceptRequest = (userID) => {
+
+    const requestData = prepareRequestData(userID);
+    console.log(requestData);
+    return;
+
+    fetch(url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: requestData // body data type must match "Content-Type" header
+    })
+    .then(res => {
+        switch (res.status) {
+            case 409:   //conflict, user name exists in the database.
+                setFormValidityVars(fieldName, false);
+                displayConflictError(errElement , e.target.value, fieldName);
+                break;
+            case 200:   //ok user name does not exit in the database.
+                setFormValidityVars(fieldName, true);
+                displayInputOK(errElement, e.target.value);
+                break;
+            default:    //other response from backend server
+                setFormValidityVars(fieldName, false);
+                displayServerError();
+                break;
+        }
+    })
+    .catch(err => {     //there was an error while sending the request or server did not response.
+        setFormValidityVars(fieldName, false);
+        displayServerError();
+        console.error(err);
+    })
+}
+
+const rejectRequest = (userID) => {
+
+}
 
 
 /*get and initialize users in users table*/
