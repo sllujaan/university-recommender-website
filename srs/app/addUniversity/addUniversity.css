@@ -47,11 +47,14 @@ body {
     /* background-color: purple; */
     width: 50%;
     padding-left: 10px;
+    font-weight: bold;
 }
 
 .stage-tabs .stage-uni-details-tab {
     text-align: right;
     padding-right: 10px;
+    color: #37a000;
+    
 }
 
 .stage-tabs .line-separator {
@@ -65,9 +68,19 @@ body {
 .stage-panels {
     background-color: green;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
+
+.stage-panels > * {
+    width: 100%;
+    text-align: center;
+}
+
+.stage-panels .stage-uni-details {
+    background-color: orange;
+}
+
+.stage-panels .stage-uni-programs {
+    display: none;
 }
 
 

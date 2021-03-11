@@ -27,6 +27,12 @@ var userBudgetUS$ = document.getElementById("user_budget_US_$");
 var submitInput = document.getElementById("auth-submit");
 var stage1Container = document.querySelectorAll(".stage1-container")[0];
 var stage2Container = document.querySelectorAll(".stage2-container")[0];
+var stageUniDetails = document.querySelectorAll(".stage-uni-details")[0];
+var stageUniPrograms = document.querySelectorAll(".stage-uni-programs")[0];
+var stageUniDetailsTab = document.querySelectorAll(".stage-uni-details-tab")[0];
+var stageUniProgramsTab = document.querySelectorAll(".stage-uni-programs-tab")[0];
+var lineSeparator = document.querySelectorAll(".line-separator")[0];
+
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
@@ -328,21 +334,36 @@ const handleOnSubmit = (e) => {
 
 
 
-const goToNextStage = () => {
-    stage1Container.setAttribute("style", "right: 100%");
-    stage2Container.setAttribute("style", "left: 0%");
+const goToProgramsStage = () => {
+
+    stageUniDetails.setAttribute("style", "display: none;");
+    stageUniPrograms.setAttribute("style", "display: block;");
+
+    stageUniDetailsTab.setAttribute("style", "color: #37a000;");
+    stageUniProgramsTab.setAttribute("style", "color: #37a000;");
+
+    lineSeparator.setAttribute("style", "border-color: #37a000;");
 }
 
-const goToPrevStage = () => {
-    stage1Container.setAttribute("style", "right: 0%");
-    stage2Container.setAttribute("style", "left: 100%");
-}
+const goToUniversityStage = () => {
+    stageUniPrograms.setAttribute("style", "display: none;");
+    stageUniDetails.setAttribute("style", "display: block;");
 
+    stageUniDetailsTab.setAttribute("style", "color: #37a000;");
+    stageUniProgramsTab.setAttribute("style", "color: black;");
+
+    lineSeparator.setAttribute("style", "border-color: lightgray;");
+}
 
 setTimeout(() => {
-    goToNextStage();
+    goToProgramsStage();
 }, 2000);
 
+
 setTimeout(() => {
-    goToPrevStage();
-}, 3500);
+    goToUniversityStage();
+}, 3000);
+
+
+
+
