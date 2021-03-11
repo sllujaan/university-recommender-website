@@ -11,7 +11,7 @@ const PROGRAMS = [
     {"University_ID":"2","Program_ID":"2","Description":"description","Admission_Fee":"100","Registration_Fee":"200","Security_Fee":"10","Admission_Processing_Fee":"0","Enrollment_Fee_Per_Semester":"0","Tuition_Fee_per_Credit_Hour":"0","Convocation_Fee":"0","Fee_Total":"400","Fee_Description":"fee description","MM_PCT":"0.7","MM_PN":"fsc","Name":"Economics","Duration_Years":"4"}
 ];
 
-const UNIVERSITY_DETAILS = [
+export const UNIVERSITY_DETAILS = [
     {
         "University":
             {"University_ID":"2","Name":"punjab University","Description":"description of LUMS University","Country_ID":"137","City_ID":"200","Admission_Criteria":"70% marks in FSC","Start_Admission_Date":"2021-05-01","End_Admission_Date":"2021-06-01","Total_ETM":"200","S_Education_MC_PCT":"0.6","H_Education_MC_PCT":"0.7","PCT_MC_ETM":"0.8","Phone":"00-988327422039","Web_Link":"www.lums.com","Email":"lums@gmail.com","Address":"block 4 lahore pakistan","Name_Country":"Pakistan","Name_City":"Bolton"}

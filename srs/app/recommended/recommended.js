@@ -2,7 +2,7 @@ import {
     loadHeaderFooter, enableScroll, disableScroll,
     getBusyContainer
  } from "../util/util.js";
-import { loadPrograms } from "../accordian/accordian.js";
+import { loadPrograms, UNIVERSITY_DETAILS } from "../accordian/accordian.js";
 
 
 /*dom elements*/
@@ -13,6 +13,7 @@ var containerOpts = document.querySelectorAll(".container-opts")[0];
 var universitiesContainer = document.querySelectorAll(".Universities-container")[1];
 var btnLoadMore = document.querySelectorAll(".btn-load-more")[0];
 var savedSearchItemSelected = document.querySelectorAll(".saved-search-item-selected")[0];
+var containerUniDetails = document.querySelectorAll(".container-uni-details")[0];
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
@@ -24,7 +25,7 @@ const UNIVERSITES = [
     {name: "University of the Punjab", description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", location: "Pakistan"},
     {name: "University of the Punjab", description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", location: "Pakistan"},
     {name: "University of the Punjab", description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", location: "Pakistan"}
-]
+];
 
 
 
@@ -47,7 +48,8 @@ document.addEventListener("click", e => {
             loadMore();
             break;
         case idUniDetails:
-            showUniDetails(2);
+            const uniID = parseInt(e.target.id);
+            showUniDetails(uniID);
             break;
         case isBackCaret:
             hideUniDetails();
@@ -138,14 +140,13 @@ const addLoadMoreButton = () => {
 
 const showUniDetails = (id) => {
     disableScroll(body);
-    var containerUniDetails = document.querySelectorAll(".container-uni-details")[0];
+    setUniDetails(UNIVERSITY_DETAILS);
     containerUniDetails.style.setProperty("left", "0%");
 
 }
 
 const hideUniDetails = () => {
     enableScroll(body);
-    var containerUniDetails = document.querySelectorAll(".container-uni-details")[0];
     containerUniDetails.style.setProperty("left", "100%");
 }
 
@@ -159,7 +160,7 @@ const loadUniversites = (universities) => {
         var universityContainer = document.createElement("div");
         universityContainer.classList.add("university-container");
         universityContainer.innerHTML = `
-        <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5 id="${Math.random()}" class="uni-name">${university.name}</h5></div>
+        <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5 id="${1}" class="uni-name">${university.name}</h5></div>
         <div class="description" style="color: #222;">${university.description}</div>
         <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;${university.location}</span></div><br>
                 `;
@@ -167,6 +168,49 @@ const loadUniversites = (universities) => {
     });
     universitiesContainer.append(div);
 }
+
+
+const setUniDetails = (universityDetails) => {
+    const {University} = universityDetails[0];
+    var {University_Program} = universityDetails[1];
+
+    var detailsTitle = containerUniDetails.querySelectorAll(".details-title")[0];
+    var detailsDescription = containerUniDetails.querySelectorAll(".details-description")[0];
+    var detailsCountry = containerUniDetails.querySelectorAll(".details-country")[0];
+    var detailsCity = containerUniDetails.querySelectorAll(".details-city")[0];
+    var detailsAdmiStart = containerUniDetails.querySelectorAll(".details-admission-start")[0];
+    var detailsAdmiEnd = containerUniDetails.querySelectorAll(".details-admission-end")[0];
+    var detailsPhone = containerUniDetails.querySelectorAll(".details-phone")[0];
+    var detailsEmail = containerUniDetails.querySelectorAll(".details-email")[0];
+    var detailsAddress = containerUniDetails.querySelectorAll(".details-address")[0];
+    var detailsUniLink = containerUniDetails.querySelectorAll(".details-uni-link")[0];
+    var detailsUniLinkCopy = containerUniDetails.querySelectorAll(".details-uni-link-copy")[0];
+
+
+    detailsTitle.innerText = University.Name;
+    detailsDescription.innerText = University.Description;
+    detailsCountry.innerText = University.Name_Country;
+    detailsCity.innerText = University.Name_City;
+    detailsAdmiStart.innerText = University.Start_Admission_Date;
+    detailsAdmiEnd.innerText = University.End_Admission_Date;
+    detailsPhone.innerText = University.Phone;
+    detailsEmail.innerText = University.Email;
+    detailsAddress.innerText = University.Address;
+    detailsUniLink.setAttribute("placeholder", University.Web_Link);
+    detailsUniLinkCopy.setAttribute("data-uni-link", University.Web_Link);
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 const loadMore = () => {
     removeLoadMoreButton();
