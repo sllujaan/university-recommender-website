@@ -8,6 +8,19 @@ var userTable = document.getElementById("user-table");
 var buttonView = null;
 var backCoverRequestDetails = document.querySelectorAll(".back-cover-request-details")[0];
 
+var userNameD = document.querySelectorAll(".user-name")[0];
+var userEmailD = document.querySelectorAll(".user-email")[0];
+var userCountryD = document.querySelectorAll(".user-country")[0];
+var userCityD = document.querySelectorAll(".user-city")[0];
+var userProgramD = document.querySelectorAll(".user-program")[0];
+var userEtmD = document.querySelectorAll(".user-etm")[0];
+var userRoleD = document.querySelectorAll(".user-role")[0];
+var userAdmiStartDateD = document.querySelectorAll(".user-admi-start-date")[0];
+var userHEduPctD = document.querySelectorAll(".user-h-edu-pct")[0];
+var userSEduPctD = document.querySelectorAll(".user-s-edu-pct")[0];
+var userAccStatusD = document.querySelectorAll(".user-acc-status")[0];
+var userReqDateD = document.querySelectorAll(".user-req-date")[0];
+
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
 
@@ -26,6 +39,14 @@ const showRequestServiceFailed = () => {
     var serverError = document.getElementById("server-error");
     hideBusy();
     serverError.setAttribute("style", "display: block; color: red;");
+}
+
+const displayStandardMsg = (msg, danger) => {
+    var serverError = document.getElementById("server-error");
+    hideBusy();
+    serverError.innerText = msg;
+    if(danger) {serverError.setAttribute("style", "display: block; color: red;");}
+    else {serverError.setAttribute("style", "display: block; color: #37a000;");}
 }
 
 /**
@@ -72,9 +93,23 @@ const initUsersInTable = (users) => {
 }
 
 
+const setUserDetails = (user) => {
+    userNameD.innerText = user.Name;
+    userEmailD.innerText = user.Email;
+    userCountryD.innerText = user.Country;
+    userCityD.innerText = user.City;
+    userProgramD.innerText = user.Program;
+    userEtmD.innerText = (user.User_ETM_PCT * 100) + "%";
+    userRoleD.innerText = user.User_Role;
+    userAdmiStartDateD.innerText = user.User_Start_Admission_Date;
+    userHEduPctD.innerText = (user.User_H_Education_PCT * 100) + "%";
+    userSEduPctD.innerText = (user.User_S_Education_PCT * 100) + "%";
+    userAccStatusD.innerText = user.Account_Status_Name;
+    userReqDateD.innerText = user.Request_Creation_Date;
+}
+
 
 const showRequestDetails = (user) => {
-
     backCoverRequestDetails.classList.remove("hide");
 }
 
@@ -83,6 +118,7 @@ const handleViewDetails = (e) => {
     const userID = e.target.getAttribute("data-user-id");
     const user = USERS_REQUESTS.filter(user => user.User_ID === userID);
     setCurrentViewedUser(user[0]);
+    setUserDetails(user[0]);
     showRequestDetails(user[0]);
 }
 
@@ -137,7 +173,7 @@ const getRequestsDB = () => {
             case 200:   //OK, Users found
                 return res.json();  //convert response text to json format.
             case 404:
-                alert("no requests found.");
+                displayStandardMsg("No Request Found", true);
                 return;
             default:    //other response from backend server.
                 showRequestServiceFailed();
@@ -185,6 +221,7 @@ document.addEventListener("click", e => {
             acceptRequest(CURRENT_VIEWED_USER.User_ID);
             break;
         case isRequestReject:
+            rejectRequest(CURRENT_VIEWED_USER.User_ID);
             console.log("reject", CURRENT_VIEWED_USER.User_ID);
             break;
         
@@ -216,7 +253,7 @@ const processFetchRequest = (requestType, userID) => {
 
     var url = null;
     url = (requestType === REQUEST_ACCEPT ? (URL_REQUEST_ACCEPT) : (null))
-    url = (requestType === REQUEST_ACCEPT ? (URL_REQUEST_REJECT) : (null))
+    url = (requestType === REQUEST_REJECT ? (URL_REQUEST_REJECT) : (null))
 
     fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -226,7 +263,7 @@ const processFetchRequest = (requestType, userID) => {
     })
     .then(res => {
         if(res.status !== 200) {throw new Error("Something went wrong while processing the request!");}
-        else {alert("request processed successfully!");}
+        else {alert("request processed successfully!");location.reload();}
     })
     .catch(err => {     //there was an error while sending the request or server did not response.
         console.error(err);
