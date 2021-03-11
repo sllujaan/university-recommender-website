@@ -355,14 +355,14 @@ const goToUniversityStage = () => {
     lineSeparator.setAttribute("style", "border-color: lightgray;");
 }
 
-setTimeout(() => {
-    goToProgramsStage();
-}, 2000);
+// setTimeout(() => {
+//     goToProgramsStage();
+// }, 2000);
 
 
-setTimeout(() => {
-    goToUniversityStage();
-}, 3000);
+// setTimeout(() => {
+//     goToUniversityStage();
+// }, 3000);
 
 
 

@@ -210,6 +210,17 @@ form input[type="submit"] {
     padding: 8px 0;
 }
 
+form fieldset {
+    border: 1px solid lightgray;
+    padding: 10px;
+    width: 100%;
+    border-radius: 6px;
+}
+
+form fieldset * {
+    width: 100%;
+}
+
 
 .separator {
     background-color: orange;
