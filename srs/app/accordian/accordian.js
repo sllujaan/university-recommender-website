@@ -211,7 +211,7 @@ const getProgramAccordian = (universityDetails, programDetails) => {
 //console.log(getProgramAccordian(UNIVERSITY_DETAILS));
 
 
-const loadPrograms = (universityDetails) => {
+export const loadPrograms = (universityDetails) => {
 
     const {University} = universityDetails[0];
     var {University_Program} = universityDetails[1];

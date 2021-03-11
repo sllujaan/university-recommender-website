@@ -2,7 +2,7 @@ import {
     loadHeaderFooter, enableScroll, disableScroll,
     getBusyContainer
  } from "../util/util.js";
-import { URL_USER_LOGIN } from "../urls/urlResolver.js";
+import { loadPrograms } from "../accordian/accordian.js";
 
 
 /*dom elements*/
