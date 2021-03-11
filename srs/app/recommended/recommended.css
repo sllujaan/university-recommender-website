@@ -386,7 +386,12 @@ body {
 
 
 
-
+/*----------university details container*/
+.container-uni-details {
+    left: 100%;
+    z-index: 1000;
+}
+/*--------------------------------------*/
 
 
 

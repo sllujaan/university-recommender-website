@@ -35,6 +35,7 @@ document.addEventListener("click", e => {
     const isSelectOption = (e.target.id === "searches-recommended-resp") || (e.target.parentElement.id === "searches-recommended-resp");
     const isLoadMore = (e.target.id === "load-more-button");
     const idUniDetails = e.target.classList.contains("uni-name");
+    const isBackCaret = e.target.classList.contains("details-back-caret");
 
     const TRUE_VALUE = true;
 
@@ -47,6 +48,9 @@ document.addEventListener("click", e => {
             break;
         case idUniDetails:
             showUniDetails(2);
+            break;
+        case isBackCaret:
+            hideUniDetails();
             break;
     
         default:
@@ -136,6 +140,13 @@ const showUniDetails = (id) => {
     disableScroll(body);
     var containerUniDetails = document.querySelectorAll(".container-uni-details")[0];
     containerUniDetails.style.setProperty("left", "0%");
+
+}
+
+const hideUniDetails = () => {
+    enableScroll(body);
+    var containerUniDetails = document.querySelectorAll(".container-uni-details")[0];
+    containerUniDetails.style.setProperty("left", "100%");
 }
 
 
