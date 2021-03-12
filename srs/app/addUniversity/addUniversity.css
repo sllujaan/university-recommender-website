@@ -60,9 +60,7 @@ body {
 }
 
 .stage-tabs .line-separator {
-    background-color: lightgray;
-    border: 5px solid lightgray;
-    border-radius: 20px;
+    border-bottom: 5px solid lightgray;
 }
 
 
@@ -108,9 +106,8 @@ body {
         height: 70px;
         margin-left: 20px;
         border: none;
-        border-left: 10px solid lightgray;
+        border-left: 7px solid lightgray;
         border-radius: 0px;
-        background-color: #f1f2f4;
     }
 }
 

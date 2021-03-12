@@ -344,7 +344,7 @@ const goToProgramsStage = () => {
     stageUniDetailsTab.setAttribute("style", "color: #37a000;");
     stageUniProgramsTab.setAttribute("style", "color: #37a000;");
 
-    lineSeparator.setAttribute("style", "border-color: #37a000; background-color: #37a000;");
+    lineSeparator.setAttribute("style", "border-color: #37a000;");
 }
 
 const goToUniversityStage = () => {
@@ -354,7 +354,7 @@ const goToUniversityStage = () => {
     stageUniDetailsTab.setAttribute("style", "color: #37a000;");
     stageUniProgramsTab.setAttribute("style", "color: black;");
 
-    lineSeparator.setAttribute("style", "border-color: lightgray; background-color: #f1f2f4;");
+    lineSeparator.setAttribute("style", "border-color: lightgray;");
 }
 
 
@@ -368,15 +368,29 @@ document.forms[0].addEventListener("submit", e => {
 
 document.addEventListener("click", e => {
     const isprogramContainerWrapper = (e.target.classList.contains("program-container-wrapper"));
-    const addProgramBtn = (e.target.classList.contains("add-program-icon"));
+    const isaddProgramBtn = (e.target.classList.contains("add-program-icon"));
+    const isProgramCancel = (e.target.classList.contains("program-cancel"));
+    const isbackToUniBtn = (e.target.classList.contains("back-to-uni-btn"));
+    const ischoosenProgramInput = (e.target.classList.contains("choosen-program-input"));
+    const isChoosenProgramRemove = (e.target.classList.contains("choosen-program-remove"));
+    
     const TRUE_VALUE = true;
 
     switch (TRUE_VALUE) {
-        case isprogramContainerWrapper:
+        case isProgramCancel:
             hideProgramContainer();
             break;
-        case addProgramBtn:
+        case isaddProgramBtn:
             showProgramContainer();
+            break;
+        case isbackToUniBtn:
+            goToUniversityStage();
+            break;
+        case ischoosenProgramInput:
+            updateChoosenProgram();
+            break;
+        case isChoosenProgramRemove:
+            removeChoosenProgram(e);
             break;
     
         default:
@@ -386,7 +400,14 @@ document.addEventListener("click", e => {
     console.log(e.target);
 });
 
+const removeChoosenProgram = (e) => {
+    const _confirm = confirm("Do You really want to remove the Program?");
+    if(_confirm) e.target.parentElement.remove();
+}
 
+const updateChoosenProgram = () => {
+    showProgramContainer();
+}
 
 const hideProgramContainer = () => {
     programContainerWrapper.classList.add("hide");
