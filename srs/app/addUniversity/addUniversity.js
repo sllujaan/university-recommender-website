@@ -342,7 +342,7 @@ const goToProgramsStage = () => {
     stageUniDetailsTab.setAttribute("style", "color: #37a000;");
     stageUniProgramsTab.setAttribute("style", "color: #37a000;");
 
-    lineSeparator.setAttribute("style", "border-color: #37a000;");
+    lineSeparator.setAttribute("style", "border-color: #37a000; background-color: #37a000;");
 }
 
 const goToUniversityStage = () => {
@@ -352,8 +352,32 @@ const goToUniversityStage = () => {
     stageUniDetailsTab.setAttribute("style", "color: #37a000;");
     stageUniProgramsTab.setAttribute("style", "color: black;");
 
-    lineSeparator.setAttribute("style", "border-color: lightgray;");
+    lineSeparator.setAttribute("style", "border-color: lightgray; background-color: inherit;");
 }
+
+
+/*fired when user click submit button or hits enter key.*/
+document.forms[0].addEventListener("submit", e => {
+    e.preventDefault();
+    console.log("forms0");
+    //handleOnSubmit(e);
+    goToProgramsStage();
+});
+
+document.addEventListener("click", e => {
+    console.log(e.target);
+});
+
+
+// document.forms[1].addEventListener("submit", e => {
+//     e.preventDefault();
+//     console.log("forms0");
+//     //handleOnSubmit(e);
+// });
+
+
+goToProgramsStage();
+
 
 // setTimeout(() => {
 //     goToProgramsStage();

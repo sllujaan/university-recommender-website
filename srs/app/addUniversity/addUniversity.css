@@ -41,6 +41,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    max-width: var(--app-maximum-width);
 }
 
 .stage-tabs > * {
@@ -58,6 +60,7 @@ body {
 }
 
 .stage-tabs .line-separator {
+    background-color: lightgray;
     border: 5px solid lightgray;
     border-radius: 20px;
 }
@@ -101,6 +104,7 @@ body {
     }
 
     .stage-tabs .line-separator {
+        background-color: inherit;
         height: 70px;
         margin-left: 20px;
         border: none;
@@ -221,6 +225,14 @@ form fieldset * {
     width: 100%;
 }
 
+form legend {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: left;
+    background-color: orange;
+}
+
 
 .separator {
     background-color: orange;
@@ -258,6 +270,24 @@ form input:focus {
 .auth-error {
     color: red;
     text-align: center;
+}
+
+.choosen-program {
+    position: relative;
+    cursor: pointer;
+}
+
+.choosen-program > input {
+    background-color: orange;
+    cursor: pointer;
+    padding-right: 55px;
+}
+.choosen-program > i {
+    position: absolute;
+    background-color: green;
+    padding: 14px;
+    right: 1px;
+    top: 1px;
 }
 
 @media only screen and (max-width: 500px) {
