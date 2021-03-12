@@ -352,7 +352,7 @@ const goToUniversityStage = () => {
     stageUniDetailsTab.setAttribute("style", "color: #37a000;");
     stageUniProgramsTab.setAttribute("style", "color: black;");
 
-    lineSeparator.setAttribute("style", "border-color: lightgray; background-color: inherit;");
+    lineSeparator.setAttribute("style", "border-color: lightgray; background-color: #f1f2f4;");
 }
 
 
