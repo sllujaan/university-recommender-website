@@ -10,6 +10,9 @@ var EMAIL_VALID = false;
 var PASSOWRD_VALID = false;
 var PROGRAMS = null;
 var CHOSEN_PROGRAMS = [];
+const UPDATE_PROGRAM = 0x0ffd;
+const ADD_PROGRAM = 0x0fcc;
+var programFormType = ADD_PROGRAM;
 
 /*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
@@ -436,13 +439,14 @@ document.addEventListener("click", e => {
             hideProgramContainer();
             break;
         case isaddProgramBtn:
+            setProgramFormTypeToADD();
             showProgramContainer();
             break;
         case isbackToUniBtn:
             goToUniversityStage();
             break;
         case ischoosenProgramInput:
-            updateChoosenProgram();
+            updateChoosenProgram(e);
             break;
         case isChoosenProgramRemove:
             removeChoosenProgram(e);
@@ -462,7 +466,7 @@ const generateNewChoosenProgram = (id, name) => {
     div.classList.add("form-content", "choosen-program");
     div.setAttribute("id", id);
     div.innerHTML = `
-            <input class="choosen-program-input" type="text" name="email" id="user-email" placeholder="${name}" disabled>
+            <input class="choosen-program-input" type="text" name="email" id="${id}" placeholder="${name}" disabled>
             <i class="fas fa-times fa-1x choosen-program-remove"></i>`
     
     return div;
@@ -473,8 +477,23 @@ const removeChoosenProgram = (e) => {
     if(_confirm) e.target.parentElement.remove();
 }
 
-const updateChoosenProgram = () => {
+const updateChoosenProgram = (e) => {
+    setProgramFormTypeToUPDATE();
+    const program = getProgramByID(PROGRAMS, e.target.id);
+    setProgramFormValues(program);
     showProgramContainer();
+}
+
+const setProgramFormValues = (program) => {
+    console.log(program);
+    if(!program) {
+        alert("There was while identifying the program!");
+        clearProgramFormFields();
+        return;
+    }
+
+    userProram.value = program.Program_ID;
+
 }
 
 const hideProgramContainer = () => {
@@ -651,3 +670,29 @@ const clearProgramFormFields = () => {
     programDescription.value = "";
     feeDescription.value = "";
 }
+
+
+
+const setProgramFormType = () => {
+    var formTitle = document.querySelectorAll(".program-auth-cart-title")[0];
+    var formSubmitBtn = document.querySelectorAll(".program-form-submit")[0];
+    if(programFormType === ADD_PROGRAM) {
+        formTitle.innerText = "Add Program";
+        formSubmitBtn.value = "Add";
+    }
+    else {
+        formTitle.innerText = "Update Program";
+        formSubmitBtn.value = "Update";
+    }
+}
+
+const setProgramFormTypeToADD = () => {
+    programFormType = ADD_PROGRAM;
+    setProgramFormType();
+}
+
+const setProgramFormTypeToUPDATE = () => {
+    programFormType = UPDATE_PROGRAM;
+    setProgramFormType();
+}
+
