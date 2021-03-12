@@ -8,6 +8,7 @@ import {
 var NAME_VALID = false;
 var EMAIL_VALID = false;
 var PASSOWRD_VALID = false;
+var PROGRAMS = null;
 var CHOSEN_PROGRAMS = [];
 
 /*dom elements*/
@@ -197,6 +198,7 @@ const getProgramsDB = () => {
     })
     .then(programs => {
         initProgramInForm(programs);
+        PROGRAMS = programs;
     })
     .catch(err => {
         displayServerError();
@@ -406,7 +408,13 @@ document.forms[2].addEventListener("submit", e => {
 
     if(!verifyProgramFormInputs()) return;
 
-    handleProgramFormSubmit();
+    const program = handleProgramFormSubmit();
+
+    const { Name } = getProgramByID(PROGRAMS, program.Program_ID);
+
+    choosenProgramsContainer.append(
+        generateNewChoosenProgram(program.Program_ID, Name)
+    );
 
 });
 
@@ -445,13 +453,13 @@ document.addEventListener("click", e => {
 });
 
 
-const generateNewChoosenProgram = (id) => {
+const generateNewChoosenProgram = (id, name) => {
 
     var div = document.createElement("div");
     div.classList.add("form-content", "choosen-program");
     div.setAttribute("id", id);
     div.innerHTML = `
-            <input class="choosen-program-input" type="text" name="email" id="user-email" placeholder="program namessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" disabled>
+            <input class="choosen-program-input" type="text" name="email" id="user-email" placeholder="${name}" disabled>
             <i class="fas fa-times fa-1x choosen-program-remove"></i>`
     
     return div;
@@ -599,8 +607,7 @@ const handleProgramFormSubmit = () => {
         program.MM_PN = programMinMarkProgramName.value;
 
         CHOSEN_PROGRAMS.push(program);
-
-
+        return program;
 }
 
 const verifyProgramAlreadyChosen = () => {
@@ -618,7 +625,14 @@ const verifyProgramAlreadyChosen = () => {
 
 
 userProram.addEventListener("change", e => {
-
+    console.log(PROGRAMS);
     verifyProgramAlreadyChosen();
 })
+
+
+const getProgramByID =  (programs, id) => {
+    for (let i = 0; i < programs.length; i++) {
+        if(parseInt(programs[i].Program_ID) === parseInt(id)) return programs[i];
+    }
+}
 
