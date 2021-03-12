@@ -478,8 +478,10 @@ const verifyProgramFormInputs = () => {
 
 
 
-
-
+const isProgramAlreadyChosen = (id) => {
+    var chosenPrograms = document.querySelectorAll(".choosen-program");
+    console.log(chosenPrograms);
+}
 
 
 
@@ -521,3 +523,7 @@ choosenProgramsContainer.append(generateNewChoosenProgram());
 getProgramsDB();
 //initialize countries in the form.
 getCountriesDB();
+
+
+
+isProgramAlreadyChosen(3);
