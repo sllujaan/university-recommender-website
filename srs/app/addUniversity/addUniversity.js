@@ -33,6 +33,8 @@ var stageUniDetailsTab = document.querySelectorAll(".stage-uni-details-tab")[0];
 var stageUniProgramsTab = document.querySelectorAll(".stage-uni-programs-tab")[0];
 var lineSeparator = document.querySelectorAll(".line-separator")[0];
 
+var programContainerWrapper = document.querySelectorAll(".program-container-wrapper")[0];
+
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
@@ -365,8 +367,34 @@ document.forms[0].addEventListener("submit", e => {
 });
 
 document.addEventListener("click", e => {
+    const isprogramContainerWrapper = (e.target.classList.contains("program-container-wrapper"));
+    const addProgramBtn = (e.target.classList.contains("add-program-icon"));
+    const TRUE_VALUE = true;
+
+    switch (TRUE_VALUE) {
+        case isprogramContainerWrapper:
+            hideProgramContainer();
+            break;
+        case addProgramBtn:
+            showProgramContainer();
+            break;
+    
+        default:
+            break;
+    }
+
     console.log(e.target);
 });
+
+
+
+const hideProgramContainer = () => {
+    programContainerWrapper.classList.add("hide");
+}
+
+const showProgramContainer = () => {
+    programContainerWrapper.classList.remove("hide");
+}
 
 
 // document.forms[1].addEventListener("submit", e => {

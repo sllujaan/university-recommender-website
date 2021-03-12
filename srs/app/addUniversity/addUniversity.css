@@ -339,7 +339,16 @@ form input:focus {
     overflow: auto;
 }
 
+.fee-description {
+    resize: none;
+    width: 100%;
+    border: 1px solid lightgray;
+    padding: 10px 20px;
+}
 
+.hide {
+    display: none;
+}
 
 /*--------------------------------------*/
 
