@@ -34,7 +34,7 @@ var stageUniProgramsTab = document.querySelectorAll(".stage-uni-programs-tab")[0
 var lineSeparator = document.querySelectorAll(".line-separator")[0];
 
 var programContainerWrapper = document.querySelectorAll(".program-container-wrapper")[0];
-
+var choosenProgramsContainer = document.querySelectorAll(".choosen-programs-container")[0];
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
@@ -400,6 +400,18 @@ document.addEventListener("click", e => {
     console.log(e.target);
 });
 
+
+const generateNewChoosenProgram = () => {
+
+    var div = document.createElement("div");
+    div.classList.add("form-content", "choosen-program");
+    div.innerHTML = `
+            <input class="choosen-program-input" type="text" name="email" id="user-email" placeholder="program namessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" disabled>
+            <i class="fas fa-times fa-1x choosen-program-remove"></i>`
+    
+    return div;
+}
+
 const removeChoosenProgram = (e) => {
     const _confirm = confirm("Do You really want to remove the Program?");
     if(_confirm) e.target.parentElement.remove();
@@ -439,4 +451,9 @@ goToProgramsStage();
 
 
 
+choosenProgramsContainer.append(generateNewChoosenProgram());
+choosenProgramsContainer.append(generateNewChoosenProgram());
+choosenProgramsContainer.append(generateNewChoosenProgram());
+choosenProgramsContainer.append(generateNewChoosenProgram());
+choosenProgramsContainer.append(generateNewChoosenProgram());
 
