@@ -416,6 +416,9 @@ document.forms[2].addEventListener("submit", e => {
         generateNewChoosenProgram(program.Program_ID, Name)
     );
 
+    hideProgramContainer();
+    clearProgramFormFields();
+
 });
 
 document.addEventListener("click", e => {
@@ -636,3 +639,15 @@ const getProgramByID =  (programs, id) => {
     }
 }
 
+const clearProgramFormFields = () => {
+    var form = document.forms[2];
+    var inputs = form.getElementsByTagName("input");
+
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].value = "";
+    }
+
+    userProram.selectedIndex = 0;
+    programDescription.value = "";
+    feeDescription.value = "";
+}
