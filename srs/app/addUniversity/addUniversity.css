@@ -335,12 +335,8 @@ form input:focus {
 }
 
 .program-container-wrapper .program-container {
-    background-color: white;
-    width: 50%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    max-height: 100vh;
+    overflow: auto;
 }
 
 

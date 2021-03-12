@@ -246,21 +246,114 @@
 
     <div class="program-container-wrapper">
         
-        <div class="stage-uni-programs">
-            <!------------------Cart University Details--------------------->
+        <div class="stage-uni-programs program-container">
+            <!------------------Card University Details--------------------->
             <div class="auth-card">
                 <form action="">
                     <div class="auth-cart-title">Add Program</div>
                     <div class="form-content-container">
-                        <!---------------------choosen program---------------------->
-                        <div class="form-content choosen-program">
-                            <input class="choosen-program-input" type="text" name="email" id="user-email" placeholder="program namessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" disabled>
-                            <i class="fas fa-times fa-1x choosen-program-remove"></i>
+
+                        <!---------------------Program-------------------->
+                        <div class="form-content">
+                            <select name="program" id="user-program" required disabled>
+                                <option value="" selected disabled hidden>Select Program</option>
+                                <!-- <option value="id">Computer Science</option>
+                                <option value="id">Software Engineering</option> -->
+                            </select>
                         </div>
+
+                                                
+                        <!---------------------Description---------------------->
+                        <div class="form-content">
+                            <input type="text" name="email" id="user-email" placeholder="Description"  required>
+                        </div>
+
+                        <!--------------------------Admission Fees----------------->
+                        <div class="form-content percentage">
+                            <input type="number" name="budget_US_$" id="user_budget_US_$" placeholder="Enter Admission Fees" min="0" max="100" required>
+                            <div>$</div>
+                        </div>
+
+                        <!--------------------------Admission Fees----------------->
+                        <div class="form-content percentage">
+                            <input type="number" name="budget_US_$" id="user_budget_US_$" placeholder="Enter Admission Fees" min="0" max="100" required>
+                            <div>$</div>
+                        </div>
+
+                        <!--------------------------Admission Fees----------------->
+                        <div class="form-content percentage">
+                            <input type="number" name="budget_US_$" id="user_budget_US_$" placeholder="Enter Admission Fees" min="0" max="100" required>
+                            <div>$</div>
+                        </div>
+
+                        <!--------------------------Admission Fees----------------->
+                        <div class="form-content percentage">
+                            <input type="number" name="budget_US_$" id="user_budget_US_$" placeholder="Enter Admission Fees" min="0" max="100" required>
+                            <div>$</div>
+                        </div>
+
+                        <!--------------------------Admission Fees----------------->
+                        <div class="form-content percentage">
+                            <input type="number" name="budget_US_$" id="user_budget_US_$" placeholder="Enter Admission Fees" min="0" max="100" required>
+                            <div>$</div>
+                        </div>
+
+                        <!--------------------------Admission Fees----------------->
+                        <div class="form-content percentage">
+                            <input type="number" name="budget_US_$" id="user_budget_US_$" placeholder="Enter Admission Fees" min="0" max="100" required>
+                            <div>$</div>
+                        </div>
+
+                        <!--------------------------Admission Fees----------------->
+                        <div class="form-content percentage">
+                            <input type="number" name="budget_US_$" id="user_budget_US_$" placeholder="Enter Admission Fees" min="0" max="100" required>
+                            <div>$</div>
+                        </div>
+
+
+                        <!---------------------Fees Description---------------------->
+                        <div class="form-content">
+                            <input type="text" name="email" id="user-email" placeholder="Enter Fees Description"  required>
+                        </div>
+
+
+                        <!--------------Min marks percentage----------------->
+                        <!---Abbrevations:
+                            h_education_pct: secondary education percentage---->
+                        <div class="form-content percentage">
+                            <input type="number" name="h_education_pct" id="user-h_education_pct" placeholder="Enter Higher Education Marks percentage" min="0" max="100" required>
+                            <div>%</div>
+                        </div>
+
+
+                        <!---------------------Min Marks program Name---------------------->
+                        <div class="form-content">
+                            <input type="text" name="email" id="user-email" placeholder="Description"  required>
+                        </div>
+
+
+                        <!-----------------Next Button----------------->
+                        <div class="form-content">
+                            <input id="auth-submit" type="submit" value="Add">
+                        </div>
+
+                        <!-----------------Separator----------------->
+                        <div class="form-content separator">
+                            <span>or</span>
+                        </div>
+
+                        <!-----------------cancel button----------------->
+                        <div class="form-content login-container">
+                            <a href="../login/login.html">Cancel</a>
+                        </div>
+
+
+
                     </div>
                 </form>
             </div>
         </div>
+    </div>
     
 
     
