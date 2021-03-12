@@ -36,10 +36,27 @@ var lineSeparator = document.querySelectorAll(".line-separator")[0];
 
 
 
+
+
+
+
+var programDescription = document.getElementById("program-description");
+var programAdmiFee = document.getElementById("program-admi-fee");
+var programRegFee = document.getElementById("program-reg-fee");
+var programSecurityFee = document.getElementById("program-security-fee");
+var programAdmiProcFee = document.getElementById("program-admi-proc-fee");
+var programEnrollFee = document.getElementById("program-enroll-fee");
+var programTuitionFee = document.getElementById("program-tuition-fee");
+var programConvocFee = document.getElementById("program-convoc-fee");
+var feeDescription = document.getElementById("program-fee-description");
+var programMinMarksPct = document.getElementById("program-min-marks-pct");
+var programMinMarkProgramName = document.getElementById("program-min-mark-program-name");
+
+
 var programContainerWrapper = document.querySelectorAll(".program-container-wrapper")[0];
 var choosenProgramsContainer = document.querySelectorAll(".choosen-programs-container")[0];
-var programDescription = document.querySelectorAll(".program-description")[0];
-var feeDescription = document.querySelectorAll(".fee-description")[0];
+//var programDescription = document.querySelectorAll(".program-description")[0];
+//var feeDescription = document.querySelectorAll(".fee-description")[0];
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
@@ -385,7 +402,11 @@ document.forms[2].addEventListener("submit", e => {
     console.log("forms2");
     console.log(e.target);
 
-    verifyProgramFormInputs();
+    
+
+    if(!verifyProgramFormInputs()) return;
+
+    handleProgramFormSubmit();
 
 });
 
@@ -424,10 +445,11 @@ document.addEventListener("click", e => {
 });
 
 
-const generateNewChoosenProgram = () => {
+const generateNewChoosenProgram = (id) => {
 
     var div = document.createElement("div");
     div.classList.add("form-content", "choosen-program");
+    div.setAttribute("id", id);
     div.innerHTML = `
             <input class="choosen-program-input" type="text" name="email" id="user-email" placeholder="program namessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" disabled>
             <i class="fas fa-times fa-1x choosen-program-remove"></i>`
@@ -455,6 +477,10 @@ const showProgramContainer = () => {
 
 const verifyProgramFormInputs = () => {
 
+    if(verifyProgramAlreadyChosen()) {
+        return false;
+    }
+
     if(programDescription.value === "") {
         programDescription.style.setProperty("border-color", "red");
         return false;
@@ -481,6 +507,16 @@ const verifyProgramFormInputs = () => {
 const isProgramAlreadyChosen = (id) => {
     var chosenPrograms = document.querySelectorAll(".choosen-program");
     console.log(chosenPrograms);
+    
+    for (let i = 0; i < chosenPrograms.length; i++) {
+        if(parseInt(chosenPrograms[i].id) === parseInt(id)) {
+            return true;
+        }
+        
+    }
+
+    return false;
+
 }
 
 
@@ -511,11 +547,11 @@ goToProgramsStage();
 
 
 
-choosenProgramsContainer.append(generateNewChoosenProgram());
-choosenProgramsContainer.append(generateNewChoosenProgram());
-choosenProgramsContainer.append(generateNewChoosenProgram());
-choosenProgramsContainer.append(generateNewChoosenProgram());
-choosenProgramsContainer.append(generateNewChoosenProgram());
+choosenProgramsContainer.append(generateNewChoosenProgram(1));
+choosenProgramsContainer.append(generateNewChoosenProgram(2));
+choosenProgramsContainer.append(generateNewChoosenProgram(3));
+choosenProgramsContainer.append(generateNewChoosenProgram(4));
+choosenProgramsContainer.append(generateNewChoosenProgram(5));
 
 
 
@@ -527,3 +563,62 @@ getCountriesDB();
 
 
 isProgramAlreadyChosen(3);
+
+
+
+const handleProgramFormSubmit = () => {
+
+        var program = {
+            "Program_ID": null,
+            "Description": null,
+            "Admission_Fee": null,
+            "Registration_Fee": null,
+            "Security_Fee": null,
+            "Admission_Processing_Fee": null,
+            "Enrollment_Fee_Per_Semester": null,
+            "Tuition_Fee_per_Credit_Hour": null,
+            "Convocation_Fee": null,
+            "Fee_Description": null,
+            "MM_PCT": null,
+            "MM_PN": null
+        };
+
+
+
+        program.Program_ID = userProram.value;
+        program.Description = programDescription.value;
+        program.Admission_Fee = programAdmiFee.value;
+        program.Registration_Fee = programRegFee.value;
+        program.Security_Fee = programSecurityFee.value;
+        program.Admission_Processing_Fee = programAdmiProcFee.value;
+        program.Enrollment_Fee_Per_Semester = programEnrollFee.value;
+        program.Tuition_Fee_per_Credit_Hour = programTuitionFee.value;
+        program.Convocation_Fee = programConvocFee.value;
+        program.Fee_Description = feeDescription.value;
+        program.MM_PCT = programMinMarksPct.value;
+        program.MM_PN = programMinMarkProgramName.value;
+
+        CHOSEN_PROGRAMS.push(program);
+
+
+}
+
+const verifyProgramAlreadyChosen = () => {
+    if(isProgramAlreadyChosen(userProram.value)) {
+        userProram.style.setProperty("border-color", "red");
+        alert("The program already has been added!");
+        userProram.blur();
+        return true;
+    }
+    else {
+        userProram.style.setProperty("border-color", "lightgray");
+        return false;
+    }
+}
+
+
+userProram.addEventListener("change", e => {
+
+    verifyProgramAlreadyChosen();
+})
+
