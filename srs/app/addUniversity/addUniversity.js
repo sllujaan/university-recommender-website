@@ -14,6 +14,9 @@ const UPDATE_PROGRAM = 0x0ffd;
 const ADD_PROGRAM = 0x0fcc;
 var programFormType = ADD_PROGRAM;
 
+
+const PROGRAM_SAMPLE = {"Program_ID": 2, "Description": "saaaaaaaaaaa", "Admission_Fee": 500,  "Registration_Fee": 500, "Security_Fee": 500, "Admission_Processing_Fee": 500, "Enrollment_Fee_Per_Semester": 500, "Tuition_Fee_per_Credit_Hour": 500, "Convocation_Fee": 500, "Fee_Description": "fee description", "MM_PCT": 1, "MM_PN": "CS1"};
+
 /*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
@@ -479,9 +482,12 @@ const removeChoosenProgram = (e) => {
 
 const updateChoosenProgram = (e) => {
     setProgramFormTypeToUPDATE();
-    const program = getProgramByID(PROGRAMS, e.target.id);
-    setProgramFormValues(program);
-    showProgramContainer();
+    const program = getProgramByID(CHOSEN_PROGRAMS, e.target.id);
+
+    if(setProgramFormValues(program)) {
+        showProgramContainer();
+    }
+    
 }
 
 const setProgramFormValues = (program) => {
@@ -489,10 +495,40 @@ const setProgramFormValues = (program) => {
     if(!program) {
         alert("There was while identifying the program!");
         clearProgramFormFields();
-        return;
+        return false;
     }
 
+
+        // program.Program_ID = userProram.value;
+        // program.Description = programDescription.value;
+        // program.Admission_Fee = programAdmiFee.value;
+        // program.Registration_Fee = programRegFee.value;
+        // program.Security_Fee = programSecurityFee.value;
+        // program.Admission_Processing_Fee = programAdmiProcFee.value;
+        // program.Enrollment_Fee_Per_Semester = programEnrollFee.value;
+        // program.Tuition_Fee_per_Credit_Hour = programTuitionFee.value;
+        // program.Convocation_Fee = programConvocFee.value;
+        // program.Fee_Description = feeDescription.value;
+        // program.MM_PCT = programMinMarksPct.value;
+        // program.MM_PN = programMinMarkProgramName.value;
+
+
+
+    console.log(program);
     userProram.value = program.Program_ID;
+    programDescription.value = program.Description;
+    programAdmiFee.value = program.Admission_Fee;
+    programRegFee.value = program.Registration_Fee;
+    programSecurityFee.value = program.Security_Fee;
+    programAdmiProcFee.value = program.Admission_Processing_Fee;
+    programEnrollFee.value = program.Enrollment_Fee_Per_Semester;
+    programTuitionFee.value = program.Tuition_Fee_per_Credit_Hour;
+    programConvocFee.value = program.Convocation_Fee;
+    feeDescription.value = program.Fee_Description;
+    programMinMarksPct.value = program.MM_PCT;
+    programMinMarkProgramName.value = program.MM_PN;
+
+    return true;
 
 }
 
@@ -696,3 +732,9 @@ const setProgramFormTypeToUPDATE = () => {
     setProgramFormType();
 }
 
+
+
+CHOSEN_PROGRAMS.push(PROGRAM_SAMPLE);
+choosenProgramsContainer.append(
+    generateNewChoosenProgram(PROGRAM_SAMPLE.Program_ID, "auto generated")
+);
