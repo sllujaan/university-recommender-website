@@ -300,6 +300,7 @@ form input:focus {
     padding: 14px;
     right: 1px;
     top: 1px;
+    border-radius: 6px;
 }
 
 .add-program {
@@ -347,11 +348,12 @@ form input:focus {
     overflow: auto;
 }
 
-.fee-description {
+.textarea-description {
     resize: none;
     width: 100%;
     border: 1px solid lightgray;
     padding: 10px 20px;
+    border-radius: 6px;
 }
 
 

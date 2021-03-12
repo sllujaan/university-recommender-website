@@ -8,6 +8,7 @@ import {
 var NAME_VALID = false;
 var EMAIL_VALID = false;
 var PASSOWRD_VALID = false;
+var CHOSEN_PROGRAMS = [];
 
 /*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
@@ -33,8 +34,12 @@ var stageUniDetailsTab = document.querySelectorAll(".stage-uni-details-tab")[0];
 var stageUniProgramsTab = document.querySelectorAll(".stage-uni-programs-tab")[0];
 var lineSeparator = document.querySelectorAll(".line-separator")[0];
 
+
+
 var programContainerWrapper = document.querySelectorAll(".program-container-wrapper")[0];
 var choosenProgramsContainer = document.querySelectorAll(".choosen-programs-container")[0];
+var programDescription = document.querySelectorAll(".program-description")[0];
+var feeDescription = document.querySelectorAll(".fee-description")[0];
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
@@ -358,12 +363,30 @@ const goToUniversityStage = () => {
 }
 
 
+/*fired when user selects country.*/
+userCountry.addEventListener("change", e => {
+    console.log(e.target.value);
+    userCity.disabled = true;
+    getCitiesDB(e.target.value);
+})
+
+
 /*fired when user click submit button or hits enter key.*/
 document.forms[0].addEventListener("submit", e => {
     e.preventDefault();
     console.log("forms0");
     //handleOnSubmit(e);
     goToProgramsStage();
+});
+
+/*fired when user click submit button or hits enter key.*/
+document.forms[2].addEventListener("submit", e => {
+    e.preventDefault();
+    console.log("forms2");
+    console.log(e.target);
+
+    verifyProgramFormInputs();
+
 });
 
 document.addEventListener("click", e => {
@@ -430,6 +453,41 @@ const showProgramContainer = () => {
 }
 
 
+const verifyProgramFormInputs = () => {
+
+    if(programDescription.value === "") {
+        programDescription.style.setProperty("border-color", "red");
+        return false;
+    }
+    else {
+        programDescription.style.setProperty("border-color", "lightgray");
+    }
+
+    if(feeDescription.value === "") {
+        feeDescription.style.setProperty("border-color", "red");
+        return false;
+    }
+    else {
+        feeDescription.style.setProperty("border-color", "lightgray");
+    }
+
+    return true;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // document.forms[1].addEventListener("submit", e => {
 //     e.preventDefault();
 //     console.log("forms0");
@@ -457,3 +515,9 @@ choosenProgramsContainer.append(generateNewChoosenProgram());
 choosenProgramsContainer.append(generateNewChoosenProgram());
 choosenProgramsContainer.append(generateNewChoosenProgram());
 
+
+
+//initialize programs in the form.
+getProgramsDB();
+//initialize countries in the form.
+getCountriesDB();
