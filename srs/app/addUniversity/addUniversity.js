@@ -472,8 +472,18 @@ userCountry.addEventListener("change", e => {
     console.log(e.target.value);
     userCity.disabled = true;
     getCitiesDB(e.target.value);
-})
+});
 
+uniName.addEventListener("change", e => {
+    console.log(uniName.value);
+    verfiyUniName(e);
+});
+
+
+const verfiyUniName = (e) => {
+    validateInputFieldDB(e, null);
+
+}
 
 /*fired when user click submit button or hits enter key.*/
 document.forms[0].addEventListener("submit", e => {
