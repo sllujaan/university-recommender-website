@@ -312,6 +312,7 @@ const getCountriesDB = () => {
  * retrieves cities from database.
  */
 const getCitiesDB = (CountryID) => {
+    console.log("getcitiesDB called.");
     const URL = URL_CITY + "?id=" + CountryID;
     fetch(URL)
     .then(res => {
@@ -365,6 +366,7 @@ const initCountryInForm = (Countries) => {
 const initCityInForm = (cities) => {
     console.log(cities);
     userCity.innerHTML = null;
+    userCity.innerHTML = `<option value="" selected disabled hidden>Select City</option>`;
     
     cities.forEach(city => {
         var option = document.createElement("option");
@@ -681,7 +683,6 @@ const showProgramContainer = () => {
 const verifyUniversityFormInputs = () => {
 
     if(NAME_VALID === false) {
-        uniName.style.setProperty("border-color", "red");
         uniName.focus();
         return false;
     }
@@ -876,7 +877,8 @@ const setUniversityFormData = (university) => {
     COUNTRY_EVENT.registerListener(() => {
         if(COUNTRY_EVENT.COUNTRY_LOADED === true) {
             uniCountry.value = university.Country_ID;
-            getCitiesDB(university.Country_ID);
+            uniCountry.dispatchEvent(new Event("change"));
+            //getCitiesDB(university.Country_ID);
         }
         
     })
@@ -884,7 +886,10 @@ const setUniversityFormData = (university) => {
     //set city when ready or fetched from database---
     CITY_EVENT.registerListener(() => {
         if(CITY_EVENT.CITY_LOADED === true) {
+            
             uniCity.value = university.City_ID;
+            if(uniCity.value === "") uniCity.selectedIndex = 0;
+            //uniCity.selectedIndex = 0;
         }
         
     })
