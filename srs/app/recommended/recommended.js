@@ -8,6 +8,8 @@ import {
 } from "../urls/urlResolver.js";
 
 
+const RECOMMENDED_SEARCH_ID = 0xf0edc;
+
 /*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
@@ -17,6 +19,10 @@ var universitiesContainer = document.querySelectorAll(".Universities-container")
 var btnLoadMore = document.querySelectorAll(".btn-load-more")[0];
 var savedSearchItemSelected = document.querySelectorAll(".saved-search-item-selected")[0];
 var containerUniDetails = document.querySelectorAll(".container-uni-details")[0];
+
+
+var sidebar = document.querySelectorAll(".side-bar")[0];
+var contianersavedSearchesResp = document.querySelectorAll(".container-saved-searches")[0];
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
@@ -31,6 +37,13 @@ const UNIVERSITES = [
 ];
 
 
+const SAVED_SEARCHES = [
+    {"Search_ID":"1","User_ID":"3","Name":"mySearch1","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null},
+    {"Search_ID":"2","User_ID":"3","Name":"mySearch2","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null},
+    {"Search_ID":"3","User_ID":"3","Name":"mySearch3","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null},
+    {"Search_ID":"4","User_ID":"3","Name":"mySearch4","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null}
+];
+
 
 
 document.addEventListener("click", e => {
@@ -40,6 +53,7 @@ document.addEventListener("click", e => {
     const isLoadMore = (e.target.id === "load-more-button");
     const idUniDetails = e.target.classList.contains("uni-name");
     const isBackCaret = e.target.classList.contains("details-back-caret");
+    const isSavedSearch = e.target.classList.contains("saved-search-item");
 
     const TRUE_VALUE = true;
 
@@ -56,6 +70,9 @@ document.addEventListener("click", e => {
             break;
         case isBackCaret:
             hideUniDetails();
+            break;
+        case isSavedSearch:
+            selectSavedSearch(e.target.id);
             break;
     
         default:
@@ -235,6 +252,73 @@ const fetchUniverstyDetails = (id) => {
         console.error(err);
     })
 }
+
+
+const addSavedSearches = (searches) => {
+
+    if(!Array.isArray(searches)) return false;
+
+    //add recommeded search
+    addRecommendedSearch();
+
+    searches.forEach(search => {
+        var div = document.createElement("div");
+        div.classList.add("saved-search-item");
+        div.setAttribute("id", search.Search_ID);
+        div.innerText = search.Name;
+        sidebar.append(div);
+
+        //do the same with responsive search container
+        var div = document.createElement("div");
+        div.classList.add("saved-search-item");
+        div.setAttribute("id", search.Search_ID);
+        div.innerText = search.Name;
+        contianersavedSearchesResp.append(div);
+    });
+    return true;
+}
+
+
+const clearSavedSearches = () => {
+    var savedSearches = document.querySelectorAll(".saved-search-item");
+    for (let i = 0; i < savedSearches.length; i++) {
+        savedSearches[i].remove();
+    }
+}
+
+const selectSavedSearch = (id) => {
+    var savedSearches = document.querySelectorAll(".saved-search-item");
+    for (let i = 0; i < savedSearches.length; i++) {
+        savedSearches[i].classList.remove("saved-search-item-selected");
+        if(parseInt(savedSearches[i].id) === parseInt(id)) {
+            savedSearches[i].classList.add("saved-search-item-selected");
+        }
+    }
+}
+
+const addRecommendedSearch = () => {
+    var div = document.createElement("div");
+    div.classList.add("recommeded-auto", "saved-search-item");
+    div.setAttribute("id", RECOMMENDED_SEARCH_ID);
+    div.innerText = "Recommended";
+    sidebar.append(div);
+
+    //do the same for responsive container
+    var div = document.createElement("div");
+    div.classList.add("recommeded-auto", "saved-search-item");
+    div.setAttribute("id", RECOMMENDED_SEARCH_ID);
+    div.innerText = "Recommended";
+    contianersavedSearchesResp.append(div);
+}
+
+
+
+
+
+clearSavedSearches();
+
+addSavedSearches(SAVED_SEARCHES);
+
 
 
 
