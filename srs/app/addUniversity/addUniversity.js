@@ -1,4 +1,4 @@
-import { loadHeaderFooter } from "../util/util.js";
+import { getUserCredentialsLocalStorage, loadHeaderFooter } from "../util/util.js";
 import {
     URL_REGISTER_NAME, URL_REGISTER_EMAIL, URL_PROGRAM,
     URL_COUNTRY, URL_CITY, URL_USER_REGISTER
@@ -10,6 +10,7 @@ var EMAIL_VALID = false;
 var PASSOWRD_VALID = false;
 var PROGRAMS = null;
 var CHOSEN_PROGRAMS = [];
+var UNIVERSITY_DATA = null;
 const UPDATE_PROGRAM = 0x0ffd;
 const ADD_PROGRAM = 0x0fcc;
 var programFormType = ADD_PROGRAM;
@@ -404,7 +405,9 @@ document.forms[0].addEventListener("submit", e => {
 
     if(!verifyUniversityFormInputs()) return;
 
-    goToProgramsStage();
+    console.log(e.target);
+
+    //goToProgramsStage();
 });
 
 /*fired when user click submit button or hits enter key.*/
@@ -648,6 +651,86 @@ getCountriesDB();
 
 
 isProgramAlreadyChosen(3);
+
+
+
+const handleUniversityFormSubmit = () => {
+
+    // "session_id": "84515059ec9a2d4cac889873328bf2d4",
+	// "user_id": 1,
+	// "Name": "punjab university6",
+	// "Description": "punjab university",
+	// "Country_ID": 100,
+	// "City_ID": 10,
+	// "Admission_Criteria": "punjab university",
+	// "Start_Admission_Date": "0000-00-00",
+	// "End_Admission_Date": "0000-00-00",
+	// "Total_ETM": 500,
+	// "S_Education_MC_PCT": 1,
+	// "H_Education_MC_PCT": 1,
+	// "PCT_MC_ETM": 1, 
+	// "Phone": "0000",
+	// "Web_Link": "punjab university",
+	// "Email": "punjab university",
+	// "Address": "punjab university",
+
+    var university = {
+        "session_id": null,
+        "user_id": null,
+        "Name": null,
+        "Description": null,
+        "Country_ID": null,
+        "City_ID": null,
+        "Admission_Criteria": null,
+        "Start_Admission_Date": null,
+        "End_Admission_Date": null,
+        "Total_ETM": null,
+        "S_Education_MC_PCT": null,
+        "H_Education_MC_PCT": null,
+        "PCT_MC_ETM": null, 
+        "Phone": null,
+        "Web_Link": null,
+        "Email": null,
+        "Address": null
+    };
+
+    const userCredentials = getUserCredentialsLocalStorage();
+
+    university.session_id = userCredentials.session_id;
+    university.user_id = userCredentials.user_id;
+    university.Name = uniName.value;
+    university.Description = uniName.value;
+    university.Country_ID = uniName.value;
+    university.City_ID = uniName.value;
+    university.Admission_Criteria = uniName.value;
+    university.Start_Admission_Date = uniName.value;
+    university.End_Admission_Date = uniName.value;
+    university.Total_ETM = uniName.value;
+    university.S_Education_MC_PCT = uniName.value;
+    university.H_Education_MC_PCT = uniName.value;
+    university.PCT_MC_ETM = uniName.value;
+    university.Phone = uniName.value;
+    university.Web_Link = uniName.value;
+    university.Email = uniName.value;
+    university.Address = uniName.value;
+
+
+    // program.Program_ID = userProram.value;
+    // program.Description = programDescription.value;
+    // program.Admission_Fee = programAdmiFee.value;
+    // program.Registration_Fee = programRegFee.value;
+    // program.Security_Fee = programSecurityFee.value;
+    // program.Admission_Processing_Fee = programAdmiProcFee.value;
+    // program.Enrollment_Fee_Per_Semester = programEnrollFee.value;
+    // program.Tuition_Fee_per_Credit_Hour = programTuitionFee.value;
+    // program.Convocation_Fee = programConvocFee.value;
+    // program.Fee_Description = feeDescription.value;
+    // program.MM_PCT = programMinMarksPct.value;
+    // program.MM_PN = programMinMarkProgramName.value;
+
+    CHOSEN_PROGRAMS.push(program);
+    return program;
+}
 
 
 
