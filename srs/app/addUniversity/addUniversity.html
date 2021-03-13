@@ -63,11 +63,6 @@
                                 *
                             </div>
 
-                            <!---------------------Description---------------------->
-                            <div class="form-content">
-                                <input type="text" name="email" id="user-email" placeholder="Description"  required>
-                            </div>
-
                             <!--------------------------Country----------------->
                             <div class="form-content">
                                 <select name="country" id="user-country" required disabled>
@@ -151,6 +146,13 @@
                             <div class="form-content percentage">
                                 <input type="number" name="etm_pct" id="user-etm_pct" placeholder="ET Merit Criteria Percentage" min="0" max="100" required>
                                 <div>%</div>
+                            </div>
+
+
+                            
+                            <!---------------------University Description---------------------->
+                            <div class="form-content">
+                                <textarea class="textarea-description university-description" name="fee-description" id="university-description" cols="30" rows="5" placeholder="Enter University Description Here..."></textarea>
                             </div>
                             
 
@@ -254,7 +256,7 @@
 
     
 
-    <div class="program-container-wrapper">
+    <div class="program-container-wrapper hide">
         
         <div class="stage-uni-programs program-container">
             <!------------------Card University Details--------------------->

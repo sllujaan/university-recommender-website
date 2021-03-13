@@ -46,7 +46,7 @@ var lineSeparator = document.querySelectorAll(".line-separator")[0];
 
 
 
-
+var universityDescription = document.getElementById("university-description");
 var programDescription = document.getElementById("program-description");
 var programAdmiFee = document.getElementById("program-admi-fee");
 var programRegFee = document.getElementById("program-reg-fee");
@@ -400,7 +400,10 @@ userCountry.addEventListener("change", e => {
 document.forms[0].addEventListener("submit", e => {
     e.preventDefault();
     console.log("forms0");
-    //handleOnSubmit(e);
+
+
+    if(!verifyUniversityFormInputs()) return;
+
     goToProgramsStage();
 });
 
@@ -528,6 +531,9 @@ const setProgramFormValues = (program) => {
     programMinMarksPct.value = program.MM_PCT;
     programMinMarkProgramName.value = program.MM_PN;
 
+    //disable user program selection
+    userProram.disabled = true;
+
     return true;
 
 }
@@ -541,9 +547,22 @@ const showProgramContainer = () => {
 }
 
 
+const verifyUniversityFormInputs = () => {
+    if(universityDescription.value === "") {
+        universityDescription.style.setProperty("border-color", "red");
+        return false;
+    }
+    else {
+        universityDescription.style.setProperty("border-color", "lightgray");
+    }
+
+    return true;
+}
+
+
 const verifyProgramFormInputs = () => {
 
-    if(verifyProgramAlreadyChosen()) {
+    if(verifyProgramAlreadyChosen() && programFormType === ADD_PROGRAM) {
         return false;
     }
 
@@ -599,7 +618,7 @@ const isProgramAlreadyChosen = (id) => {
 // });
 
 
-goToProgramsStage();
+//goToProgramsStage();
 
 
 // setTimeout(() => {
@@ -723,6 +742,7 @@ const setProgramFormType = () => {
 }
 
 const setProgramFormTypeToADD = () => {
+    userProram.disabled = false;
     programFormType = ADD_PROGRAM;
     setProgramFormType();
 }
