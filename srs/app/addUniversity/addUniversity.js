@@ -430,6 +430,19 @@ document.forms[0].addEventListener("submit", e => {
     goToProgramsStage();
 });
 
+
+/*fired when user click submit button or hits enter key.*/
+document.forms[1].addEventListener("submit", e => {
+    e.preventDefault();
+
+    if(isNoPorgramChosen()) {
+        alert("Please choose at-least one program!");
+        return;
+    }
+
+    console.log("final submit.");
+});
+
 /*fired when user click submit button or hits enter key.*/
 document.forms[2].addEventListener("submit", e => {
     e.preventDefault();
@@ -654,6 +667,14 @@ const isProgramAlreadyChosen = (id) => {
 
     return false;
 
+}
+
+const isNoPorgramChosen = () => {
+    var chosenPrograms = document.querySelectorAll(".choosen-program");
+    if(chosenPrograms.length === 0) {
+        return true;
+    }
+    return false;
 }
 
 
@@ -925,6 +946,7 @@ const addNewChosenProgram = (program, name) => {
 }
 
 
+addNewChosenProgram(PROGRAM_SAMPLE, "auto generated");
 
 
 console.log(CHOSEN_PROGRAMS);
