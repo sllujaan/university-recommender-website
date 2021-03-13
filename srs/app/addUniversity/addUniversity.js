@@ -1055,7 +1055,7 @@ const setUniProgFromsData = (universityDetails) => {
 
 
 //console.log(CHOSEN_PROGRAMS);
-//goToProgramsStage();
+goToProgramsStage();
 
 
 //setUniversityFormData(UNIVERSITY_DATA_SAMPLE);
