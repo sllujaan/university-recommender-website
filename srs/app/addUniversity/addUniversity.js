@@ -16,16 +16,32 @@ const ADD_PROGRAM = 0x0fcc;
 var programFormType = ADD_PROGRAM;
 
 
+var CUSTOM_EVENT = {
+    COUNTRY_LOADED: false,
+    aListener: function(val) {},
+    set COUNTRY_LOADED(val) {
+      this.COUNTRY_LOADED = val;
+      this.aListener(val);
+    },
+    get COUNTRY_LOADED() {
+      return this.COUNTRY_LOADED;
+    },
+    registerListener: function(listener) {
+      this.aListener = listener;
+    }
+  }
+
+
 const UNIVERSITY_DATA_SAMPLE = {
 	"session_id": "84515059ec9a2d4cac889873328bf2d4",
 	"user_id": 1,
 	"Name": "punjab university6",
 	"Description": "punjab university",
-	"Country_ID": 100,
-	"City_ID": 10,
+	"Country_ID": 146,
+	"City_ID": 1010,
 	"Admission_Criteria": "punjab university",
-	"Start_Admission_Date": "0000-00-00",
-	"End_Admission_Date": "0000-00-00",
+	"Start_Admission_Date": "2022-02-01",
+	"End_Admission_Date": "2022-02-01",
 	"Total_ETM": 500,
 	"S_Education_MC_PCT": 1,
 	"H_Education_MC_PCT": 1,
@@ -284,8 +300,8 @@ const getCitiesDB = (CountryID) => {
         if(res.status !== 200) {alert("There was an error while fetching Cities from Database!");}
         else {return res.json();}
     })
-    .then(programs => {
-        initCityInForm(programs);
+    .then(cities => {
+        initCityInForm(cities);
     })
     .catch(err => {
         displayServerError();
@@ -819,6 +835,8 @@ const setUniversityFormData = (university) => {
     uniEmail.value = university.Email;
     uniAddress.value = university.Address;
 
+    console.log(university);
+
     return UNIVERSITY_DATA;
 }
 
@@ -971,7 +989,7 @@ addNewChosenProgram(PROGRAM_SAMPLE, "auto generated");
 
 
 console.log(CHOSEN_PROGRAMS);
-goToProgramsStage();
+//goToProgramsStage();
 
 
 setUniversityFormData(UNIVERSITY_DATA_SAMPLE);
