@@ -1043,15 +1043,26 @@ const addNewChosenProgram = (program, name) => {
     CHOSEN_PROGRAMS.push(program)
 }
 
+const setUniProgFromsData = (universityDetails) => {
+    setUniversityFormData(universityDetails);
+    universityDetails.programs.forEach(program => {
+        addNewChosenProgram(program, "auto generated");
+    });
+}
 
-addNewChosenProgram(PROGRAM_SAMPLE, "auto generated");
+
+//addNewChosenProgram(PROGRAM_SAMPLE, "auto generated");
 
 
-console.log(CHOSEN_PROGRAMS);
+//console.log(CHOSEN_PROGRAMS);
 //goToProgramsStage();
 
 
-setUniversityFormData(UNIVERSITY_DATA_SAMPLE);
+//setUniversityFormData(UNIVERSITY_DATA_SAMPLE);
+
+
+setUniProgFromsData(UNIVERSITY_DATA_SAMPLE);
+console.log(CHOSEN_PROGRAMS);
 
 
 //CUSTOM_EVENT.COUNTRY_LOADED = true;
