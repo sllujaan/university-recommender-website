@@ -16,7 +16,34 @@ const ADD_PROGRAM = 0x0fcc;
 var programFormType = ADD_PROGRAM;
 
 
+const UNIVERSITY_DATA_SAMPLE = {
+	"session_id": "84515059ec9a2d4cac889873328bf2d4",
+	"user_id": 1,
+	"Name": "punjab university6",
+	"Description": "punjab university",
+	"Country_ID": 100,
+	"City_ID": 10,
+	"Admission_Criteria": "punjab university",
+	"Start_Admission_Date": "0000-00-00",
+	"End_Admission_Date": "0000-00-00",
+	"Total_ETM": 500,
+	"S_Education_MC_PCT": 1,
+	"H_Education_MC_PCT": 1,
+	"PCT_MC_ETM": 1, 
+	"Phone": "0000",
+	"Web_Link": "punjab university",
+	"Email": "punjab university",
+	"Address": "punjab university",
+	"programs": [
+		    {"Program_ID": 2, "Description": "saaaaaaaaaaa", "Admission_Fee": 500,  "Registration_Fee": 500, "Security_Fee": 500, "Admission_Processing_Fee": 500, "Enrollment_Fee_Per_Semester": 500, "Tuition_Fee_per_Credit_Hour": 500, "Convocation_Fee": 500, "Fee_Description": "fee description", "MM_PCT": 1, "MM_PN": "CS1"},
+		
+		    {"Program_ID": 3, "Description": "saaaaaaaaaaa", "Admission_Fee": 0,  "Registration_Fee": 0, "Security_Fee": 500, "Admission_Processing_Fee": 500, "Enrollment_Fee_Per_Semester": 500, "Tuition_Fee_per_Credit_Hour": 500, "Convocation_Fee": 500, "Fee_Description": "fee description", "MM_PCT": 1, "MM_PN": "CS1"}
+		]
+	
+};
+
 const PROGRAM_SAMPLE = {"Program_ID": 2, "Description": "saaaaaaaaaaa", "Admission_Fee": 1,  "Registration_Fee": 1, "Security_Fee": 1, "Admission_Processing_Fee": 1, "Enrollment_Fee_Per_Semester": 1, "Tuition_Fee_per_Credit_Hour": 1, "Convocation_Fee": 1, "Fee_Description": "fee description", "MM_PCT": 1, "MM_PN": "CS1"};
+
 
 /*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
@@ -440,6 +467,8 @@ document.forms[1].addEventListener("submit", e => {
         return;
     }
 
+    console.log(getFinalUniversityRequestData());
+
     console.log("final submit.");
 });
 
@@ -722,25 +751,9 @@ isProgramAlreadyChosen(3);
 
 
 
-const handleUniversityFormSubmit = () => {
 
-    // "session_id": "84515059ec9a2d4cac889873328bf2d4",
-	// "user_id": 1,
-	// "Name": "punjab university6",
-	// "Description": "punjab university",
-	// "Country_ID": 100,
-	// "City_ID": 10,
-	// "Admission_Criteria": "punjab university",
-	// "Start_Admission_Date": "0000-00-00",
-	// "End_Admission_Date": "0000-00-00",
-	// "Total_ETM": 500,
-	// "S_Education_MC_PCT": 1,
-	// "H_Education_MC_PCT": 1,
-	// "PCT_MC_ETM": 1, 
-	// "Phone": "0000",
-	// "Web_Link": "punjab university",
-	// "Email": "punjab university",
-	// "Address": "punjab university",
+
+const handleUniversityFormSubmit = () => {
 
     var university = {
         "session_id": null,
@@ -783,23 +796,31 @@ const handleUniversityFormSubmit = () => {
     university.Address = uniAddress.value;
 
 
-    // program.Program_ID = userProram.value;
-    // program.Description = programDescription.value;
-    // program.Admission_Fee = programAdmiFee.value;
-    // program.Registration_Fee = programRegFee.value;
-    // program.Security_Fee = programSecurityFee.value;
-    // program.Admission_Processing_Fee = programAdmiProcFee.value;
-    // program.Enrollment_Fee_Per_Semester = programEnrollFee.value;
-    // program.Tuition_Fee_per_Credit_Hour = programTuitionFee.value;
-    // program.Convocation_Fee = programConvocFee.value;
-    // program.Fee_Description = feeDescription.value;
-    // program.MM_PCT = programMinMarksPct.value;
-    // program.MM_PN = programMinMarkProgramName.value;
-
     UNIVERSITY_DATA = university;
     return UNIVERSITY_DATA;
 }
 
+
+const setUniversityFormData = (university) => {
+
+    uniName.value = university.Name;
+    universityDescription.value = university.Description;
+    uniCountry.value = university.Country_ID;
+    uniCity.value = university.City_ID;
+    uniMcDescription.value = university.Admission_Criteria;
+    uniAdmiStartDate.value = university.Start_Admission_Date;
+    uniAdmiEndDate.value = university.End_Admission_Date;
+    uniETM.value = university.Total_ETM;
+    uniSEduMcPct.value = university.S_Education_MC_PCT;
+    uniHEduMcPct.value = university.H_Education_MC_PCT;
+    uniEtmMcPct.value = university.PCT_MC_ETM;
+    uniPhone.value = university.Phone;
+    uniWeb.value = university.Web_Link;
+    uniEmail.value = university.Email;
+    uniAddress.value = university.Address;
+
+    return UNIVERSITY_DATA;
+}
 
 
 const handleProgramFormSubmit = () => {
@@ -951,3 +972,6 @@ addNewChosenProgram(PROGRAM_SAMPLE, "auto generated");
 
 console.log(CHOSEN_PROGRAMS);
 goToProgramsStage();
+
+
+setUniversityFormData(UNIVERSITY_DATA_SAMPLE);
