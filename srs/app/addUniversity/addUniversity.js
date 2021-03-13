@@ -1,4 +1,4 @@
-import { getUserCredentialsLocalStorage, loadHeaderFooter } from "../util/util.js";
+import { disableScroll, enableScroll, getUserCredentialsLocalStorage, loadHeaderFooter } from "../util/util.js";
 import {
     URL_ADD_UNIVERSITY, URL_ADD_UNIVERSITY_NAME, URL_PROGRAM,
     URL_COUNTRY, URL_CITY, URL_USER_REGISTER
@@ -79,6 +79,7 @@ const PROGRAM_SAMPLE = {"Program_ID": 2, "Description": "saaaaaaaaaaa", "Admissi
 
 
 /*dom elements*/
+var body = document.getElementsByTagName("body")[0];
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var userName = document.getElementById("user-name");
@@ -672,10 +673,12 @@ const setProgramFormValues = (program) => {
 }
 
 const hideProgramContainer = () => {
+    enableScroll(body);
     programContainerWrapper.classList.add("hide");
 }
 
 const showProgramContainer = () => {
+    disableScroll(body);
     programContainerWrapper.classList.remove("hide");
 }
 

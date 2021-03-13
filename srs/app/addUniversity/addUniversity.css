@@ -86,7 +86,7 @@ body {
 
 
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 700px) {
 
     .stage-tabs {
         flex-wrap: wrap;
@@ -106,7 +106,7 @@ body {
         height: 70px;
         margin-left: 20px;
         border: none;
-        border-left: 7px solid lightgray;
+        border-left: 6px solid lightgray;
         border-radius: 0px;
     }
 }
@@ -368,7 +368,7 @@ form input:focus {
 
 /*--------------------------------------*/
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 700px) {
     body {
         background-color: var(--color-white);
     }
@@ -379,6 +379,11 @@ form input:focus {
     .form-content {
         width: 95%;
     }
+
+    .program-container-wrapper .auth-card {
+        width: 100%;
+    }
+
 }
 
 .no-display {
