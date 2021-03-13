@@ -1,6 +1,6 @@
 import { getUserCredentialsLocalStorage, loadHeaderFooter } from "../util/util.js";
 import {
-    URL_REGISTER_NAME, URL_REGISTER_EMAIL, URL_PROGRAM,
+    URL_ADD_UNIVERSITY, URL_ADD_UNIVERSITY_NAME, URL_PROGRAM,
     URL_COUNTRY, URL_CITY, URL_USER_REGISTER
 } from "../urls/urlResolver.js";
 
@@ -481,7 +481,7 @@ uniName.addEventListener("change", e => {
 
 
 const verfiyUniName = (e) => {
-    validateInputFieldDB(e, null);
+    validateInputFieldDB(e, URL_ADD_UNIVERSITY_NAME);
 
 }
 
@@ -679,6 +679,13 @@ const showProgramContainer = () => {
 
 
 const verifyUniversityFormInputs = () => {
+
+    if(NAME_VALID === false) {
+        uniName.style.setProperty("border-color", "red");
+        uniName.focus();
+        return false;
+    }
+
     if(universityDescription.value === "") {
         universityDescription.style.setProperty("border-color", "red");
         return false;
