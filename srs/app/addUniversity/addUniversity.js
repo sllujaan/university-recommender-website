@@ -25,8 +25,7 @@ var userName = document.getElementById("user-name");
 var userEmail = document.getElementById("user-email");
 var userPassword = document.getElementById("user-password");
 var userRepassword = document.getElementById("user-repassword");
-var userCountry = document.getElementById("user-country");
-var userCity = document.getElementById("user-city");
+
 var userProram = document.getElementById("user-program");
 var userAddmissionDate= document.getElementById("user-addmission-date");
 var userHeducationPct = document.getElementById("user-h_education_pct");
@@ -42,12 +41,29 @@ var stageUniDetailsTab = document.querySelectorAll(".stage-uni-details-tab")[0];
 var stageUniProgramsTab = document.querySelectorAll(".stage-uni-programs-tab")[0];
 var lineSeparator = document.querySelectorAll(".line-separator")[0];
 
-
-
-
-
-
+/*-----------------------------university form variables------------------------*/
+var uniName = document.getElementById("uni-name");
+var uniCountry = document.getElementById("uni-country");
+var uniCity = document.getElementById("uni-city");
+var uniAdmiStartDate = document.getElementById("uni-admi-start-date");
+var uniAdmiEndDate = document.getElementById("uni-admi-end-date");
+var uniHEduMcPct = document.getElementById("uni-h_edu_mc_pct");
+var uniSEduMcPct = document.getElementById("uni-s_edu_mc_pct");
+var uniETM = document.getElementById("uni-ETM");
+var uniEtmMcPct = document.getElementById("uni-etm_mc_pct");
 var universityDescription = document.getElementById("university-description");
+var uniMcDescription = document.getElementById("uni-mc_description");
+var uniPhone = document.getElementById("uni-phone");
+var uniWeb = document.getElementById("uni-web");
+var uniEmail = document.getElementById("uni-email");
+var uniAddress = document.getElementById("uni-address");
+
+var userCountry = uniCountry;
+var userCity = uniCity;
+/*----------------------------------------------------------------------------*/
+
+
+/*-----------------------------program form variables------------------------*/
 var programDescription = document.getElementById("program-description");
 var programAdmiFee = document.getElementById("program-admi-fee");
 var programRegFee = document.getElementById("program-reg-fee");
@@ -59,7 +75,7 @@ var programConvocFee = document.getElementById("program-convoc-fee");
 var feeDescription = document.getElementById("program-fee-description");
 var programMinMarksPct = document.getElementById("program-min-marks-pct");
 var programMinMarkProgramName = document.getElementById("program-min-mark-program-name");
-
+/*-----------------------------------------------------------------------------------------*/
 
 var programContainerWrapper = document.querySelectorAll(".program-container-wrapper")[0];
 var choosenProgramsContainer = document.querySelectorAll(".choosen-programs-container")[0];
@@ -405,7 +421,11 @@ document.forms[0].addEventListener("submit", e => {
 
     if(!verifyUniversityFormInputs()) return;
 
-    console.log(e.target);
+    const university = handleUniversityFormSubmit();
+
+    console.log(university);
+
+    console.log(getFinalUniversityRequestData());
 
     //goToProgramsStage();
 });
@@ -559,6 +579,14 @@ const verifyUniversityFormInputs = () => {
         universityDescription.style.setProperty("border-color", "lightgray");
     }
 
+    if(uniMcDescription.value === "") {
+        uniMcDescription.style.setProperty("border-color", "red");
+        return false;
+    }
+    else {
+        uniMcDescription.style.setProperty("border-color", "lightgray");
+    }
+
     return true;
 }
 
@@ -699,20 +727,20 @@ const handleUniversityFormSubmit = () => {
     university.session_id = userCredentials.session_id;
     university.user_id = userCredentials.user_id;
     university.Name = uniName.value;
-    university.Description = uniName.value;
-    university.Country_ID = uniName.value;
-    university.City_ID = uniName.value;
-    university.Admission_Criteria = uniName.value;
-    university.Start_Admission_Date = uniName.value;
-    university.End_Admission_Date = uniName.value;
-    university.Total_ETM = uniName.value;
-    university.S_Education_MC_PCT = uniName.value;
-    university.H_Education_MC_PCT = uniName.value;
-    university.PCT_MC_ETM = uniName.value;
-    university.Phone = uniName.value;
-    university.Web_Link = uniName.value;
-    university.Email = uniName.value;
-    university.Address = uniName.value;
+    university.Description = universityDescription.value;
+    university.Country_ID = uniCountry.value;
+    university.City_ID = uniCity.value;
+    university.Admission_Criteria = uniMcDescription.value;
+    university.Start_Admission_Date = uniAdmiStartDate.value;
+    university.End_Admission_Date = uniAdmiEndDate.value;
+    university.Total_ETM = uniETM.value;
+    university.S_Education_MC_PCT = uniSEduMcPct.value;
+    university.H_Education_MC_PCT = uniHEduMcPct.value;
+    university.PCT_MC_ETM = uniEtmMcPct.value;
+    university.Phone = uniPhone.value;
+    university.Web_Link = uniWeb.value;
+    university.Email = uniEmail.value;
+    university.Address = uniAddress.value;
 
 
     // program.Program_ID = userProram.value;
@@ -728,8 +756,8 @@ const handleUniversityFormSubmit = () => {
     // program.MM_PCT = programMinMarksPct.value;
     // program.MM_PN = programMinMarkProgramName.value;
 
-    CHOSEN_PROGRAMS.push(program);
-    return program;
+    UNIVERSITY_DATA = university;
+    return UNIVERSITY_DATA;
 }
 
 
@@ -841,3 +869,10 @@ CHOSEN_PROGRAMS.push(PROGRAM_SAMPLE);
 choosenProgramsContainer.append(
     generateNewChoosenProgram(PROGRAM_SAMPLE.Program_ID, "auto generated")
 );
+
+
+const getFinalUniversityRequestData = () => {
+    var requestData = UNIVERSITY_DATA;
+    requestData.programs = CHOSEN_PROGRAMS;
+    return requestData;
+}
