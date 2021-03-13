@@ -8,7 +8,7 @@ import {
 } from "../urls/urlResolver.js";
 
 
-const RECOMMENDED_SEARCH_ID = 0xf0edc;
+const RECOMMENDED_SEARCH_ID = -123;
 
 /*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
@@ -73,6 +73,7 @@ document.addEventListener("click", e => {
             break;
         case isSavedSearch:
             selectSavedSearch(e.target.id);
+            performSearch(e.target.id);
             break;
     
         default:
@@ -296,6 +297,11 @@ const selectSavedSearch = (id) => {
     }
 }
 
+
+const performSearch = (searchID) => {
+    
+}
+
 const addRecommendedSearch = () => {
     var div = document.createElement("div");
     div.classList.add("recommeded-auto", "saved-search-item");
@@ -312,6 +318,10 @@ const addRecommendedSearch = () => {
 }
 
 
+const selectRecommendedSearch = () => {
+    var recommededSearch = document.querySelectorAll(".recommeded-auto")[0];
+    recommededSearch.click();
+}
 
 
 
@@ -319,6 +329,7 @@ clearSavedSearches();
 
 addSavedSearches(SAVED_SEARCHES);
 
+selectRecommendedSearch();
 
 
 
