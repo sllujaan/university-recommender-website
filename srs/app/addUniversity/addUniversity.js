@@ -446,9 +446,7 @@ document.forms[2].addEventListener("submit", e => {
 
 
     if(programFormType === ADD_PROGRAM) {
-        choosenProgramsContainer.append(
-            generateNewChoosenProgram(program.Program_ID, Name)
-        );
+        addNewChosenProgram(program, Name);
     }
     else {  //user is updating the existing program
         if(!updateExistingProgram(program)) {
@@ -508,14 +506,25 @@ const generateNewChoosenProgram = (id, name) => {
     div.setAttribute("id", id);
     div.innerHTML = `
             <input class="choosen-program-input" type="text" name="email" id="${id}" placeholder="${name}" disabled>
-            <i class="fas fa-times fa-1x choosen-program-remove"></i>`
+            <i class="fas fa-times fa-1x choosen-program-remove" id="${id}"></i>`
     
     return div;
 }
 
 const removeChoosenProgram = (e) => {
     const _confirm = confirm("Do You really want to remove the Program?");
-    if(_confirm) e.target.parentElement.remove();
+    if(_confirm) {
+        console.log(e.target.id);
+        if(!removeExistingProgramArr(e.target.id)) {
+            alert("something went wrong while removing the existing program internally!");
+            console.log(CHOSEN_PROGRAMS);
+            return;
+        }
+        e.target.parentElement.remove();
+    }
+
+    console.log(CHOSEN_PROGRAMS);
+    
 }
 
 const updateChoosenProgram = (e) => {
@@ -531,7 +540,7 @@ const updateChoosenProgram = (e) => {
 const setProgramFormValues = (program) => {
     console.log(program);
     if(!program) {
-        alert("There was while identifying the program!");
+        alert("No Program found!");
         clearProgramFormFields();
         return false;
     }
@@ -673,11 +682,11 @@ const isProgramAlreadyChosen = (id) => {
 
 
 
-choosenProgramsContainer.append(generateNewChoosenProgram(1));
-choosenProgramsContainer.append(generateNewChoosenProgram(2));
-choosenProgramsContainer.append(generateNewChoosenProgram(3));
-choosenProgramsContainer.append(generateNewChoosenProgram(4));
-choosenProgramsContainer.append(generateNewChoosenProgram(5));
+// choosenProgramsContainer.append(generateNewChoosenProgram(1));
+// choosenProgramsContainer.append(generateNewChoosenProgram(2));
+// choosenProgramsContainer.append(generateNewChoosenProgram(3));
+// choosenProgramsContainer.append(generateNewChoosenProgram(4));
+// choosenProgramsContainer.append(generateNewChoosenProgram(5));
 
 
 
@@ -804,7 +813,6 @@ const handleProgramFormSubmit = () => {
         program.MM_PCT = programMinMarksPct.value;
         program.MM_PN = programMinMarkProgramName.value;
 
-        if(programFormType === ADD_PROGRAM) CHOSEN_PROGRAMS.push(program);
         return program;
 }
 
@@ -898,6 +906,23 @@ const updateExistingProgram = (program) => {
     return false;
 }
 
+const removeExistingProgramArr = (id) => {
+    for (let i = 0; i < CHOSEN_PROGRAMS.length; i++) {
+        if(parseInt(CHOSEN_PROGRAMS[i].Program_ID) === parseInt(id)) {
+            CHOSEN_PROGRAMS.splice(i, 1);
+            return true;
+        }
+    }
+    return false;
+}
+
+
+const addNewChosenProgram = (program, name) => {
+    choosenProgramsContainer.append(
+        generateNewChoosenProgram(program.Program_ID, name)
+    );
+    CHOSEN_PROGRAMS.push(program)
+}
 
 
 
