@@ -16,20 +16,37 @@ const ADD_PROGRAM = 0x0fcc;
 var programFormType = ADD_PROGRAM;
 
 
-var CUSTOM_EVENT = {
-    COUNTRY_LOADED: false,
+var COUNTRY_EVENT = {
+    aCOUNTRY_LOADED: false,
     aListener: function(val) {},
     set COUNTRY_LOADED(val) {
-      this.COUNTRY_LOADED = val;
+      this.aCOUNTRY_LOADED = val;
       this.aListener(val);
     },
     get COUNTRY_LOADED() {
-      return this.COUNTRY_LOADED;
+      return this.aCOUNTRY_LOADED;
     },
     registerListener: function(listener) {
       this.aListener = listener;
     }
-  }
+}
+
+var CITY_EVENT = {
+    aCITY_LOADED: false,
+    aListener: function(val) {},
+    set CITY_LOADED(val) {
+      this.aCITY_LOADED = val;
+      this.aListener(val);
+    },
+    get CITY_LOADED() {
+      return this.aCITY_LOADED;
+    },
+    registerListener: function(listener) {
+      this.aListener = listener;
+    }
+}
+
+
 
 
 const UNIVERSITY_DATA_SAMPLE = {
@@ -283,6 +300,7 @@ const getCountriesDB = () => {
     })
     .then(programs => {
         initCountryInForm(programs);
+        COUNTRY_EVENT.COUNTRY_LOADED = true;
     })
     .catch(err => {
         displayServerError();
@@ -302,6 +320,7 @@ const getCitiesDB = (CountryID) => {
     })
     .then(cities => {
         initCityInForm(cities);
+        CITY_EVENT.CITY_LOADED = true;
     })
     .catch(err => {
         displayServerError();
@@ -821,8 +840,8 @@ const setUniversityFormData = (university) => {
 
     uniName.value = university.Name;
     universityDescription.value = university.Description;
-    uniCountry.value = university.Country_ID;
-    uniCity.value = university.City_ID;
+    
+    
     uniMcDescription.value = university.Admission_Criteria;
     uniAdmiStartDate.value = university.Start_Admission_Date;
     uniAdmiEndDate.value = university.End_Admission_Date;
@@ -834,6 +853,24 @@ const setUniversityFormData = (university) => {
     uniWeb.value = university.Web_Link;
     uniEmail.value = university.Email;
     uniAddress.value = university.Address;
+
+
+    //set country  when ready or fetched from database---
+    COUNTRY_EVENT.registerListener(() => {
+        if(COUNTRY_EVENT.COUNTRY_LOADED === true) {
+            uniCountry.value = university.Country_ID;
+            getCitiesDB(university.Country_ID);
+        }
+        
+    })
+
+    //set city when ready or fetched from database---
+    CITY_EVENT.registerListener(() => {
+        if(CITY_EVENT.CITY_LOADED === true) {
+            uniCity.value = university.City_ID;
+        }
+        
+    })
 
     console.log(university);
 
@@ -993,3 +1030,10 @@ console.log(CHOSEN_PROGRAMS);
 
 
 setUniversityFormData(UNIVERSITY_DATA_SAMPLE);
+
+
+//CUSTOM_EVENT.COUNTRY_LOADED = true;
+
+// setInterval(() => {
+//     CUSTOM_EVENT.COUNTRY_LOADED = true;
+// }, 1000);
