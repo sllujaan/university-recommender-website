@@ -242,16 +242,20 @@ const fetchUniverstyDetails = (id) => {
         else {return res.json();}
     })
     .then(universityDetails => {
-        console.log(universityDetails);
-        disableScroll(body);
-        setUniDetails(universityDetails);
-        containerUniDetails.style.setProperty("left", "0%");
+        showUniDetailsContainer(universityDetails);
     })
     .catch(err => {
         //displayServerError();
         alert(err);
         console.error(err);
     })
+}
+
+const showUniDetailsContainer = (universityDetails) => {
+    console.log(universityDetails);
+    disableScroll(body);
+    setUniDetails(universityDetails);
+    containerUniDetails.style.setProperty("left", "400px");
 }
 
 
@@ -299,7 +303,7 @@ const selectSavedSearch = (id) => {
 
 
 const performSearch = (searchID) => {
-    
+
 }
 
 const addRecommendedSearch = () => {
