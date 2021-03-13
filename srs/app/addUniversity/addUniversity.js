@@ -16,7 +16,7 @@ const ADD_PROGRAM = 0x0fcc;
 var programFormType = ADD_PROGRAM;
 
 
-const PROGRAM_SAMPLE = {"Program_ID": 2, "Description": "saaaaaaaaaaa", "Admission_Fee": 500,  "Registration_Fee": 500, "Security_Fee": 500, "Admission_Processing_Fee": 500, "Enrollment_Fee_Per_Semester": 500, "Tuition_Fee_per_Credit_Hour": 500, "Convocation_Fee": 500, "Fee_Description": "fee description", "MM_PCT": 1, "MM_PN": "CS1"};
+const PROGRAM_SAMPLE = {"Program_ID": 2, "Description": "saaaaaaaaaaa", "Admission_Fee": 1,  "Registration_Fee": 1, "Security_Fee": 1, "Admission_Processing_Fee": 1, "Enrollment_Fee_Per_Semester": 1, "Tuition_Fee_per_Credit_Hour": 1, "Convocation_Fee": 1, "Fee_Description": "fee description", "MM_PCT": 1, "MM_PN": "CS1"};
 
 /*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
@@ -423,11 +423,11 @@ document.forms[0].addEventListener("submit", e => {
 
     const university = handleUniversityFormSubmit();
 
-    console.log(university);
+    // console.log(university);
 
-    console.log(getFinalUniversityRequestData());
+    // console.log(getFinalUniversityRequestData());
 
-    //goToProgramsStage();
+    goToProgramsStage();
 });
 
 /*fired when user click submit button or hits enter key.*/
@@ -444,12 +444,24 @@ document.forms[2].addEventListener("submit", e => {
 
     const { Name } = getProgramByID(PROGRAMS, program.Program_ID);
 
-    choosenProgramsContainer.append(
-        generateNewChoosenProgram(program.Program_ID, Name)
-    );
+
+    if(programFormType === ADD_PROGRAM) {
+        choosenProgramsContainer.append(
+            generateNewChoosenProgram(program.Program_ID, Name)
+        );
+    }
+    else {  //user is updating the existing program
+        if(!updateExistingProgram(program)) {
+            alert("Something went wrong while updating the program internally!");
+            console.log(CHOSEN_PROGRAMS);
+            return;
+        }
+    }
 
     hideProgramContainer();
     clearProgramFormFields();
+
+    console.log(CHOSEN_PROGRAMS);
 
 });
 
@@ -593,7 +605,7 @@ const verifyUniversityFormInputs = () => {
 
 const verifyProgramFormInputs = () => {
 
-    if(verifyProgramAlreadyChosen() && programFormType === ADD_PROGRAM) {
+    if(programFormType === ADD_PROGRAM && verifyProgramAlreadyChosen()) {
         return false;
     }
 
@@ -648,8 +660,6 @@ const isProgramAlreadyChosen = (id) => {
 //     //handleOnSubmit(e);
 // });
 
-
-//goToProgramsStage();
 
 
 // setTimeout(() => {
@@ -794,7 +804,7 @@ const handleProgramFormSubmit = () => {
         program.MM_PCT = programMinMarksPct.value;
         program.MM_PN = programMinMarkProgramName.value;
 
-        CHOSEN_PROGRAMS.push(program);
+        if(programFormType === ADD_PROGRAM) CHOSEN_PROGRAMS.push(program);
         return program;
 }
 
@@ -865,10 +875,10 @@ const setProgramFormTypeToUPDATE = () => {
 
 
 
-CHOSEN_PROGRAMS.push(PROGRAM_SAMPLE);
-choosenProgramsContainer.append(
-    generateNewChoosenProgram(PROGRAM_SAMPLE.Program_ID, "auto generated")
-);
+// CHOSEN_PROGRAMS.push(PROGRAM_SAMPLE);
+// choosenProgramsContainer.append(
+//     generateNewChoosenProgram(PROGRAM_SAMPLE.Program_ID, "auto generated")
+// );
 
 
 const getFinalUniversityRequestData = () => {
@@ -876,3 +886,21 @@ const getFinalUniversityRequestData = () => {
     requestData.programs = CHOSEN_PROGRAMS;
     return requestData;
 }
+
+const updateExistingProgram = (program) => {
+
+    for (let i = 0; i < CHOSEN_PROGRAMS.length; i++) {
+        if(parseInt(CHOSEN_PROGRAMS[i].Program_ID) === parseInt(program.Program_ID)) {
+            CHOSEN_PROGRAMS[i] = program;
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+
+
+console.log(CHOSEN_PROGRAMS);
+goToProgramsStage();
