@@ -10,6 +10,14 @@ import {
 
 const RECOMMENDED_SEARCH_ID = -123;
 
+const SEARCH_CATEGORIES = {
+    LOCATION: 0x0ffd,
+    PROGRAM: 0x0aaa,
+    ADMI_DATE: 0x0abc,
+    BUDGET: 0x0def,
+    MIN_MARKS: 0xeff,
+}
+
 /*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
@@ -19,6 +27,7 @@ var universitiesContainer = document.querySelectorAll(".Universities-container")
 var btnLoadMore = document.querySelectorAll(".btn-load-more")[0];
 var savedSearchItemSelected = document.querySelectorAll(".saved-search-item-selected")[0];
 var containerUniDetails = document.querySelectorAll(".container-uni-details")[0];
+var searchFilterItemWrapper = document.querySelectorAll(".search-filter-item-wrapper")[0];
 
 
 var sidebar = document.querySelectorAll(".side-bar")[0];
@@ -59,7 +68,7 @@ document.addEventListener("click", e => {
     const idUniDetails = e.target.classList.contains("uni-name");
     const isBackCaret = e.target.classList.contains("details-back-caret");
     const isSavedSearch = e.target.classList.contains("saved-search-item");
-    const isSearhFilter = e.target.parentElement.classList.contains("search-filter-item-wrapper");
+    const isSearchFilter = e.target.parentElement.classList.contains("search-filter-item-wrapper");
     const isClearFilters = e.target.classList.contains("clear-filters");
     
     const TRUE_VALUE = true;
@@ -82,7 +91,7 @@ document.addEventListener("click", e => {
             selectSavedSearch(e.target.id);
             performSearch(e.target.id);
             break;
-        case isSearhFilter:
+        case isSearchFilter:
             e.target.parentElement.remove();
             break;
         case isClearFilters:
@@ -91,7 +100,7 @@ document.addEventListener("click", e => {
 
     
         default:
-            hideContainerOpts();
+            //hideContainerOpts();
             break;
     }
 
@@ -117,7 +126,10 @@ document.addEventListener("click", e => {
 
 /*fired when user selects country.*/
 userCountry.addEventListener("change", e => {
-    console.log(e.target.value);
+    const select = e.target;
+    const optionValue = select[select.selectedIndex].innerText;
+
+    console.log(e.target.value, optionValue);
 })
 
 /*fired when user selects program.*/
@@ -376,13 +388,6 @@ const addSavedSearches = (searches) => {
         div.setAttribute("id", search.Search_ID);
         div.innerText = search.Name;
         sidebar.append(div);
-
-        //do the same with responsive search container
-        var div = document.createElement("div");
-        div.classList.add("saved-search-item");
-        div.setAttribute("id", search.Search_ID);
-        div.innerText = search.Name;
-        contianersavedSearchesResp.append(div);
     });
     return true;
 }
@@ -416,13 +421,6 @@ const addRecommendedSearch = () => {
     div.setAttribute("id", RECOMMENDED_SEARCH_ID);
     div.innerText = "Recommended";
     sidebar.append(div);
-
-    //do the same for responsive container
-    var div = document.createElement("div");
-    div.classList.add("recommeded-auto", "saved-search-item");
-    div.setAttribute("id", RECOMMENDED_SEARCH_ID);
-    div.innerText = "Recommended";
-    contianersavedSearchesResp.append(div);
 }
 
 
@@ -512,6 +510,10 @@ containerSearchFilters.addEventListener("change", e => {
 })
 
 
+
+const addSearchFilter = () => {
+
+}
 
 
 
