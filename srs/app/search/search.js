@@ -28,6 +28,7 @@ var btnLoadMore = document.querySelectorAll(".btn-load-more")[0];
 var savedSearchItemSelected = document.querySelectorAll(".saved-search-item-selected")[0];
 var containerUniDetails = document.querySelectorAll(".container-uni-details")[0];
 var searchFilterItemWrapper = document.querySelectorAll(".search-filter-item-wrapper")[0];
+var clearFilters = document.querySelectorAll(".clear-filters")[0];
 
 
 var sidebar = document.querySelectorAll(".side-bar")[0];
@@ -126,10 +127,13 @@ document.addEventListener("click", e => {
 
 /*fired when user selects country.*/
 userCountry.addEventListener("change", e => {
-    const select = e.target;
-    const optionValue = select[select.selectedIndex].innerText;
+    const countryID = e.target.value;
+    const countryName = e.target[e.target.selectedIndex].innerText;
 
-    console.log(e.target.value, optionValue);
+    console.log(countryID, countryName);
+
+    const filterExists = isSearchFilterExists(SEARCH_CATEGORIES.LOCATION, countryID);
+    if(!filterExists) addSearchFilter(countryName, SEARCH_CATEGORIES.LOCATION, countryID);
 })
 
 /*fired when user selects program.*/
@@ -511,8 +515,31 @@ containerSearchFilters.addEventListener("change", e => {
 
 
 
-const addSearchFilter = () => {
+const addSearchFilter = (name, category, id) => {
+    var div = document.createElement("div");
+    div.classList.add("search-filter-item-wrapper");
+    div.setAttribute("data-filter-category", category);
+    div.setAttribute("id", id);
 
+    div.innerHTML = `
+                        <div class="search-filter-item">${name}
+                            <i class="fa fa-times"></i>
+                        </div>
+                    `;
+    //containerSearchFilters.append(div);
+    containerSearchFilters.insertBefore(div, clearFilters);
+
+}
+
+const isSearchFilterExists = (category, id) => {
+    var searchFilters = document.querySelectorAll(".search-filter-item-wrapper");
+    console.log(searchFilters);
+    for (let i = 0; i < searchFilters.length; i++) {
+        const catAttr = searchFilters[i].getAttribute("data-filter-category");
+        const exists = (parseInt(catAttr) === parseInt(category)) && (parseInt(searchFilters[i].id) === parseInt(id));
+        if(exists) return true;
+    }
+    return false;
 }
 
 
