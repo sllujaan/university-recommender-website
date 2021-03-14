@@ -555,16 +555,30 @@ const addSearchFilterSingleVal = (name, category, id) => {
     var clearFilters = document.querySelectorAll(".clear-filters")[0];
     var searchFilters = document.querySelectorAll(".search-filter-item-wrapper");
     console.log(searchFilters);
-    
+    var exists = false;
+
     for (let i = 0; i < searchFilters.length; i++) {
+        
         const catAttr = searchFilters[i].getAttribute("data-filter-category");
-        const exists = (parseInt(catAttr) === parseInt(category)) && (searchFilters[i].id === id);
-        if(!exists) {
-            var filterItem = generateSearchFilter(name, category, id);
-            containerSearchFilters.insertBefore(filterItem, clearFilters);
+        exists = (parseInt(catAttr) === parseInt(category)) && (searchFilters[i].id === id);
+        
+        if(exists) {
+            console.log("exists");
+            searchFilters[i].id = id;
+            console.log(searchFilters[i]);
+            console.log(searchFilters[i].firstElementChild);
+            searchFilters[i].firstElementChild.innerText = name;
             return true;
         }
+        
     }
+
+    if(!exists) {
+        var filterItem = generateSearchFilter(name, category, id);
+        containerSearchFilters.insertBefore(filterItem, clearFilters);
+        return true;
+    }
+
     return false;
 }
 
