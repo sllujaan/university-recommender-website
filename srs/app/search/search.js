@@ -132,8 +132,9 @@ userCountry.addEventListener("change", e => {
     const countryID = e.target.value;
     const countryName = e.target[e.target.selectedIndex].innerText;
 
-    const filterExists = isSearchFilterExists(SEARCH_CATEGORIES.LOCATION, countryID);
-    if(!filterExists) addSearchFilter(countryName, SEARCH_CATEGORIES.LOCATION, countryID);
+    // const filterExists = isSearchFilterExists(SEARCH_CATEGORIES.LOCATION, countryID);
+    // if(!filterExists) addSearchFilter(countryName, SEARCH_CATEGORIES.LOCATION, countryID);
+    addSearchFilterSingleVal(countryName, SEARCH_CATEGORIES.LOCATION, countryID);
 })
 
 /*fired when user selects program.*/
