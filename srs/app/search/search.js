@@ -26,6 +26,7 @@ var contianersavedSearchesResp = document.querySelectorAll(".container-saved-sea
 var containerSearchFilters = document.querySelectorAll(".container-search-filters")[0];
 var userCountry = document.getElementById("user-country");
 var userProram = document.getElementById("user-program");
+var userAdmissionDate= document.getElementById("user-addmission-date");
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
@@ -121,6 +122,11 @@ userCountry.addEventListener("change", e => {
 
 /*fired when user selects program.*/
 userProram.addEventListener("change", e => {
+    console.log(e.target.value);
+})
+
+/*fired when user selects program.*/
+userAdmissionDate.addEventListener("change", e => {
     console.log(e.target.value);
 })
 
