@@ -4,7 +4,7 @@ import {
  } from "../util/util.js";
 import { loadPrograms, UNIVERSITY_DETAILS } from "../accordian/accordian.js";
 import {
-    URL_UNIVERSITY_DETAILS, URL_COUNTRY
+    URL_UNIVERSITY_DETAILS, URL_COUNTRY, URL_PROGRAM
 } from "../urls/urlResolver.js";
 
 
@@ -25,6 +25,7 @@ var sidebar = document.querySelectorAll(".side-bar")[0];
 var contianersavedSearchesResp = document.querySelectorAll(".container-saved-searches")[0];
 var containerSearchFilters = document.querySelectorAll(".container-search-filters")[0];
 var userCountry = document.getElementById("user-country");
+var userProram = document.getElementById("user-program");
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
@@ -118,6 +119,11 @@ userCountry.addEventListener("change", e => {
     console.log(e.target.value);
 })
 
+/*fired when user selects program.*/
+userProram.addEventListener("change", e => {
+    console.log(e.target.value);
+})
+
 
 
 /**
@@ -134,6 +140,22 @@ const initCountryInForm = (Countries) => {
     })
     userCountry.disabled = false;
 }
+
+/**
+ * initialize programs in the register form.
+ * @param {JSON} programs 
+ */
+const initProgramInForm = (programs) => {
+    console.log(programs);
+    programs.forEach(program => {
+        var option = document.createElement("option");
+        option.setAttribute("value", program.Program_ID);
+        option.innerText = program.Name;
+        userProram.append(option);
+    })
+    userProram.disabled = false;
+}
+
 
 /**
  * retrieves countries from database.
@@ -153,8 +175,27 @@ const getCountriesDB = () => {
     })
 }
 
-getCountriesDB();
 
+/**
+ * retrieves programs from database.
+ */
+const getProgramsDB = () => {
+    fetch(URL_PROGRAM)
+    .then(res => {
+        if(res.status !== 200) {alert("There was an error while fetching Programs from Database!");}
+        else {return res.json();}
+    })
+    .then(programs => {
+        initProgramInForm(programs);
+    })
+    .catch(err => {
+        //displayServerError();
+        console.error(err);
+    })
+}
+
+getCountriesDB();
+getProgramsDB();
 
 const showContainerOpts = () => {
     containerOpts.style.setProperty("top", "0");
