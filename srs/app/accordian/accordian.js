@@ -58,7 +58,7 @@ const toggleAccordian = (accordianEl) => {
     } else {
         panel.style.display = "block";
         toggleCaretIcon(caretIcon, true);
-        overivew.click();
+        if(overivew) overivew.click();
     }
 }
 

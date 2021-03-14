@@ -234,7 +234,7 @@ body {
 }
 
 .side-bar {
-    width: 25%;
+    width: 30%;
     /* background-color: orange; */
 }
 
@@ -260,7 +260,7 @@ body {
 
 .Universities-container {
     /* background-color: green; */
-    width: 50%;
+    width: 65%;
     background-color: white;
     border: 1px solid #d1d1d1;
     border-radius: 4px;
