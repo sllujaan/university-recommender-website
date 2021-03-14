@@ -150,6 +150,18 @@ body {
     border: 1px solid var(--gray-1);
     border-radius: 6px;
 }
+
+.percentage {
+    position: relative;
+}
+
+.percentage :last-child {
+    padding: 10px 3px;
+    color: gray;
+    position: absolute;
+    top: 0;
+    right: 2px;
+} 
 /*------------------------------------*/
 
 .search-bar-select input {
