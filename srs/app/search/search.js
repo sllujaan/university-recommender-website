@@ -4,7 +4,7 @@ import {
  } from "../util/util.js";
 import { loadPrograms, UNIVERSITY_DETAILS } from "../accordian/accordian.js";
 import {
-    URL_UNIVERSITY_DETAILS
+    URL_UNIVERSITY_DETAILS, URL_COUNTRY
 } from "../urls/urlResolver.js";
 
 
@@ -24,7 +24,7 @@ var containerUniDetails = document.querySelectorAll(".container-uni-details")[0]
 var sidebar = document.querySelectorAll(".side-bar")[0];
 var contianersavedSearchesResp = document.querySelectorAll(".container-saved-searches")[0];
 var containerSearchFilters = document.querySelectorAll(".container-search-filters")[0];
-
+var userCountry = document.getElementById("user-country");
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
@@ -58,6 +58,7 @@ document.addEventListener("click", e => {
     const isBackCaret = e.target.classList.contains("details-back-caret");
     const isSavedSearch = e.target.classList.contains("saved-search-item");
     const isSearhFilter = e.target.parentElement.classList.contains("search-filter-item-wrapper");
+    const isClearFilters = e.target.classList.contains("clear-filters");
     
     const TRUE_VALUE = true;
 
@@ -82,6 +83,10 @@ document.addEventListener("click", e => {
         case isSearhFilter:
             e.target.parentElement.remove();
             break;
+        case isClearFilters:
+            console.log("clear filtes");
+            break;
+
     
         default:
             hideContainerOpts();
@@ -106,6 +111,49 @@ document.addEventListener("click", e => {
 
     
 })
+
+
+/*fired when user selects country.*/
+userCountry.addEventListener("change", e => {
+    console.log(e.target.value);
+})
+
+
+
+/**
+ * initialize countries in the register form.
+ * @param {JSON} Countries 
+ */
+const initCountryInForm = (Countries) => {
+    console.log(Countries);
+    Countries.forEach(Country => {
+        var option = document.createElement("option");
+        option.setAttribute("value", Country.Country_ID);
+        option.innerText = Country.Name;
+        userCountry.append(option);
+    })
+    userCountry.disabled = false;
+}
+
+/**
+ * retrieves countries from database.
+ */
+const getCountriesDB = () => {
+    fetch(URL_COUNTRY)
+    .then(res => {
+        if(res.status !== 200) {alert("There was an error while fetching Countries from Database!");}
+        else {return res.json();}
+    })
+    .then(programs => {
+        initCountryInForm(programs);
+    })
+    .catch(err => {
+        //displayServerError();
+        console.error(err);
+    })
+}
+
+getCountriesDB();
 
 
 const showContainerOpts = () => {
