@@ -63,6 +63,35 @@ body {
     width: 25%;
 } */
 
+
+.container-uni-top {
+    background-color: orange;
+    width: 100%;
+}
+
+
+.btn-save-search {
+    /* background-color: orchid; */
+    position: relative;
+    margin-left: 20px;
+    width: 140px;
+}
+
+.btn-save-search input {
+    width: 100%;
+    font-weight: bold;
+}
+
+.btn-save-search > i {
+    /* background-color: orangered; */
+    color: #37a000;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 13px;
+} 
+
+
 .search-bar {
     position: relative;
     width: 50%;

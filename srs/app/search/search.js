@@ -15,7 +15,7 @@ var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var body = document.querySelectorAll("body")[0];
 var containerOpts = document.querySelectorAll(".container-opts")[0];
-var universitiesContainer = document.querySelectorAll(".Universities-container")[1];
+var universitiesContainer = document.querySelectorAll(".Universities-container")[0];
 var btnLoadMore = document.querySelectorAll(".btn-load-more")[0];
 var savedSearchItemSelected = document.querySelectorAll(".saved-search-item-selected")[0];
 var containerUniDetails = document.querySelectorAll(".container-uni-details")[0];
@@ -362,13 +362,13 @@ const loadMore = () => {
 
 
 const loadFirst = () => {
-    emptyContainer(universitiesContainer);
-    changeContainerTitle("loading your feed...");
+    //emptyContainer(universitiesContainer);
+    //changeContainerTitle("loading your feed...");
     removeLoadMoreButton();
     showContainerBusy();
 
     setTimeout(() => {
-        changeContainerTitle("Recommneded aaaaaa");
+        //changeContainerTitle("Recommneded aaaaaa");
         hideContainerBusy();
         loadUniversites(UNIVERSITES);
         addLoadMoreButton();
