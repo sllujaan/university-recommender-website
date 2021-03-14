@@ -129,20 +129,25 @@ userCountry.addEventListener("change", e => {
     const countryID = e.target.value;
     const countryName = e.target[e.target.selectedIndex].innerText;
 
-    console.log(countryID, countryName);
-
     const filterExists = isSearchFilterExists(SEARCH_CATEGORIES.LOCATION, countryID);
     if(!filterExists) addSearchFilter(countryName, SEARCH_CATEGORIES.LOCATION, countryID);
 })
 
 /*fired when user selects program.*/
 userProram.addEventListener("change", e => {
-    console.log(e.target.value);
+    const programID = e.target.value;
+    const programName = e.target[e.target.selectedIndex].innerText;
+
+    const filterExists = isSearchFilterExists(SEARCH_CATEGORIES.PROGRAM, programID);
+    if(!filterExists) addSearchFilter(programName, SEARCH_CATEGORIES.PROGRAM, programID);
 })
 
 /*fired when user selects program.*/
 userAdmissionDate.addEventListener("change", e => {
-    console.log(e.target.value);
+    const dateValue = e.target.value;
+    const dateName = e.target[e.target.selectedIndex].innerText;
+
+    addSearchFilterSingleVal(dateName, SEARCH_CATEGORIES.ADMI_DATE, "admi-date");
 })
 
 
@@ -512,10 +517,7 @@ containerSearchFilters.addEventListener("change", e => {
     console.log(e.target);
 })
 
-
-
-const addSearchFilter = (name, category, id) => {
-    var clearFilters = document.querySelectorAll(".clear-filters")[0];
+const generateSearchFilter = (name, category, id) => {
     var div = document.createElement("div");
     div.classList.add("search-filter-item-wrapper");
     div.setAttribute("data-filter-category", category);
@@ -526,8 +528,15 @@ const addSearchFilter = (name, category, id) => {
                             <i class="fa fa-times"></i>
                         </div>
                     `;
-    //containerSearchFilters.append(div);
-    containerSearchFilters.insertBefore(div, clearFilters);
+    return div;
+
+}
+
+const addSearchFilter = (name, category, id) => {
+    var clearFilters = document.querySelectorAll(".clear-filters")[0];
+    var filterItem = generateSearchFilter(name, category, id);
+
+    containerSearchFilters.insertBefore(filterItem, clearFilters);
 
 }
 
@@ -538,6 +547,23 @@ const isSearchFilterExists = (category, id) => {
         const catAttr = searchFilters[i].getAttribute("data-filter-category");
         const exists = (parseInt(catAttr) === parseInt(category)) && (parseInt(searchFilters[i].id) === parseInt(id));
         if(exists) return true;
+    }
+    return false;
+}
+
+const addSearchFilterSingleVal = (name, category, id) => {
+    var clearFilters = document.querySelectorAll(".clear-filters")[0];
+    var searchFilters = document.querySelectorAll(".search-filter-item-wrapper");
+    console.log(searchFilters);
+    
+    for (let i = 0; i < searchFilters.length; i++) {
+        const catAttr = searchFilters[i].getAttribute("data-filter-category");
+        const exists = (parseInt(catAttr) === parseInt(category)) && (searchFilters[i].id === id);
+        if(!exists) {
+            var filterItem = generateSearchFilter(name, category, id);
+            containerSearchFilters.insertBefore(filterItem, clearFilters);
+            return true;
+        }
     }
     return false;
 }
