@@ -28,7 +28,6 @@ var btnLoadMore = document.querySelectorAll(".btn-load-more")[0];
 var savedSearchItemSelected = document.querySelectorAll(".saved-search-item-selected")[0];
 var containerUniDetails = document.querySelectorAll(".container-uni-details")[0];
 var searchFilterItemWrapper = document.querySelectorAll(".search-filter-item-wrapper")[0];
-var clearFilters = document.querySelectorAll(".clear-filters")[0];
 
 
 var sidebar = document.querySelectorAll(".side-bar")[0];
@@ -96,7 +95,7 @@ document.addEventListener("click", e => {
             e.target.parentElement.remove();
             break;
         case isClearFilters:
-            console.log("clear filtes");
+            clearAllSearchFilters();
             break;
 
     
@@ -516,6 +515,7 @@ containerSearchFilters.addEventListener("change", e => {
 
 
 const addSearchFilter = (name, category, id) => {
+    var clearFilters = document.querySelectorAll(".clear-filters")[0];
     var div = document.createElement("div");
     div.classList.add("search-filter-item-wrapper");
     div.setAttribute("data-filter-category", category);
@@ -540,6 +540,10 @@ const isSearchFilterExists = (category, id) => {
         if(exists) return true;
     }
     return false;
+}
+
+const clearAllSearchFilters = () => {
+    containerSearchFilters.innerHTML = `<div class="clear-filters" style="color: #48a000; font-weight: bold; font-size: large;cursor: pointer;">Clear filters</div>`;
 }
 
 
