@@ -36,6 +36,9 @@ var containerSearchFilters = document.querySelectorAll(".container-search-filter
 var userCountry = document.getElementById("user-country");
 var userProram = document.getElementById("user-program");
 var userAdmissionDate= document.getElementById("user-addmission-date");
+var userBudget = document.getElementById("user_budget_US_$");
+var userMinMarksPct = document.getElementById("user-min_marks_pct");
+
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
@@ -147,7 +150,28 @@ userAdmissionDate.addEventListener("change", e => {
     const dateValue = e.target.value;
     const dateName = e.target[e.target.selectedIndex].innerText;
 
-    addSearchFilterSingleVal(dateName, SEARCH_CATEGORIES.ADMI_DATE, "admi-date");
+    addSearchFilterSingleVal(dateName, SEARCH_CATEGORIES.ADMI_DATE, dateValue);
+})
+
+userBudget.addEventListener("change", e => {
+    const budgetValue = e.target.value;
+
+    addSearchFilterSingleVal(budgetValue+"$", SEARCH_CATEGORIES.BUDGET, budgetValue);
+})
+
+
+userMinMarksPct.addEventListener("change", e => {
+    const minMarksPct = parseInt(e.target.value);
+    if((minMarksPct < 0) || (minMarksPct > 100)) {
+        console.log(e.target);
+        e.target.style.setProperty("border-color", "red");
+        return;
+    }
+    else {
+        e.target.style.setProperty("border-color", "lightgray");
+    }
+
+    addSearchFilterSingleVal(minMarksPct+"%", SEARCH_CATEGORIES.MIN_MARKS, minMarksPct);
 })
 
 
@@ -560,14 +584,12 @@ const addSearchFilterSingleVal = (name, category, id) => {
     for (let i = 0; i < searchFilters.length; i++) {
         
         const catAttr = searchFilters[i].getAttribute("data-filter-category");
-        exists = (parseInt(catAttr) === parseInt(category)) && (searchFilters[i].id === id);
-        
+        exists = (parseInt(catAttr) === parseInt(category));
+        //if exists replace that one
         if(exists) {
             console.log("exists");
             searchFilters[i].id = id;
-            console.log(searchFilters[i]);
-            console.log(searchFilters[i].firstElementChild);
-            searchFilters[i].firstElementChild.innerText = name;
+            searchFilters[i].firstElementChild.innerHTML = name + `<i class="fa fa-times"></i>`;
             return true;
         }
         
