@@ -3,95 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
+
+    <!--Bootstrap urls-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <!------------------>
+
+    <!--fontawesome urls-->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <!------------------>
+
+    <script src="../header/header.js" defer type="module"></script>
+
+
     <script src="./search.js" defer type="module"></script>
 
     <link rel="stylesheet" href="./search.css">
-    
+
     <title>Search</title>
 </head>
 <body>
 
-    <div class="header-container"></div>
+    <div class="header-container-wrapper"></div>
+
 
     <div class="app-body">
-        <div>Home page</div>
 
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
+            <!---------------App body Container---------------->
+    <div class="app-body-container">
+        <div class="title find-uni-title"><h2 style="font-weight: bold; ">Find Universities</h2></div>
+        <div class="search-bar">
+          <input type="text" placeholder="Search for Universities"/>
+          <i class="bi bi-search"></i>
+        </div>
 
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
+        <div class="break" style="width: 100%;height: 5px;"></div>
 
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
+        <div class="separator"></div>
+        <div class="Universities-container" id="advanced-search"><h6 style="color: #48a000;">Advanced Search</h6></div>
 
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
+        <div class="break" style="width: 100%;height: 30px;"></div>
 
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
+        <div class="side-bar">
+          <div class="saved-search-item saved-search-item-selected">saved Search 1</div>
+          <div class="recommeded-auto saved-search-item-selected saved-search-item">Recommended</div>
+          <div class="saved-search-item">Fsd Search</div>
+          <div class="saved-search-item">Lhr Search</div>
+          <div class="saved-search-item">Lhr search 2</div>
+        </div>
 
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
-    <div>1</div>
 
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
-    <div>2</div>
+        <div class="view">View:</div>
+        <div class="select-resp" id="searches-recommended-resp">
+          searches-recommended-resp
+          <i class="fas fa-caret-down fa-2x"></i>
+        </div>
+
+        <div class="container-opts">
+          <div class="container-opts-top">
+            <div class="selected">Selected</div>
+            <div class="close-symbol">X</div>
+          </div>
+          <div class="saved-searches-title">SAVED SEARCHES</div>
+          <div class="container-saved-searches">
+            <div class="recommeded-auto saved-search-item-selected saved-search-item">Recommended</div>
+            <div class="saved-search-item">Container-saved-searches item 1</div>
+            <div class="saved-search-item">Container-saved-searches item 1</div>
+            <div class="saved-search-item">Container-saved-searches item 1</div>
+            <div class="saved-search-item">Container-saved-searches item 1</div>
+            <div class="saved-search-item">Container-saved-searches item 1</div>
+          </div>
+        </div>
+
+
+
+
+        <!---------------------Universities Container--------------------->
+        <div class="Universities-container">
+          <div class="title title-opts search-link"><h2 style="font-weight: bold;">Recommended</h2></div>
+
+
+          <!------------------------University Container--------------------------->
+          <!-- <div class="university-container">
+            <div class="container-busy">
+              <div class="busy-1"></div>
+              <div class="busy-1"></div>
+              <div class="busy-1"></div>
+            </div>
+          </div> -->
+          <!----------------------------------------------------------------------->
+
+
+          <!------------------------University Container--------------------------->
+          <div class="university-container">
+            <div class="title" style="cursor: pointer; color:  #48a000; text-decoration: underline; -webkit-line-clamp: 1;"><h5 id="1" class="uni-name">University of the Punjab</h5></div>
+            <div class="description" style="color: #222;">The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.</div>
+            <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;Pakistan</span></div><br>
+          </div>
+          <!----------------------------------------------------------------------->
+
+          <!------------------------University Container--------------------------->
+          <div class="university-container">
+            <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5>Lahore University of Management Sciences (LUMS)</h5></div>
+            <div class="description" style="color: #222;">Lahore University of Management Sciences is a private research university located in Lahore, Punjab, Pakistan. LUMS was founded in 1984 by Dr. Zahid Rahim and patronage of the business–industrial community spearheaded by Syed Aarim.</div>
+            <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;Pakistan</span></div><br>
+          </div>
+          <!----------------------------------------------------------------------->
+
+          <!------------------------University Container--------------------------->
+          <div class="university-container">
+            <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5>University of Agriculture</h5></div>
+            <div class="description" style="color: #222;">The University of Agriculture is a public research university in Faisalabad, Pakistan. UAF is the Oldest and Pioneer Agriculture Institute in the South Asia. It is ranked 4th in Pakistan and 1st in the field of Agriculture and Veterinary Sciences by Higher Education Commission Ranking in 2019.</div>
+            <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;Pakistan</span></div><br>
+          </div>
+          <!----------------------------------------------------------------------->
+
+          <!------------------------University Container--------------------------->
+          <div class="university-container">
+            <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5>National University Of Sciences And Technology</h5></div>
+            <div class="description" style="color: #222;">The National University of Sciences & Technology is a public research university under administration of Pakistan Armed Forces with its main campus in Islamabad, Pakistan. The university offers undergraduate and graduate degrees, including doctoral and professional degrees.</div>
+            <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;Pakistan</span></div><br>
+          </div>
+          <!----------------------------------------------------------------------->
+
+          <!------------------------University Container--------------------------->
+          <div class="university-container">
+            <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5>COMSATS University Islamabad</h5></div>
+            <div class="description" style="color: #222;">The COMSATS University Islamabad, formerly known as COMSATS Institute of Information Technology, is a public university in Pakistan. It is a multi-campus university with its principal seat located in Islamabad.</div>
+            <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;Pakistan</span></div><br>
+          </div>
+          <!----------------------------------------------------------------------->
+
+          
+          <div class="btn-load-more">
+            <br>
+            <div style="text-align: center;">
+              <input id="load-more-button" type="button" value="Load More Universities" style="background-color: white; color: #37a000;font-weight: bold; font-size: small; padding: 4px 10px; border-radius: 4px; border: 1px solid #d1d1d1;">
+            </div>
+            <br>
+          </div>
+          
+        </div>
+        <!--------------------------------------------------------------->
+      </div>
+      <!------------------------------------------------->
+
     </div>
 
 
-    <div class="footer-container"></div>
-    
+    <!---------------------------university details container------------------------------------->
+    <div class="container-uni-details">
+      <div class="container-uni-details-wrapper">
+        <div class="top">
+          <div class="back"><i class="fa fa-caret-left fa-2x details-back-caret" aria-hidden="true" style="color: #37a000; padding: 10px 20px; cursor: pointer; border: 1px solid lightgray; border-radius: 6px;"></i></div>
+        </div>
+        <!----------------title and description section------------------->
+        <div class="title-description">
+          <div class="title" style="cursor: pointer;">
+            <h2 class="details-title">Lahore University of Management Sciences (LUMS)</h2>
+          </div>
+          <div class="description details-description" style="color: #222; padding: 20px 0; padding-right: 20px; word-break: break-all;">LUMS was founded in 1984 by Dr. Zahid Rahim and patronage of the business–industrial community spearheaded by Syed Aarim. With advice from the Harvard Business School and a $10 million grant from USAID it established a graduate business school in 1986.[4][5][6] The university has since then expanded, launching a liberal arts undergraduate school in 1994, an engineering school in 2008, a law school in 2004 and an education school in 2017.[3][7][8] The university launched a National Outreach Programme (NOP) in 2001 to provide financial aid to students[9] and in 2015, in partnership with Afghan government, launched a scholarship programme for Afghan students to diversify its student body.[10]
+
+            As of 2017, the university has a student body of approximately 5,000 graduate and undergraduate students, a faculty of 248 out of which nearly three-quarters have doctoral degrees.[11] Its campus, where more than half of its student population and faculty lives, spreads over 100 acres.[12][13][14] Its business school is accredited by Association to Advance Collegiate Schools of Business. It is also one of two business schools in Pakistan to be certified by the South Asian Quality Assurance System and is ranked as one of the top business schools in the country.[15][16] The university is also a member of Association of Commonwealth Universities.[17]
+            
+            LUMS is ranked as the top varsity in Pakistan in the QS University Rankings for the year 2016, 111th in Asia and among the top 700 in the world.[18] It is also ranked by QS as among the top 250 universities globally for business and among the top 400 universities globally in mathematics.[19][11] Following a liberal arts curriculum, LUMS is one of Pakistan's most expensive, selective and progressive universities.[20][21] LUMS counts several prominent Pakistani intellectuals and public figures among its alumni and current and former faculty including Umar Saif, Hina Rabbani Khar, Adil Najam, Arif Zaman, Amer Iqbal, Ayesha Jalal, Asad Abidi, Osama Siddique and Pervez Hoodbhoy.[22] It also counts several Fulbright, Chevening and Rhodes scholars among its alumni.
+          </div>
+        </div>
+        <!------------------------------------------------------------------>
+
+        <!---------------------------about university section------------------->
+        <div class="about-uni">
+          <div class="container-1" style=" width: 80%; padding-left: none; text-align: left; margin: none;"><h5 style="font-weight: bold;">About the University</h5></div>
+          <div class="details-country" style="font-weight: bold;">Pakistan</div>
+          <div class="details-city" style="font-size: small; color: #7f7f7f;">Lahore</div>
+          <div style="font-weight: bold;">Admission Start</div>
+          <div class="details-admission-start" style="font-size: small; color: #7f7f7f;">Feb 5, 2020</div>
+          <div style="font-weight: bold;">Admission End</div>
+          <div class="details-admission-end" style="font-size: small; color: #7f7f7f;">March 5, 2020</div>
+          <div style="font-weight: bold;">Phone</div>
+          <div class="details-phone" style="font-size: small; color: #7f7f7f;">(042)35608000</div>
+          <div style="font-weight: bold;">Email</div>
+          <div class="details-email" style="font-size: small; color: #7f7f7f;">admissions@lums.edu.pk</div>
+          <div style="font-weight: bold;">Address</div>
+          <div class="details-address" style="font-size: small; color: #7f7f7f;">DHA Phase 5، Khayaban-e-Jinnah Road، opposite Sector U، Punjab Small Industries Housing Society, Lahore, Punjab 54792</div>
+          <div style="font-weight: bold;"><h5 style="font-weight: bold;">University Link</h5></div>
+          <input class="details-uni-link" type="text" placeholder="https://lums.edu.pk" style="width: 100%; padding-left: 10px; border: 1px solid lightgray; border-radius: 4px;">
+          <div class="details-uni-link-copy" style="font-weight: bold; font-size: small;color: #37a000; padding-top: 10px;" data-uni-link="">Copy Link</div>
+
+        </div>
+        <!---------------------------------------------------------------------->
+
+        <div class="programs">
+          <br>
+            <div class="programs"><h2>Programs</h2></div>
+          <br>
+          <!----------Accordians container-------------->
+          <div class="container-accordian-programs">
+            
+          </div>
+          <!------------------------------------>
+        </div>
+        <div class="empty"></div>
+      </div>
+    </div>
+    <!----------------------------------------------------------------------------------------------------->
+
+
+    <div class="footer-container-wrapper"></div>
+
 </body>
 </html>

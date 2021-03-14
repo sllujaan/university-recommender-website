@@ -388,8 +388,10 @@ body {
 
 /*----------university details container*/
 .container-uni-details {
+    position: absolute;
     left: 100%;
     z-index: 1000;
+    transition: all 1s;
 }
 /*--------------------------------------*/
 

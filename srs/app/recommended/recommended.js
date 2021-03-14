@@ -255,7 +255,9 @@ const showUniDetailsContainer = (universityDetails) => {
     console.log(universityDetails);
     disableScroll(body);
     setUniDetails(universityDetails);
-    containerUniDetails.style.setProperty("left", "400px");
+    containerUniDetails.style.setProperty("left", "auto");
+    containerUniDetails.style.setProperty("right", "100%");
+    containerUniDetails.style.setProperty("right", "0px");
 }
 
 
