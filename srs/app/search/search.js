@@ -23,6 +23,8 @@ var containerUniDetails = document.querySelectorAll(".container-uni-details")[0]
 
 var sidebar = document.querySelectorAll(".side-bar")[0];
 var contianersavedSearchesResp = document.querySelectorAll(".container-saved-searches")[0];
+var containerSearchFilters = document.querySelectorAll(".container-search-filters")[0];
+
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
@@ -46,6 +48,7 @@ const SAVED_SEARCHES = [
 
 
 
+
 document.addEventListener("click", e => {
     console.log(e.target);
 
@@ -54,7 +57,8 @@ document.addEventListener("click", e => {
     const idUniDetails = e.target.classList.contains("uni-name");
     const isBackCaret = e.target.classList.contains("details-back-caret");
     const isSavedSearch = e.target.classList.contains("saved-search-item");
-
+    const isSearhFilter = e.target.parentElement.classList.contains("search-filter-item-wrapper");
+    
     const TRUE_VALUE = true;
 
     switch (TRUE_VALUE) {
@@ -74,6 +78,9 @@ document.addEventListener("click", e => {
         case isSavedSearch:
             selectSavedSearch(e.target.id);
             performSearch(e.target.id);
+            break;
+        case isSearhFilter:
+            e.target.parentElement.remove();
             break;
     
         default:
@@ -400,6 +407,16 @@ const loadFirst = () => {
 //     loadUniversites(UNIVERSITES);
 //     addLoadMoreButton();
 // }, 3000);
+
+
+
+
+
+containerSearchFilters.addEventListener("change", e => {
+    console.log(e.target);
+})
+
+
 
 
 
