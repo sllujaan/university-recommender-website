@@ -495,6 +495,7 @@ const handleFirstLoadStatus = (status) => {
 // }, 3000);
 
 
+showUniDetails(50);
 
 loadFirst();
 changeRespOptsTitle("new title");

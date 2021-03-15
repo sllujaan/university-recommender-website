@@ -345,7 +345,7 @@ body {
 }
 
 .details-description {
-    min-height: 400px;
+    min-height: 500px;
 }
 
 
@@ -436,6 +436,15 @@ body {
     left: 100%;
     transition: all .3s;
 }
+
+.uni-btn-d {
+    /* background-color: orange; */
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
 
 
 
