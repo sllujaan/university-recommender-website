@@ -1,6 +1,7 @@
 import { disableScroll, enableScroll, getUserCredentialsLocalStorage, loadHeaderFooter } from "../util/util.js";
 import {
-    URL_ADD_UNIVERSITY, URL_UNIVERSITY_DETAILS, URL_ADD_UNIVERSITY_NAME, URL_PROGRAM,
+    URL_UNIVERSITY_DETAILS,
+    URL_ADD_UNIVERSITY_NAME, URL_PROGRAM,
     URL_COUNTRY, URL_CITY, URL_USER_REGISTER
 } from "../urls/urlResolver.js";
 
@@ -278,20 +279,29 @@ const EnableInputs = (e) => {
  * retrieves programs from database.
  */
 const getProgramsDB = () => {
-    fetch(URL_PROGRAM)
-    .then(res => {
-        if(res.status !== 200) {alert("There was an error while fetching Programs from Database!");}
-        else {return res.json();}
-    })
-    .then(programs => {
-        initProgramInForm(programs);
-        PROGRAMS = programs;
-    })
-    .catch(err => {
-        //displayServerError();
-        displyStandardMsg(serverError, "Server Error: Unable to fetch programs!", "red");
-        console.error(err);
-    })
+
+    const myPromise = new Promise((resolve, reject) => {
+        fetch(URL_PROGRAM)
+        .then(res => {
+            if(res.status !== 200) {alert("There was an error while fetching Programs from Database!");}
+            else {return res.json();}
+        })
+        .then(programs => {
+            initProgramInForm(programs);
+            PROGRAMS = programs;
+            //resolve the promise
+            resolve(PROGRAMS);
+        })
+        .catch(err => {
+            //displayServerError();
+            displyStandardMsg(serverError, "Server Error: Unable to fetch programs!", "red");
+            console.error(err);
+            reject(err);
+        })
+    });
+
+    return myPromise;
+    
 }
 
 /**
@@ -827,7 +837,7 @@ const isNoPorgramChosen = () => {
 
 
 //initialize programs in the form.
-getProgramsDB();
+//getProgramsDB();
 //initialize countries in the form.
 //getCountriesDB();
 
@@ -994,6 +1004,11 @@ userProram.addEventListener("change", e => {
 
 
 const getProgramByID =  (programs, id) => {
+    if(!Array.isArray(programs)) {
+        displyStandardMsg(serverError, "Programs might not have been loaded yet!", "red");
+        return "";
+    };
+
     for (let i = 0; i < programs.length; i++) {
         if(parseInt(programs[i].Program_ID) === parseInt(id)) return programs[i];
     }
@@ -1096,7 +1111,7 @@ const setUniProgFromsData = (universityDetails) => {
 
 const submitFinalFormData = (universityDetails) => {
 
-    fetch(URL_ADD_UNIVERSITY, {
+    fetch(URL_UPDATE_UNIVERSITY, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         headers: {'Content-Type': 'application/json'},
@@ -1131,7 +1146,8 @@ const fetchUniverstyDetails = (id) => {
     .then(universityDetails => {
         console.log(universityDetails);
         console.log(getUniversityDetailsObjForm(universityDetails));
-        setUniProgFromsData(getUniversityDetailsObjForm(universityDetails));
+
+        handleFormFill(universityDetails);
     })
     .catch(err => {
         //displayServerError();
@@ -1141,11 +1157,21 @@ const fetchUniverstyDetails = (id) => {
     })
 }
 
+const handleFormFill = async (universityDetails) => {
+    //make sure that programs have been loaded.
+    try {
+        const programs = await getProgramsDB();
+    } catch (err) {}
+
+    setUniProgFromsData(getUniversityDetailsObjForm(universityDetails));
+}
+
 //load university details
 const loadUniDetailsInForm = () => {
     const universityID = getUniveristyID_URL();
     if(!universityID) {
-        alert("invalid url parameter: id?");
+        displyStandardMsg(serverError, "URL Error: invalid url parameter: id?", "red");
+        //alert("invalid url parameter: id?");
         return;
     }
 
@@ -1163,6 +1189,39 @@ const getUniversityDetailsObjForm = (univeristyDetailsArrForm) => {
     universityDetails.programs = univeristyDetailsArrForm[1].University_Program;
     return universityDetails;
 }
+
+
+const getProg = () => {
+    const myPromise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          //resolve('foo');
+          reject("foo rejected");
+        }, 2000);
+
+        setTimeout(() => {
+            reject("foo rejected");
+            resolve('foo');
+        }, 1000);
+      });
+    return myPromise;
+}
+
+// getProg()
+// .then(data => {
+//     console.log(data);
+// })
+// .catch(err => {
+//     console.error(err);
+// })
+
+// try {
+//     const data = await getProg();
+//     console.log(data);
+// }
+// catch(err) {
+//     console.error(err);
+// }
+
 
 //submitFinalFormData(UNIVERSITY_DATA_SAMPLE);
 
