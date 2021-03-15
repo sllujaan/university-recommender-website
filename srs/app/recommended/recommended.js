@@ -51,12 +51,13 @@ document.addEventListener("click", e => {
     const idUniDetails = e.target.classList.contains("uni-name");
     const isBackCaret = e.target.classList.contains("details-back-caret");
     const isSavedSearch = e.target.classList.contains("saved-search-item");
+    const isSideResp = e.target.classList.contains("side-resp");
 
     const TRUE_VALUE = true;
 
     switch (TRUE_VALUE) {
-        case isSelectOption:
-            //showContainerOpts();
+        case isSideResp:
+            showSideBarResp();
             break;
         case isLoadMore:
             loadMore();
@@ -74,7 +75,7 @@ document.addEventListener("click", e => {
             break;
     
         default:
-            //hideContainerOpts();
+            hideSideBarResp();
             break;
     }
 
@@ -97,6 +98,15 @@ document.addEventListener("click", e => {
     
 })
 
+
+
+const showSideBarResp = () => {
+    sidebar.style.setProperty("top", "0px");
+}
+
+const hideSideBarResp = () => {
+    sidebar.style.setProperty("top", "100%");
+}
 
 
 const showContainerBusy = () => {
