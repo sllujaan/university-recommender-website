@@ -18,6 +18,7 @@ var universitiesContainer = document.querySelectorAll(".Universities-container")
 var btnLoadMore = document.querySelectorAll(".btn-load-more")[0];
 var savedSearchItemSelected = document.querySelectorAll(".saved-search-item-selected")[0];
 var containerUniDetails = document.querySelectorAll(".container-uni-details")[0];
+var uniDetailsBackCover = document.querySelectorAll(".uni-details-back-cover")[0];
 
 
 var sidebar = document.querySelectorAll(".side-bar")[0];
@@ -49,7 +50,7 @@ document.addEventListener("click", e => {
     const isSelectOption = (e.target.id === "searches-recommended-resp") || (e.target.parentElement.id === "searches-recommended-resp");
     const isLoadMore = (e.target.id === "load-more-button");
     const idUniDetails = e.target.classList.contains("uni-name");
-    const isBackCaret = e.target.classList.contains("details-back-caret");
+    const isBackCaret = e.target.classList.contains("details-back-caret") || e.target.classList.contains("uni-details-back-cover");
     const isSavedSearch = e.target.classList.contains("saved-search-item");
     const isSideResp = e.target.classList.contains("side-resp");
 
@@ -167,6 +168,7 @@ const showUniDetails = (id) => {
 
 const hideUniDetails = () => {
     enableScroll(body);
+    uniDetailsBackCover.classList.add("hide");
     containerUniDetails.style.setProperty("left", "100%");
 }
 
@@ -253,9 +255,34 @@ const showUniDetailsContainer = (universityDetails) => {
     console.log(universityDetails);
     disableScroll(body);
     setUniDetails(universityDetails);
-    containerUniDetails.style.setProperty("left", "auto");
-    containerUniDetails.style.setProperty("right", "100%");
-    containerUniDetails.style.setProperty("right", "0px");
+    console.log(window.innerWidth);
+    console.log(getWindowWidth());
+
+    uniDetailsBackCover.classList.remove("hide");
+
+    if(window.innerWidth > getWindowWidth()) {
+        const leftOffset = window.innerWidth - getWindowWidth();
+        containerUniDetails.style.setProperty("left", leftOffset+"px");
+    }
+    else {
+        containerUniDetails.style.setProperty("left", "0px");
+    }
+
+    
+    
+
+}
+
+const getWindowWidth = () => {
+    const widthStr = getComputedStyleProperty(containerUniDetails, "width");
+    return parseInt(widthStr, 10);
+}
+
+
+const getComputedStyleProperty = (elemtent, proptery) => {
+    const compStyles = window.getComputedStyle(elemtent);
+    return compStyles.getPropertyValue(proptery);
+
 }
 
 
