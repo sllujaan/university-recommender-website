@@ -27,11 +27,11 @@ loadHeaderFooter(headerContainer, footerContainer);
 
 
 const UNIVERSITES = [
-    {name: "University of the Punjab", description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", location: "Pakistan"},
-    {name: "University of the Punjab", description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", location: "Pakistan"},
-    {name: "University of the Punjab", description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", location: "Pakistan"},
-    {name: "University of the Punjab", description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", location: "Pakistan"},
-    {name: "University of the Punjab", description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", location: "Pakistan"}
+    {University_ID: 54, Name: "University of the Punjab", Description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", CountryName: "Pakistan"},
+    {University_ID: 54, Name: "University of the Punjab", Description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", CountryName: "Pakistan"},
+    {University_ID: 54, Name: "University of the Punjab", Description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", CountryName: "Pakistan"},
+    {University_ID: 54, Name: "University of the Punjab", Description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", CountryName: "Pakistan"},
+    {University_ID: 54, Name: "University of the Punjab", Description: "The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.", CountryName: "Pakistan"},
 ];
 
 
@@ -182,9 +182,9 @@ const loadUniversites = (universities) => {
         var universityContainer = document.createElement("div");
         universityContainer.classList.add("university-container");
         universityContainer.innerHTML = `
-        <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5 id="${2}" class="uni-name">${university.name}</h5></div>
-        <div class="description" style="color: #222;">${university.description}</div>
-        <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;${university.location}</span></div><br>
+        <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5 id="${university.University_ID}" class="uni-name">${university.Name}</h5></div>
+        <div class="description" style="color: #222;">${university.Description}</div>
+        <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;${university.CountryName}</span></div><br>
                 `;
         div.append(universityContainer);
     });
@@ -265,7 +265,7 @@ const showUniDetailsContainer = (universityDetails) => {
         containerUniDetails.style.setProperty("left", leftOffset+"px");
     }
     else {
-        containerUniDetails.style.setProperty("left", "0px");
+        containerUniDetails.style.setProperty("left", "0%");
     }
 
     
