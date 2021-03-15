@@ -1,9 +1,10 @@
 import { disableScroll, enableScroll, getUserCredentialsLocalStorage, loadHeaderFooter } from "../util/util.js";
-import {
+import { 
     URL_UNIVERSITY_DETAILS,
     URL_ADD_UNIVERSITY_NAME, URL_PROGRAM,
-    URL_COUNTRY, URL_CITY, URL_USER_REGISTER
+    URL_COUNTRY, URL_CITY, URL_USER_REGISTER, URL_UPDATE_UNIVERSITY
 } from "../urls/urlResolver.js";
+
 
 /*register form validation variables*/
 var NAME_VALID = false;
