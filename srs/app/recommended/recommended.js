@@ -14,7 +14,6 @@ const RECOMMENDED_SEARCH_ID = -123;
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var body = document.querySelectorAll("body")[0];
-var containerOpts = document.querySelectorAll(".container-opts")[0];
 var universitiesContainer = document.querySelectorAll(".Universities-container")[1];
 var btnLoadMore = document.querySelectorAll(".btn-load-more")[0];
 var savedSearchItemSelected = document.querySelectorAll(".saved-search-item-selected")[0];
@@ -22,8 +21,6 @@ var containerUniDetails = document.querySelectorAll(".container-uni-details")[0]
 
 
 var sidebar = document.querySelectorAll(".side-bar")[0];
-var contianersavedSearchesResp = document.querySelectorAll(".container-saved-searches")[0];
-
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
 
@@ -59,7 +56,7 @@ document.addEventListener("click", e => {
 
     switch (TRUE_VALUE) {
         case isSelectOption:
-            showContainerOpts();
+            //showContainerOpts();
             break;
         case isLoadMore:
             loadMore();
@@ -77,7 +74,7 @@ document.addEventListener("click", e => {
             break;
     
         default:
-            hideContainerOpts();
+            //hideContainerOpts();
             break;
     }
 
@@ -101,15 +98,6 @@ document.addEventListener("click", e => {
 })
 
 
-const showContainerOpts = () => {
-    containerOpts.style.setProperty("top", "0");
-    disableScroll(body);
-}
-
-const hideContainerOpts = () => {
-    containerOpts.style.setProperty("top", "100vh");
-    enableScroll(body);
-}
 
 const showContainerBusy = () => {
     universitiesContainer.append(getBusyContainer(10));
@@ -274,13 +262,6 @@ const addSavedSearches = (searches) => {
         div.setAttribute("id", search.Search_ID);
         div.innerText = search.Name;
         sidebar.append(div);
-
-        //do the same with responsive search container
-        var div = document.createElement("div");
-        div.classList.add("saved-search-item");
-        div.setAttribute("id", search.Search_ID);
-        div.innerText = search.Name;
-        contianersavedSearchesResp.append(div);
     });
     return true;
 }
@@ -314,13 +295,6 @@ const addRecommendedSearch = () => {
     div.setAttribute("id", RECOMMENDED_SEARCH_ID);
     div.innerText = "Recommended";
     sidebar.append(div);
-
-    //do the same for responsive container
-    var div = document.createElement("div");
-    div.classList.add("recommeded-auto", "saved-search-item");
-    div.setAttribute("id", RECOMMENDED_SEARCH_ID);
-    div.innerText = "Recommended";
-    contianersavedSearchesResp.append(div);
 }
 
 
