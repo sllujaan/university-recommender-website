@@ -388,23 +388,23 @@ const loadMore = () => {
 // }
 
 
-const loadFirst = () => {
-    emptyContainer(universitiesContainer);
-    changeContainerTitle("loading your feed...");
-    removeLoadMoreButton();
-    showContainerBusy();
+// const loadFirst = () => {
+//     emptyContainer(universitiesContainer);
+//     changeContainerTitle("loading your feed...");
+//     removeLoadMoreButton();
+//     showContainerBusy();
 
-    setTimeout(() => {
-        changeContainerTitle("Recommneded aaaaaa");
-        hideContainerBusy();
-        //loadUniversites(UNIVERSITES);
-        displayWentWrongFirsLoad();
-        //addLoadMoreButton();
-    }, 1000);
+//     setTimeout(() => {
+//         changeContainerTitle("Recommneded aaaaaa");
+//         hideContainerBusy();
+//         //loadUniversites(UNIVERSITES);
+//         displayWentWrongFirstLoad();
+//         //addLoadMoreButton();
+//     }, 1000);
 
-}
+// }
 
-const displayWentWrongFirsLoad = () => {
+const displayWentWrongFirstLoad = () => {
     var div = document.createElement("div");
     div.classList.add("went-wrong");
     div.innerHTML = `
@@ -413,9 +413,24 @@ const displayWentWrongFirsLoad = () => {
     universitiesContainer.append(div);
 }
 
+const displayNotFoundFirstLoad = () => {
+    var div = document.createElement("div");
+    div.classList.add("went-wrong");
+    div.innerHTML = `
+            <span class="went-wrong-msg">Not Found</span>`;
+
+    universitiesContainer.append(div);
+}
+
 
 
 const fetchRecommendedUniversities = (userID) => {
+
+    emptyContainer(universitiesContainer);
+    changeContainerTitle("loading your feed...");
+    removeLoadMoreButton();
+    showContainerBusy();
+
     const requestData = "id="+userID;
     fetch(URL_RECOMENDED, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -424,15 +439,39 @@ const fetchRecommendedUniversities = (userID) => {
         body: requestData // body data type must match "Content-Type" header
     })
     .then(res => {
-
+        const success = handleFirstLoadStatus(res.status);
+        if(!success) throw new Error("went wrong!");
+        return res.json();
+    })
+    .then(universities => {
+        loadUniversites(universities);
+        addLoadMoreButton();
     })
     .catch(err => {     //there was an error while sending the request or server did not response.
-        alert("error while fetching recommeded");
+        //alert("error while fetching recommeded universites");
         console.error(err);
     })
 }
 
-fetchRecommendedUniversities(50);
+fetchRecommendedUniversities(12);
+
+
+const handleFirstLoadStatus = (status) => {
+
+    changeContainerTitle("Recommneded");
+    hideContainerBusy();
+        
+    switch (status) {
+        case 404:
+            displayNotFoundFirstLoad();
+            return false;
+        case 200:
+            return true;
+        default:
+            displayWentWrongFirstLoad();
+            return false;
+    }
+}
 
 // removeLoadMoreButton();
 // showContainerBusy();
