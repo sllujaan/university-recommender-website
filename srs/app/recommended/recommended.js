@@ -4,41 +4,25 @@ import {
  } from "../util/util.js";
 import { loadPrograms, UNIVERSITY_DETAILS } from "../accordian/accordian.js";
 import {
-    URL_UNIVERSITY_DETAILS, URL_COUNTRY, URL_PROGRAM
+    URL_UNIVERSITY_DETAILS
 } from "../urls/urlResolver.js";
 
 
 const RECOMMENDED_SEARCH_ID = -123;
-
-const SEARCH_CATEGORIES = {
-    LOCATION: 0x0ffd,
-    PROGRAM: 0x0aaa,
-    ADMI_DATE: 0x0abc,
-    BUDGET: 0x0def,
-    MIN_MARKS: 0xeff,
-}
 
 /*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var body = document.querySelectorAll("body")[0];
 var containerOpts = document.querySelectorAll(".container-opts")[0];
-var universitiesContainer = document.querySelectorAll(".Universities-container")[0];
+var universitiesContainer = document.querySelectorAll(".Universities-container")[1];
 var btnLoadMore = document.querySelectorAll(".btn-load-more")[0];
 var savedSearchItemSelected = document.querySelectorAll(".saved-search-item-selected")[0];
 var containerUniDetails = document.querySelectorAll(".container-uni-details")[0];
-var searchFilterItemWrapper = document.querySelectorAll(".search-filter-item-wrapper")[0];
 
 
 var sidebar = document.querySelectorAll(".side-bar")[0];
 var contianersavedSearchesResp = document.querySelectorAll(".container-saved-searches")[0];
-var containerSearchFilters = document.querySelectorAll(".container-search-filters")[0];
-var userCountry = document.getElementById("user-country");
-var userProram = document.getElementById("user-program");
-var userAdmissionDate= document.getElementById("user-addmission-date");
-var userBudget = document.getElementById("user_budget_US_$");
-var userMinMarksPct = document.getElementById("user-min_marks_pct");
-
 
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
@@ -62,7 +46,6 @@ const SAVED_SEARCHES = [
 
 
 
-
 document.addEventListener("click", e => {
     console.log(e.target);
 
@@ -71,9 +54,7 @@ document.addEventListener("click", e => {
     const idUniDetails = e.target.classList.contains("uni-name");
     const isBackCaret = e.target.classList.contains("details-back-caret");
     const isSavedSearch = e.target.classList.contains("saved-search-item");
-    const isSearchFilter = e.target.parentElement.classList.contains("search-filter-item-wrapper");
-    const isClearFilters = e.target.classList.contains("clear-filters");
-    
+
     const TRUE_VALUE = true;
 
     switch (TRUE_VALUE) {
@@ -94,16 +75,9 @@ document.addEventListener("click", e => {
             selectSavedSearch(e.target.id);
             performSearch(e.target.id);
             break;
-        case isSearchFilter:
-            e.target.parentElement.remove();
-            break;
-        case isClearFilters:
-            clearAllSearchFilters();
-            break;
-
     
         default:
-            //hideContainerOpts();
+            hideContainerOpts();
             break;
     }
 
@@ -126,127 +100,6 @@ document.addEventListener("click", e => {
     
 })
 
-
-/*fired when user selects country.*/
-userCountry.addEventListener("change", e => {
-    const countryID = e.target.value;
-    const countryName = e.target[e.target.selectedIndex].innerText;
-
-    // const filterExists = isSearchFilterExists(SEARCH_CATEGORIES.LOCATION, countryID);
-    // if(!filterExists) addSearchFilter(countryName, SEARCH_CATEGORIES.LOCATION, countryID);
-    addSearchFilterSingleVal(countryName, SEARCH_CATEGORIES.LOCATION, countryID);
-})
-
-/*fired when user selects program.*/
-userProram.addEventListener("change", e => {
-    const programID = e.target.value;
-    const programName = e.target[e.target.selectedIndex].innerText;
-
-    const filterExists = isSearchFilterExists(SEARCH_CATEGORIES.PROGRAM, programID);
-    if(!filterExists) addSearchFilter(programName, SEARCH_CATEGORIES.PROGRAM, programID);
-})
-
-/*fired when user selects program.*/
-userAdmissionDate.addEventListener("change", e => {
-    const dateValue = e.target.value;
-    const dateName = e.target[e.target.selectedIndex].innerText;
-
-    addSearchFilterSingleVal(dateName, SEARCH_CATEGORIES.ADMI_DATE, dateValue);
-})
-
-userBudget.addEventListener("change", e => {
-    const budgetValue = e.target.value;
-
-    addSearchFilterSingleVal(budgetValue+"$", SEARCH_CATEGORIES.BUDGET, budgetValue);
-})
-
-
-userMinMarksPct.addEventListener("change", e => {
-    const minMarksPct = parseInt(e.target.value);
-    if((minMarksPct < 0) || (minMarksPct > 100)) {
-        console.log(e.target);
-        e.target.style.setProperty("border-color", "red");
-        return;
-    }
-    else {
-        e.target.style.setProperty("border-color", "lightgray");
-    }
-
-    addSearchFilterSingleVal(minMarksPct+"%", SEARCH_CATEGORIES.MIN_MARKS, minMarksPct);
-})
-
-
-
-/**
- * initialize countries in the register form.
- * @param {JSON} Countries 
- */
-const initCountryInForm = (Countries) => {
-    console.log(Countries);
-    Countries.forEach(Country => {
-        var option = document.createElement("option");
-        option.setAttribute("value", Country.Country_ID);
-        option.innerText = Country.Name;
-        userCountry.append(option);
-    })
-    userCountry.disabled = false;
-}
-
-/**
- * initialize programs in the register form.
- * @param {JSON} programs 
- */
-const initProgramInForm = (programs) => {
-    console.log(programs);
-    programs.forEach(program => {
-        var option = document.createElement("option");
-        option.setAttribute("value", program.Program_ID);
-        option.innerText = program.Name;
-        userProram.append(option);
-    })
-    userProram.disabled = false;
-}
-
-
-/**
- * retrieves countries from database.
- */
-const getCountriesDB = () => {
-    fetch(URL_COUNTRY)
-    .then(res => {
-        if(res.status !== 200) {alert("There was an error while fetching Countries from Database!");}
-        else {return res.json();}
-    })
-    .then(programs => {
-        initCountryInForm(programs);
-    })
-    .catch(err => {
-        //displayServerError();
-        console.error(err);
-    })
-}
-
-
-/**
- * retrieves programs from database.
- */
-const getProgramsDB = () => {
-    fetch(URL_PROGRAM)
-    .then(res => {
-        if(res.status !== 200) {alert("There was an error while fetching Programs from Database!");}
-        else {return res.json();}
-    })
-    .then(programs => {
-        initProgramInForm(programs);
-    })
-    .catch(err => {
-        //displayServerError();
-        console.error(err);
-    })
-}
-
-getCountriesDB();
-getProgramsDB();
 
 const showContainerOpts = () => {
     containerOpts.style.setProperty("top", "0");
@@ -421,6 +274,13 @@ const addSavedSearches = (searches) => {
         div.setAttribute("id", search.Search_ID);
         div.innerText = search.Name;
         sidebar.append(div);
+
+        //do the same with responsive search container
+        var div = document.createElement("div");
+        div.classList.add("saved-search-item");
+        div.setAttribute("id", search.Search_ID);
+        div.innerText = search.Name;
+        contianersavedSearchesResp.append(div);
     });
     return true;
 }
@@ -454,6 +314,13 @@ const addRecommendedSearch = () => {
     div.setAttribute("id", RECOMMENDED_SEARCH_ID);
     div.innerText = "Recommended";
     sidebar.append(div);
+
+    //do the same for responsive container
+    var div = document.createElement("div");
+    div.classList.add("recommeded-auto", "saved-search-item");
+    div.setAttribute("id", RECOMMENDED_SEARCH_ID);
+    div.innerText = "Recommended";
+    contianersavedSearchesResp.append(div);
 }
 
 
@@ -495,13 +362,13 @@ const loadMore = () => {
 
 
 const loadFirst = () => {
-    //emptyContainer(universitiesContainer);
-    //changeContainerTitle("loading your feed...");
+    emptyContainer(universitiesContainer);
+    changeContainerTitle("loading your feed...");
     removeLoadMoreButton();
     showContainerBusy();
 
     setTimeout(() => {
-        //changeContainerTitle("Recommneded aaaaaa");
+        changeContainerTitle("Recommneded aaaaaa");
         hideContainerBusy();
         loadUniversites(UNIVERSITES);
         addLoadMoreButton();
@@ -533,81 +400,6 @@ const loadFirst = () => {
 //     loadUniversites(UNIVERSITES);
 //     addLoadMoreButton();
 // }, 3000);
-
-
-
-
-
-containerSearchFilters.addEventListener("change", e => {
-    console.log(e.target);
-})
-
-const generateSearchFilter = (name, category, id) => {
-    var div = document.createElement("div");
-    div.classList.add("search-filter-item-wrapper");
-    div.setAttribute("data-filter-category", category);
-    div.setAttribute("id", id);
-
-    div.innerHTML = `
-                        <div class="search-filter-item">${name}
-                            <i class="fa fa-times"></i>
-                        </div>
-                    `;
-    return div;
-
-}
-
-const addSearchFilter = (name, category, id) => {
-    var clearFilters = document.querySelectorAll(".clear-filters")[0];
-    var filterItem = generateSearchFilter(name, category, id);
-
-    containerSearchFilters.insertBefore(filterItem, clearFilters);
-
-}
-
-const isSearchFilterExists = (category, id) => {
-    var searchFilters = document.querySelectorAll(".search-filter-item-wrapper");
-    console.log(searchFilters);
-    for (let i = 0; i < searchFilters.length; i++) {
-        const catAttr = searchFilters[i].getAttribute("data-filter-category");
-        const exists = (parseInt(catAttr) === parseInt(category)) && (parseInt(searchFilters[i].id) === parseInt(id));
-        if(exists) return true;
-    }
-    return false;
-}
-
-const addSearchFilterSingleVal = (name, category, id) => {
-    var clearFilters = document.querySelectorAll(".clear-filters")[0];
-    var searchFilters = document.querySelectorAll(".search-filter-item-wrapper");
-    console.log(searchFilters);
-    var exists = false;
-
-    for (let i = 0; i < searchFilters.length; i++) {
-        
-        const catAttr = searchFilters[i].getAttribute("data-filter-category");
-        exists = (parseInt(catAttr) === parseInt(category));
-        //if exists replace that one
-        if(exists) {
-            console.log("exists");
-            searchFilters[i].id = id;
-            searchFilters[i].firstElementChild.innerHTML = name + `<i class="fa fa-times"></i>`;
-            return true;
-        }
-        
-    }
-
-    if(!exists) {
-        var filterItem = generateSearchFilter(name, category, id);
-        containerSearchFilters.insertBefore(filterItem, clearFilters);
-        return true;
-    }
-
-    return false;
-}
-
-const clearAllSearchFilters = () => {
-    containerSearchFilters.innerHTML = `<div class="clear-filters" style="color: #48a000; font-weight: bold; font-size: large;cursor: pointer;">Clear filters</div>`;
-}
 
 
 

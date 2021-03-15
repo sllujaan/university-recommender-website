@@ -99,11 +99,11 @@ body {
     padding: 1px 4px;
 }
 
-
-.link > a {
+.link a {
     text-decoration: none;
     color: white;
 }
+
 
 
 .person {
@@ -163,6 +163,7 @@ body {
     border: 1px solid lightgray;
     font-weight: bold;
     border-radius: 4px;
+    color: #0d6efd;
 }
 
 .authorized-container {
@@ -189,6 +190,10 @@ body {
     justify-content: flex-start;
     align-items: center;
     flex-wrap: nowrap;
+}
+
+.person-resp-hide {
+    display: none;
 }
 
 .authorized-responsive-person > * {
@@ -312,8 +317,6 @@ body {
         font-size: small;
     }
 }
-
-
 
 
 

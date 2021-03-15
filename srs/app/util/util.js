@@ -47,6 +47,7 @@ export const getAppFooter = (fileLocation) => {
 export const loadHeaderFooter = (headerContainer, footerContainer) => {
     getAppHeader(HEADER_FILE_URL, headerContainer)
     .then(header => {
+        console.log("initiating header...");
         headerContainer.append(header[0])
         loadHeaderJS(document);
         initAuthorizedUserFeatures();
@@ -69,16 +70,53 @@ const isUserLoggedIn = () => {
 
 
 
+const getLoginLinks = () => {
+    var loginLink = document.getElementById("login-link-container");
+    var loginLinkResponsive = document.getElementById("login-link-container-resp");
+    return {loginLink: loginLink, loginLinkResponsive: loginLinkResponsive};
+}
+const hideLoginButtons = () => {
+    var loginLinks = getLoginLinks();
+    loginLinks.loginLink.setAttribute("style", "display: none;");
+    loginLinks.loginLinkResponsive.setAttribute("style", "display: none;");
+
+}
+
+const showLoginButtons = () => {
+    var loginLinks = getLoginLinks();
+    loginLinks.loginLink.removeAttribute("style");
+    loginLinks.loginLinkResponsive.removeAttribute("style");
+}
+
+
+const initUserName = (userName) => {
+    var userNameEl = document.getElementById("user-name-uuid");
+    var userNameRespEl = document.getElementById("user-name-uuid-resp");
+
+    userNameEl.innerText = userName;
+    userNameRespEl.innerText = userName;
+}
+
+
 const showAuthorizedFeatures = (authorizedContainers) => {
     authorizedContainers.forEach(container => {
         container.classList.remove("authorized-container");
+        container.classList.remove("person-resp-hide");
+        
     })
+
+    initUserName(localStorage.getItem("user_name"));
+    hideLoginButtons();
+
 }
 
 const hideAuthorizedFeatures = (authorizedContainers) => {
     authorizedContainers.forEach(container => {
         container.classList.add("authorized-container");
+        
     })
+
+    showLoginButtons();
 }
 
 
@@ -88,9 +126,11 @@ const initAuthorizedUserFeatures = () => {
     if(!authorizedContainers) return;
 
     if(isUserLoggedIn()) {
+        console.warn("user is logged in!");
         showAuthorizedFeatures(authorizedContainers);
     }
     else {
+        console.warn("user is not logged in!");
         hideAuthorizedFeatures(authorizedContainers);
     }
 
@@ -98,4 +138,39 @@ const initAuthorizedUserFeatures = () => {
 }
 
 
+export const disableScroll = (element) => {
+    element.style.setProperty("overflow", "hidden");
+}
 
+export const enableScroll = (element) => {
+    element.style.setProperty("overflow", "auto");
+}
+
+
+export const getBusyContainer = (count) => {
+
+    var div = document.createElement("div");
+    div.classList.add("busy-bundle");
+    for (let i = 0; i < count; i++) {
+        var uniContainer = document.createElement("div");
+        uniContainer.classList.add("university-container");
+        uniContainer.classList.add("busy-generated");
+        uniContainer.innerHTML = `
+            <div class="container-busy">
+                <div class="busy-1"></div>
+                <div class="busy-1"></div>
+                <div class="busy-1"></div>
+            </div>`;
+
+        div.append(uniContainer);
+    }
+
+    return div;
+}
+
+export const getUserCredentialsLocalStorage = () => {
+    const sessionID = localStorage.getItem("session_id");
+    const userID = localStorage.getItem("user_id");
+
+    return {session_id:sessionID, user_id:userID};
+}

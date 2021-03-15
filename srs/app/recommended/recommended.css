@@ -63,157 +63,6 @@ body {
     width: 25%;
 } */
 
-
-.container-uni-top {
-    /* background-color: orange; */
-    width: 100%;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    padding: 20px 30px;
-}
-
-.container-uni-top > * {
-    margin: 5px 0px;
-}
-
-.container-uni-top .search-bar {
-    width: 70%;
-}
-
-.search-bar-select {
-    /* background-color: orange; */
-    position: relative;
-    
-}
-
-
-/*--------------------search filters css-------------------*/
-.container-search-filters {
-    /* background-color: orange; */
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    
-}
-
-.container-search-filters .search-filter-item {
-    background-color: rgb(223, 223, 223);
-    margin: 4px;
-    padding: 10px;
-    padding-left: 10px;
-    padding-right: 25px;
-    cursor: pointer;
-    border-radius: 6px;
-
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    max-width: 150px;
-
-    position: relative;
-
-}
-
-.search-filter-item i {
-    /* background-color: red; */
-    position: absolute;
-    padding: 10px;
-    top: 6px;
-    right: 0;
-}
-
-.container-search-filters .search-filter-item:hover {
-    background-color: rgb(180, 180, 180);
-}
-
-/*---------------------------------------------------------*/
-
-
-/*-------------select option----------*/
-.form-content {
-    width: 100%;
-    margin: 5px 0;
-    display: flex;
-    align-items: center;
-    justify-content: left;
-}
-
-.form-content select {
-    width: 100%;
-    padding: 10px 20px;
-    border: 1px solid var(--gray-1);
-    border-radius: 6px;
-}
-
-.form-content input {
-    width: 100%;
-    padding: 10px 20px;
-    border: 1px solid var(--gray-1);
-    border-radius: 6px;
-}
-
-.percentage {
-    position: relative;
-}
-
-.percentage :last-child {
-    padding: 10px 3px;
-    color: gray;
-    position: absolute;
-    top: 0;
-    right: 2px;
-} 
-/*------------------------------------*/
-
-.search-bar-select input {
-    width: 100%;
-    padding: 8px 40px;
-    text-decoration: none;
-    border: 1px solid lightgray;
-    border-radius: 4px;
-}
-
-.search-bar-select i {
-    position: absolute;
-    /* background-color: #37a000; */
-    color: gray;
-    padding: 9px 10px;
-    left: 0;
-    top: 0;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-}
-
-
-.btn-save-search {
-    /* background-color: orchid; */
-    position: relative;
-    margin-left: 20px;
-    width: 30%;
-}
-
-.btn-filter-search {
-    display: none;
-}
-
-.btn-save-search input {
-    width: 100%;
-    font-weight: bold;
-}
-
-.btn-save-search > i {
-    /* background-color: orangered; */
-    color: #37a000;
-    position: absolute;
-    left: 0;
-    top: 0;
-    padding: 13px;
-} 
-
-
 .search-bar {
     position: relative;
     width: 50%;
@@ -347,7 +196,7 @@ body {
 }
 
 .side-bar {
-    width: 30%;
+    width: 25%;
     /* background-color: orange; */
 }
 
@@ -361,7 +210,7 @@ body {
 }
 
 .side-bar > *:hover {
-    /* background-color: white; */
+    background-color: white;
 }
 
 .saved-search-item-selected {
@@ -373,7 +222,7 @@ body {
 
 .Universities-container {
     /* background-color: green; */
-    width: 65%;
+    width: 50%;
     background-color: white;
     border: 1px solid #d1d1d1;
     border-radius: 4px;
@@ -491,15 +340,7 @@ body {
     }
 
     .side-bar {
-        /* display: none; */
-        position: fixed;
-        z-index: 1000;
-        background-color: rebeccapurple;
-        width: 100%;
-        height: 100vh;
-        top: 90%;
-        left: 0;
-        
+        display: none;
     }
 
     #advanced-search {
@@ -507,6 +348,10 @@ body {
     }
 
     .find-uni-title {
+        display: none;
+    }
+
+    .search-bar {
         display: none;
     }
 
@@ -532,22 +377,6 @@ body {
     }
 
     .container-opts {
-        display: block;
-    }
-
-    .container-uni-top {
-        flex-wrap: wrap;
-    }
-
-    .container-uni-top .search-bar {
-        width: 100%;
-    }
-
-    .btn-save-search {
-        margin: 5px 0px;
-    }
-
-    .btn-filter-search {
         display: block;
     }
 

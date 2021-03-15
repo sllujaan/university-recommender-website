@@ -1,22 +1,23 @@
 import { loadHeaderFooter } from "../util/util.js";
-import { URL_USERS, URL_USERS_AUTH } from "../urls/urlResolver.js";
+import { URL_USERS_AUTH } from "../urls/urlResolver.js";
 
-
+/*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var userTable = document.getElementById("user-table");
 var searchUser = document.getElementById("search-user");
+
+/*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
 
-
-
-
+/**
+ * search users in table
+ * @param {string} searchValue 
+ */
 const searchTable = (searchValue) => {
     var userRows = document.querySelectorAll(".user-row");
     userRows.forEach(userRow => {
         const userName = userRow.getElementsByClassName("user-name")[0].innerText;
-        // console.log(userName);
-        // console.log(userName.includes(searchValue));
         if(!userName.includes(searchValue)) {
             hideElement(userRow);
         }
@@ -27,20 +28,34 @@ const searchTable = (searchValue) => {
 
 }
 
+/**
+ * hide table element
+ * @param {Element} element 
+ */
 const hideElement = (element) => {
     element.setAttribute("style", "display: none;");
 }
 
+/**
+ * show table element
+ * @param {Element} element 
+ */
 const showElement = (element) => {
     element.setAttribute("style", "display: table-row;");
 }
 
+/**
+ * show error while fetching users from database.
+ */
 const showRequestServiceFailed = () => {
     var serverError = document.getElementById("server-error");
     hideBusy();
     serverError.setAttribute("style", "display: block; color: red;");
 }
 
+/**
+ * display server error.
+ */
 const displayServerError = () => {
     alert("net::ERR_CONNECTION_REFUSED\n\
     1. Make sure that back-end server is running properly.\n\
@@ -48,33 +63,38 @@ const displayServerError = () => {
     showRequestServiceFailed();
 }
 
-
+/**
+ * make table visible
+ */
 const showTable = () => {
     hideBusy();
     var tableContainer = document.getElementsByClassName("table-container")[0];
     tableContainer.setAttribute("style", "display: block;");
 }
 
+/**
+ * hide busy
+ * used when fetching users from database.
+ */
 const hideBusy = () => {
     var busy = document.getElementById("busy");
     busy.setAttribute("style", "display: none;");
 }
 
+
+/**
+ * show unauthorized message when the user is unauthorized.
+ */
 const showUnauthorizedMsg = () => {
     var unauthorizedContianer = document.getElementById("unauthorized-contianer");
     hideBusy();
     unauthorizedContianer.setAttribute("style", "display: block;");
 }
 
-
-const users = [
-    {Name: "jake", Email: "jake@email", Country: "us", City: "new york", Program: "CS"},
-    {Name: "jake", Email: "jake@email", Country: "us", City: "new york", Program: "CS"},
-    {Name: "jake", Email: "jake@email", Country: "us", City: "new york", Program: "CS"},
-    {Name: "jake", Email: "jake@email", Country: "us", City: "new york", Program: "CS"},
-    {Name: "jake", Email: "jake@email", Country: "us", City: "new york", Program: "CS"},
-]
-
+/**
+ * initialize user in the table
+ * @param {JSON} users 
+ */
 const initUsersInTable = (users) => {
     showTable();
     users.forEach(user => {
@@ -82,6 +102,10 @@ const initUsersInTable = (users) => {
     })
 }
 
+/**
+ * generate new user row for table.
+ * @param {JSON} user 
+ */
 const generateUserRow = (user) => {
     var tr = document.createElement("tr");
     var tdName = document.createElement("td");
@@ -108,28 +132,25 @@ const generateUserRow = (user) => {
 }
 
 
+/**
+ * get user authentication data from browser's local storage.
+ */
 const getUserData = () => {
     const sessionId = localStorage.getItem("session_id");
     const userId = parseInt(localStorage.getItem("user_id"));
-
     if(!sessionId || !userId) return null;
     else return "session_id="+sessionId+"&user_id="+userId;
 }
 
-console.log(getUserData());
-
-
-
+/**
+ * retrieve users from database.
+ */
 const getUsersDB = () => {
-
     const requestData = getUserData();
-
     if(!requestData) {
         showUnauthorizedMsg();
         return;
     }
-
-    console.log(requestData);
 
     fetch(URL_USERS_AUTH, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -137,28 +158,23 @@ const getUsersDB = () => {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: "session_id=9646712f9ea83cf51e16b7ceede95653&user_id=1" // body data type must match "Content-Type" header
+        body: requestData // body data type must match "Content-Type" header
     })
     .then(res => {
-        console.log(res);
-        return res.text();
         switch (res.status) {
-            case 401:
+            case 401:   //unauthorized user.
                 showUnauthorizedMsg();
                 break;
-            case 200:
-                console.log(res.text());
-                break;
-                //return res.json();
+            case 200:   //OK, user is authorized.
+                return res.json();  //convert response text to json format.
             default:
                 showRequestServiceFailed();
-                alert("There was an error while fetching Programs from Database!");
+                alert("There was an error while fetching Users from Database!");
+                displayServerError();
                 break;
         }
     })
     .then(users => {
-        console.log(users);
-        return;
         if(users) {
             initUsersInTable(users);
         };
@@ -170,41 +186,10 @@ const getUsersDB = () => {
 }
 
 
-
-
-const getUsersNew = () => {
-
-    fetch(URL_USERS, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({"session_id":"85c52b42bc29a6808ae9fe285a175311","user_id":1}) // body data type must match "Content-Type" header
-    })
-    .then(res => {
-        console.log(res.status);
-        if(res.status === 200) return res.json();
-        else res.text();
-    })
-    .then(users => {
-        console.log(users);
-    })
-    .catch(err => {
-        console.error(err);
-    })
-}
-
-
-getUsersDB();
-
-
+/*fired when user presses keywords in search bar*/
 searchUser.addEventListener("keyup", e => {
     searchTable(e.target.value);
 })
 
-
-
-// setTimeout(() => {
-//     showUnauthorizedMsg();
-// }, 3000);
+/*get and initialize users in users table*/
+getUsersDB();
