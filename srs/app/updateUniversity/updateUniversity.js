@@ -80,6 +80,9 @@ const PROGRAM_SAMPLE = {"Program_ID": 2, "Description": "saaaaaaaaaaa", "Admissi
 
 /*dom elements*/
 var body = document.getElementsByTagName("body")[0];
+var serverError = document.querySelectorAll(".server-error")[0];
+var appBodyContent = document.querySelectorAll(".app-body-content")[0];
+
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var userName = document.getElementById("user-name");
@@ -285,7 +288,8 @@ const getProgramsDB = () => {
         PROGRAMS = programs;
     })
     .catch(err => {
-        displayServerError();
+        //displayServerError();
+        displyStandardMsg(serverError, "Server Error: Unable to fetch programs!", "red");
         console.error(err);
     })
 }
@@ -306,7 +310,8 @@ const getCountriesDB = () => {
         }
     })
     .catch(err => {
-        displayServerError();
+        //displayServerError();
+        displyStandardMsg(serverError, "Server Error: Unable to fetch countries!", "red");
         console.error(err);
     })
 }
@@ -329,7 +334,8 @@ const getCitiesDB = (CountryID) => {
         }
     })
     .catch(err => {
-        displayServerError();
+        //displayServerError();
+        displyStandardMsg(serverError, "Server Error: Unable to fetch cities!", "red");
         console.error(err);
     })
 }
@@ -446,6 +452,20 @@ const handleOnSubmit = (e) => {
     const requestData = name+email+password+countryID+cityID+programID+admissionDate+sEdu+hEdu+etm+budget;
     disableInputs(e);                  
     sumbitForm(e, URL_USER_REGISTER, requestData);
+}
+
+
+const displyStandardMsg = (elment, msg, color) => {
+    elment.innerText = msg;
+    elment.style.setProperty("color", color);
+    elment.classList.remove("hide");
+    appBodyContent.classList.add("hide");
+}
+
+const hideStandardMsg = () => {
+    elment.innerText = "";
+    appBodyContent.classList.remove("hide");
+    elment.classList.add("hide");
 }
 
 
@@ -805,7 +825,7 @@ const isNoPorgramChosen = () => {
 
 
 //initialize programs in the form.
-//getProgramsDB();
+getProgramsDB();
 //initialize countries in the form.
 //getCountriesDB();
 
@@ -1110,7 +1130,8 @@ const fetchUniverstyDetails = (id) => {
     })
     .catch(err => {
         //displayServerError();
-        alert(err);
+        //alert(err);
+        displyStandardMsg(serverError, "Server Error: Unable to fetch univeristy details!", "red");
         console.error(err);
     })
 }

@@ -174,3 +174,4 @@ export const getUserCredentialsLocalStorage = () => {
 
     return {session_id:sessionID, user_id:userID};
 }
+

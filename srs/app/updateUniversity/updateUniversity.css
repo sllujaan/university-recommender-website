@@ -35,6 +35,12 @@ body {
     flex-wrap: wrap;
 }
 
+.server-error {
+    color: red;
+    font-size: x-large;
+    font-weight: bold;
+}
+
 .stage-tabs {
     /* background-color: orange; */
     width: 100%;
