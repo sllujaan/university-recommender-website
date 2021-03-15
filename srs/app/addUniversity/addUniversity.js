@@ -50,12 +50,12 @@ var CITY_EVENT = {
 
 
 const UNIVERSITY_DATA_SAMPLE = {
-	"session_id": "84515059ec9a2d4cac889873328bf2d4",
+	"session_id": "268db496390eb6a5c1f62103fa90e780",
 	"user_id": 1,
-	"Name": "punjab university6",
+	"Name": "punjab university9",
 	"Description": "punjab university",
-	"Country_ID": 146,
-	"City_ID": 1010,
+	"Country_ID": 100,
+	"City_ID": 10,
 	"Admission_Criteria": "punjab university",
 	"Start_Admission_Date": "2022-02-01",
 	"End_Admission_Date": "2022-02-01",
@@ -299,9 +299,11 @@ const getCountriesDB = () => {
         if(res.status !== 200) {alert("There was an error while fetching Countries from Database!");}
         else {return res.json();}
     })
-    .then(programs => {
-        initCountryInForm(programs);
-        COUNTRY_EVENT.COUNTRY_LOADED = true;
+    .then(countries => {
+        if(countries) {
+            initCountryInForm(countries);
+            COUNTRY_EVENT.COUNTRY_LOADED = true;
+        }
     })
     .catch(err => {
         displayServerError();
@@ -321,8 +323,10 @@ const getCitiesDB = (CountryID) => {
         else {return res.json();}
     })
     .then(cities => {
-        initCityInForm(cities);
-        CITY_EVENT.CITY_LOADED = true;
+        if(cities) {
+            initCityInForm(cities);
+            CITY_EVENT.CITY_LOADED = true;
+        }
     })
     .catch(err => {
         displayServerError();
@@ -474,7 +478,7 @@ const goToUniversityStage = () => {
 userCountry.addEventListener("change", e => {
     console.log(e.target.value);
     userCity.disabled = true;
-    getCitiesDB(e.target.value);
+    if(e.target.value) getCitiesDB(e.target.value);
 });
 
 uniName.addEventListener("change", e => {
@@ -1054,6 +1058,28 @@ const setUniProgFromsData = (universityDetails) => {
 }
 
 
+
+const submitFinalFormData = (universityDetails) => {
+
+    fetch(URL_ADD_UNIVERSITY, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(universityDetails) // body data type must match "Content-Type" header
+    })
+    .then(res => {
+        if(res.status !== 200) {throw new Error("Something went wrong while processing the request!");}
+        else {alert("Request Processed Successfully!");}
+    })
+    .catch(err => {
+        console.error(err);
+        alert(err);
+    })
+}
+
+submitFinalFormData(UNIVERSITY_DATA_SAMPLE);
+
+
 //addNewChosenProgram(PROGRAM_SAMPLE, "auto generated");
 
 
@@ -1073,3 +1099,7 @@ console.log(CHOSEN_PROGRAMS);
 // setInterval(() => {
 //     CUSTOM_EVENT.COUNTRY_LOADED = true;
 // }, 1000);
+
+
+
+
