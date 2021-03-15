@@ -23,3 +23,4 @@ export const URL_REQUEST_REJECT = URL_BASE + "request/reject.php";
 export const URL_ADD_UNIVERSITY = URL_BASE + "addNewUniversity/addNewUniversity.php";
 export const URL_ADD_UNIVERSITY_NAME = URL_BASE + "addNewUniversity/name.php";
 export const URL_UPDATE_UNIVERSITY = URL_BASE + "update/updateUniversity.php";
+export const URL_RECOMENDED = URL_BASE + "recommended/recomended.php";

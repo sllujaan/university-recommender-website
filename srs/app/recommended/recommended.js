@@ -4,7 +4,7 @@ import {
  } from "../util/util.js";
 import { loadPrograms, UNIVERSITY_DETAILS } from "../accordian/accordian.js";
 import {
-    URL_UNIVERSITY_DETAILS
+    URL_UNIVERSITY_DETAILS, URL_RECOMENDED
 } from "../urls/urlResolver.js";
 
 
@@ -372,6 +372,22 @@ const loadMore = () => {
 }
 
 
+// const loadFirst = () => {
+//     emptyContainer(universitiesContainer);
+//     changeContainerTitle("loading your feed...");
+//     removeLoadMoreButton();
+//     showContainerBusy();
+
+//     setTimeout(() => {
+//         changeContainerTitle("Recommneded aaaaaa");
+//         hideContainerBusy();
+//         loadUniversites(UNIVERSITES);
+//         addLoadMoreButton();
+//     }, 1000);
+
+// }
+
+
 const loadFirst = () => {
     emptyContainer(universitiesContainer);
     changeContainerTitle("loading your feed...");
@@ -381,15 +397,42 @@ const loadFirst = () => {
     setTimeout(() => {
         changeContainerTitle("Recommneded aaaaaa");
         hideContainerBusy();
-        loadUniversites(UNIVERSITES);
-        addLoadMoreButton();
+        //loadUniversites(UNIVERSITES);
+        displayWentWrongFirsLoad();
+        //addLoadMoreButton();
     }, 1000);
 
 }
 
+const displayWentWrongFirsLoad = () => {
+    var div = document.createElement("div");
+    div.classList.add("went-wrong");
+    div.innerHTML = `
+                <span class="went-wrong-msg">Sorry we Couldn't Load. Please</span>
+                <span><a href="">try again!</a></span>`;
+    universitiesContainer.append(div);
+}
 
 
 
+const fetchRecommendedUniversities = (userID) => {
+    const requestData = "id="+userID;
+    fetch(URL_RECOMENDED, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: requestData // body data type must match "Content-Type" header
+    })
+    .then(res => {
+
+    })
+    .catch(err => {     //there was an error while sending the request or server did not response.
+        alert("error while fetching recommeded");
+        console.error(err);
+    })
+}
+
+fetchRecommendedUniversities(50);
 
 // removeLoadMoreButton();
 // showContainerBusy();

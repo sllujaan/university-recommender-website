@@ -306,6 +306,20 @@ body {
 }
 
 
+.went-wrong {
+    text-align: center;
+    padding: 20px 10px;
+    font-size: x-large;
+    font-weight: bold;
+    color: red;
+}
+
+.went-wrong a {
+    text-decoration: none;
+    color: #48a000;
+}
+
+
 @keyframes busy_motion_1 {
     0%   {width: 0%;}
     50%   {width: 90%;}
@@ -419,7 +433,7 @@ body {
     position: fixed;
     z-index: 1000;
     top: 0px;
-    left: 0%;
+    left: 100%;
     transition: all .3s;
 }
 
