@@ -520,7 +520,9 @@ document.forms[0].addEventListener("submit", e => {
 
     if(!verifyUniversityFormInputs()) return;
 
-    const university = handleUniversityFormSubmit();
+    const universityID = getUniveristyID_URL();
+
+    const university = handleUniversityFormSubmit(universityID);
 
     // console.log(university);
 
@@ -837,11 +839,12 @@ isProgramAlreadyChosen(3);
 
 
 
-const handleUniversityFormSubmit = () => {
+const handleUniversityFormSubmit = (universityID) => {
 
     var university = {
         "session_id": null,
         "user_id": null,
+        "University_ID": null,
         "Name": null,
         "Description": null,
         "Country_ID": null,
@@ -863,6 +866,7 @@ const handleUniversityFormSubmit = () => {
 
     university.session_id = userCredentials.session_id;
     university.user_id = userCredentials.user_id;
+    university.University_ID = universityID;
     university.Name = uniName.value;
     university.Description = universityDescription.value;
     university.Country_ID = uniCountry.value;
@@ -1080,7 +1084,8 @@ const addNewChosenProgram = (program, name) => {
 const setUniProgFromsData = (universityDetails) => {
     setUniversityFormData(universityDetails);
     universityDetails.programs.forEach(program => {
-        addNewChosenProgram(program, "auto generated");
+        const { Name } = getProgramByID(PROGRAMS, program.Program_ID);
+        addNewChosenProgram(program, Name);
     });
 
     NAME_VALID = true;
