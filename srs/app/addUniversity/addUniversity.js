@@ -520,6 +520,10 @@ document.forms[1].addEventListener("submit", e => {
     }
 
     console.log(getFinalUniversityRequestData());
+    
+    const requestData = getFinalUniversityRequestData();
+
+    submitFinalFormData(requestData);
 
     console.log("final submit.");
 });
@@ -1077,7 +1081,7 @@ const submitFinalFormData = (universityDetails) => {
     })
 }
 
-submitFinalFormData(UNIVERSITY_DATA_SAMPLE);
+//submitFinalFormData(UNIVERSITY_DATA_SAMPLE);
 
 
 //addNewChosenProgram(PROGRAM_SAMPLE, "auto generated");
