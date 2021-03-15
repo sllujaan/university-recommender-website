@@ -805,9 +805,9 @@ const isNoPorgramChosen = () => {
 
 
 //initialize programs in the form.
-getProgramsDB();
+//getProgramsDB();
 //initialize countries in the form.
-getCountriesDB();
+//getCountriesDB();
 
 
 
@@ -905,6 +905,9 @@ const setUniversityFormData = (university) => {
         
     })
 
+
+    //now load the countries---
+    getCountriesDB();
     console.log(university);
 
     return UNIVERSITY_DATA;
@@ -1059,6 +1062,9 @@ const setUniProgFromsData = (universityDetails) => {
     universityDetails.programs.forEach(program => {
         addNewChosenProgram(program, "auto generated");
     });
+
+    NAME_VALID = true;
+    
 }
 
 
@@ -1099,6 +1105,8 @@ const fetchUniverstyDetails = (id) => {
     })
     .then(universityDetails => {
         console.log(universityDetails);
+        console.log(getUniversityDetailsObjForm(universityDetails));
+        setUniProgFromsData(getUniversityDetailsObjForm(universityDetails));
     })
     .catch(err => {
         //displayServerError();
@@ -1119,8 +1127,16 @@ const loadUniDetailsInForm = () => {
 }
 
 
+
 loadUniDetailsInForm();
 
+
+
+const getUniversityDetailsObjForm = (univeristyDetailsArrForm) => {
+    var universityDetails = univeristyDetailsArrForm[0].University;
+    universityDetails.programs = univeristyDetailsArrForm[1].University_Program;
+    return universityDetails;
+}
 
 //submitFinalFormData(UNIVERSITY_DATA_SAMPLE);
 
@@ -1135,7 +1151,9 @@ loadUniDetailsInForm();
 //setUniversityFormData(UNIVERSITY_DATA_SAMPLE);
 
 
-setUniProgFromsData(UNIVERSITY_DATA_SAMPLE);
+
+
+//setUniProgFromsData(UNIVERSITY_DATA_SAMPLE);
 console.log(CHOSEN_PROGRAMS);
 
 
