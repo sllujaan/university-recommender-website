@@ -330,7 +330,9 @@ body {
     margin: 15px 0px;
 }
 
-
+.details-description {
+    min-height: 400px;
+}
 
 
 
@@ -387,6 +389,10 @@ body {
         display: block;
     }
 
+    .details-description {
+        min-height: auto;
+    }
+
 }
 
 /*---------------------------------------------------------------*/
@@ -413,7 +419,7 @@ body {
     position: fixed;
     z-index: 1000;
     top: 0px;
-    left: 100%;
+    left: 0%;
     transition: all .3s;
 }
 
