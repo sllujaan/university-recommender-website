@@ -88,6 +88,10 @@ body {
     
 }
 
+.user-search-btn {
+    cursor: pointer;
+}
+
 
 /*--------------------search filters css-------------------*/
 .container-search-filters {

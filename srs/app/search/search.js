@@ -39,6 +39,8 @@ var sideBarRespClose = document.querySelectorAll(".side-bar-resp-close")[0];
 
 var contianersavedSearchesResp = document.querySelectorAll(".container-saved-searches")[0];
 var containerSearchFilters = document.querySelectorAll(".container-search-filters")[0];
+var userSearchName = document.getElementById("user-search-name");
+var userSearchBtn = document.getElementById("user-search-btn");
 var userCountry = document.getElementById("user-country");
 var userCity = document.getElementById("user-city");
 var userProram = document.getElementById("user-program");
@@ -83,7 +85,8 @@ document.addEventListener("click", e => {
     const isBtnFilterSearch = e.target.parentElement.classList.contains("btn-filter-search");
     const isSideBarRespClose = e.target.classList.contains("side-bar-resp-close");
     const isBtnSaveSearch = e.target.parentElement.classList.contains("btn-save-search");
-
+    const userSearchBtn = e.target.classList.contains("user-search-btn");
+    
     const TRUE_VALUE = true;
 
     switch (TRUE_VALUE) {
@@ -120,6 +123,9 @@ document.addEventListener("click", e => {
             console.log("save search");
             performSaveSearch();
             break;
+        case userSearchBtn:
+            console.log(userSearchName.value);
+            break;
 
     
         default:
@@ -146,6 +152,10 @@ document.addEventListener("click", e => {
     
 })
 
+
+userSearchName.addEventListener("change", e => {
+    console.log(e.target.value);
+});
 
 /*fired when user selects country.*/
 userCountry.addEventListener("change", e => {
@@ -693,7 +703,11 @@ const loadFirst = () => {
 
 
 
-containerSearchFilters.addEventListener("change", e => {
+containerSearchFilters.addEventListener("DOMNodeRemoved", e => {
+    
+})
+
+containerSearchFilters.addEventListener("DOMNodeInserted", e => {
     console.log(e.target);
 })
 
