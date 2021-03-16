@@ -58,6 +58,8 @@ document.addEventListener("click", e => {
     const isBackCaret = e.target.classList.contains("details-back-caret") || e.target.classList.contains("uni-details-back-cover");
     const isSavedSearch = e.target.classList.contains("saved-search-item");
     const isSideResp = e.target.classList.contains("side-resp");
+    const isUniUpdate = e.target.parentElement.classList.contains("uni-update");
+    const isUniCalculator = e.target.parentElement.classList.contains("uni-calculator");
 
     const TRUE_VALUE = true;
 
@@ -69,7 +71,7 @@ document.addEventListener("click", e => {
             loadMore();
             break;
         case idUniDetails:
-            const uniID = parseInt(e.target.id);
+            var uniID = parseInt(e.target.id);
             showUniDetails(uniID);
             break;
         case isBackCaret:
@@ -78,6 +80,13 @@ document.addEventListener("click", e => {
         case isSavedSearch:
             selectSavedSearch(e.target.id);
             performSearch(e.target.id);
+            break;
+        case isUniUpdate:
+            var uniID = parseInt(e.target.parentElement.id);
+            console.log("update uni", uniID);
+            break;
+        case isUniCalculator:
+            console.log("calculator");
             break;
     
         default:
