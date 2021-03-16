@@ -439,6 +439,7 @@ loadFirst();
 // }
 
 const displayWentWrongFirstLoad = () => {
+    hideContainerBusy();
     var div = document.createElement("div");
     div.classList.add("went-wrong");
     div.innerHTML = `
@@ -486,6 +487,7 @@ const fetchRecommendedUniversities = (userID, pageNumber, loadType) => {
     })
     .catch(err => {     //there was an error while sending the request or server did not response.
         //alert("error while fetching recommeded universites");
+        displayWentWrongFirstLoad();
         console.error(err);
     })
 }
