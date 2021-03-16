@@ -36,9 +36,10 @@ var btnLoadMore = document.querySelectorAll(".btn-load-more")[0];
 var savedSearchItemSelected = document.querySelectorAll(".saved-search-item-selected")[0];
 var containerUniDetails = document.querySelectorAll(".container-uni-details")[0];
 var uniDetailsBackCover = document.querySelectorAll(".uni-details-back-cover")[0];
-
+var uniDetailsBackCover = document.querySelectorAll(".uni-details-back-cover")[0];
 
 var sidebar = document.querySelectorAll(".side-bar")[0];
+var uniUpdateBtn = document.querySelectorAll(".uni-update")[1];
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
 
@@ -74,6 +75,7 @@ document.addEventListener("click", e => {
     const isSideResp = e.target.classList.contains("side-resp");
     const isUniUpdate = e.target.parentElement.classList.contains("uni-update");
     const isUniCalculator = e.target.parentElement.classList.contains("uni-calculator");
+    const isRecommendedClick = e.target.classList.contains("recommeded-auto");
 
     const TRUE_VALUE = true;
 
@@ -94,7 +96,7 @@ document.addEventListener("click", e => {
         case isSavedSearch:
             selectSavedSearch(e.target.id);
             var SearchID = parseInt(e.target.id);
-            //performSavedSearch(SearchID);
+            performSavedSearch(e, SearchID);
             break;
         case isUniUpdate:
             var uniID = parseInt(e.target.parentElement.id);
@@ -250,6 +252,9 @@ const setUniDetails = (universityDetails) => {
     detailsUniLink.setAttribute("placeholder", University.Web_Link);
     detailsUniLinkCopy.setAttribute("data-uni-link", University.Web_Link);
 
+    //set update button id
+    uniUpdateBtn.id = University.University_ID;
+
 
     loadPrograms(universityDetails);
 
@@ -360,8 +365,16 @@ const selectSavedSearch = (id) => {
 }
 
 
-const performSavedSearch = (searchID) => {
+const performSavedSearch = (e, searchID) => {
     const search = getSaveSearchByID(USER_SEARCHES, searchID);
+    const isRecommendedClick = e.target.classList.contains("recommeded-auto");
+
+    if(isRecommendedClick) {
+        //perform recommended search
+        // CURRENT_PAGE = 0;
+        // fetchRecommendedUniversitiesEx("id=12", FIRST_LOAD);
+        return;
+    }
 
     if(!search) {
         alert("Somthing went wrong while retrieving saved search internally!");
@@ -374,7 +387,7 @@ const performSavedSearch = (searchID) => {
     CURRENT_PAGE = 0;
     const requestData = prepareSavedSearchRequestData(search);
     console.log(requestData);
-    changeContainerTitle(search.Name);
+
     performSavedSearchesUni(requestData, FIRST_LOAD);
 
 }
@@ -488,6 +501,7 @@ const fetchUniversities = (uniLoadStruct = UNI_LOAD_STRUCT) => {
     .catch(err => {     //there was an error while sending the request or server did not response.
         //alert("error while fetching recommeded universites");
         //displayWentWrongFirstLoad();
+        //console.log();
         console.error(err);
     });
 }
@@ -517,6 +531,7 @@ const performSavedSearchesUni = (requestData, loadType) => {
 }
 
 const prepareSavedSearchRequestData = (search) => {
+    if(!search) return "";
     const Name = search.Name ? (search.Name) : ("");
     const Country_ID = search.Country_ID ? (search.Country_ID) : ("");
     const City_ID = search.City_ID ? (search.City_ID) : ("");
