@@ -15,6 +15,14 @@ const FIRST_LOAD = 0xf10
 const LOAD_MORE = 0xf12
 var UNI_LOAD_TYPE = FIRST_LOAD;
 
+const UNI_LOAD_STRUCT = {
+    url: null,
+    userID: null,
+    pageNumber: null,
+    loadType: null,
+    requestData: null,
+}
+
 /*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
@@ -442,6 +450,53 @@ selectRecommendedSearch();
 // }
 
 
+const fetchUniversities = (uniLoadStruct = UNI_LOAD_STRUCT) => {
+
+    if(uniLoadStruct.loadType === FIRST_LOAD) emptyContainer(universitiesContainer);
+    changeContainerTitle("loading your feed...");
+    removeLoadMoreButton();
+    showContainerBusy();
+
+    UNI_LOAD_TYPE = uniLoadStruct.loadType;
+    const requestData = uniLoadStruct.requestData;
+
+    fetch(uniLoadStruct.url, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: requestData // body data type must match "Content-Type" header
+    })
+    .then(res => {
+        const success = handleFirstLoadStatus(res.status);
+        if(!success) throw new Error("went wrong!");
+        return res.json();
+    })
+    .then(universities => {
+        console.log(universities);
+        loadUniversites(universities);
+        addLoadMoreButton();
+    })
+    .catch(err => {     //there was an error while sending the request or server did not response.
+        //alert("error while fetching recommeded universites");
+        displayWentWrongFirstLoad();
+        console.error(err);
+    });
+}
+
+
+const fetchRecommendedUniversitiesEx = (requestData, loadType) => {
+    var ulStruct = UNI_LOAD_STRUCT;
+    ulStruct.url = URL_RECOMENDED + "?page=" + ++CURRENT_PAGE;
+    ulStruct.userID = 12;
+    //ulStruct.pageNumber = ++CURRENT_PAGE;
+    ulStruct.loadType = loadType;
+    ulStruct.requestData = requestData;
+
+    fetchUniversities(ulStruct);
+
+}
+
+
 const loadFirst = () => {
     emptyContainer(universitiesContainer);
     changeContainerTitle("loading your feed...");
@@ -451,7 +506,8 @@ const loadFirst = () => {
     setTimeout(() => {
         changeContainerTitle("Recommneded aaaaaa");
         hideContainerBusy();
-        fetchRecommendedUniversities(12, ++CURRENT_PAGE, FIRST_LOAD);
+        //fetchRecommendedUniversities(12, ++CURRENT_PAGE, FIRST_LOAD);
+        fetchRecommendedUniversitiesEx("id=12" ,FIRST_LOAD);
     }, 1000);
 }
 
@@ -461,7 +517,8 @@ const loadMore = () => {
 
     setTimeout(() => {
         hideContainerBusy();
-        fetchRecommendedUniversities(12, ++CURRENT_PAGE, LOAD_MORE);
+        //fetchRecommendedUniversities(12, ++CURRENT_PAGE, LOAD_MORE);
+        fetchRecommendedUniversitiesEx("id=12", LOAD_MORE);
         //loadUniversites(UNIVERSITES);
         //addLoadMoreButton();
     }, 1000);
@@ -521,6 +578,7 @@ const displayNotFoundFirstLoad = () => {
 
     universitiesContainer.append(div);
 }
+
 
 
 
@@ -612,7 +670,7 @@ const fetchSavedSearches = () => {
 
 
 
-fetchSavedSearches();
+//fetchSavedSearches();
 
 
 
