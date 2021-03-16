@@ -472,7 +472,7 @@ const fetchUniversities = (uniLoadStruct = UNI_LOAD_STRUCT) => {
     })
     .then(res => {
         const success = handleFirstLoadStatus(res.status);
-        if(!success) throw new Error("went wrong!");
+        if(!success) throw new Error(res.status);
         return res.json();
     })
     .then(universities => {
@@ -500,7 +500,7 @@ const fetchRecommendedUniversitiesEx = (requestData, loadType) => {
 
 }
 
-const fetchSavedSearches = (requestData, loadType) => {
+const performSavedSearches = (requestData, loadType) => {
 
     var ulStruct = UNI_LOAD_STRUCT;
     ulStruct.url = URL_SEARCH + "?page=" + ++CURRENT_PAGE;
@@ -511,6 +511,19 @@ const fetchSavedSearches = (requestData, loadType) => {
     fetchUniversities(ulStruct);
 }
 
+const prepareSavedSearchRequestData = (search) => {
+    const Name = search.Name ? (search.Name) : ("");
+    const Country_ID = search.Country_ID ? (search.Country_ID) : ("");
+    const City_ID = search.City_ID ? (search.City_ID) : ("");
+    const Program_ID = search.Program_ID ? (search.Program_ID) : ("");
+    const budget_US_$ = search.budget_US_$ ? (search.budget_US_$) : ("");
+    const MM_PCT = search.MM_PCT ? (search.MM_PCT) : ("");
+
+
+    const requestData = `Name=${Name}&Country_ID=${Country_ID}&City_ID=${City_ID}&Program_ID=${Program_ID}&Budget_US_$=${budget_US_$}&MM_PCT=${MM_PCT}`;
+
+    return requestData;   
+}
 
 
 const loadFirst = () => {
@@ -527,27 +540,11 @@ const loadFirst = () => {
         else {
             const requestData = prepareSavedSearchRequestData(SAVED_SEARCHES[0]);
             console.log(requestData);
-            fetchSavedSearches(requestData, FIRST_LOAD);
+            performSavedSearches(requestData, FIRST_LOAD);
         }
     }, 1000);
 }
 
-
-const prepareSavedSearchRequestData = (search) => {
-    const Name = search.Name ? (search.Name) : ("");
-    const Country_ID = search.Country_ID ? (search.Country_ID) : ("");
-    const City_ID = search.City_ID ? (search.City_ID) : ("");
-    const Program_ID = search.Program_ID ? (search.Program_ID) : ("");
-    const budget_US_$ = search.budget_US_$ ? (search.budget_US_$) : ("");
-    const MM_PCT = search.MM_PCT ? (search.MM_PCT) : ("");
-
-
-    const requestData = `Name=${Name}&Country_ID=${Country_ID}
-    &City_ID=${City_ID}&Program_ID=${Program_ID}&
-    Budget_US_$=${budget_US_$}&MM_PCT=${MM_PCT}`;
-
-    return requestData;   
-}
 
 const loadMore = () => {
     removeLoadMoreButton();
@@ -557,6 +554,11 @@ const loadMore = () => {
         hideContainerBusy();
         //fetchRecommendedUniversities(12, ++CURRENT_PAGE, LOAD_MORE);
         if(UNI_TYPE === RECOMMENDED) fetchRecommendedUniversitiesEx("id=12", LOAD_MORE);
+        else {
+            const requestData = prepareSavedSearchRequestData(SAVED_SEARCHES[0]);
+            console.log(requestData);
+            performSavedSearches(requestData, LOAD_MORE);
+        }
         
         //loadUniversites(UNIVERSITES);
         //addLoadMoreButton();
@@ -564,7 +566,7 @@ const loadMore = () => {
 
 }
 
-UNI_TYPE = SAVED_SEARCH;
+UNI_TYPE = RECOMMENDED;
 loadFirst();
 
 
@@ -667,7 +669,7 @@ const handleFirstLoadStatus = (status) => {
     switch (status) {
         case 404:
             if(UNI_LOAD_TYPE === FIRST_LOAD) {displayNotFoundFirstLoad();}
-            else {/*alert("404 Not Found!");*/}
+            else {return status}
             return false;
         case 200:
             return true;
@@ -680,11 +682,36 @@ const handleFirstLoadStatus = (status) => {
 
 
 
+const fetchSavedSearches = () => {
+
+    const userCredentials = getUserCredentialsLocalStorage();
+    const requestData = `session_id=${userCredentials.session_id}&user_id=${userCredentials.user_id}`;
+
+    fetch(URL_SAVED_SEARCHES, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: requestData // body data type must match "Content-Type" header
+    })
+    .then(res => {
+        if(res.status !== 200) throw new Error("Somthing went wrong while fetching saved Searches!");
+        return res.json();
+    })
+    .then(savedSearches => {
+        console.log(savedSearches);
+        clearSavedSearches();
+        addSavedSearches(savedSearches);
+    })
+    .catch(err => {     //there was an error while sending the request or server did not response.
+        clearSavedSearches();
+        addRecommendedSearch();
+        console.error(err);
+    });
+}
 
 
 
-
-//fetchSavedSearches();
+fetchSavedSearches();
 
 
 
