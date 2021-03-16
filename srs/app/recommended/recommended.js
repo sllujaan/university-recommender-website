@@ -4,7 +4,7 @@ import {
  } from "../util/util.js";
 import { loadPrograms, UNIVERSITY_DETAILS } from "../accordian/accordian.js";
 import {
-    URL_UNIVERSITY_DETAILS, URL_RECOMENDED, URL_SAVED_SEARCHES
+    URL_UNIVERSITY_DETAILS, URL_RECOMENDED, URL_SAVED_SEARCHES, URL_SEARCH
 } from "../urls/urlResolver.js";
 
 
@@ -47,6 +47,8 @@ const SAVED_SEARCHES = [
     {"Search_ID":"4","User_ID":"3","Name":"mySearch4","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null}
 ];
 
+var USER_SEARCHES = [];
+
 
 
 document.addEventListener("click", e => {
@@ -79,7 +81,8 @@ document.addEventListener("click", e => {
             break;
         case isSavedSearch:
             selectSavedSearch(e.target.id);
-            performSearch(e.target.id);
+            var SearchID = parseInt(e.target.id);
+            performSavedSearch(SearchID);
             break;
         case isUniUpdate:
             var uniID = parseInt(e.target.parentElement.id);
@@ -299,6 +302,12 @@ const getComputedStyleProperty = (elemtent, proptery) => {
 
 }
 
+const getSaveSearchByID =  (searches, id) => {
+    for (let i = 0; i < searches.length; i++) {
+        if(parseInt(searches[i].Search_ID) === parseInt(id)) return searches[i];
+    }
+}
+
 
 const addSavedSearches = (searches) => {
 
@@ -313,6 +322,8 @@ const addSavedSearches = (searches) => {
         div.setAttribute("id", search.Search_ID);
         div.innerText = search.Name;
         sidebar.append(div);
+        //store search for future use
+        USER_SEARCHES.push(search);
     });
     return true;
 }
@@ -336,8 +347,40 @@ const selectSavedSearch = (id) => {
 }
 
 
-const performSearch = (searchID) => {
+const performSavedSearch = (searchID) => {
+    const search = getSaveSearchByID(USER_SEARCHES, searchID);
 
+    if(!searches) {
+        alert("Somthing went wrong while retrieving saved search internally!");
+        return;
+    }
+
+    console.log(USER_SEARCHES);
+    console.log(search);
+}
+
+
+const fetchUniForSavedSearch = (search) => {
+    fetch(URL_SAVED_SEARCHES, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: requestData // body data type must match "Content-Type" header
+    })
+    .then(res => {
+        if(res.status !== 200) throw new Error("Somthing went wrong while fetching saved Searches!");
+        return res.json();
+    })
+    .then(savedSearches => {
+        console.log(savedSearches);
+        clearSavedSearches();
+        addSavedSearches(savedSearches);
+    })
+    .catch(err => {     //there was an error while sending the request or server did not response.
+        clearSavedSearches();
+        addRecommendedSearch();
+        console.error(err);
+    });
 }
 
 const addRecommendedSearch = () => {
