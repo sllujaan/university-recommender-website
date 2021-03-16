@@ -520,6 +520,7 @@ body {
         height: 100vh;
         top: 100%;
         left: 0;
+        overflow: auto;
         
     }
 

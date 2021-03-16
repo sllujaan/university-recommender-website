@@ -12,7 +12,8 @@ import {
 const RECOMMENDED_SEARCH_ID = -123;
 
 const SEARCH_CATEGORIES = {
-    LOCATION: 0x0ffd,
+    COUNTRY: 0x02da,
+    CITY: 0x01cd,
     PROGRAM: 0x0aaa,
     ADMI_DATE: 0x0abc,
     BUDGET: 0x0def,
@@ -152,8 +153,20 @@ userCountry.addEventListener("change", e => {
 
     // const filterExists = isSearchFilterExists(SEARCH_CATEGORIES.LOCATION, countryID);
     // if(!filterExists) addSearchFilter(countryName, SEARCH_CATEGORIES.LOCATION, countryID);
-    addSearchFilterSingleVal(countryName, SEARCH_CATEGORIES.LOCATION, countryID);
+    removeSearchFilterItem(SEARCH_CATEGORIES.CITY);
+    
+    addSearchFilterSingleVal(countryName, SEARCH_CATEGORIES.COUNTRY, countryID);
     getCitiesDB(e.target.value);
+})
+
+/*fired when user selects country.*/
+userCity.addEventListener("change", e => {
+    const cityID = e.target.value;
+    const cityName = e.target[e.target.selectedIndex].innerText;
+
+    // const filterExists = isSearchFilterExists(SEARCH_CATEGORIES.LOCATION, countryID);
+    // if(!filterExists) addSearchFilter(countryName, SEARCH_CATEGORIES.LOCATION, countryID);
+    addSearchFilterSingleVal(cityName, SEARCH_CATEGORIES.CITY, cityID);
 })
 
 /*fired when user selects program.*/
@@ -325,6 +338,22 @@ const getSearch = () => {
     }
     return false;
 }
+
+const removeSearchFilterItem = (category) => {
+    var searchFilters = document.querySelectorAll(".search-filter-item-wrapper");
+    console.log(searchFilters);
+    for (let i = 0; i < searchFilters.length; i++) {
+        const catAttr = searchFilters[i].getAttribute("data-filter-category");
+        const exists = (parseInt(catAttr) === parseInt(category));
+        if(exists) {
+            searchFilters[i].remove();
+            return true;
+        }
+    }
+    return false;
+}
+
+
 
 const showSideBarResp = () => {
     sidebar.style.setProperty("top", "0px");
