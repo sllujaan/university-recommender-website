@@ -94,7 +94,7 @@ document.addEventListener("click", e => {
         case isSavedSearch:
             selectSavedSearch(e.target.id);
             var SearchID = parseInt(e.target.id);
-            performSavedSearch(SearchID);
+            //performSavedSearch(SearchID);
             break;
         case isUniUpdate:
             var uniID = parseInt(e.target.parentElement.id);
@@ -327,6 +327,7 @@ const addSavedSearches = (searches) => {
 
     //add recommeded search
     addRecommendedSearch();
+    selectRecommendedSearch();
 
     searches.forEach(search => {
         var div = document.createElement("div");
@@ -540,7 +541,7 @@ const loadFirst = () => {
         //changeContainerTitle("Recommneded aaaaaa");
         hideContainerBusy();
         //fetchRecommendedUniversities(12, ++CURRENT_PAGE, FIRST_LOAD);
-        if(UNI_TYPE === RECOMMENDED) fetchRecommendedUniversitiesEx("id=122", FIRST_LOAD);
+        if(UNI_TYPE === RECOMMENDED) fetchRecommendedUniversitiesEx("id=12", FIRST_LOAD);
         else {
             const requestData = prepareSavedSearchRequestData(SAVED_SEARCHES[0]);
             console.log(requestData);
