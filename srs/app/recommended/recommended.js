@@ -13,7 +13,11 @@ var CURRENT_PAGE = 0;
 
 const FIRST_LOAD = 0xf10
 const LOAD_MORE = 0xf12
+const RECOMMENDED = 0xc10;
+const SAVED_SEARCH = 0xc12;
+
 var UNI_LOAD_TYPE = FIRST_LOAD;
+var UNI_TYPE = RECOMMENDED;
 
 const UNI_LOAD_STRUCT = {
     url: null,
@@ -49,7 +53,7 @@ const UNIVERSITES = [
 
 
 const SAVED_SEARCHES = [
-    {"Search_ID":"1","User_ID":"3","Name":"mySearch1","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null},
+    {"Search_ID":"1","User_ID":"3","Name":"uni","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null},
     {"Search_ID":"2","User_ID":"3","Name":"mySearch2","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null},
     {"Search_ID":"3","User_ID":"3","Name":"mySearch3","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null},
     {"Search_ID":"4","User_ID":"3","Name":"mySearch4","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null}
@@ -496,6 +500,18 @@ const fetchRecommendedUniversitiesEx = (requestData, loadType) => {
 
 }
 
+const fetchSavedSearches = (requestData, loadType) => {
+
+    var ulStruct = UNI_LOAD_STRUCT;
+    ulStruct.url = URL_SEARCH + "?page=" + ++CURRENT_PAGE;
+    ulStruct.userID = 12;
+    ulStruct.loadType = loadType;
+    ulStruct.requestData = requestData;
+
+    fetchUniversities(ulStruct);
+}
+
+
 
 const loadFirst = () => {
     emptyContainer(universitiesContainer);
@@ -507,8 +523,30 @@ const loadFirst = () => {
         changeContainerTitle("Recommneded aaaaaa");
         hideContainerBusy();
         //fetchRecommendedUniversities(12, ++CURRENT_PAGE, FIRST_LOAD);
-        fetchRecommendedUniversitiesEx("id=12" ,FIRST_LOAD);
+        if(UNI_TYPE === RECOMMENDED) fetchRecommendedUniversitiesEx("id=12", FIRST_LOAD);
+        else {
+            const requestData = prepareSavedSearchRequestData(SAVED_SEARCHES[0]);
+            console.log(requestData);
+            fetchSavedSearches(requestData, FIRST_LOAD);
+        }
     }, 1000);
+}
+
+
+const prepareSavedSearchRequestData = (search) => {
+    const Name = search.Name ? (search.Name) : ("");
+    const Country_ID = search.Country_ID ? (search.Country_ID) : ("");
+    const City_ID = search.City_ID ? (search.City_ID) : ("");
+    const Program_ID = search.Program_ID ? (search.Program_ID) : ("");
+    const budget_US_$ = search.budget_US_$ ? (search.budget_US_$) : ("");
+    const MM_PCT = search.MM_PCT ? (search.MM_PCT) : ("");
+
+
+    const requestData = `Name=${Name}&Country_ID=${Country_ID}
+    &City_ID=${City_ID}&Program_ID=${Program_ID}&
+    Budget_US_$=${budget_US_$}&MM_PCT=${MM_PCT}`;
+
+    return requestData;   
 }
 
 const loadMore = () => {
@@ -518,13 +556,15 @@ const loadMore = () => {
     setTimeout(() => {
         hideContainerBusy();
         //fetchRecommendedUniversities(12, ++CURRENT_PAGE, LOAD_MORE);
-        fetchRecommendedUniversitiesEx("id=12", LOAD_MORE);
+        if(UNI_TYPE === RECOMMENDED) fetchRecommendedUniversitiesEx("id=12", LOAD_MORE);
+        
         //loadUniversites(UNIVERSITES);
         //addLoadMoreButton();
     }, 1000);
 
 }
 
+UNI_TYPE = SAVED_SEARCH;
 loadFirst();
 
 
@@ -641,32 +681,6 @@ const handleFirstLoadStatus = (status) => {
 
 
 
-const fetchSavedSearches = () => {
-
-    const userCredentials = getUserCredentialsLocalStorage();
-    const requestData = `session_id=${userCredentials.session_id}&user_id=${userCredentials.user_id}`;
-
-    fetch(URL_SAVED_SEARCHES, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: requestData // body data type must match "Content-Type" header
-    })
-    .then(res => {
-        if(res.status !== 200) throw new Error("Somthing went wrong while fetching saved Searches!");
-        return res.json();
-    })
-    .then(savedSearches => {
-        console.log(savedSearches);
-        clearSavedSearches();
-        addSavedSearches(savedSearches);
-    })
-    .catch(err => {     //there was an error while sending the request or server did not response.
-        clearSavedSearches();
-        addRecommendedSearch();
-        console.error(err);
-    });
-}
 
 
 
