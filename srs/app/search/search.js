@@ -342,12 +342,13 @@ const getSearch = () => {
     var search = {
         session_id: userCredentials.session_id,
         user_id: userCredentials.user_id,
-        Name: null,
+        Name: userSearchName.value,
         Country_ID: null,
         City_ID: null,
         Program_ID: null,
         Budget_US_$: null,
-        MM_PCT: null
+        MM_PCT: null,
+        Start_Admission_Date: null
     };
 
     var searchFilters = document.querySelectorAll(".search-filter-item-wrapper");
@@ -367,7 +368,7 @@ const getSearch = () => {
                     search.Program_ID = searchFilters[i].id;
                     break;
                 case SEARCH_CATEGORIES.ADMI_DATE:
-                    search.Country_ID = searchFilters[i].id;
+                    search.Start_Admission_Date = searchFilters[i].id;
                     break;
                 case SEARCH_CATEGORIES.BUDGET:
                     search.Budget_US_$ = searchFilters[i].id;

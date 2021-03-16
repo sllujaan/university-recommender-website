@@ -376,8 +376,9 @@ body {
 .container-close {
     /* background-color: red; */
     position: relative;
-    padding: 20px;
+    padding: 20px 30px;
     display: none;
+
 }
 
 .container-close > i {
