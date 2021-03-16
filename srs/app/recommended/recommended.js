@@ -1,10 +1,10 @@
 import { 
     loadHeaderFooter, enableScroll, disableScroll,
-    getBusyContainer
+    getBusyContainer, getUserCredentialsLocalStorage
  } from "../util/util.js";
 import { loadPrograms, UNIVERSITY_DETAILS } from "../accordian/accordian.js";
 import {
-    URL_UNIVERSITY_DETAILS, URL_RECOMENDED
+    URL_UNIVERSITY_DETAILS, URL_RECOMENDED, URL_SAVED_SEARCHES
 } from "../urls/urlResolver.js";
 
 
@@ -130,7 +130,7 @@ const showContainerBusy = () => {
 
 const hideContainerBusy = () => {
     var busy_bundle = universitiesContainer.getElementsByClassName("busy-bundle")[0];
-    busy_bundle.remove();
+    if(busy_bundle) busy_bundle.remove();
     
 }
 
@@ -356,9 +356,9 @@ const selectRecommendedSearch = () => {
 
 
 
-clearSavedSearches();
+// clearSavedSearches();
 
-addSavedSearches(SAVED_SEARCHES);
+// addSavedSearches(SAVED_SEARCHES);
 
 selectRecommendedSearch();
 
@@ -498,7 +498,7 @@ const fetchRecommendedUniversities = (userID, pageNumber, loadType) => {
         //alert("error while fetching recommeded universites");
         displayWentWrongFirstLoad();
         console.error(err);
-    })
+    });
 }
 
 //fetchRecommendedUniversities(12, ++CURRENT_PAGE, FIRST_LOAD);
@@ -521,6 +521,54 @@ const handleFirstLoadStatus = (status) => {
             return false;
     }
 }
+
+
+
+
+
+const fetchSavedSearches = () => {
+
+    const userCredentials = getUserCredentialsLocalStorage();
+    const requestData = `session_id=${userCredentials.session_id}&user_id=${userCredentials.user_id}`;
+
+    fetch(URL_SAVED_SEARCHES, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: requestData // body data type must match "Content-Type" header
+    })
+    .then(res => {
+        if(res.status !== 200) throw new Error("Somthing went wrong while fetching saved Searches!");
+        return res.json();
+    })
+    .then(savedSearches => {
+        console.log(savedSearches);
+        clearSavedSearches();
+        addSavedSearches(savedSearches);
+    })
+    .catch(err => {     //there was an error while sending the request or server did not response.
+        clearSavedSearches();
+        addRecommendedSearch();
+        console.error(err);
+    });
+}
+
+
+
+fetchSavedSearches();
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // removeLoadMoreButton();
 // showContainerBusy();

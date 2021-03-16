@@ -24,3 +24,5 @@ export const URL_ADD_UNIVERSITY = URL_BASE + "addNewUniversity/addNewUniversity.
 export const URL_ADD_UNIVERSITY_NAME = URL_BASE + "addNewUniversity/name.php";
 export const URL_UPDATE_UNIVERSITY = URL_BASE + "update/updateUniversity.php";
 export const URL_RECOMENDED = URL_BASE + "recommended/recomended.php";
+
+export const URL_SAVED_SEARCHES = URL_BASE + "search/savedSearches.php";
