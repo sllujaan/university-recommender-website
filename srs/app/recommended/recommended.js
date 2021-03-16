@@ -377,6 +377,19 @@ selectRecommendedSearch();
 // }
 
 
+const loadFirst = () => {
+    emptyContainer(universitiesContainer);
+    changeContainerTitle("loading your feed...");
+    removeLoadMoreButton();
+    showContainerBusy();
+
+    setTimeout(() => {
+        changeContainerTitle("Recommneded aaaaaa");
+        hideContainerBusy();
+        fetchRecommendedUniversities(12, ++CURRENT_PAGE, FIRST_LOAD);
+    }, 1000);
+}
+
 const loadMore = () => {
     removeLoadMoreButton();
     showContainerBusy();
@@ -386,9 +399,11 @@ const loadMore = () => {
         fetchRecommendedUniversities(12, ++CURRENT_PAGE, LOAD_MORE);
         //loadUniversites(UNIVERSITES);
         //addLoadMoreButton();
-    }, 3000);
+    }, 1000);
 
 }
+
+loadFirst();
 
 
 // const loadFirst = () => {
@@ -475,7 +490,7 @@ const fetchRecommendedUniversities = (userID, pageNumber, loadType) => {
     })
 }
 
-fetchRecommendedUniversities(12, ++CURRENT_PAGE, FIRST_LOAD);
+//fetchRecommendedUniversities(12, ++CURRENT_PAGE, FIRST_LOAD);
 
 
 const handleFirstLoadStatus = (status) => {
@@ -518,7 +533,7 @@ const handleFirstLoadStatus = (status) => {
 // }, 3000);
 
 
-showUniDetails(50);
+//showUniDetails(50);
 
 changeRespOptsTitle("new title");
 
