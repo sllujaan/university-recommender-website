@@ -30,7 +30,10 @@ var containerUniDetails = document.querySelectorAll(".container-uni-details")[0]
 var searchFilterItemWrapper = document.querySelectorAll(".search-filter-item-wrapper")[0];
 
 
+
 var sidebar = document.querySelectorAll(".side-bar")[0];
+var sideBarRespClose = document.querySelectorAll(".side-bar-resp-close")[0];
+
 var contianersavedSearchesResp = document.querySelectorAll(".container-saved-searches")[0];
 var containerSearchFilters = document.querySelectorAll(".container-search-filters")[0];
 var userCountry = document.getElementById("user-country");
@@ -73,7 +76,9 @@ document.addEventListener("click", e => {
     const isSavedSearch = e.target.classList.contains("saved-search-item");
     const isSearchFilter = e.target.parentElement.classList.contains("search-filter-item-wrapper");
     const isClearFilters = e.target.classList.contains("clear-filters");
-    
+    const isBtnFilterSearch = e.target.parentElement.classList.contains("btn-filter-search");
+    const isSideBarRespClose = e.target.parentElement.classList.contains("side-bar-resp-close");
+
     const TRUE_VALUE = true;
 
     switch (TRUE_VALUE) {
@@ -100,9 +105,13 @@ document.addEventListener("click", e => {
         case isClearFilters:
             clearAllSearchFilters();
             break;
+        case isBtnFilterSearch:
+            showSideBarResp();
+            break;
 
     
         default:
+            hideSideBarResp();
             //hideContainerOpts();
             break;
     }
@@ -247,6 +256,14 @@ const getProgramsDB = () => {
 
 getCountriesDB();
 getProgramsDB();
+
+const showSideBarResp = () => {
+    sidebar.style.setProperty("top", "0px");
+}
+
+const hideSideBarResp = () => {
+    sidebar.style.setProperty("top", "100%");
+}
 
 const showContainerOpts = () => {
     containerOpts.style.setProperty("top", "0");
