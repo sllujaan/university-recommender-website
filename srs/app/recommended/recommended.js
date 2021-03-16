@@ -350,35 +350,48 @@ const selectSavedSearch = (id) => {
 const performSavedSearch = (searchID) => {
     const search = getSaveSearchByID(USER_SEARCHES, searchID);
 
-    if(!searches) {
+    if(!search) {
         alert("Somthing went wrong while retrieving saved search internally!");
         return;
     }
 
     console.log(USER_SEARCHES);
     console.log(search);
+
+    fetchUniForSavedSearch(search);
+
 }
 
 
-const fetchUniForSavedSearch = (search) => {
-    fetch(URL_SAVED_SEARCHES, {
+const fetchUniForSavedSearch = (search, pageNumber) => {
+
+    if(loadType === FIRST_LOAD) emptyContainer(universitiesContainer);
+    changeContainerTitle("loading your feed...");
+    removeLoadMoreButton();
+    showContainerBusy();
+
+    UNI_LOAD_TYPE = loadType;
+
+    const requestData = "id="+userID;
+    const url = URL_SEARCH + "?page=" + pageNumber;
+    fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: requestData // body data type must match "Content-Type" header
     })
     .then(res => {
-        if(res.status !== 200) throw new Error("Somthing went wrong while fetching saved Searches!");
+        const success = handleFirstLoadStatus(res.status);
+        if(!success) throw new Error("went wrong!");
         return res.json();
     })
-    .then(savedSearches => {
-        console.log(savedSearches);
-        clearSavedSearches();
-        addSavedSearches(savedSearches);
+    .then(universities => {
+        loadUniversites(universities);
+        addLoadMoreButton();
     })
     .catch(err => {     //there was an error while sending the request or server did not response.
-        clearSavedSearches();
-        addRecommendedSearch();
+        //alert("error while fetching recommeded universites");
+        displayWentWrongFirstLoad();
         console.error(err);
     });
 }
@@ -508,6 +521,7 @@ const displayNotFoundFirstLoad = () => {
 
     universitiesContainer.append(div);
 }
+
 
 
 
