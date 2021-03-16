@@ -1,6 +1,7 @@
 import { 
     loadHeaderFooter, enableScroll, disableScroll,
-    getBusyContainer
+    getBusyContainer,
+    getUserCredentialsLocalStorage
  } from "../util/util.js";
 import { loadPrograms, UNIVERSITY_DETAILS } from "../accordian/accordian.js";
 import {
@@ -154,7 +155,7 @@ userCountry.addEventListener("change", e => {
     // const filterExists = isSearchFilterExists(SEARCH_CATEGORIES.LOCATION, countryID);
     // if(!filterExists) addSearchFilter(countryName, SEARCH_CATEGORIES.LOCATION, countryID);
     removeSearchFilterItem(SEARCH_CATEGORIES.CITY);
-    
+
     addSearchFilterSingleVal(countryName, SEARCH_CATEGORIES.COUNTRY, countryID);
     getCitiesDB(e.target.value);
 })
@@ -321,23 +322,62 @@ getProgramsDB();
 
 
 const performSaveSearch = () => {
-
+    console.log(getSearch());
 }
 
 const getSearch = () => {
-    var search = {
 
+    const userCredentials = getUserCredentialsLocalStorage();
+
+    var search = {
+        session_id: userCredentials.session_id,
+        user_id: userCredentials.user_id,
+        Name: null,
+        Country_ID: null,
+        City_ID: null,
+        Program_ID: null,
+        Budget_US_$: null,
+        MM_PCT: null
     };
 
     var searchFilters = document.querySelectorAll(".search-filter-item-wrapper");
     console.log(searchFilters);
-    for (let i = 0; i < searchFilters.length; i++) {
+    for (let i = 0; i < searchFilters.length; i++) {        
         const catAttr = searchFilters[i].getAttribute("data-filter-category");
-        const exists = (parseInt(catAttr) === parseInt(category)) && (parseInt(searchFilters[i].id) === parseInt(id));
-        if(exists) return true;
+        const isValidCategory = isSearchFilterCategoryValid(catAttr);
+        if(isValidCategory) {
+            switch (parseInt(catAttr)) {
+                case SEARCH_CATEGORIES.COUNTRY:
+                    search.Country_ID = searchFilters[i].id;
+                    break;
+                case SEARCH_CATEGORIES.CITY:
+                    search.City_ID = searchFilters[i].id;
+                    break;
+                case SEARCH_CATEGORIES.PROGRAM:
+                    search.Program_ID = searchFilters[i].id;
+                    break;
+                case SEARCH_CATEGORIES.ADMI_DATE:
+                    search.Country_ID = searchFilters[i].id;
+                    break;
+                case SEARCH_CATEGORIES.BUDGET:
+                    search.Budget_US_$ = searchFilters[i].id;
+                    break;
+                case SEARCH_CATEGORIES.MIN_MARKS:
+                    search.MM_PCT = searchFilters[i].id;
+                    break;
+                
+            
+                default:
+                    break;
+            }
+        }
     }
-    return false;
+    
+    console.log(search);
 }
+
+
+
 
 const removeSearchFilterItem = (category) => {
     var searchFilters = document.querySelectorAll(".search-filter-item-wrapper");
@@ -690,6 +730,18 @@ const isSearchFilterExists = (category, id) => {
     }
     return false;
 }
+
+const isSearchFilterCategoryValid = (category) => {
+    for (var prop in SEARCH_CATEGORIES) {
+        console.log(SEARCH_CATEGORIES[prop], parseInt(category));
+        if(SEARCH_CATEGORIES[prop] === parseInt(category)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+//console.log(isSearchFilterCategoryValid(SEARCH_CATEGORIES.COUNTRY));
 
 const addSearchFilterSingleVal = (name, category, id) => {
     var clearFilters = document.querySelectorAll(".clear-filters")[0];
