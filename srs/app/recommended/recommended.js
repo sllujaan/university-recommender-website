@@ -374,7 +374,7 @@ const performSavedSearch = (searchID) => {
     const requestData = prepareSavedSearchRequestData(search);
     console.log(requestData);
     changeContainerTitle(search.Name);
-    performSavedSearches(requestData, FIRST_LOAD);
+    performSavedSearchesUni(requestData, FIRST_LOAD);
 
 }
 
@@ -461,7 +461,7 @@ selectRecommendedSearch();
 const fetchUniversities = (uniLoadStruct = UNI_LOAD_STRUCT) => {
 
     if(uniLoadStruct.loadType === FIRST_LOAD) emptyContainer(universitiesContainer);
-    changeContainerTitle("loading your feed...");
+    //changeContainerTitle("loading your feed...");
     removeLoadMoreButton();
     showContainerBusy();
 
@@ -486,7 +486,7 @@ const fetchUniversities = (uniLoadStruct = UNI_LOAD_STRUCT) => {
     })
     .catch(err => {     //there was an error while sending the request or server did not response.
         //alert("error while fetching recommeded universites");
-        displayWentWrongFirstLoad();
+        //displayWentWrongFirstLoad();
         console.error(err);
     });
 }
@@ -504,7 +504,7 @@ const fetchRecommendedUniversitiesEx = (requestData, loadType) => {
 
 }
 
-const performSavedSearches = (requestData, loadType) => {
+const performSavedSearchesUni = (requestData, loadType) => {
 
     var ulStruct = UNI_LOAD_STRUCT;
     ulStruct.url = URL_SEARCH + "?page=" + ++CURRENT_PAGE;
@@ -532,19 +532,19 @@ const prepareSavedSearchRequestData = (search) => {
 
 const loadFirst = () => {
     emptyContainer(universitiesContainer);
-    changeContainerTitle("loading your feed...");
+    //changeContainerTitle("loading your feed...");
     removeLoadMoreButton();
     showContainerBusy();
 
     setTimeout(() => {
-        changeContainerTitle("Recommneded aaaaaa");
+        //changeContainerTitle("Recommneded aaaaaa");
         hideContainerBusy();
         //fetchRecommendedUniversities(12, ++CURRENT_PAGE, FIRST_LOAD);
-        if(UNI_TYPE === RECOMMENDED) fetchRecommendedUniversitiesEx("id=12", FIRST_LOAD);
+        if(UNI_TYPE === RECOMMENDED) fetchRecommendedUniversitiesEx("id=122", FIRST_LOAD);
         else {
             const requestData = prepareSavedSearchRequestData(SAVED_SEARCHES[0]);
             console.log(requestData);
-            performSavedSearches(requestData, FIRST_LOAD);
+            performSavedSearchesUni(requestData, FIRST_LOAD);
         }
     }, 1000);
 }
@@ -561,7 +561,7 @@ const loadMore = () => {
         else {
             const requestData = prepareSavedSearchRequestData(SAVED_SEARCHES[0]);
             console.log(requestData);
-            performSavedSearches(requestData, LOAD_MORE);
+            performSavedSearchesUni(requestData, LOAD_MORE);
         }
         
         //loadUniversites(UNIVERSITES);
@@ -673,7 +673,7 @@ const handleFirstLoadStatus = (status) => {
     switch (status) {
         case 404:
             if(UNI_LOAD_TYPE === FIRST_LOAD) {displayNotFoundFirstLoad();}
-            else {return status}
+            else {removeLoadMoreButton();}
             return false;
         case 200:
             return true;
