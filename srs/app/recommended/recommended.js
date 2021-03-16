@@ -9,6 +9,11 @@ import {
 
 
 const RECOMMENDED_SEARCH_ID = -123;
+var CURRENT_PAGE = 0;
+
+const FIRST_LOAD = 0xf10
+const LOAD_MORE = 0xf12
+var UNI_LOAD_TYPE = FIRST_LOAD;
 
 /*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
@@ -359,14 +364,28 @@ selectRecommendedSearch();
 
 
 
+// const loadMore = () => {
+//     removeLoadMoreButton();
+//     showContainerBusy();
+
+//     setTimeout(() => {
+//         hideContainerBusy();
+//         loadUniversites(UNIVERSITES);
+//         addLoadMoreButton();
+//     }, 3000);
+
+// }
+
+
 const loadMore = () => {
     removeLoadMoreButton();
     showContainerBusy();
 
     setTimeout(() => {
         hideContainerBusy();
-        loadUniversites(UNIVERSITES);
-        addLoadMoreButton();
+        fetchRecommendedUniversities(12, ++CURRENT_PAGE, LOAD_MORE);
+        //loadUniversites(UNIVERSITES);
+        //addLoadMoreButton();
     }, 3000);
 
 }
@@ -424,15 +443,18 @@ const displayNotFoundFirstLoad = () => {
 
 
 
-const fetchRecommendedUniversities = (userID) => {
+const fetchRecommendedUniversities = (userID, pageNumber, loadType) => {
 
-    emptyContainer(universitiesContainer);
+    if(loadType === FIRST_LOAD) emptyContainer(universitiesContainer);
     changeContainerTitle("loading your feed...");
     removeLoadMoreButton();
     showContainerBusy();
 
+    UNI_LOAD_TYPE = loadType;
+
     const requestData = "id="+userID;
-    fetch(URL_RECOMENDED, {
+    const url = URL_RECOMENDED + "?page=" + pageNumber;
+    fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -453,7 +475,7 @@ const fetchRecommendedUniversities = (userID) => {
     })
 }
 
-fetchRecommendedUniversities(12);
+fetchRecommendedUniversities(12, ++CURRENT_PAGE, FIRST_LOAD);
 
 
 const handleFirstLoadStatus = (status) => {
@@ -463,7 +485,8 @@ const handleFirstLoadStatus = (status) => {
         
     switch (status) {
         case 404:
-            displayNotFoundFirstLoad();
+            if(UNI_LOAD_TYPE === FIRST_LOAD) {displayNotFoundFirstLoad();}
+            else {/*alert("404 Not Found!");*/}
             return false;
         case 200:
             return true;
@@ -497,7 +520,6 @@ const handleFirstLoadStatus = (status) => {
 
 showUniDetails(50);
 
-loadFirst();
 changeRespOptsTitle("new title");
 
 
