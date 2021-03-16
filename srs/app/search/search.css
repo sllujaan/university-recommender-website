@@ -197,6 +197,7 @@ body {
 
 .btn-filter-search {
     display: none;
+    cursor: pointer;
 }
 
 .btn-save-search input {
@@ -349,6 +350,7 @@ body {
 .side-bar {
     width: 30%;
     /* background-color: orange; */
+    transition: all .3s;
 }
 
 .side-bar > * {
@@ -378,6 +380,7 @@ body {
     padding: 10px;
     top: 2px;
     right: 2px;
+    cursor: pointer;
 }
 
 .saved-search-item-selected {

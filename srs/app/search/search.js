@@ -77,7 +77,7 @@ document.addEventListener("click", e => {
     const isSearchFilter = e.target.parentElement.classList.contains("search-filter-item-wrapper");
     const isClearFilters = e.target.classList.contains("clear-filters");
     const isBtnFilterSearch = e.target.parentElement.classList.contains("btn-filter-search");
-    const isSideBarRespClose = e.target.parentElement.classList.contains("side-bar-resp-close");
+    const isSideBarRespClose = e.target.classList.contains("side-bar-resp-close");
 
     const TRUE_VALUE = true;
 
@@ -108,10 +108,12 @@ document.addEventListener("click", e => {
         case isBtnFilterSearch:
             showSideBarResp();
             break;
+        case isSideBarRespClose:
+            hideSideBarResp();
+            break;
 
     
         default:
-            hideSideBarResp();
             //hideContainerOpts();
             break;
     }
