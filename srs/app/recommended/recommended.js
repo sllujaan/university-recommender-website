@@ -370,7 +370,11 @@ const performSavedSearch = (searchID) => {
     console.log(USER_SEARCHES);
     console.log(search);
 
-    fetchUniForSavedSearch(search);
+    CURRENT_PAGE = 0;
+    const requestData = prepareSavedSearchRequestData(search);
+    console.log(requestData);
+    changeContainerTitle(search.Name);
+    performSavedSearches(requestData, FIRST_LOAD);
 
 }
 
