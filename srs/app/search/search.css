@@ -193,6 +193,8 @@ body {
     position: relative;
     margin-left: 20px;
     width: 30%;
+
+    cursor: pointer;
 }
 
 .btn-filter-search {

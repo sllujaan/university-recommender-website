@@ -4,7 +4,8 @@ import {
  } from "../util/util.js";
 import { loadPrograms, UNIVERSITY_DETAILS } from "../accordian/accordian.js";
 import {
-    URL_UNIVERSITY_DETAILS, URL_COUNTRY, URL_PROGRAM
+    URL_UNIVERSITY_DETAILS, URL_COUNTRY, URL_PROGRAM,
+    URL_CITY
 } from "../urls/urlResolver.js";
 
 
@@ -37,6 +38,7 @@ var sideBarRespClose = document.querySelectorAll(".side-bar-resp-close")[0];
 var contianersavedSearchesResp = document.querySelectorAll(".container-saved-searches")[0];
 var containerSearchFilters = document.querySelectorAll(".container-search-filters")[0];
 var userCountry = document.getElementById("user-country");
+var userCity = document.getElementById("user-city");
 var userProram = document.getElementById("user-program");
 var userAdmissionDate= document.getElementById("user-addmission-date");
 var userBudget = document.getElementById("user_budget_US_$");
@@ -78,6 +80,7 @@ document.addEventListener("click", e => {
     const isClearFilters = e.target.classList.contains("clear-filters");
     const isBtnFilterSearch = e.target.parentElement.classList.contains("btn-filter-search");
     const isSideBarRespClose = e.target.classList.contains("side-bar-resp-close");
+    const isBtnSaveSearch = e.target.parentElement.classList.contains("btn-save-search");
 
     const TRUE_VALUE = true;
 
@@ -110,6 +113,10 @@ document.addEventListener("click", e => {
             break;
         case isSideBarRespClose:
             hideSideBarResp();
+            break;
+        case isBtnSaveSearch:
+            console.log("save search");
+            performSaveSearch();
             break;
 
     
@@ -146,6 +153,7 @@ userCountry.addEventListener("change", e => {
     // const filterExists = isSearchFilterExists(SEARCH_CATEGORIES.LOCATION, countryID);
     // if(!filterExists) addSearchFilter(countryName, SEARCH_CATEGORIES.LOCATION, countryID);
     addSearchFilterSingleVal(countryName, SEARCH_CATEGORIES.LOCATION, countryID);
+    getCitiesDB(e.target.value);
 })
 
 /*fired when user selects program.*/
@@ -153,8 +161,10 @@ userProram.addEventListener("change", e => {
     const programID = e.target.value;
     const programName = e.target[e.target.selectedIndex].innerText;
 
-    const filterExists = isSearchFilterExists(SEARCH_CATEGORIES.PROGRAM, programID);
-    if(!filterExists) addSearchFilter(programName, SEARCH_CATEGORIES.PROGRAM, programID);
+    //const filterExists = isSearchFilterExists(SEARCH_CATEGORIES.PROGRAM, programID);
+    //if(!filterExists) addSearchFilter(programName, SEARCH_CATEGORIES.PROGRAM, programID);
+
+    addSearchFilterSingleVal(programName, SEARCH_CATEGORIES.PROGRAM, programID);
 })
 
 /*fired when user selects program.*/
@@ -204,6 +214,23 @@ const initCountryInForm = (Countries) => {
 }
 
 /**
+ * initialize cities in the register form.
+ * @param {JSON} cities 
+ */
+const initCityInForm = (cities) => {
+    console.log(cities);
+    userCity.innerHTML = null;
+    
+    cities.forEach(city => {
+        var option = document.createElement("option");
+        option.setAttribute("value", city.City_ID);
+        option.innerText = city.Name;
+        userCity.append(option);
+    })
+    userCity.disabled = false;
+}
+
+/**
  * initialize programs in the register form.
  * @param {JSON} programs 
  */
@@ -237,6 +264,25 @@ const getCountriesDB = () => {
     })
 }
 
+/**
+ * retrieves cities from database.
+ */
+const getCitiesDB = (CountryID) => {
+    const URL = URL_CITY + "?id=" + CountryID;
+    fetch(URL)
+    .then(res => {
+        if(res.status !== 200) {alert("There was an error while fetching Cities from Database!");}
+        else {return res.json();}
+    })
+    .then(programs => {
+        initCityInForm(programs);
+    })
+    .catch(err => {
+        displayServerError();
+        console.error(err);
+    })
+}
+
 
 /**
  * retrieves programs from database.
@@ -258,6 +304,27 @@ const getProgramsDB = () => {
 
 getCountriesDB();
 getProgramsDB();
+
+
+
+const performSaveSearch = () => {
+
+}
+
+const getSearch = () => {
+    var search = {
+
+    };
+
+    var searchFilters = document.querySelectorAll(".search-filter-item-wrapper");
+    console.log(searchFilters);
+    for (let i = 0; i < searchFilters.length; i++) {
+        const catAttr = searchFilters[i].getAttribute("data-filter-category");
+        const exists = (parseInt(catAttr) === parseInt(category)) && (parseInt(searchFilters[i].id) === parseInt(id));
+        if(exists) return true;
+    }
+    return false;
+}
 
 const showSideBarResp = () => {
     sidebar.style.setProperty("top", "0px");
