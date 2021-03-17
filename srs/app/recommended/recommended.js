@@ -36,7 +36,7 @@ var btnLoadMore = document.querySelectorAll(".btn-load-more")[0];
 var savedSearchItemSelected = document.querySelectorAll(".saved-search-item-selected")[0];
 var containerUniDetails = document.querySelectorAll(".container-uni-details")[0];
 var uniDetailsBackCover = document.querySelectorAll(".uni-details-back-cover")[0];
-var uniDetailsBackCover = document.querySelectorAll(".uni-details-back-cover")[0];
+//var uniDetailsBackCover = document.querySelectorAll(".uni-details-back-cover")[0];
 
 var sidebar = document.querySelectorAll(".side-bar")[0];
 var uniUpdateBtn = document.querySelectorAll(".uni-update")[1];

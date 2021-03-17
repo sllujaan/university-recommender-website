@@ -52,8 +52,7 @@ var containerUniDetails = document.querySelectorAll(".container-uni-details")[0]
 var searchFilterItemWrapper = document.querySelectorAll(".search-filter-item-wrapper")[0];
 
 var uniFoundNumber = document.querySelectorAll(".uni-found-number")[0];
-
-
+var uniDetailsBackCover = document.querySelectorAll(".uni-details-back-cover")[0];
 
 
 
@@ -505,6 +504,7 @@ const showUniDetails = (id) => {
 
 const hideUniDetails = () => {
     enableScroll(body);
+    uniDetailsBackCover.classList.add("hide");
     containerUniDetails.style.setProperty("left", "100%");
 }
 
