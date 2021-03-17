@@ -619,6 +619,7 @@ const loadMore = () => {
 }
 
 UNI_TYPE = RECOMMENDED;
+CURRENT_PAGE = 0;
 loadFirst();
 
 const serialize = (obj) => {
