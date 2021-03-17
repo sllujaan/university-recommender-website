@@ -38,7 +38,7 @@ var btnLoadMore = document.querySelectorAll(".btn-load-more")[0];
 var savedSearchItemSelected = document.querySelectorAll(".saved-search-item-selected")[0];
 var containerUniDetails = document.querySelectorAll(".container-uni-details")[0];
 var uniDetailsBackCover = document.querySelectorAll(".uni-details-back-cover")[0];
-//var uniDetailsBackCover = document.querySelectorAll(".uni-details-back-cover")[0];
+var containerCalculatorWrapper = document.querySelectorAll(".container-calculator-wrapper")[0];
 
 var sidebar = document.querySelectorAll(".side-bar")[0];
 var uniUpdateBtn = document.querySelectorAll(".uni-update")[1];
@@ -78,6 +78,7 @@ document.addEventListener("click", e => {
     const isUniUpdate = e.target.parentElement.classList.contains("uni-update");
     const isUniCalculator = e.target.parentElement.classList.contains("uni-calculator");
     const isRecommendedClick = e.target.classList.contains("recommeded-auto");
+    const isUniCalculatorClose = e.target.classList.contains("calculator-close") || e.target.classList.contains("container-calculator-wrapper");
 
     const TRUE_VALUE = true;
 
@@ -107,6 +108,10 @@ document.addEventListener("click", e => {
             break;
         case isUniCalculator:
             console.log("calculator");
+            showMeritCalculator();
+            break;
+        case isUniCalculatorClose:
+            hideMeritCalculator();
             break;
         case isRecommendedClick:
             console.log("recommended click");
@@ -207,6 +212,14 @@ const hideUniDetails = () => {
     enableScroll(body);
     uniDetailsBackCover.classList.add("hide");
     containerUniDetails.style.setProperty("left", "100%");
+}
+
+const showMeritCalculator = () => {
+    containerCalculatorWrapper.style.removeProperty("display");
+}
+
+const hideMeritCalculator = () => {
+    containerCalculatorWrapper.style.setProperty("display", "none");
 }
 
 
@@ -475,7 +488,6 @@ const selectRecommendedSearch = () => {
 // addSavedSearches(SAVED_SEARCHES);
 
 selectRecommendedSearch();
-
 
 
 
