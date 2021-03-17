@@ -96,6 +96,7 @@ document.addEventListener("click", e => {
             hideUniDetails();
             break;
         case isSavedSearch:
+            console.log("saved search....");
             selectSavedSearch(e.target.id);
             var SearchID = parseInt(e.target.id);
             performSavedSearch(e, SearchID);
@@ -106,6 +107,9 @@ document.addEventListener("click", e => {
             break;
         case isUniCalculator:
             console.log("calculator");
+            break;
+        case isRecommendedClick:
+            console.log("recommended click");
             break;
     
         default:
@@ -391,6 +395,10 @@ const performSavedSearch = (e, searchID) => {
         //perform recommended search
         // CURRENT_PAGE = 0;
         // fetchRecommendedUniversitiesEx("id=12", FIRST_LOAD);
+        console.log("rrrrrrrrrrrecommended");
+        UNI_CONTAINER_TITLE = "Recommended";
+        CURRENT_PAGE = 0;
+        loadFirst();
         return;
     }
 
@@ -516,7 +524,7 @@ const fetchUniversities = (uniLoadStruct = UNI_LOAD_STRUCT) => {
     .then(universities => {
         console.log(universities);
         const aboutUniversities = universities[0];
-        const _universities = universities[1];
+        var _universities = universities[1];
         loadUniversites(_universities);
         addLoadMoreButton();
     })
@@ -612,6 +620,27 @@ const loadMore = () => {
 
 UNI_TYPE = RECOMMENDED;
 loadFirst();
+
+const serialize = (obj) => {
+    var str = [];
+    for (var p in obj)
+      if (obj.hasOwnProperty(p)) {
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+      }
+    return str.join("&");
+}
+
+console.log(serialize(SAVED_SEARCHES[0]));
+
+const generateJsonFromUrlParams = () => {
+    var locSearch = location.search.substring(1);
+    if(!locSearch) return {};
+
+    const jsonObj = JSON.parse('{"' + decodeURI(locSearch.replace(/&/g, "\",\"").replace(/=/g,"\":\"")) + '"}');
+    return jsonObj;
+}
+
+console.log(generateJsonFromUrlParams());
 
 
 // const loadFirst = () => {
