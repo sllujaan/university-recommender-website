@@ -130,6 +130,7 @@ document.addEventListener("click", e => {
             performSearch(e.target.id);
             break;
         case isSearchFilter:
+            performUniSearchOnEvents();
             e.target.parentElement.remove();
             break;
         case isClearFilters:
@@ -871,32 +872,43 @@ loadFirst();
 // }, 3000);
 
 
-
-
-
-containerSearchFilters.addEventListener("DOMNodeRemoved", e => {
+const performUniSearchOnEvents = () => {
     CURRENT_PAGE = 0;
-    console.log(uniContainerWrapper);
     emptyContainer(uniContainerWrapper);
-    console.log("filter removed.");
     //retrieve the search from dom
     const search = getSearch();
-    console.log(search);
     const requestData = prepareSavedSearchRequestData(search);
     console.log(requestData);
-    performUniSearch(requestData, FIRST_LOAD);
-})
 
-containerSearchFilters.addEventListener("DOMNodeInserted", e => {
-    CURRENT_PAGE = 0;
-    emptyContainer(uniContainerWrapper);
+    performUniSearch(requestData, FIRST_LOAD);
+}
+
+
+
+
+// containerSearchFilters.addEventListener("DOMNodeRemoved", e => {
+//     CURRENT_PAGE = 0;
+//     console.log(uniContainerWrapper);
+//     emptyContainer(uniContainerWrapper);
+//     console.log("filter removed.");
+//     //retrieve the search from dom
+//     const search = getSearch();
+//     console.log(search);
+//     const requestData = prepareSavedSearchRequestData(search);
+//     console.log(requestData);
+//     performUniSearch(requestData, FIRST_LOAD);
+// })
+
+// containerSearchFilters.addEventListener("DOMNodeInserted", e => {
+//     CURRENT_PAGE = 0;
+//     emptyContainer(uniContainerWrapper);
     
-    //retrieve the search from dom
-    const search = getSearch();
-    const requestData = prepareSavedSearchRequestData(search);
-    console.log(requestData);
-    performUniSearch(requestData, FIRST_LOAD);
-})
+//     //retrieve the search from dom
+//     const search = getSearch();
+//     const requestData = prepareSavedSearchRequestData(search);
+//     console.log(requestData);
+//     performUniSearch(requestData, FIRST_LOAD);
+// })
 
 const generateSearchFilter = (name, category, id) => {
     var div = document.createElement("div");
