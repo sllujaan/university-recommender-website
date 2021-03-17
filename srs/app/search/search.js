@@ -133,6 +133,7 @@ document.addEventListener("click", e => {
             e.target.parentElement.remove();
             break;
         case isClearFilters:
+            e.preventDefault();
             clearAllSearchFilters();
             break;
         case isBtnFilterSearch:
@@ -407,6 +408,7 @@ const getSearch = () => {
     }
     
     console.log(search);
+    return search;
 }
 
 
@@ -662,7 +664,7 @@ const displayWentWrongFirstLoad = () => {
     div.innerHTML = `
                 <span class="went-wrong-msg">Sorry we Couldn't Load. Please</span>
                 <span><a href="">try again!</a></span>`;
-    universitiesContainer.append(div);
+    uniContainerWrapper.append(div);
 }
 
 const displayNotFoundFirstLoad = () => {
@@ -671,7 +673,7 @@ const displayNotFoundFirstLoad = () => {
     div.innerHTML = `
             <span class="went-wrong-msg">Not Found</span>`;
 
-    universitiesContainer.append(div);
+    uniContainerWrapper.append(div);
 }
 
 
@@ -779,17 +781,20 @@ const setUniFounNum = (number) => {
 
 
 const prepareSavedSearchRequestData = (search) => {
-    if(!search) return "";
+    //if(!search) return "";
+    console.log(search);
+    if(Object.keys(search).length === 0 && search.constructor === Object) return "";
+
     const Name = search.Name ? (search.Name) : ("");
     const Country_ID = search.Country_ID ? (search.Country_ID) : ("");
     const City_ID = search.City_ID ? (search.City_ID) : ("");
     const Program_ID = search.Program_ID ? (search.Program_ID) : ("");
-    const budget_US_$ = search.budget_US_$ ? (search.budget_US_$) : ("");
+    const Budget_US_$ = search.Budget_US_$ ? (search.Budget_US_$) : ("");
     const MM_PCT = search.MM_PCT ? (search.MM_PCT) : ("");
     const Start_Admission_Date = search.Start_Admission_Date ? (search.Start_Admission_Date) : ("");
 
 
-    const requestData = `Name=${Name}&Country_ID=${Country_ID}&City_ID=${City_ID}&Program_ID=${Program_ID}&Budget_US_$=${budget_US_$}&MM_PCT=${MM_PCT}&Start_Admission_Date${Start_Admission_Date}`;
+    const requestData = `Name=${Name}&Country_ID=${Country_ID}&City_ID=${City_ID}&Program_ID=${Program_ID}&Budget_US_$=${Budget_US_$}&MM_PCT=${MM_PCT}&Start_Admission_Date${Start_Admission_Date}`;
 
     return requestData;   
 }
@@ -875,10 +880,11 @@ containerSearchFilters.addEventListener("DOMNodeRemoved", e => {
     emptyContainer(uniContainerWrapper);
     console.log("filter removed.");
     //retrieve the search from dom
-    // const search = getSearch();
-    // const requestData = prepareSavedSearchRequestData(search);
-    // console.log(requestData);
-    // performUniSearch(requestData, FIRST_LOAD);
+    const search = getSearch();
+    console.log(search);
+    const requestData = prepareSavedSearchRequestData(search);
+    console.log(requestData);
+    performUniSearch(requestData, FIRST_LOAD);
 })
 
 containerSearchFilters.addEventListener("DOMNodeInserted", e => {
