@@ -27,6 +27,8 @@ const UNI_LOAD_STRUCT = {
     requestData: null,
 }
 
+var UNI_CONTAINER_TITLE = "Recommended";
+
 /*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
@@ -160,7 +162,7 @@ const removeLoadMoreButton = () => {
 }
 
 const emptyContainer = (container) => {
-    container.innerHTML = `<div class="title title-opts search-link"><h2 style="font-weight: bold;">Recommended</h2></div>`;
+    container.innerHTML = `<div class="title title-opts search-link"><h2 style="font-weight: bold;">Loading your feed...</h2></div>`;
 }
 
 const changeContainerTitle = (title) => {
@@ -362,6 +364,25 @@ const selectSavedSearch = (id) => {
 }
 
 
+const performSavedSearchesUni = (requestData, loadType) => {
+
+    var ulStruct = UNI_LOAD_STRUCT;
+    ulStruct.url = URL_SEARCH + "?page=" + ++CURRENT_PAGE;
+    ulStruct.userID = 12;
+    ulStruct.loadType = loadType;
+    ulStruct.requestData = requestData;
+
+    emptyContainer(universitiesContainer);
+    showContainerBusy();
+    
+    setTimeout(() => {
+        fetchUniversities(ulStruct);
+        hideContainerBusy();
+    }, 1000);
+    
+}
+
+
 const performSavedSearch = (e, searchID) => {
     const search = getSaveSearchByID(USER_SEARCHES, searchID);
     const isRecommendedClick = e.target.classList.contains("recommeded-auto");
@@ -385,6 +406,8 @@ const performSavedSearch = (e, searchID) => {
     const requestData = prepareSavedSearchRequestData(search);
     console.log(requestData);
 
+    UNI_CONTAINER_TITLE = search.Name;
+
     performSavedSearchesUni(requestData, FIRST_LOAD);
 
 }
@@ -393,7 +416,7 @@ const performSavedSearch = (e, searchID) => {
 const fetchUniForSavedSearch = (search, pageNumber) => {
 
     if(loadType === FIRST_LOAD) emptyContainer(universitiesContainer);
-    changeContainerTitle("loading your feed...");
+    changeContainerTitle("Loading your feed...");
     removeLoadMoreButton();
     showContainerBusy();
 
@@ -472,7 +495,7 @@ selectRecommendedSearch();
 const fetchUniversities = (uniLoadStruct = UNI_LOAD_STRUCT) => {
 
     if(uniLoadStruct.loadType === FIRST_LOAD) emptyContainer(universitiesContainer);
-    //changeContainerTitle("loading your feed...");
+    changeContainerTitle("loading your feed...");
     removeLoadMoreButton();
     showContainerBusy();
 
@@ -492,7 +515,9 @@ const fetchUniversities = (uniLoadStruct = UNI_LOAD_STRUCT) => {
     })
     .then(universities => {
         console.log(universities);
-        loadUniversites(universities);
+        const aboutUniversities = universities[0];
+        const _universities = universities[1];
+        loadUniversites(_universities);
         addLoadMoreButton();
     })
     .catch(err => {     //there was an error while sending the request or server did not response.
@@ -502,6 +527,8 @@ const fetchUniversities = (uniLoadStruct = UNI_LOAD_STRUCT) => {
         console.error(err);
     });
 }
+
+
 
 
 const fetchRecommendedUniversitiesEx = (requestData, loadType) => {
@@ -516,28 +543,28 @@ const fetchRecommendedUniversitiesEx = (requestData, loadType) => {
 
 }
 
-const performSavedSearchesUni = (requestData, loadType) => {
 
-    var ulStruct = UNI_LOAD_STRUCT;
-    ulStruct.url = URL_SEARCH + "?page=" + ++CURRENT_PAGE;
-    ulStruct.userID = 12;
-    ulStruct.loadType = loadType;
-    ulStruct.requestData = requestData;
-
-    fetchUniversities(ulStruct);
-}
 
 const prepareSavedSearchRequestData = (search) => {
-    if(!search) return "";
+    //if(!search) return "";
+    console.log(search);
+    if(Object.keys(search).length === 0 && search.constructor === Object) return "";
+
+    //get user credentials...
+    const userCredentials = getUserCredentialsLocalStorage();
+    const sessionID = userCredentials.session_id;
+    const userID = userCredentials.user_id;
+
     const Name = search.Name ? (search.Name) : ("");
     const Country_ID = search.Country_ID ? (search.Country_ID) : ("");
     const City_ID = search.City_ID ? (search.City_ID) : ("");
     const Program_ID = search.Program_ID ? (search.Program_ID) : ("");
-    const budget_US_$ = search.budget_US_$ ? (search.budget_US_$) : ("");
+    const Budget_US_$ = search.Budget_US_$ ? (search.Budget_US_$) : ("");
     const MM_PCT = search.MM_PCT ? (search.MM_PCT) : ("");
+    const Start_Admission_Date = search.Start_Admission_Date ? (search.Start_Admission_Date) : ("");
+    
 
-
-    const requestData = `Name=${Name}&Country_ID=${Country_ID}&City_ID=${City_ID}&Program_ID=${Program_ID}&Budget_US_$=${budget_US_$}&MM_PCT=${MM_PCT}`;
+    const requestData = `session_id=${userCredentials.session_id}&user_id=${userCredentials.user_id}&Name=${Name}&Country_ID=${Country_ID}&City_ID=${City_ID}&Program_ID=${Program_ID}&Budget_US_$=${Budget_US_$}&MM_PCT=${MM_PCT}&Start_Admission_Date${Start_Admission_Date}`;
 
     return requestData;   
 }
@@ -680,7 +707,7 @@ const fetchRecommendedUniversities = (userID, pageNumber, loadType) => {
 
 const handleFirstLoadStatus = (status) => {
 
-    changeContainerTitle("Recommneded");
+    changeContainerTitle(UNI_CONTAINER_TITLE);
     hideContainerBusy();
         
     switch (status) {
