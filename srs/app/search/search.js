@@ -100,7 +100,7 @@ document.addEventListener("click", e => {
     const isSelectOption = (e.target.id === "searches-recommended-resp") || (e.target.parentElement.id === "searches-recommended-resp");
     const isLoadMore = (e.target.id === "load-more-button");
     const idUniDetails = e.target.classList.contains("uni-name");
-    const isBackCaret = e.target.classList.contains("details-back-caret");
+    const isBackCaret = e.target.classList.contains("details-back-caret") || e.target.classList.contains("uni-details-back-cover");
     const isSavedSearch = e.target.classList.contains("saved-search-item");
     const isSearchFilter = e.target.parentElement.classList.contains("search-filter-item-wrapper");
     const isClearFilters = e.target.classList.contains("clear-filters");
@@ -591,9 +591,32 @@ const showUniDetailsContainer = (universityDetails) => {
     console.log(universityDetails);
     disableScroll(body);
     setUniDetails(universityDetails);
-    containerUniDetails.style.setProperty("left", "auto");
-    containerUniDetails.style.setProperty("right", "100%");
-    containerUniDetails.style.setProperty("right", "0px");
+    console.log(window.innerWidth);
+    console.log(getWindowWidth());
+
+    uniDetailsBackCover.classList.remove("hide");
+
+    if(window.innerWidth > getWindowWidth()) {
+        const leftOffset = window.innerWidth - getWindowWidth();
+        containerUniDetails.style.setProperty("left", leftOffset+"px");
+    }
+    else {
+        containerUniDetails.style.setProperty("left", "0%");
+    } 
+
+}
+
+
+
+const getComputedStyleProperty = (elemtent, proptery) => {
+    const compStyles = window.getComputedStyle(elemtent);
+    return compStyles.getPropertyValue(proptery);
+
+}
+
+const getWindowWidth = () => {
+    const widthStr = getComputedStyleProperty(containerUniDetails, "width");
+    return parseInt(widthStr, 10);
 }
 
 

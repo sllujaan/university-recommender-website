@@ -300,10 +300,7 @@ const showUniDetailsContainer = (universityDetails) => {
     }
     else {
         containerUniDetails.style.setProperty("left", "0%");
-    }
-
-    
-    
+    } 
 
 }
 

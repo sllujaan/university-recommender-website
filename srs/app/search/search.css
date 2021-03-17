@@ -521,7 +521,9 @@ body {
     color: #48a000;
 }
 
-
+.details-description {
+    min-height: 500px;
+}
 
 
 @keyframes busy_motion_1 {
@@ -622,6 +624,10 @@ body {
 
     .container-close {
         display: block;
+    }
+
+    .details-description {
+        min-height: auto;
     }
 
 }
