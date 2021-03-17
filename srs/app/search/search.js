@@ -134,8 +134,9 @@ document.addEventListener("click", e => {
             e.target.parentElement.remove();
             break;
         case isClearFilters:
-            e.preventDefault();
             clearAllSearchFilters();
+            //perform search on the event
+            performUniSearchOnEvents();
             break;
         case isBtnFilterSearch:
             showSideBarResp();
@@ -423,6 +424,7 @@ const removeSearchFilterItem = (category) => {
         const exists = (parseInt(catAttr) === parseInt(category));
         if(exists) {
             searchFilters[i].remove();
+            performUniSearchOnEvents();
             return true;
         }
     }
@@ -873,14 +875,20 @@ loadFirst();
 
 
 const performUniSearchOnEvents = () => {
+
     CURRENT_PAGE = 0;
     emptyContainer(uniContainerWrapper);
+    showContainerBusy();
     //retrieve the search from dom
     const search = getSearch();
     const requestData = prepareSavedSearchRequestData(search);
     console.log(requestData);
 
-    performUniSearch(requestData, FIRST_LOAD);
+    setTimeout(() => {
+        hideContainerBusy();
+        performUniSearch(requestData, FIRST_LOAD);
+    }, 1000);
+    
 }
 
 
@@ -971,6 +979,8 @@ const addSearchFilterSingleVal = (name, category, id) => {
             console.log("exists");
             searchFilters[i].id = id;
             searchFilters[i].firstElementChild.innerHTML = name + `<i class="fa fa-times"></i>`;
+            //perform search on the event
+            performUniSearchOnEvents();
             return true;
         }
         
@@ -979,6 +989,8 @@ const addSearchFilterSingleVal = (name, category, id) => {
     if(!exists) {
         var filterItem = generateSearchFilter(name, category, id);
         containerSearchFilters.insertBefore(filterItem, clearFilters);
+        //perform search on the event
+        performUniSearchOnEvents();
         return true;
     }
 
