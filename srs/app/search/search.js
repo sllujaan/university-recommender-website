@@ -465,7 +465,7 @@ const removeLoadMoreButton = () => {
 }
 
 const emptyContainer = (container) => {
-    container.innerHTML = ``;
+    container.innerHTML = null;
 }
 
 const changeContainerTitle = (title) => {
@@ -491,7 +491,7 @@ const addLoadMoreButton = () => {
         `;
     console.log(div);
     btnLoadMore = div;
-    universitiesContainer.append(div);
+    uniContainerWrapper.append(div);
 }
 
 const showUniDetails = (id) => {
@@ -524,7 +524,7 @@ const loadUniversites = (universities) => {
                 `;
         div.append(universityContainer);
     });
-    universitiesContainer.append(div);
+    uniContainerWrapper.append(div);
 }
 
 
@@ -814,7 +814,8 @@ const loadFirst = () => {
     setTimeout(() => {
         //changeContainerTitle("Recommneded aaaaaa");
         hideContainerBusy();
-        getSearch();
+        //retrieve the search
+        //getSearch();
         const requestData = prepareSavedSearchRequestData(SAVED_SEARCHES[0]);
         console.log(requestData);
         performUniSearch(requestData, FIRST_LOAD);
@@ -869,11 +870,26 @@ loadFirst();
 
 
 containerSearchFilters.addEventListener("DOMNodeRemoved", e => {
-    
+    CURRENT_PAGE = 0;
+    console.log(uniContainerWrapper);
+    emptyContainer(uniContainerWrapper);
+    console.log("filter removed.");
+    //retrieve the search from dom
+    // const search = getSearch();
+    // const requestData = prepareSavedSearchRequestData(search);
+    // console.log(requestData);
+    // performUniSearch(requestData, FIRST_LOAD);
 })
 
 containerSearchFilters.addEventListener("DOMNodeInserted", e => {
-    console.log(e.target);
+    CURRENT_PAGE = 0;
+    emptyContainer(uniContainerWrapper);
+    
+    //retrieve the search from dom
+    const search = getSearch();
+    const requestData = prepareSavedSearchRequestData(search);
+    console.log(requestData);
+    performUniSearch(requestData, FIRST_LOAD);
 })
 
 const generateSearchFilter = (name, category, id) => {
