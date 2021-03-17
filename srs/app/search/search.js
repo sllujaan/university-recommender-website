@@ -6,7 +6,7 @@ import {
 import { loadPrograms, UNIVERSITY_DETAILS } from "../accordian/accordian.js";
 import {
     URL_UNIVERSITY_DETAILS, URL_COUNTRY, URL_PROGRAM,
-    URL_CITY, URL_SEARCH
+    URL_CITY, URL_SEARCH, URL_CREATE_SEARCH
 } from "../urls/urlResolver.js";
 
 
@@ -102,7 +102,7 @@ document.addEventListener("click", e => {
     const idUniDetails = e.target.classList.contains("uni-name");
     const isBackCaret = e.target.classList.contains("details-back-caret") || e.target.classList.contains("uni-details-back-cover");
     const isSavedSearch = e.target.classList.contains("saved-search-item");
-    const isSearchFilter = e.target.parentElement.classList.contains("search-filter-item-wrapper");
+    const isSearchFilter = e.target.parentElement.classList.contains("search-filter-item-wrapper") || (e.target.classList.contains("filter-item-close"));
     const isClearFilters = e.target.classList.contains("clear-filters");
     const isBtnFilterSearch = e.target.parentElement.classList.contains("btn-filter-search");
     const isSideBarRespClose = e.target.classList.contains("side-bar-resp-close");
@@ -361,6 +361,8 @@ getProgramsDB();
 
 const performSaveSearch = () => {
     console.log(getSearch());
+    const searchObj = getSearch();
+    creatSearchDB(searchObj);
 }
 
 const getSearch = () => {
@@ -786,6 +788,38 @@ const ClearUniFounNum = () => {
     uniFoundNumber.innerText = 0;
 }
 
+
+
+
+const creatSearchDB = (searchObj) => {
+    
+    const requestData = prepareSavedSearchRequestData(searchObj);
+
+    console.log(requestData);
+
+    fetch(URL_CREATE_SEARCH, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: requestData // body data type must match "Content-Type" header
+    })
+    .then(res => {
+        if(res.status === 200) {alert("The Request Processed Successfully!");}
+        else if(res.status === 409) {alert("Search Name Aleady Exists!");}
+        else {alert("Something went wrong while processing the request!");}
+    })
+    .catch(err => {     //there was an error while sending the request or server did not response.
+        console.error(err);
+        alert(err);
+    });
+}
+
+
+
+
+
+
+
 // clearSavedSearches();
 
 // addSavedSearches(SAVED_SEARCHES);
@@ -798,6 +832,11 @@ const prepareSavedSearchRequestData = (search) => {
     console.log(search);
     if(Object.keys(search).length === 0 && search.constructor === Object) return "";
 
+    //get user credentials...
+    const userCredentials = getUserCredentialsLocalStorage();
+    const sessionID = userCredentials.session_id;
+    const userID = userCredentials.user_id;
+
     const Name = search.Name ? (search.Name) : ("");
     const Country_ID = search.Country_ID ? (search.Country_ID) : ("");
     const City_ID = search.City_ID ? (search.City_ID) : ("");
@@ -805,9 +844,9 @@ const prepareSavedSearchRequestData = (search) => {
     const Budget_US_$ = search.Budget_US_$ ? (search.Budget_US_$) : ("");
     const MM_PCT = search.MM_PCT ? (search.MM_PCT) : ("");
     const Start_Admission_Date = search.Start_Admission_Date ? (search.Start_Admission_Date) : ("");
+    
 
-
-    const requestData = `Name=${Name}&Country_ID=${Country_ID}&City_ID=${City_ID}&Program_ID=${Program_ID}&Budget_US_$=${Budget_US_$}&MM_PCT=${MM_PCT}&Start_Admission_Date${Start_Admission_Date}`;
+    const requestData = `session_id=${userCredentials.session_id}&user_id=${userCredentials.user_id}&Name=${Name}&Country_ID=${Country_ID}&City_ID=${City_ID}&Program_ID=${Program_ID}&Budget_US_$=${Budget_US_$}&MM_PCT=${MM_PCT}&Start_Admission_Date${Start_Admission_Date}`;
 
     return requestData;   
 }
@@ -936,7 +975,7 @@ const generateSearchFilter = (name, category, id) => {
 
     div.innerHTML = `
                         <div class="search-filter-item">${name}
-                            <i class="fa fa-times"></i>
+                            <i class="fa fa-times filter-item-close"></i>
                         </div>
                     `;
     return div;
