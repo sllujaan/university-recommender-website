@@ -426,6 +426,12 @@ body {
     border-bottom: 1px solid #d1d1d1;
 }
 
+.Universities-container > .container-universities-wrapper  > .university-container {
+    /* background-color: orange; */
+    padding: 0 30px;
+    border-bottom: 1px solid #d1d1d1;
+}
+
 .Universities-container > .university-container h5:hover {
     cursor: pointer;
     color:  #48a000;
@@ -433,7 +439,27 @@ body {
     -webkit-line-clamp: 1;
 }
 
+.Universities-container > .container-universities-wrapper > .university-container h5:hover {
+    cursor: pointer;
+    color:  #48a000;
+    text-decoration: underline;
+    -webkit-line-clamp: 1;
+}
+
 .Universities-container > .university-container > * {
+    /* background-color: orangered; */
+    padding-top: 15px;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    line-height: 20px;
+    /* word-break: break-all; */
+}
+
+.Universities-container > .container-universities-wrapper > .university-container > * {
     /* background-color: orangered; */
     padding-top: 15px;
     word-wrap: break-word;
