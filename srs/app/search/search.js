@@ -29,6 +29,15 @@ const UNI_LOAD_STRUCT = {
     requestData: null,
 }
 
+const SEARCH_CATEGORIES = {
+    COUNTRY: 0x02da,
+    CITY: 0x01cd,
+    PROGRAM: 0x0aaa,
+    ADMI_DATE: 0x0abc,
+    BUDGET: 0x0def,
+    MIN_MARKS: 0xeff,
+}
+
 
 /*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
@@ -440,7 +449,7 @@ const showContainerBusy = () => {
 
 const hideContainerBusy = () => {
     var busy_bundle = universitiesContainer.getElementsByClassName("busy-bundle")[0];
-    busy_bundle.remove();
+    if(busy_bundle) busy_bundle.remove();
     
 }
 
@@ -619,6 +628,27 @@ const selectSavedSearch = (id) => {
     }
 }
 
+const displayWentWrongFirstLoad = () => {
+    hideContainerBusy();
+    var div = document.createElement("div");
+    div.classList.add("went-wrong");
+    div.innerHTML = `
+                <span class="went-wrong-msg">Sorry we Couldn't Load. Please</span>
+                <span><a href="">try again!</a></span>`;
+    universitiesContainer.append(div);
+}
+
+const displayNotFoundFirstLoad = () => {
+    var div = document.createElement("div");
+    div.classList.add("went-wrong");
+    div.innerHTML = `
+            <span class="went-wrong-msg">Not Found</span>`;
+
+    universitiesContainer.append(div);
+}
+
+
+
 
 const performSearch = (searchID) => {
 
@@ -745,12 +775,14 @@ const loadFirst = () => {
         getSearch();
         const requestData = prepareSavedSearchRequestData(getSearch());
         console.log(requestData);
-        performUniSearch(requestData, FIRST_LOAD);
+        //performUniSearch(requestData, FIRST_LOAD);
+        //displayNotFoundFirstLoad();
+        displayWentWrongFirstLoad();
     }, 1000);
 }
 
 
-//loadFirst();
+loadFirst();
 
 
 
@@ -875,6 +907,6 @@ changeRespOptsTitle("new title");
 
 
 
-emptyContainer(uniContainerWrapper);
+//emptyContainer(uniContainerWrapper);
 
 
