@@ -130,8 +130,9 @@ document.addEventListener("click", e => {
             performSearch(e.target.id);
             break;
         case isSearchFilter:
-            performUniSearchOnEvents();
             e.target.parentElement.remove();
+            //perform search on the event
+            performUniSearchOnEvents();
             break;
         case isClearFilters:
             clearAllSearchFilters();
@@ -150,6 +151,8 @@ document.addEventListener("click", e => {
             break;
         case userSearchBtn:
             console.log(userSearchName.value);
+            //perform search on the event
+            performUniSearchOnEvents();
             break;
 
     
@@ -704,7 +707,10 @@ const selectRecommendedSearch = () => {
 
 const fetchUniversities = (uniLoadStruct = UNI_LOAD_STRUCT) => {
 
-    if(uniLoadStruct.loadType === FIRST_LOAD) emptyContainer(uniContainerWrapper);
+    if(uniLoadStruct.loadType === FIRST_LOAD) {
+        emptyContainer(uniContainerWrapper);
+        ClearUniFounNum();
+    }
     //changeContainerTitle("loading your feed...");
     removeLoadMoreButton();
     showContainerBusy();
@@ -774,6 +780,10 @@ const performUniSearch = (requestData, loadType) => {
 
 const setUniFounNum = (number) => {
     uniFoundNumber.innerText = number;
+}
+
+const ClearUniFounNum = () => {
+    uniFoundNumber.innerText = 0;
 }
 
 // clearSavedSearches();
