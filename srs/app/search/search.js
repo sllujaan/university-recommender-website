@@ -6,7 +6,7 @@ import {
 import { loadPrograms, UNIVERSITY_DETAILS } from "../accordian/accordian.js";
 import {
     URL_UNIVERSITY_DETAILS, URL_COUNTRY, URL_PROGRAM,
-    URL_CITY
+    URL_CITY, URL_SEARCH
 } from "../urls/urlResolver.js";
 
 
@@ -82,7 +82,7 @@ const UNIVERSITES = [
 
 
 const SAVED_SEARCHES = [
-    {"Search_ID":"1","User_ID":"3","Name":"mySearch1","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null},
+    {"Search_ID":"1","User_ID":"3","Name":"","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null,"Start_Admission_Date":null},
     {"Search_ID":"2","User_ID":"3","Name":"mySearch2","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null},
     {"Search_ID":"3","User_ID":"3","Name":"mySearch3","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null},
     {"Search_ID":"4","User_ID":"3","Name":"mySearch4","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null}
@@ -514,9 +514,9 @@ const loadUniversites = (universities) => {
         var universityContainer = document.createElement("div");
         universityContainer.classList.add("university-container");
         universityContainer.innerHTML = `
-        <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5 id="${2}" class="uni-name">${university.name}</h5></div>
-        <div class="description" style="color: #222;">${university.description}</div>
-        <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;${university.location}</span></div><br>
+        <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5 id="${university.University_ID}" class="uni-name">${university.Name}</h5></div>
+        <div class="description" style="color: #222;">${university.Description}</div>
+        <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;${university.CountryName}</span></div><br>
                 `;
         div.append(universityContainer);
     });
@@ -693,7 +693,9 @@ const fetchUniversities = (uniLoadStruct = UNI_LOAD_STRUCT) => {
     })
     .then(universities => {
         console.log(universities);
-        loadUniversites(universities);
+        const aboutUniversities = universities[0];
+        const _universities = universities[1];
+        loadUniversites(_universities);
         addLoadMoreButton();
     })
     .catch(err => {     //there was an error while sending the request or server did not response.
@@ -702,6 +704,25 @@ const fetchUniversities = (uniLoadStruct = UNI_LOAD_STRUCT) => {
         //console.log();
         console.error(err);
     });
+}
+
+
+const handleFirstLoadStatus = (status) => {
+
+    changeContainerTitle("Recommneded");
+    hideContainerBusy();
+        
+    switch (status) {
+        case 404:
+            if(UNI_LOAD_TYPE === FIRST_LOAD) {displayNotFoundFirstLoad();}
+            else {removeLoadMoreButton();}
+            return false;
+        case 200:
+            return true;
+        default:
+            displayWentWrongFirstLoad();
+            return false;
+    }
 }
 
 
@@ -735,9 +756,10 @@ const prepareSavedSearchRequestData = (search) => {
     const Program_ID = search.Program_ID ? (search.Program_ID) : ("");
     const budget_US_$ = search.budget_US_$ ? (search.budget_US_$) : ("");
     const MM_PCT = search.MM_PCT ? (search.MM_PCT) : ("");
+    const Start_Admission_Date = search.Start_Admission_Date ? (search.Start_Admission_Date) : ("");
 
 
-    const requestData = `Name=${Name}&Country_ID=${Country_ID}&City_ID=${City_ID}&Program_ID=${Program_ID}&Budget_US_$=${budget_US_$}&MM_PCT=${MM_PCT}`;
+    const requestData = `Name=${Name}&Country_ID=${Country_ID}&City_ID=${City_ID}&Program_ID=${Program_ID}&Budget_US_$=${budget_US_$}&MM_PCT=${MM_PCT}&Start_Admission_Date${Start_Admission_Date}`;
 
     return requestData;   
 }
@@ -750,17 +772,7 @@ const prepareSavedSearchRequestData = (search) => {
 
 
 
-const loadMore = () => {
-    removeLoadMoreButton();
-    showContainerBusy();
 
-    setTimeout(() => {
-        hideContainerBusy();
-        loadUniversites(UNIVERSITES);
-        addLoadMoreButton();
-    }, 3000);
-
-}
 
 
 const loadFirst = () => {
@@ -773,12 +785,25 @@ const loadFirst = () => {
         //changeContainerTitle("Recommneded aaaaaa");
         hideContainerBusy();
         getSearch();
-        const requestData = prepareSavedSearchRequestData(getSearch());
+        const requestData = prepareSavedSearchRequestData(SAVED_SEARCHES[0]);
         console.log(requestData);
-        //performUniSearch(requestData, FIRST_LOAD);
-        //displayNotFoundFirstLoad();
-        displayWentWrongFirstLoad();
+        performUniSearch(requestData, FIRST_LOAD);
     }, 1000);
+}
+
+
+const loadMore = () => {
+    removeLoadMoreButton();
+    showContainerBusy();
+
+    setTimeout(() => {
+        hideContainerBusy();
+        getSearch();
+        const requestData = prepareSavedSearchRequestData(SAVED_SEARCHES[0]);
+        console.log(requestData);
+        performUniSearch(requestData, LOAD_MORE);
+    }, 1000);
+
 }
 
 
