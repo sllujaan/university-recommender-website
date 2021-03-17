@@ -118,6 +118,12 @@ const sumbitForm = (e, URL, requestData) => {
                 EnableInputs(e);
                 displayInputsError(errorElement, "Name or Password are Invalid!");
                 break;
+            case 201:   //user request is in pending state.
+                window.location = "../accountStatus/accountStatus.html?status=pending";
+                break;
+            case 410:   //user request has been rejected.
+                window.location = "../accountStatus/accountStatus.html?status=rejected";
+                break;
             case 200:   //login success
                 //convert response text into json format. it returns another promise
                 //which is handled in the next .then(jsonData => {}) function
