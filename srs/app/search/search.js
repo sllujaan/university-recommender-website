@@ -51,6 +51,10 @@ var savedSearchItemSelected = document.querySelectorAll(".saved-search-item-sele
 var containerUniDetails = document.querySelectorAll(".container-uni-details")[0];
 var searchFilterItemWrapper = document.querySelectorAll(".search-filter-item-wrapper")[0];
 
+var uniFoundNumber = document.querySelectorAll(".uni-found-number")[0];
+
+
+
 
 
 var sidebar = document.querySelectorAll(".side-bar")[0];
@@ -695,6 +699,7 @@ const fetchUniversities = (uniLoadStruct = UNI_LOAD_STRUCT) => {
         console.log(universities);
         const aboutUniversities = universities[0];
         const _universities = universities[1];
+        if(uniLoadStruct.loadType === FIRST_LOAD) setUniFounNum(aboutUniversities.Total_Universities);
         loadUniversites(_universities);
         addLoadMoreButton();
     })
@@ -739,7 +744,9 @@ const performUniSearch = (requestData, loadType) => {
 }
 
 
-
+const setUniFounNum = (number) => {
+    uniFoundNumber.innerText = number;
+}
 
 // clearSavedSearches();
 
