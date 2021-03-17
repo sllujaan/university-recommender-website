@@ -680,6 +680,7 @@ table td {
     padding: 20px;
     border-radius: 6px;
     width: 70%;
+    max-width: var(--app-maximum-width);
 }
 
 .container-calculator > .close {
