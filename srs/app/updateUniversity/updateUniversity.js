@@ -896,9 +896,9 @@ const handleUniversityFormSubmit = (universityID) => {
     university.Start_Admission_Date = uniAdmiStartDate.value;
     university.End_Admission_Date = uniAdmiEndDate.value;
     university.Total_ETM = uniETM.value;
-    university.S_Education_MC_PCT = uniSEduMcPct.value;
-    university.H_Education_MC_PCT = uniHEduMcPct.value;
-    university.PCT_MC_ETM = uniEtmMcPct.value;
+    university.S_Education_MC_PCT = parseInt(uniSEduMcPct.value)/100;
+    university.H_Education_MC_PCT = parseInt(uniHEduMcPct.value)/100;
+    university.PCT_MC_ETM = parseInt(uniEtmMcPct.value)/100;
     university.Phone = uniPhone.value;
     university.Web_Link = uniWeb.value;
     university.Email = uniEmail.value;
@@ -920,9 +920,9 @@ const setUniversityFormData = (university) => {
     uniAdmiStartDate.value = university.Start_Admission_Date;
     uniAdmiEndDate.value = university.End_Admission_Date;
     uniETM.value = university.Total_ETM;
-    uniSEduMcPct.value = university.S_Education_MC_PCT*100;
-    uniHEduMcPct.value = university.H_Education_MC_PCT*100;
-    uniEtmMcPct.value = university.PCT_MC_ETM*100;
+    uniSEduMcPct.value = parseFloat(university.S_Education_MC_PCT)*100;
+    uniHEduMcPct.value = parseFloat(university.H_Education_MC_PCT)*100;
+    uniEtmMcPct.value = parseFloat(university.PCT_MC_ETM)*100;
     uniPhone.value = university.Phone;
     uniWeb.value = university.Web_Link;
     uniEmail.value = university.Email;

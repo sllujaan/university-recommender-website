@@ -523,6 +523,7 @@ document.forms[1].addEventListener("submit", e => {
     
     const requestData = getFinalUniversityRequestData();
 
+
     submitFinalFormData(requestData);
 
     console.log("final submit.");
@@ -851,9 +852,9 @@ const handleUniversityFormSubmit = () => {
     university.Start_Admission_Date = uniAdmiStartDate.value;
     university.End_Admission_Date = uniAdmiEndDate.value;
     university.Total_ETM = uniETM.value;
-    university.S_Education_MC_PCT = uniSEduMcPct.value;
-    university.H_Education_MC_PCT = uniHEduMcPct.value;
-    university.PCT_MC_ETM = uniEtmMcPct.value;
+    university.S_Education_MC_PCT = parseInt(uniSEduMcPct.value)/100;
+    university.H_Education_MC_PCT = parseInt(uniHEduMcPct.value)/100;
+    university.PCT_MC_ETM = parseInt(uniEtmMcPct.value)/100;
     university.Phone = uniPhone.value;
     university.Web_Link = uniWeb.value;
     university.Email = uniEmail.value;
@@ -1022,6 +1023,11 @@ const setProgramFormTypeToUPDATE = () => {
 const getFinalUniversityRequestData = () => {
     var requestData = UNIVERSITY_DATA;
     requestData.programs = CHOSEN_PROGRAMS;
+    
+    const userCredentials = getUserCredentialsLocalStorage();
+    requestData.session_id = userCredentials.session_id;
+    requestData.user_id = userCredentials.user_id;
+
     return requestData;
 }
 
@@ -1088,14 +1094,14 @@ const submitFinalFormData = (universityDetails) => {
 
 
 //console.log(CHOSEN_PROGRAMS);
-goToProgramsStage();
+//goToProgramsStage();
 
 
 //setUniversityFormData(UNIVERSITY_DATA_SAMPLE);
 
 
-setUniProgFromsData(UNIVERSITY_DATA_SAMPLE);
-console.log(CHOSEN_PROGRAMS);
+// setUniProgFromsData(UNIVERSITY_DATA_SAMPLE);
+// console.log(CHOSEN_PROGRAMS);
 
 
 //CUSTOM_EVENT.COUNTRY_LOADED = true;
