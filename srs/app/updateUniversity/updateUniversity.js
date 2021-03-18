@@ -473,7 +473,7 @@ const displyStandardMsg = (elment, msg, color) => {
     appBodyContent.classList.add("hide");
 }
 
-const hideStandardMsg = () => {
+const hideStandardMsg = (elment) => {
     elment.innerText = "";
     appBodyContent.classList.remove("hide");
     elment.classList.add("hide");
@@ -1141,18 +1141,20 @@ const fetchUniverstyDetails = (id) => {
 
     fetch(queriedURL)
     .then(res => {
+        hideBusy();
         if(res.status !== 200) { throw new Error("Something went wrong while fetching University Details from Database!"); }
         else {return res.json();}
     })
     .then(universityDetails => {
         console.log(universityDetails);
         console.log(getUniversityDetailsObjForm(universityDetails));
-
+        hideStandardMsg(serverError);
         handleFormFill(universityDetails);
     })
     .catch(err => {
         //displayServerError();
         //alert(err);
+        hideBusy();
         displyStandardMsg(serverError, "Server Error: Unable to fetch univeristy details!", "red");
         console.error(err);
     })
@@ -1249,6 +1251,16 @@ console.log(CHOSEN_PROGRAMS);
 //     CUSTOM_EVENT.COUNTRY_LOADED = true;
 // }, 1000);
 
+
+
+/**
+ * hide busy
+ * used when fetching users from database.
+ */
+ const hideBusy = () => {
+    var busy = document.getElementById("busy");
+    busy.setAttribute("style", "display: none;");
+}
 
 
 
