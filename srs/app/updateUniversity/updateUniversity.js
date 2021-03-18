@@ -1148,7 +1148,7 @@ const submitFinalFormData = (universityDetails) => {
     })
     .then(res => {
         if(res.status !== 200) {throw new Error("Something went wrong while processing the request!");}
-        else {alert("Request Processed Successfully!");}
+        else {alert("Request Processed Successfully!");window.location=`../search/search.html`;}
     })
     .catch(err => {
         console.error(err);
