@@ -384,6 +384,46 @@
     </div>
     <!----------------------------------------------------------------------------------------------------->
 
+    <!-----------------------Merit Calculator-------------------------------->
+    <div class="container-calculator-wrapper" style="display: none;">
+      <div class="container-calculator">
+        <div class="close"><i class="fa fa-times fa-2x calculator-close"></i></div>
+          <div class="calculator-title"><h3 style="font-weight: bold;">Merit Calculator</h3></div>
+
+          <form action="#">
+
+            <!--------------Secondary Ecuation----------------->
+            <!---Abbrevations:
+                      h_education_pct: secondary education percentage---->
+            <div class="form-content percentage">
+              <input type="number" name="h_education_pct" id="user-h_education_pct" placeholder="Enter Higher Education Marks percentage" min="0" max="100" required>
+              <div>%</div>
+            </div>
+
+            <!-----------------Higher Ecuation----------------->
+            <!---Abbrevations:
+                    s_education_pct: secondary education percentage---->
+            <div class="form-content percentage">
+                <input type="number" name="s_education_pct" id="user-s_education_pct" placeholder="Enter Secondary Education Marks percentage" min="0" max="100" required>
+                <div>%</div>
+            </div>
+
+            <div id="calculator-result" class="form-content calculator-result">
+              <h4>You Aggragate is 90%</h4>
+            </div>
+
+            <!-----------------Calculator Submit Button----------------->
+            <div class="form-content">
+              <input id="calculator-submit" class="calculator-submit" type="submit" value="Calculate">
+            </div>
+
+          </form>
+
+
+      </div>
+    </div>
+    <!----------------------------------------------------------------------->
+
 
     <div class="footer-container-wrapper"></div>
 

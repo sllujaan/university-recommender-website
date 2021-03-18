@@ -941,7 +941,7 @@ const handleProgramFormSubmit = () => {
         program.Tuition_Fee_per_Credit_Hour = programTuitionFee.value;
         program.Convocation_Fee = programConvocFee.value;
         program.Fee_Description = feeDescription.value;
-        program.MM_PCT = programMinMarksPct.value;
+        program.MM_PCT = parseInt(programMinMarksPct.value)/100;
         program.MM_PN = programMinMarkProgramName.value;
 
         return program;

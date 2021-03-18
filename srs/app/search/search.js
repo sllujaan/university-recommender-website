@@ -56,6 +56,7 @@ var uniDetailsBackCover = document.querySelectorAll(".uni-details-back-cover")[0
 
 
 
+
 var sidebar = document.querySelectorAll(".side-bar")[0];
 var sideBarRespClose = document.querySelectorAll(".side-bar-resp-close")[0];
 
@@ -69,6 +70,9 @@ var userProram = document.getElementById("user-program");
 var userAdmissionDate= document.getElementById("user-addmission-date");
 var userBudget = document.getElementById("user_budget_US_$");
 var userMinMarksPct = document.getElementById("user-min_marks_pct");
+
+
+var containerCalculatorWrapper = document.querySelectorAll(".container-calculator-wrapper")[0];
 
 
 /*load header and footer*/
@@ -108,6 +112,9 @@ document.addEventListener("click", e => {
     const isSideBarRespClose = e.target.classList.contains("side-bar-resp-close");
     const isBtnSaveSearch = e.target.parentElement.classList.contains("btn-save-search");
     const userSearchBtn = e.target.classList.contains("user-search-btn");
+
+    const isUniCalculator = e.target.parentElement.classList.contains("uni-calculator");
+    const isUniCalculatorClose = e.target.classList.contains("calculator-close") || e.target.classList.contains("container-calculator-wrapper");
     
     const TRUE_VALUE = true;
 
@@ -153,6 +160,13 @@ document.addEventListener("click", e => {
             console.log(userSearchName.value);
             //perform search on the event
             performUniSearchOnEvents();
+            break;
+        case isUniCalculator:
+            console.log("calculator");
+            showMeritCalculator();
+            break;
+        case isUniCalculatorClose:
+            hideMeritCalculator();
             break;
 
     
@@ -815,7 +829,13 @@ const creatSearchDB = (searchObj) => {
 }
 
 
+const showMeritCalculator = () => {
+    containerCalculatorWrapper.style.removeProperty("display");
+}
 
+const hideMeritCalculator = () => {
+    containerCalculatorWrapper.style.setProperty("display", "none");
+}
 
 
 
@@ -842,11 +862,11 @@ const prepareSavedSearchRequestData = (search) => {
     const City_ID = search.City_ID ? (search.City_ID) : ("");
     const Program_ID = search.Program_ID ? (search.Program_ID) : ("");
     const Budget_US_$ = search.Budget_US_$ ? (search.Budget_US_$) : ("");
-    const MM_PCT = search.MM_PCT ? (search.MM_PCT) : ("");
+    const MM_PCT = search.MM_PCT ? (search.MM_PCT/100) : ("");
     const Start_Admission_Date = search.Start_Admission_Date ? (search.Start_Admission_Date) : ("");
     
 
-    const requestData = `session_id=${userCredentials.session_id}&user_id=${userCredentials.user_id}&Name=${Name}&Country_ID=${Country_ID}&City_ID=${City_ID}&Program_ID=${Program_ID}&Budget_US_$=${Budget_US_$}&MM_PCT=${MM_PCT}&Start_Admission_Date${Start_Admission_Date}`;
+    const requestData = `session_id=${userCredentials.session_id}&user_id=${userCredentials.user_id}&Name=${Name}&Country_ID=${Country_ID}&City_ID=${City_ID}&Program_ID=${Program_ID}&Budget_US_$=${Budget_US_$}&MM_PCT=${MM_PCT}&Start_Admission_Date=${Start_Admission_Date}`;
 
     return requestData;   
 }
@@ -1054,6 +1074,7 @@ const clearAllSearchFilters = () => {
 
 //loadFirst();
 changeRespOptsTitle("new title");
+
 
 
 

@@ -874,3 +874,114 @@ table td {
 
 /*--------------------------------------*/
 
+
+
+
+
+
+/*-------------------Merit Calculator css--------------------*/
+.container-calculator-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.575);
+    z-index: 1500;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.container-calculator-wrapper .container-calculator {
+    background-color: white;
+    padding: 20px;
+    border-radius: 6px;
+    width: 70%;
+    max-width: var(--app-maximum-width);
+}
+
+.container-calculator > .close {
+    /* background-color: orange; */
+    text-align: right;
+    cursor: pointer;
+}
+
+
+
+/*----------------------------------------------------------*/
+
+
+
+/*-------------------form content css--------------------*/
+.form-content {
+    width: 100%;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.form-content input {
+    width: 100%;
+    padding: 10px 20px;
+    border: 1px solid var(--gray-1);
+    border-radius: 6px;
+}
+
+.form-content input[type="submit"] {
+    border: none;
+    color: var(--color-white);
+    background-color: #37a000;
+    cursor: pointer;
+    font-weight: var(--font-weight-1);
+    font-size: var(--font-size-base-1);
+    margin-top: 10px;
+    padding: 8px 0;
+}
+
+.percentage {
+    position: relative;
+}
+
+.percentage :last-child {
+    padding: 10px 3px;
+    color: gray;
+    position: absolute;
+    top: 0;
+    right: 2px;
+}
+
+.login-container > a {
+    color: #37a000;
+    width: 100%;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid lightgray;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: large;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+
+.calculator-result {
+    /* background-color: orange; */
+}
+
+
+
+
+
+@media only screen and (max-width: 1100px) {
+    .container-calculator-wrapper .container-calculator {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0px;
+    }
+}
+
+/*----------------------------------------------------------*/
