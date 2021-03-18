@@ -215,7 +215,7 @@ document.forms[0].addEventListener("submit", e => {
     console.log("forms0");
     showSavingSearch();
     setTimeout(() => {
-        showSaveSearchNameConflict()
+        performSaveSearch();
     }, 1000);
 });
 
@@ -410,7 +410,7 @@ const getSearch = () => {
     var search = {
         session_id: userCredentials.session_id,
         user_id: userCredentials.user_id,
-        Name: userSearchName.value,
+        Name: saveSearchName.value,
         Country_ID: null,
         City_ID: null,
         Program_ID: null,
@@ -842,8 +842,9 @@ const creatSearchDB = (searchObj) => {
         body: requestData // body data type must match "Content-Type" header
     })
     .then(res => {
+        restoreSaveSearch();
         if(res.status === 200) {alert("The Request Processed Successfully!");}
-        else if(res.status === 409) {alert("Search Name Aleady Exists!");}
+        else if(res.status === 409) {showSaveSearchNameConflict();}
         else {alert("Something went wrong while processing the request!");}
     })
     .catch(err => {     //there was an error while sending the request or server did not response.
@@ -896,8 +897,19 @@ const showSavingSearch = () => {
     saveSearchSubmit.value = "Saving...";
 }
 
+const restoreSaveSearch = () => {
+    saveSearchError.innerText = "*";
+    saveSearchError.style.setProperty("color", "red");
+    saveSearchName.style.removeProperty("border-color");
+    saveSearchName.disabled = false;
 
-showSaveSearchNameConflict();
+    saveSearchSubmit.style.removeProperty("background-color");
+    saveSearchSubmit.style.removeProperty("pointer-events");
+    saveSearchSubmit.value = "Save";
+}
+
+
+//showSaveSearchNameConflict();
 //showSavingSearch();
 
 
