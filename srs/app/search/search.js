@@ -164,7 +164,7 @@ document.addEventListener("click", e => {
         case isBtnSaveSearch:
             console.log("save search");
             //performSaveSearch();
-            showSaveSearchContainer("abc");
+            showSaveSearchContainer(userSearchName.value);
             break;
         case userSearchBtn:
             console.log(userSearchName.value);
@@ -398,19 +398,21 @@ getProgramsDB();
 
 
 const performSaveSearch = () => {
-    console.log(getSearch());
-    const searchObj = getSearch();
+    console.log(getSearch(saveSearchName.value));
+    const searchObj = getSearch(saveSearchName.value);
     creatSearchDB(searchObj);
 }
 
-const getSearch = () => {
+const getSearch = (name) => {
 
     const userCredentials = getUserCredentialsLocalStorage();
+
+    var searchName = (name ? (name): (userSearchName.value));
 
     var search = {
         session_id: userCredentials.session_id,
         user_id: userCredentials.user_id,
-        Name: saveSearchName.value,
+        Name: searchName,
         Country_ID: null,
         City_ID: null,
         Program_ID: null,
@@ -843,8 +845,9 @@ const creatSearchDB = (searchObj) => {
     })
     .then(res => {
         restoreSaveSearch();
-        if(res.status === 200) {alert("The Request Processed Successfully!");}
+        if(res.status === 200) {alert("The Request Processed Successfully!");hideSaveSearchContainer();}
         else if(res.status === 409) {showSaveSearchNameConflict();}
+        else if(res.status === 401) {alert("Unauthorized! Login is required.");}
         else {alert("Something went wrong while processing the request!");}
     })
     .catch(err => {     //there was an error while sending the request or server did not response.
