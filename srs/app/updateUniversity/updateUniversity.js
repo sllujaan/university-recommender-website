@@ -920,13 +920,26 @@ const setUniversityFormData = (university) => {
     uniAdmiStartDate.value = university.Start_Admission_Date;
     uniAdmiEndDate.value = university.End_Admission_Date;
     uniETM.value = university.Total_ETM;
-    uniSEduMcPct.value = university.S_Education_MC_PCT;
-    uniHEduMcPct.value = university.H_Education_MC_PCT;
-    uniEtmMcPct.value = university.PCT_MC_ETM;
+    uniSEduMcPct.value = university.S_Education_MC_PCT*100;
+    uniHEduMcPct.value = university.H_Education_MC_PCT*100;
+    uniEtmMcPct.value = university.PCT_MC_ETM*100;
     uniPhone.value = university.Phone;
     uniWeb.value = university.Web_Link;
     uniEmail.value = university.Email;
     uniAddress.value = university.Address;
+
+
+    //check if admission date was valid
+    if(uniAdmiStartDate.value === "") {
+        console.error("Admission Start Date is not matched in the predefined Dates!\nDate has been set to default.");
+        uniAdmiStartDate.selectedIndex = 0;
+    }
+
+    //check if admission date was valid
+    if(uniAdmiEndDate.value === "") {
+        console.error("Admission End Date is not matched in the predefined Dates!\nDate has been set to default.");
+        uniAdmiEndDate.selectedIndex = 0;
+    }
 
 
     //set country  when ready or fetched from database---
@@ -944,7 +957,12 @@ const setUniversityFormData = (university) => {
         if(CITY_EVENT.CITY_LOADED === true) {
             
             uniCity.value = university.City_ID;
-            if(uniCity.value === "") uniCity.selectedIndex = 0;
+            console.log(university.City_ID);
+
+            if(uniCity.value === "") {
+                console.error("City_ID is not matched in the Selected Country!\nCity has been set to default.");
+                uniCity.selectedIndex = 0;
+            }
             //uniCity.selectedIndex = 0;
         }
         
