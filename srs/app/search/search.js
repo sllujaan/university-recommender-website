@@ -74,6 +74,10 @@ var userMinMarksPct = document.getElementById("user-min_marks_pct");
 
 var containerCalculatorWrapper = document.querySelectorAll(".container-calculator-wrapper")[0];
 var containerSaveSearchWrapper = document.querySelectorAll(".container-save-search-wrapper")[0];
+var saveSearchName = document.getElementById("save-search-name");
+var saveSearchError = document.getElementById("save-search-error");
+var saveSearchSubmit = document.getElementById("save-search-submit");
+
 
 
 /*load header and footer*/
@@ -204,6 +208,16 @@ document.addEventListener("click", e => {
     
 })
 
+
+/*fired when user click submit button or hits enter key.*/
+document.forms[0].addEventListener("submit", e => {
+    e.preventDefault();
+    console.log("forms0");
+    showSavingSearch();
+    setTimeout(() => {
+        showSaveSearchNameConflict()
+    }, 1000);
+});
 
 userSearchName.addEventListener("change", e => {
     console.log(e.target.value);
@@ -847,8 +861,10 @@ const hideMeritCalculator = () => {
     containerCalculatorWrapper.style.setProperty("display", "none");
 }
 
+
+
+
 const showSaveSearchContainer = (name) => {
-    var saveSearchName = document.getElementById("save-search-name");
     saveSearchName.value = name;
     containerSaveSearchWrapper.style.removeProperty("display");
 }
@@ -858,15 +874,31 @@ const hideSaveSearchContainer = () => {
 }
 
 
-const showSaveSearchNameConflict = (msg) => {
-    var saveSearchError = document.getElementById("save-search-error");
-    console.log(saveSearchError);
-    saveSearchError.innerText = msg;
+const showSaveSearchNameConflict = () => {
+    saveSearchError.innerText = "Search Name already exists!";
+    saveSearchError.style.setProperty("color", "red");
+    saveSearchName.style.setProperty("border-color", "red");
+    saveSearchName.disabled = false;
+
+    saveSearchSubmit.style.removeProperty("background-color");
+    saveSearchSubmit.style.removeProperty("pointer-events");
+    saveSearchSubmit.value = "Save";
+}
+
+const showSavingSearch = () => {
+    saveSearchError.innerText = "*";
+    saveSearchError.style.setProperty("color", "lightgray");
+    saveSearchName.style.setProperty("border-color", "lightgray");
+    saveSearchName.disabled = true;
+
+    saveSearchSubmit.style.setProperty("background-color", "gray");
+    saveSearchSubmit.style.setProperty("pointer-events", "none");
+    saveSearchSubmit.value = "Saving...";
 }
 
 
-showSaveSearchNameConflict("search Name Already Exists!");
-
+showSaveSearchNameConflict();
+//showSavingSearch();
 
 
 
