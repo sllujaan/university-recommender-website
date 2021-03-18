@@ -467,6 +467,7 @@ const handleOnSubmit = (e) => {
 
 
 const displyStandardMsg = (elment, msg, color) => {
+    hideBusy();
     elment.innerText = msg;
     elment.style.setProperty("color", color);
     elment.classList.remove("hide");
@@ -521,6 +522,15 @@ uniName.addEventListener("change", e => {
 const verfiyUniName = (e) => {
     validateInputFieldDB(e, URL_ADD_UNIVERSITY_NAME);
 
+}
+
+/**
+ * hide busy
+ * used when fetching users from database.
+ */
+ const hideBusy = () => {
+    var busy = document.getElementById("busy");
+    busy.setAttribute("style", "display: none;");
 }
 
 /*fired when user click submit button or hits enter key.*/
@@ -1142,7 +1152,8 @@ const fetchUniverstyDetails = (id) => {
     fetch(queriedURL)
     .then(res => {
         hideBusy();
-        if(res.status !== 200) { throw new Error("Something went wrong while fetching University Details from Database!"); }
+        if(res.status === 404)  { throw new Error("Not Found!"); }
+        else if(res.status !== 200) { throw new Error("Something went wrong while fetching University Details from Database!"); }
         else {return res.json();}
     })
     .then(universityDetails => {
@@ -1155,7 +1166,7 @@ const fetchUniverstyDetails = (id) => {
         //displayServerError();
         //alert(err);
         hideBusy();
-        displyStandardMsg(serverError, "Server Error: Unable to fetch univeristy details!", "red");
+        displyStandardMsg(serverError, err.message, "red");
         console.error(err);
     })
 }
@@ -1253,14 +1264,7 @@ console.log(CHOSEN_PROGRAMS);
 
 
 
-/**
- * hide busy
- * used when fetching users from database.
- */
- const hideBusy = () => {
-    var busy = document.getElementById("busy");
-    busy.setAttribute("style", "display: none;");
-}
+
 
 
 
