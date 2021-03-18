@@ -792,6 +792,14 @@ body {
 
 
 
+.error-text {
+    color: red;
+    font-size: var(--font-size-medium);
+    font-weight: var(--font-weight-1);
+    padding-left: 10px;
+}
+
+
 
 /*------------------------table css----------------------*/
 
@@ -876,7 +884,39 @@ table td {
 
 
 
+/*-------------------container save search css--------------------*/
+.container-save-search-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.575);
+    z-index: 2000;
+    top: 0;
+    left: 0;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.container-save-search-wrapper .container-save-search {
+    background-color: white;
+    padding: 20px;
+    border-radius: 6px;
+    width: 70%;
+    max-width: var(--app-maximum-width);
+}
+
+.container-save-search > .close {
+    /* background-color: orange; */
+    text-align: right;
+    cursor: pointer;
+}
+
+
+
+/*----------------------------------------------------------*/
 
 
 /*-------------------Merit Calculator css--------------------*/
@@ -982,6 +1022,15 @@ table td {
         height: 100vh;
         border-radius: 0px;
     }
+
+    .container-save-search-wrapper .container-save-search {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0px;
+    }
 }
 
 /*----------------------------------------------------------*/
+
+
+

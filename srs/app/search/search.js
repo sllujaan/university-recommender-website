@@ -73,6 +73,7 @@ var userMinMarksPct = document.getElementById("user-min_marks_pct");
 
 
 var containerCalculatorWrapper = document.querySelectorAll(".container-calculator-wrapper")[0];
+var containerSaveSearchWrapper = document.querySelectorAll(".container-save-search-wrapper")[0];
 
 
 /*load header and footer*/
@@ -116,6 +117,10 @@ document.addEventListener("click", e => {
     const isUniCalculator = e.target.parentElement.classList.contains("uni-calculator");
     const isUniCalculatorClose = e.target.classList.contains("calculator-close") || e.target.classList.contains("container-calculator-wrapper");
     
+
+    //const isUniCalculator = e.target.parentElement.classList.contains("uni-calculator");
+    const isSaveSearchClose = e.target.classList.contains("save-search-close") || e.target.classList.contains("container-save-search-wrapper");
+
     const TRUE_VALUE = true;
 
     switch (TRUE_VALUE) {
@@ -154,7 +159,8 @@ document.addEventListener("click", e => {
             break;
         case isBtnSaveSearch:
             console.log("save search");
-            performSaveSearch();
+            //performSaveSearch();
+            showSaveSearchContainer("abc");
             break;
         case userSearchBtn:
             console.log(userSearchName.value);
@@ -168,7 +174,11 @@ document.addEventListener("click", e => {
         case isUniCalculatorClose:
             hideMeritCalculator();
             break;
+        case isSaveSearchClose:
+            hideSaveSearchContainer();
+            break;
 
+            
     
         default:
             //hideContainerOpts();
@@ -836,6 +846,27 @@ const showMeritCalculator = () => {
 const hideMeritCalculator = () => {
     containerCalculatorWrapper.style.setProperty("display", "none");
 }
+
+const showSaveSearchContainer = (name) => {
+    var saveSearchName = document.getElementById("save-search-name");
+    saveSearchName.value = name;
+    containerSaveSearchWrapper.style.removeProperty("display");
+}
+
+const hideSaveSearchContainer = () => {
+    containerSaveSearchWrapper.style.setProperty("display", "none");
+}
+
+
+const showSaveSearchNameConflict = (msg) => {
+    var saveSearchError = document.getElementById("save-search-error");
+    console.log(saveSearchError);
+    saveSearchError.innerText = msg;
+}
+
+
+showSaveSearchNameConflict("search Name Already Exists!");
+
 
 
 
