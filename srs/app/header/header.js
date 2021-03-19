@@ -23,7 +23,9 @@ const resolveLinkColorActivation = (DOM) => {
     var linkRegisterResp = DOM.getElementById("link-register-resp");
 
     var linkRecommended = DOM.getElementById("link-recommended");
+    var linkRecommendedResp = DOM.getElementById("link-recommended-resp")
     var linkAddUniversity = DOM.getElementById("link-add-university");
+    var linkAddUniversityResp = DOM.getElementById("link-add-university-resp");
     
 
     switch (page) {
@@ -45,11 +47,11 @@ const resolveLinkColorActivation = (DOM) => {
             break;
         case "addUniversity.html":
             linkAddUniversity.setAttribute("style", "color: #6fda44;");
-            //linkRegisterResp.setAttribute("style", "color: #6fda44;");
+            linkAddUniversityResp.setAttribute("style", "color: #6fda44;");
             break;
         case "recommended.html":
             linkRecommended.setAttribute("style", "color: #6fda44;");
-            //linkRegisterResp.setAttribute("style", "color: #6fda44;");
+            linkRecommendedResp.setAttribute("style", "color: #6fda44;");
             break;
         default:
             break;
