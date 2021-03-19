@@ -32,142 +32,147 @@
 
     <div class="app-body">
 
+      <div id="busy" class="spinner"><i class="fa fa-spinner fa-2x" aria-hidden="true"></i></div>
+
+      <div class="server-error">Server-Error</div>
+
+      
             <!---------------App body Container---------------->
-    <div class="app-body-container">
-        <div class="title find-uni-title"><h2 style="font-weight: bold; ">Find Universities</h2></div>
-        <div class="search-bar">
-          <input type="text" placeholder="Search for Universities"/>
-          <i class="bi bi-search"></i>
-        </div>
+          <div class="app-body-container">
+              <div class="title find-uni-title"><h2 style="font-weight: bold; ">Find Universities</h2></div>
+              <div class="search-bar">
+                <input type="text" placeholder="Search for Universities"/>
+                <i class="bi bi-search"></i>
+              </div>
 
-        <div class="break" style="width: 100%;height: 5px;"></div>
+              <div class="break" style="width: 100%;height: 5px;"></div>
 
-        <div class="separator"></div>
-        <div class="Universities-container" id="advanced-search"><h6 style="color: #48a000;">Advanced Search</h6></div>
+              <div class="separator"></div>
+              <div class="Universities-container" id="advanced-search"><h6 style="color: #48a000;">Advanced Search</h6></div>
 
-        <div class="break" style="width: 100%;height: 30px;"></div>
+              <div class="break" style="width: 100%;height: 30px;"></div>
 
-        <div class="side-bar">
-          
-          <div class="container-close">
-            <i class="fa fa-times"></i>
-          </div>
+              <div class="side-bar">
+                
+                <div class="container-close">
+                  <i class="fa fa-times"></i>
+                </div>
 
-          <div class="saved-search-item saved-search-item-selected">saved Search 1</div>
-          <div class="recommeded-auto saved-search-item-selected saved-search-item">Recommended</div>
-          <div class="saved-search-item">Fsd Search</div>
-          <div class="saved-search-item">Lhr Search</div>
-          <div class="saved-search-item">Lhr search 2</div>
-        </div>
-
-
-        <div class="view">View:</div>
-        <div class="select-resp side-resp" id="searches-recommended-resp">
-          searches-recommended-resp
-          <i class="fas fa-caret-down fa-2x side-resp"></i>
-        </div>
-
-        <!-- <div class="container-opts">
-          <div class="container-opts-top">
-            <div class="selected">Selected</div>
-            <div class="close-symbol">X</div>
-          </div>
-          <div class="saved-searches-title">SAVED SEARCHES</div>
-          <div class="container-saved-searches">
-            <div class="recommeded-auto saved-search-item-selected saved-search-item">Recommended</div>
-            <div class="saved-search-item">Container-saved-searches item 1</div>
-            <div class="saved-search-item">Container-saved-searches item 1</div>
-            <div class="saved-search-item">Container-saved-searches item 1</div>
-            <div class="saved-search-item">Container-saved-searches item 1</div>
-            <div class="saved-search-item">Container-saved-searches item 1</div>
-          </div>
-        </div> -->
+                <div class="saved-search-item saved-search-item-selected">saved Search 1</div>
+                <div class="recommeded-auto saved-search-item-selected saved-search-item">Recommended</div>
+                <div class="saved-search-item">Fsd Search</div>
+                <div class="saved-search-item">Lhr Search</div>
+                <div class="saved-search-item">Lhr search 2</div>
+              </div>
 
 
+              <div class="view">View:</div>
+              <div class="select-resp side-resp" id="searches-recommended-resp">
+                searches-recommended-resp
+                <i class="fas fa-caret-down fa-2x side-resp"></i>
+              </div>
+
+              <!-- <div class="container-opts">
+                <div class="container-opts-top">
+                  <div class="selected">Selected</div>
+                  <div class="close-symbol">X</div>
+                </div>
+                <div class="saved-searches-title">SAVED SEARCHES</div>
+                <div class="container-saved-searches">
+                  <div class="recommeded-auto saved-search-item-selected saved-search-item">Recommended</div>
+                  <div class="saved-search-item">Container-saved-searches item 1</div>
+                  <div class="saved-search-item">Container-saved-searches item 1</div>
+                  <div class="saved-search-item">Container-saved-searches item 1</div>
+                  <div class="saved-search-item">Container-saved-searches item 1</div>
+                  <div class="saved-search-item">Container-saved-searches item 1</div>
+                </div>
+              </div> -->
 
 
-        <!---------------------Universities Container--------------------->
-        <div class="Universities-container">
-          <div class="title title-opts search-link"><h2 style="font-weight: bold;">Recommended</h2></div>
 
 
-          <!------------------------University Container--------------------------->
-          <!-- <div class="university-container">
-            <div class="container-busy">
-              <div class="busy-1"></div>
-              <div class="busy-1"></div>
-              <div class="busy-1"></div>
+              <!---------------------Universities Container--------------------->
+              <div class="Universities-container">
+                <div class="title title-opts search-link"><h2 style="font-weight: bold;">Recommended</h2></div>
+
+
+                <!------------------------University Container--------------------------->
+                <!-- <div class="university-container">
+                  <div class="container-busy">
+                    <div class="busy-1"></div>
+                    <div class="busy-1"></div>
+                    <div class="busy-1"></div>
+                  </div>
+                </div> -->
+                <!----------------------------------------------------------------------->
+
+
+                <!------------------------University Container--------------------------->
+                <div class="university-container">
+                  <div class="title" style="cursor: pointer; color:  #48a000; text-decoration: underline; -webkit-line-clamp: 1;"><h5 id="1" class="uni-name">University of the Punjab</h5></div>
+                  <div class="description" style="color: #222;">The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.</div>
+                  <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;Pakistan</span></div><br>
+                </div>
+                <!----------------------------------------------------------------------->
+
+                <!------------------------University Container--------------------------->
+                <div class="university-container">
+                  <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5>Lahore University of Management Sciences (LUMS)</h5></div>
+                  <div class="description" style="color: #222;">Lahore University of Management Sciences is a private research university located in Lahore, Punjab, Pakistan. LUMS was founded in 1984 by Dr. Zahid Rahim and patronage of the business–industrial community spearheaded by Syed Aarim.</div>
+                  <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;Pakistan</span></div><br>
+                </div>
+                <!----------------------------------------------------------------------->
+
+                <!------------------------University Container--------------------------->
+                <div class="university-container">
+                  <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5>University of Agriculture</h5></div>
+                  <div class="description" style="color: #222;">The University of Agriculture is a public research university in Faisalabad, Pakistan. UAF is the Oldest and Pioneer Agriculture Institute in the South Asia. It is ranked 4th in Pakistan and 1st in the field of Agriculture and Veterinary Sciences by Higher Education Commission Ranking in 2019.</div>
+                  <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;Pakistan</span></div><br>
+                </div>
+                <!----------------------------------------------------------------------->
+
+                <!------------------------University Container--------------------------->
+                <div class="university-container">
+                  <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5>National University Of Sciences And Technology</h5></div>
+                  <div class="description" style="color: #222;">The National University of Sciences & Technology is a public research university under administration of Pakistan Armed Forces with its main campus in Islamabad, Pakistan. The university offers undergraduate and graduate degrees, including doctoral and professional degrees.</div>
+                  <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;Pakistan</span></div><br>
+                </div>
+                <!----------------------------------------------------------------------->
+
+                <!------------------------University Container--------------------------->
+                <div class="university-container">
+                  <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5>COMSATS University Islamabad</h5></div>
+                  <div class="description" style="color: #222;">The COMSATS University Islamabad, formerly known as COMSATS Institute of Information Technology, is a public university in Pakistan. It is a multi-campus university with its principal seat located in Islamabad.</div>
+                  <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;Pakistan</span></div><br>
+                </div>
+                <!----------------------------------------------------------------------->
+
+                <!------------------------University Container--------------------------->
+
+                  <div class="went-wrong">
+                    <span class="went-wrong-msg">Sorry we Couldn't Load. Please</span>
+                    <span><a href="">try again!</a></span>
+                  </div>
+
+                  <div class="went-wrong">
+                    <span class="went-wrong-msg">Not Found</span>
+                  </div>
+
+                <!----------------------------------------------------------------------->
+
+                
+                <div class="btn-load-more">
+                  <br>
+                  <div style="text-align: center;">
+                    <input id="load-more-button" type="button" value="Load More Universities" style="background-color: white; color: #37a000;font-weight: bold; font-size: small; padding: 4px 10px; border-radius: 4px; border: 1px solid #d1d1d1;">
+                  </div>
+                  <br>
+                </div>
+                
+              </div>
+              <!--------------------------------------------------------------->
             </div>
-          </div> -->
-          <!----------------------------------------------------------------------->
-
-
-          <!------------------------University Container--------------------------->
-          <div class="university-container">
-            <div class="title" style="cursor: pointer; color:  #48a000; text-decoration: underline; -webkit-line-clamp: 1;"><h5 id="1" class="uni-name">University of the Punjab</h5></div>
-            <div class="description" style="color: #222;">The University of the Punjab, also referred to as Punjab University, is a public research university located in Lahore, Punjab, Pakistan. Punjab University is the oldest public university in Pakistan.</div>
-            <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;Pakistan</span></div><br>
-          </div>
-          <!----------------------------------------------------------------------->
-
-          <!------------------------University Container--------------------------->
-          <div class="university-container">
-            <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5>Lahore University of Management Sciences (LUMS)</h5></div>
-            <div class="description" style="color: #222;">Lahore University of Management Sciences is a private research university located in Lahore, Punjab, Pakistan. LUMS was founded in 1984 by Dr. Zahid Rahim and patronage of the business–industrial community spearheaded by Syed Aarim.</div>
-            <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;Pakistan</span></div><br>
-          </div>
-          <!----------------------------------------------------------------------->
-
-          <!------------------------University Container--------------------------->
-          <div class="university-container">
-            <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5>University of Agriculture</h5></div>
-            <div class="description" style="color: #222;">The University of Agriculture is a public research university in Faisalabad, Pakistan. UAF is the Oldest and Pioneer Agriculture Institute in the South Asia. It is ranked 4th in Pakistan and 1st in the field of Agriculture and Veterinary Sciences by Higher Education Commission Ranking in 2019.</div>
-            <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;Pakistan</span></div><br>
-          </div>
-          <!----------------------------------------------------------------------->
-
-          <!------------------------University Container--------------------------->
-          <div class="university-container">
-            <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5>National University Of Sciences And Technology</h5></div>
-            <div class="description" style="color: #222;">The National University of Sciences & Technology is a public research university under administration of Pakistan Armed Forces with its main campus in Islamabad, Pakistan. The university offers undergraduate and graduate degrees, including doctoral and professional degrees.</div>
-            <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;Pakistan</span></div><br>
-          </div>
-          <!----------------------------------------------------------------------->
-
-          <!------------------------University Container--------------------------->
-          <div class="university-container">
-            <div class="title" style="cursor: pointer; -webkit-line-clamp: 1;"><h5>COMSATS University Islamabad</h5></div>
-            <div class="description" style="color: #222;">The COMSATS University Islamabad, formerly known as COMSATS Institute of Information Technology, is a public university in Pakistan. It is a multi-campus university with its principal seat located in Islamabad.</div>
-            <div class="location"><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><span style="font-size: small; font-weight: bold; color: #656565;">&nbsp;&nbsp;Pakistan</span></div><br>
-          </div>
-          <!----------------------------------------------------------------------->
-
-          <!------------------------University Container--------------------------->
-
-            <div class="went-wrong">
-              <span class="went-wrong-msg">Sorry we Couldn't Load. Please</span>
-              <span><a href="">try again!</a></span>
-            </div>
-
-            <div class="went-wrong">
-              <span class="went-wrong-msg">Not Found</span>
-            </div>
-
-          <!----------------------------------------------------------------------->
-
-          
-          <div class="btn-load-more">
-            <br>
-            <div style="text-align: center;">
-              <input id="load-more-button" type="button" value="Load More Universities" style="background-color: white; color: #37a000;font-weight: bold; font-size: small; padding: 4px 10px; border-radius: 4px; border: 1px solid #d1d1d1;">
-            </div>
-            <br>
-          </div>
-          
-        </div>
-        <!--------------------------------------------------------------->
-      </div>
-      <!------------------------------------------------->
+            <!------------------------------------------------->
 
     </div>
 

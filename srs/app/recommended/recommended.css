@@ -766,3 +766,30 @@ table td {
 }
 
 /*----------------------------------------------------------*/
+
+
+
+
+@keyframes animate {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+
+.spinner {
+    text-align: center;
+}
+
+.fa-spinner {
+    color: #37a000;
+    transition: all 1s;
+    animation-name: animate;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+
+.server-error {
+    color: red;
+    font-size: x-large;
+    font-weight: bold;
+}

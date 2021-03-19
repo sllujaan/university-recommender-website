@@ -4,7 +4,8 @@ import {
  } from "../util/util.js";
 import { loadPrograms, UNIVERSITY_DETAILS } from "../accordian/accordian.js";
 import {
-    URL_UNIVERSITY_DETAILS, URL_RECOMENDED, URL_SAVED_SEARCHES, URL_SEARCH
+    URL_UNIVERSITY_DETAILS, URL_RECOMENDED, URL_SAVED_SEARCHES, URL_SEARCH,
+    URL_VERIFY_LOGIN
 } from "../urls/urlResolver.js";
 
 
@@ -347,6 +348,7 @@ const addSavedSearches = (searches) => {
     if(!Array.isArray(searches)) return false;
 
     //add recommeded search
+    
     addRecommendedSearch();
     selectRecommendedSearch();
 
@@ -487,7 +489,7 @@ const selectRecommendedSearch = () => {
 
 // addSavedSearches(SAVED_SEARCHES);
 
-selectRecommendedSearch();
+//selectRecommendedSearch();
 
 
 
@@ -596,11 +598,13 @@ const loadFirst = () => {
     removeLoadMoreButton();
     showContainerBusy();
 
+    const userCredentials = getUserCredentialsLocalStorage();
+
     setTimeout(() => {
         //changeContainerTitle("Recommneded aaaaaa");
         hideContainerBusy();
         //fetchRecommendedUniversities(12, ++CURRENT_PAGE, FIRST_LOAD);
-        if(UNI_TYPE === RECOMMENDED) fetchRecommendedUniversitiesEx("id=12", FIRST_LOAD);
+        if(UNI_TYPE === RECOMMENDED) fetchRecommendedUniversitiesEx(`id=${userCredentials.user_id}`, FIRST_LOAD);
         else {
             const requestData = prepareSavedSearchRequestData(SAVED_SEARCHES[0]);
             console.log(requestData);
@@ -630,9 +634,9 @@ const loadMore = () => {
 
 }
 
-UNI_TYPE = RECOMMENDED;
-CURRENT_PAGE = 0;
-loadFirst();
+// UNI_TYPE = RECOMMENDED;
+// CURRENT_PAGE = 0;
+// loadFirst();
 
 const serialize = (obj) => {
     var str = [];
@@ -801,12 +805,30 @@ fetchSavedSearches();
 
 
 
+const verifyLogin = () => {
+
+    const userCredentials = getUserCredentialsLocalStorage();
+    const requestData = `session_id=${userCredentials.session_id}&user_id=${userCredentials.user_id}`;
+
+    fetch(URL_VERIFY_LOGIN, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: requestData // body data type must match "Content-Type" header
+    })
+    .then(res => {
+        if(res.status === 200) {alert("login Success!");}
+        else if(res.status === 401) {alert("unauthorized!");}
+        else {alert("Sorry we couldn't verifying the login!");}
+    })
+    .catch(err => {
+        alert("Something went wrong while verifying the login!");
+    });
+}
 
 
 
-
-
-
+verifyLogin();
 
 
 
