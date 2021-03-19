@@ -34,6 +34,11 @@ var UNI_CONTAINER_TITLE = "Recommended";
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var body = document.querySelectorAll("body")[0];
+var serverError = document.querySelectorAll(".server-error")[0];
+var appBodyContent = document.querySelectorAll(".app-body-content")[0];
+
+
+
 var universitiesContainer = document.querySelectorAll(".Universities-container")[1];
 var btnLoadMore = document.querySelectorAll(".btn-load-more")[0];
 var savedSearchItemSelected = document.querySelectorAll(".saved-search-item-selected")[0];
@@ -692,6 +697,32 @@ console.log(generateJsonFromUrlParams());
 
 // }
 
+
+/**
+ * hide busy
+ * used when fetching users from database.
+ */
+ const hideBusy = () => {
+    var busy = document.getElementById("busy");
+    busy.setAttribute("style", "display: none;");
+}
+
+const displyStandardMsg = (elment, msg, color) => {
+    hideBusy();
+    elment.innerText = msg;
+    elment.style.setProperty("color", color);
+    elment.classList.remove("hide");
+    appBodyContent.classList.add("hide");
+}
+
+const hideStandardMsg = (elment) => {
+    hideBusy();
+    elment.innerText = "";
+    appBodyContent.classList.remove("hide");
+    elment.classList.add("hide");
+}
+
+
 const displayWentWrongFirstLoad = () => {
     hideContainerBusy();
     var div = document.createElement("div");
@@ -817,18 +848,20 @@ const verifyLogin = () => {
         body: requestData // body data type must match "Content-Type" header
     })
     .then(res => {
-        if(res.status === 200) {alert("login Success!");}
-        else if(res.status === 401) {alert("unauthorized!");}
-        else {alert("Sorry we couldn't verifying the login!");}
+        if(res.status === 200) {hideStandardMsg(serverError);}
+        else if(res.status === 401) {displyStandardMsg(serverError, "Unauthorized!", "red");}
+        else {displyStandardMsg(serverError, "Sorry we couldn't verifying the login! Please try again.", "red");}
     })
     .catch(err => {
-        alert("Something went wrong while verifying the login!");
+        displyStandardMsg(serverError, "Server Error: Unable to verify login!", "red");
+        //alert("Something went wrong while verifying the login!");
     });
 }
 
 
 
 verifyLogin();
+
 
 
 
