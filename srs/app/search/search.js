@@ -41,6 +41,37 @@ const SEARCH_CATEGORIES = {
 }
 
 
+var COUNTRY_EVENT = {
+    aCOUNTRY_LOADED: false,
+    aListener: function(val) {},
+    set COUNTRY_LOADED(val) {
+      this.aCOUNTRY_LOADED = val;
+      this.aListener(val);
+    },
+    get COUNTRY_LOADED() {
+      return this.aCOUNTRY_LOADED;
+    },
+    registerListener: function(listener) {
+      this.aListener = listener;
+    }
+}
+
+var CITY_EVENT = {
+    aCITY_LOADED: false,
+    aListener: function(val) {},
+    set CITY_LOADED(val) {
+      this.aCITY_LOADED = val;
+      this.aListener(val);
+    },
+    get CITY_LOADED() {
+      return this.aCITY_LOADED;
+    },
+    registerListener: function(listener) {
+      this.aListener = listener;
+    }
+}
+
+
 /*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
@@ -345,8 +376,9 @@ const getCountriesDB = () => {
         if(res.status !== 200) {alert("There was an error while fetching Countries from Database!");}
         else {return res.json();}
     })
-    .then(programs => {
-        initCountryInForm(programs);
+    .then(countries => {
+        initCountryInForm(countries);
+        COUNTRY_EVENT.COUNTRY_LOADED = true;
     })
     .catch(err => {
         //displayServerError();
@@ -911,6 +943,36 @@ const restoreSaveSearch = () => {
     saveSearchSubmit.value = "Save";
 }
 
+const getUrlParam = (key) => {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var value = url.searchParams.get(key);
+    return value;
+}
+
+
+const performUrlParamsOperation = () => {
+    const name = getUrlParam("name");
+    const countryid = getUrlParam("countryid");
+    const city = getUrlParam("city");
+    const program = getUrlParam("program");
+    const date = getUrlParam("date");
+    const budget = getUrlParam("budget");
+    const minMarks = getUrlParam("minmarks");
+    
+    if(name) userSearchName.value = name;
+
+    //set country  when ready or fetched from database---
+    COUNTRY_EVENT.registerListener(() => {
+        if(COUNTRY_EVENT.COUNTRY_LOADED === true) {
+            
+            if(countryid) userCountry.value = countryid;
+        }  
+    })
+    
+}
+
+performUrlParamsOperation();
 
 //showSaveSearchNameConflict();
 //showSavingSearch();
