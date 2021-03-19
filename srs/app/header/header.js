@@ -1,4 +1,7 @@
 
+import {
+    URL_VERIFY_LOGIN
+} from "../urls/urlResolver.js";
 
 
 
@@ -19,6 +22,10 @@ const resolveLinkColorActivation = (DOM) => {
     var linkLoginResp = DOM.getElementById("link-login-resp");
     var linkRegisterResp = DOM.getElementById("link-register-resp");
 
+    var linkRecommended = DOM.getElementById("link-recommended");
+    var linkAddUniversity = DOM.getElementById("link-add-university");
+    
+
     switch (page) {
         case "userAuth.html":
             linkUsersAuth.setAttribute("style", "color: #6fda44;");
@@ -35,6 +42,14 @@ const resolveLinkColorActivation = (DOM) => {
         case "register.html":
             linkRegister.setAttribute("style", "color: #6fda44;");
             linkRegisterResp.setAttribute("style", "color: #6fda44;");
+            break;
+        case "addUniversity.html":
+            linkAddUniversity.setAttribute("style", "color: #6fda44;");
+            //linkRegisterResp.setAttribute("style", "color: #6fda44;");
+            break;
+        case "recommended.html":
+            linkRecommended.setAttribute("style", "color: #6fda44;");
+            //linkRegisterResp.setAttribute("style", "color: #6fda44;");
             break;
         default:
             break;
@@ -72,6 +87,8 @@ export function loadHeaderJS(DOM) {
     
 
 }
+
+
 
 
 
