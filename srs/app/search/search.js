@@ -965,8 +965,14 @@ const performUrlParamsOperation = () => {
     //set country  when ready or fetched from database---
     COUNTRY_EVENT.registerListener(() => {
         if(COUNTRY_EVENT.COUNTRY_LOADED === true) {
-            
-            if(countryid) userCountry.value = countryid;
+            userCountry.value = countryid;
+            if(userCountry.value === "") {
+                userCountry.selectedIndex = 0;
+            }
+            else {
+                addSearchFilter("auto country", SEARCH_CATEGORIES.COUNTRY, countryid);
+            }
+            //if(countryid) {userCountry.value = countryid;}
         }  
     })
     
