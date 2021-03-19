@@ -111,6 +111,7 @@ document.addEventListener("click", e => {
         case isUniUpdate:
             var uniID = parseInt(e.target.parentElement.id);
             console.log("update uni", uniID);
+            openInNewTab(`../updateUniversity/updateUniversity.html?id=${uniID}`);
             break;
         case isUniCalculator:
             console.log("calculator");
@@ -345,6 +346,11 @@ const getSaveSearchByID =  (searches, id) => {
     for (let i = 0; i < searches.length; i++) {
         if(parseInt(searches[i].Search_ID) === parseInt(id)) return searches[i];
     }
+}
+
+function openInNewTab(url) {
+    var win = window.open(url, '_blank');
+    win.focus();
 }
 
 
