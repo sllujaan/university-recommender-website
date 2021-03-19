@@ -980,6 +980,17 @@ const performUrlParamsOperation = () => {
 
 performUrlParamsOperation();
 
+
+
+const expandSearchAccordians = () => {
+    var accSearch = document.querySelectorAll(".acc-search");
+    for (let i = 0; i < accSearch.length; i++) {
+        accSearch[i].click();
+    }
+}
+
+expandSearchAccordians();
+
 //showSaveSearchNameConflict();
 //showSavingSearch();
 
