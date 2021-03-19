@@ -353,7 +353,7 @@ const addSavedSearches = (searches) => {
     if(!Array.isArray(searches)) return false;
 
     //add recommeded search
-    
+    console.log("adding recommended searches....");
     addRecommendedSearch();
     selectRecommendedSearch();
 
@@ -815,7 +815,15 @@ const fetchSavedSearches = () => {
         body: requestData // body data type must match "Content-Type" header
     })
     .then(res => {
-        if(res.status !== 200) throw new Error("Somthing went wrong while fetching saved Searches!");
+        if(res.status === 404) {
+            console.warn("404 searches");
+            hideStandardMsg(serverError);
+            clearSavedSearches();
+            addRecommendedSearch();
+            selectRecommendedSearch();
+            addSavedSearches();
+        }
+        else if(res.status !== 200) throw new Error("Somthing went wrong while fetching saved Searches!");
         else {
             hideStandardMsg(serverError);
             return res.json();
@@ -823,8 +831,11 @@ const fetchSavedSearches = () => {
     })
     .then(savedSearches => {
         console.log(savedSearches);
-        clearSavedSearches();
-        addSavedSearches(savedSearches);
+        if(savedSearches) {
+            clearSavedSearches();
+            addSavedSearches(savedSearches);
+        }
+        
     })
     .catch(err => {     //there was an error while sending the request or server did not response.
         clearSavedSearches();
