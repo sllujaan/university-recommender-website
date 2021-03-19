@@ -330,6 +330,25 @@ const showUniDetailsContainer = (universityDetails) => {
 
 }
 
+const updateUniDetailsContainerOnWinResize = () => {
+    const isUniDetailsHidden = uniDetailsBackCover.classList.contains("hide");
+
+    if(!isUniDetailsHidden) {
+        if(window.innerWidth > getWindowWidth()) {
+            const leftOffset = window.innerWidth - getWindowWidth();
+            containerUniDetails.style.setProperty("left", leftOffset+"px");
+        }
+        else {
+            containerUniDetails.style.setProperty("left", "0%");
+        } 
+    }
+}
+
+
+window.addEventListener("resize", e => {
+    updateUniDetailsContainerOnWinResize();
+})
+
 const getWindowWidth = () => {
     const widthStr = getComputedStyleProperty(containerUniDetails, "width");
     return parseInt(widthStr, 10);
