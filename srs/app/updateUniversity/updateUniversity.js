@@ -2,7 +2,8 @@ import { disableScroll, enableScroll, getUserCredentialsLocalStorage, loadHeader
 import { 
     URL_UNIVERSITY_DETAILS,
     URL_ADD_UNIVERSITY_NAME, URL_PROGRAM,
-    URL_COUNTRY, URL_CITY, URL_USER_REGISTER, URL_UPDATE_UNIVERSITY
+    URL_COUNTRY, URL_CITY, URL_USER_REGISTER, URL_UPDATE_UNIVERSITY,
+    URL_VERIFY_ADMIN
 } from "../urls/urlResolver.js";
 
 
@@ -1137,6 +1138,33 @@ const setUniProgFromsData = (universityDetails) => {
 }
 
 
+const verifyAdminAndFetchUniDetails = (universityID) => {
+
+    const userCredentials = getUserCredentialsLocalStorage();
+    const requestData = `session_id=${userCredentials.session_id}&user_id=${userCredentials.user_id}`;
+
+    fetch(URL_VERIFY_ADMIN, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: requestData // body data type must match "Content-Type" header
+    })
+    .then(res => {
+        if(res.status === 200) {
+            //hideStandardMsg(serverError);
+            fetchUniverstyDetails(universityID);
+
+        }
+        else if(res.status === 401) {displyStandardMsg(serverError, "Unauthorized! Only Admin is allowed to use this feature.", "red");}
+        else {displyStandardMsg(serverError, "Server Error: Unable to verify Admin! Please try again.", "red");}
+    })
+    .catch(err => {
+        displyStandardMsg(serverError, "Server Error: Unable to verify login!", "red");
+        //alert("Something went wrong while verifying the login!");
+    });
+}
+
+
 
 const submitFinalFormData = (universityDetails) => {
 
@@ -1207,7 +1235,9 @@ const loadUniDetailsInForm = () => {
         return;
     }
 
-    fetchUniverstyDetails(universityID);
+    //fetchUniverstyDetails(universityID);
+
+    verifyAdminAndFetchUniDetails(universityID);
 }
 
 
@@ -1237,6 +1267,12 @@ const getProg = () => {
       });
     return myPromise;
 }
+
+
+
+
+
+
 
 // getProg()
 // .then(data => {

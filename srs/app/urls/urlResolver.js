@@ -30,3 +30,4 @@ export const URL_CREATE_SEARCH = URL_BASE + "search/createSearch.php";
 
 export const URL_SEARCH = URL_BASE + "search/search.php";
 export const URL_VERIFY_LOGIN = URL_BASE + "login/verifyLogin.php";
+export const URL_VERIFY_ADMIN = URL_BASE + "login/verifyAdmin.php";
