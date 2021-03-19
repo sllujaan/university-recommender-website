@@ -816,7 +816,10 @@ const fetchSavedSearches = () => {
     })
     .then(res => {
         if(res.status !== 200) throw new Error("Somthing went wrong while fetching saved Searches!");
-        return res.json();
+        else {
+            hideStandardMsg(serverError);
+            return res.json();
+        }
     })
     .then(savedSearches => {
         console.log(savedSearches);
@@ -825,14 +828,15 @@ const fetchSavedSearches = () => {
     })
     .catch(err => {     //there was an error while sending the request or server did not response.
         clearSavedSearches();
-        addRecommendedSearch();
+        //addRecommendedSearch();
+        displyStandardMsg(serverError, "Server Error: Unabale to fetch saved searches!", "red");
         console.error(err);
     });
 }
 
 
 
-fetchSavedSearches();
+//fetchSavedSearches();
 
 
 
@@ -848,7 +852,11 @@ const verifyLogin = () => {
         body: requestData // body data type must match "Content-Type" header
     })
     .then(res => {
-        if(res.status === 200) {hideStandardMsg(serverError);}
+        if(res.status === 200) {
+            //hideStandardMsg(serverError);
+            fetchSavedSearches();
+
+        }
         else if(res.status === 401) {displyStandardMsg(serverError, "Unauthorized!", "red");}
         else {displyStandardMsg(serverError, "Sorry we couldn't verifying the login! Please try again.", "red");}
     })

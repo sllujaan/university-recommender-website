@@ -27,6 +27,12 @@ body {
 
 }
 
+
+.hide {
+    display: none !important;
+}
+
+
 .app-body {
     position: relative;
     margin-top: 60px;
@@ -434,9 +440,6 @@ body {
 
 /*----------university details container*/
 
-.hide {
-    display: none !important;
-}
 
 .uni-details-back-cover {
     background-color: rgba(0, 0, 0, 0.609);
