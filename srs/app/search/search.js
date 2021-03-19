@@ -148,9 +148,7 @@ document.addEventListener("click", e => {
             performSearch(e.target.id);
             break;
         case isSearchFilter:
-            e.target.parentElement.remove();
-            //perform search on the event
-            performUniSearchOnEvents();
+            handleSearchFilterRemove(e);
             break;
         case isClearFilters:
             clearAllSearchFilters();
@@ -311,7 +309,7 @@ const initCountryInForm = (Countries) => {
  */
 const initCityInForm = (cities) => {
     console.log(cities);
-    userCity.innerHTML = null;
+    userCity.innerHTML = `<option value="" selected disabled hidden>Select City</option>`;
     
     cities.forEach(city => {
         var option = document.createElement("option");
@@ -366,8 +364,8 @@ const getCitiesDB = (CountryID) => {
         if(res.status !== 200) {alert("There was an error while fetching Cities from Database!");}
         else {return res.json();}
     })
-    .then(programs => {
-        initCityInForm(programs);
+    .then(cities => {
+        initCityInForm(cities);
     })
     .catch(err => {
         displayServerError();
@@ -471,7 +469,7 @@ const removeSearchFilterItem = (category) => {
         const exists = (parseInt(catAttr) === parseInt(category));
         if(exists) {
             searchFilters[i].remove();
-            performUniSearchOnEvents();
+            //performUniSearchOnEvents();
             return true;
         }
     }
@@ -1156,6 +1154,50 @@ const clearAllSearchFilters = () => {
     userAdmissionDate.selectedIndex = 0;
     userBudget.value = "";
     userMinMarksPct.value = "";
+}
+
+
+const resetSearchFilterByCategory = (category) => {
+    switch (parseInt(category)) {
+        case SEARCH_CATEGORIES.COUNTRY:
+            userCountry.selectedIndex = 0;
+            userCity.disabled = true;
+            userCity.selectedIndex = 0;
+            break;
+        case SEARCH_CATEGORIES.CITY:
+            userCity.selectedIndex = 0;
+            break;
+        case SEARCH_CATEGORIES.PROGRAM:
+            userProram.selectedIndex = 0;
+            break;
+        case SEARCH_CATEGORIES.ADMI_DATE:
+            userAdmissionDate.selectedIndex = 0;
+            break;
+        case SEARCH_CATEGORIES.BUDGET:
+            userBudget.value = "";
+            break;
+        case SEARCH_CATEGORIES.MIN_MARKS:
+            userMinMarksPct.value = "";
+            break;
+        default:
+            break;
+    }
+}
+
+const handleSearchFilterRemove = (e) => {
+    console.log(e.target.parentElement);
+    const _filterCategory = e.target.parentElement.getAttribute("data-filter-category");
+    resetSearchFilterByCategory(_filterCategory);
+    
+    //check if country then remove city filter as well
+    if(parseInt(_filterCategory) === SEARCH_CATEGORIES.COUNTRY) {
+        removeSearchFilterItem(SEARCH_CATEGORIES.CITY);
+    }
+
+    e.target.parentElement.remove();
+    
+    //perform search on the event
+    performUniSearchOnEvents();
 }
 
 
