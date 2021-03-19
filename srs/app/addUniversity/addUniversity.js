@@ -1,7 +1,7 @@
 import { disableScroll, enableScroll, getUserCredentialsLocalStorage, loadHeaderFooter } from "../util/util.js";
 import {
     URL_ADD_UNIVERSITY, URL_ADD_UNIVERSITY_NAME, URL_PROGRAM,
-    URL_COUNTRY, URL_CITY, URL_USER_REGISTER
+    URL_COUNTRY, URL_CITY, URL_USER_REGISTER, URL_VERIFY_ADMIN
 } from "../urls/urlResolver.js";
 
 /*register form validation variables*/
@@ -80,6 +80,10 @@ const PROGRAM_SAMPLE = {"Program_ID": 2, "Description": "saaaaaaaaaaa", "Admissi
 
 /*dom elements*/
 var body = document.getElementsByTagName("body")[0];
+var serverError = document.querySelectorAll(".server-error")[0];
+var appBodyContent = document.querySelectorAll(".app-body-content")[0];
+
+
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var userName = document.getElementById("user-name");
@@ -773,6 +777,30 @@ const isNoPorgramChosen = () => {
 
 
 
+const displyStandardMsg = (elment, msg, color) => {
+    hideBusy();
+    elment.innerText = msg;
+    elment.style.setProperty("color", color);
+    elment.classList.remove("hide");
+    appBodyContent.classList.add("hide");
+}
+
+const hideStandardMsg = (elment) => {
+    hideBusy();
+    elment.innerText = "";
+    appBodyContent.classList.remove("hide");
+    elment.classList.add("hide");
+}
+
+
+/**
+ * hide busy
+ * used when fetching users from database.
+ */
+ const hideBusy = () => {
+    var busy = document.getElementById("busy");
+    busy.setAttribute("style", "display: none;");
+}
 
 
 
@@ -1086,6 +1114,40 @@ const submitFinalFormData = (universityDetails) => {
         alert(err);
     })
 }
+
+
+
+
+const verifyAdminAndShowAddUniFrom = () => {
+
+    const userCredentials = getUserCredentialsLocalStorage();
+    const requestData = `session_id=${userCredentials.session_id}&user_id=${userCredentials.user_id}`;
+
+    fetch(URL_VERIFY_ADMIN, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: requestData // body data type must match "Content-Type" header
+    })
+    .then(res => {
+        if(res.status === 200) {
+            hideStandardMsg(serverError);
+
+        }
+        else if(res.status === 401) {displyStandardMsg(serverError, "Unauthorized! Only Admin is allowed to use this feature.", "red");}
+        else {displyStandardMsg(serverError, "Server Error: Unable to verify Admin! Please try again.", "red");}
+    })
+    .catch(err => {
+        displyStandardMsg(serverError, "Server Error: Unable to verify login!", "red");
+        //alert("Something went wrong while verifying the login!");
+    });
+}
+
+
+
+verifyAdminAndShowAddUniFrom();
+
+
 
 //submitFinalFormData(UNIVERSITY_DATA_SAMPLE);
 

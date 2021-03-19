@@ -31,244 +31,251 @@
 
     
     <div class="app-body">
+
+        <div id="busy" class="spinner"><i class="fa fa-spinner fa-2x" aria-hidden="true"></i></div>
+
+        <div class="server-error hide">Server-Error</div>
+
+        <div class="app-body-content hide">
         
-        <div class="stage-tabs">
-            <div class="stage-uni-details-tab">
-                University Details
+            <div class="stage-tabs">
+                <div class="stage-uni-details-tab">
+                    University Details
+                </div>
+                <div class="line-separator"></div>
+                <div class="stage-uni-programs-tab">
+                    Programs
+                </div>
             </div>
-            <div class="line-separator"></div>
-            <div class="stage-uni-programs-tab">
-                Programs
-            </div>
-        </div>
 
-        <br><br>
+            <br><br>
+            
+
+            <div class="stage-panels">
+                <div class="stage-uni-details">
+                    <!------------------Cart University Details--------------------->
+                    <div class="auth-card">
+
+                        <form action="#" method="post">
+                            <div class="auth-cart-title">Add University</div>
+                            <div class="form-content-container">
+
+                                <!---------------------Name---------------------->
+                                <div class="form-content">
+                                    <input type="text" name="name" id="uni-name" placeholder="University Name" required autofocus>
+                                </div>
+
+                                <div id="name-error" class="form-content error-text">
+                                    *
+                                </div>
+
+                                <!--------------------------Country----------------->
+                                <div class="form-content">
+                                    <select name="country" id="uni-country" required disabled>
+                                        <option value="" selected disabled hidden>Select Country</option>
+                                        <!-- <option value="id">Pakistan</option>
+                                        <option value="id">Afghanistan</option> -->
+                                    </select>
+                                </div>
+
+                                <!--------------------------City----------------->
+                                <div class="form-content">
+                                    <select name="city" id="uni-city" required disabled>
+                                        <option value="" selected disabled hidden>Select City</option>
+                                        <!-- <option value="id">Faisalabad</option>
+                                        <option value="id">Lahore</option> -->
+                                    </select>
+                                </div>
+
+                                <!--------------Admission Start Date--------------->
+                                <div class="form-content">
+                                    <select name="date" id="uni-admi-start-date" required>
+                                        <option value="" selected disabled hidden>Select Admission Start Date</option>
+                                        <option value="2021-02-01">Feb 2021</option>
+                                        <option value="2021-08-01">Aug 2021</option>
+                                        <option value="2022-02-01">Feb 2022</option>
+                                        <option value="2022-08-01">Aug 2022</option>
+                                        <option value="2023-02-01">Feb 2023</option>
+                                        <option value="2023-08-01">Aug 2023</option>
+                                        <option value="2024-02-01">Feb 2024</option>
+                                        <option value="2024-08-01">Aug 2024</option>
+                                        <option value="2025-02-01">Feb 2025</option>
+                                        <option value="2025-08-01">Aug 2025</option>
+                                    </select>
+                                </div>
+
+
+                                <!--------------Admission End Date--------------->
+                                <div class="form-content">
+                                    <select name="date" id="uni-admi-end-date" required>
+                                        <option value="" selected disabled hidden>Select Admission End Date</option>
+                                        <option value="2021-02-01">Feb 2021</option>
+                                        <option value="2021-08-01">Aug 2021</option>
+                                        <option value="2022-02-01">Feb 2022</option>
+                                        <option value="2022-08-01">Aug 2022</option>
+                                        <option value="2023-02-01">Feb 2023</option>
+                                        <option value="2023-08-01">Aug 2023</option>
+                                        <option value="2024-02-01">Feb 2024</option>
+                                        <option value="2024-08-01">Aug 2024</option>
+                                        <option value="2025-02-01">Feb 2025</option>
+                                        <option value="2025-08-01">Aug 2025</option>
+                                    </select>
+                                </div>
+
+
+                                <!--------------Higher Ecuation MC----------------->
+                                <!---Abbrevations:
+                                        h_education_pct: secondary education percentage---->
+                                <div class="form-content percentage">
+                                    <input type="number" name="h_education_pct" id="uni-h_edu_mc_pct" placeholder="Higher Edu. Merit Criteria percentage" min="0" max="100" required>
+                                    <div>%</div>
+                                </div>
+
+                                <!-----------------Secondary Ecuation MC----------------->
+                                <!---Abbrevations:
+                                        s_education_pct: secondary education percentage---->
+                                <div class="form-content percentage">
+                                    <input type="number" name="s_education_pct" id="uni-s_edu_mc_pct" placeholder="Secondary Edu. Merit Criteria percentage" min="0" max="100" required>
+                                    <div>%</div>
+                                </div>
+
+                                
+
+
+                                <!--------------------------Entry Test Marks----------------->
+                                <div class="form-content">
+                                    <input type="number" name="budget_US_$" id="uni-ETM" placeholder="Total Entry (ET) Test Marks" min="1" required>
+                                </div>
+
+                                <!-----------------percentage merit criteria of Entry Test Marks----------------->
+                                <!---Abbrevations:
+                                    etm_pct: entry test marsk percentage---->
+                                <div class="form-content percentage">
+                                    <input type="number" name="etm_pct" id="uni-etm_mc_pct" placeholder="ET Merit Criteria Percentage" min="0" max="100" required>
+                                    <div>%</div>
+                                </div>
+
+
+                                
+                                <!---------------------University Description---------------------->
+                                <div class="form-content">
+                                    <textarea class="textarea-description university-description" name="fee-description" id="university-description" cols="30" rows="5" placeholder="Enter University Description Here..."></textarea>
+                                </div>
+
+                                <!---------------------Admission Description---------------------->
+                                <div class="form-content">
+                                    <textarea class="textarea-description university-description" name="fee-description" id="uni-mc_description" cols="30" rows="5" placeholder="Enter Admission Criteria Description Here..."></textarea>
+                                </div>
+                                
+
+                                <!---------------------Phone---------------------->
+                                <div class="form-content">
+                                    <input type="text" name="email" id="uni-phone" placeholder="Phone"  required>
+                                </div>
+
+                                <!---------------------Weblink---------------------->
+                                <div class="form-content">
+                                    <input type="text" name="email" id="uni-web" placeholder="Web URL"  required>
+                                </div>
+
+                                <!---------------------Email---------------------->
+                                <div class="form-content">
+                                    <input type="text" name="email" id="uni-email" placeholder="Email"  required>
+                                </div>
+
+                                <!---------------------Address---------------------->
+                                <div class="form-content">
+                                    <input type="text" name="email" id="uni-address" placeholder="Address"  required>
+                                </div>
+
+                                
+                            
+
+
+                                
+                                <!-----------------Next Button----------------->
+                                <div class="form-content">
+                                    <input id="auth-submit" type="submit" value="Next">
+                                </div>
+
+                                <!-----------------Separator----------------->
+                                <div class="form-content separator">
+                                    <span>or</span>
+                                </div>
+
+                                <!-----------------cancel button----------------->
+                                <div class="form-content login-container">
+                                    <a href="../login/login.html">Cancel</a>
+                                </div>
+
+                            </div>
+                            
+                        </form>
+                    </div>
+                    <!------------------------------------------------------------->
+                </div>
         
-        
-        <div class="stage-panels">
-            <div class="stage-uni-details">
-                <!------------------Cart University Details--------------------->
-                <div class="auth-card">
 
-                    <form action="#" method="post">
-                        <div class="auth-cart-title">Add University</div>
-                        <div class="form-content-container">
 
-                            <!---------------------Name---------------------->
-                            <div class="form-content">
-                                <input type="text" name="name" id="uni-name" placeholder="University Name" required autofocus>
+                <!-----------------------programs Stage---------------------------------->
+                <div class="stage-uni-programs">
+                    <!------------------Cart University Details--------------------->
+                    <div class="auth-card">
+                        <form action="">
+                            <div class="auth-cart-title">Programs</div>
+                            <div class="form-content-container">
+                                <div class="choosen-programs-container">
+                                    
+                                    <!---------------------choosen program---------------------->
+                                    <!-- <div class="form-content choosen-program">
+                                        <input class="choosen-program-input" type="text" name="email" id="user-email" placeholder="program namessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" disabled>
+                                        <i class="fas fa-times fa-1x choosen-program-remove"></i>
+                                    </div> -->
+
+                                    <!---------------------choosen program---------------------->
+                                    <!-- <div class="form-content choosen-program">
+                                        <input class="choosen-program-input" type="text" name="email" id="user-email" placeholder="program name" disabled>
+                                        <i class="fas fa-times fa-1x choosen-program-remove"></i>
+                                    </div> -->
+                                    
+                                </div>
+
+                                
+
+
+                                <!---------------------add program Button---------------------->
+                                <div class="form-content add-program">
+                                    <input class="add-program-input" type="text" name="email" id="user-email" placeholder="program name" disabled>
+                                    <i class="fas fa-plus fa-2x add-program-icon"></i>
+                                </div>
+
+                                <!-----------------Separator----------------->
+                                <div class="form-content separator">
+                                    <span></span>
+                                </div>
+
+                                <!-----------------submit university data----------------->
+                                <div class="form-content">
+                                    <input id="auth-submit" type="submit" value="Submit">
+                                </div>
+
+                                <!-----------------Separator----------------->
+                                <div class="form-content separator">
+                                    <span>or</span>
+                                </div>
+
+                                <!-----------------cancel button----------------->
+                                <div class="form-content login-container">
+                                    <a href="#" class="back-to-uni-btn">Back to University</a>
+                                </div>
+                                
                             </div>
-
-                            <div id="name-error" class="form-content error-text">
-                                *
-                            </div>
-
-                            <!--------------------------Country----------------->
-                            <div class="form-content">
-                                <select name="country" id="uni-country" required disabled>
-                                    <option value="" selected disabled hidden>Select Country</option>
-                                    <!-- <option value="id">Pakistan</option>
-                                    <option value="id">Afghanistan</option> -->
-                                </select>
-                            </div>
-
-                            <!--------------------------City----------------->
-                            <div class="form-content">
-                                <select name="city" id="uni-city" required disabled>
-                                    <option value="" selected disabled hidden>Select City</option>
-                                    <!-- <option value="id">Faisalabad</option>
-                                    <option value="id">Lahore</option> -->
-                                </select>
-                            </div>
-
-                            <!--------------Admission Start Date--------------->
-                            <div class="form-content">
-                                <select name="date" id="uni-admi-start-date" required>
-                                    <option value="" selected disabled hidden>Select Admission Start Date</option>
-                                    <option value="2021-02-01">Feb 2021</option>
-                                    <option value="2021-08-01">Aug 2021</option>
-                                    <option value="2022-02-01">Feb 2022</option>
-                                    <option value="2022-08-01">Aug 2022</option>
-                                    <option value="2023-02-01">Feb 2023</option>
-                                    <option value="2023-08-01">Aug 2023</option>
-                                    <option value="2024-02-01">Feb 2024</option>
-                                    <option value="2024-08-01">Aug 2024</option>
-                                    <option value="2025-02-01">Feb 2025</option>
-                                    <option value="2025-08-01">Aug 2025</option>
-                                </select>
-                            </div>
-
-
-                            <!--------------Admission End Date--------------->
-                            <div class="form-content">
-                                <select name="date" id="uni-admi-end-date" required>
-                                    <option value="" selected disabled hidden>Select Admission End Date</option>
-                                    <option value="2021-02-01">Feb 2021</option>
-                                    <option value="2021-08-01">Aug 2021</option>
-                                    <option value="2022-02-01">Feb 2022</option>
-                                    <option value="2022-08-01">Aug 2022</option>
-                                    <option value="2023-02-01">Feb 2023</option>
-                                    <option value="2023-08-01">Aug 2023</option>
-                                    <option value="2024-02-01">Feb 2024</option>
-                                    <option value="2024-08-01">Aug 2024</option>
-                                    <option value="2025-02-01">Feb 2025</option>
-                                    <option value="2025-08-01">Aug 2025</option>
-                                </select>
-                            </div>
-
-
-                            <!--------------Higher Ecuation MC----------------->
-                            <!---Abbrevations:
-                                    h_education_pct: secondary education percentage---->
-                            <div class="form-content percentage">
-                                <input type="number" name="h_education_pct" id="uni-h_edu_mc_pct" placeholder="Higher Edu. Merit Criteria percentage" min="0" max="100" required>
-                                <div>%</div>
-                            </div>
-
-                            <!-----------------Secondary Ecuation MC----------------->
-                            <!---Abbrevations:
-                                    s_education_pct: secondary education percentage---->
-                            <div class="form-content percentage">
-                                <input type="number" name="s_education_pct" id="uni-s_edu_mc_pct" placeholder="Secondary Edu. Merit Criteria percentage" min="0" max="100" required>
-                                <div>%</div>
-                            </div>
-
-                            
-
-
-                            <!--------------------------Entry Test Marks----------------->
-                            <div class="form-content">
-                                <input type="number" name="budget_US_$" id="uni-ETM" placeholder="Total Entry (ET) Test Marks" min="1" required>
-                            </div>
-
-                            <!-----------------percentage merit criteria of Entry Test Marks----------------->
-                            <!---Abbrevations:
-                                etm_pct: entry test marsk percentage---->
-                            <div class="form-content percentage">
-                                <input type="number" name="etm_pct" id="uni-etm_mc_pct" placeholder="ET Merit Criteria Percentage" min="0" max="100" required>
-                                <div>%</div>
-                            </div>
-
-
-                            
-                            <!---------------------University Description---------------------->
-                            <div class="form-content">
-                                <textarea class="textarea-description university-description" name="fee-description" id="university-description" cols="30" rows="5" placeholder="Enter University Description Here..."></textarea>
-                            </div>
-
-                            <!---------------------Admission Description---------------------->
-                            <div class="form-content">
-                                <textarea class="textarea-description university-description" name="fee-description" id="uni-mc_description" cols="30" rows="5" placeholder="Enter Admission Criteria Description Here..."></textarea>
-                            </div>
-                            
-
-                            <!---------------------Phone---------------------->
-                            <div class="form-content">
-                                <input type="text" name="email" id="uni-phone" placeholder="Phone"  required>
-                            </div>
-
-                            <!---------------------Weblink---------------------->
-                            <div class="form-content">
-                                <input type="text" name="email" id="uni-web" placeholder="Web URL"  required>
-                            </div>
-
-                            <!---------------------Email---------------------->
-                            <div class="form-content">
-                                <input type="text" name="email" id="uni-email" placeholder="Email"  required>
-                            </div>
-
-                            <!---------------------Address---------------------->
-                            <div class="form-content">
-                                <input type="text" name="email" id="uni-address" placeholder="Address"  required>
-                            </div>
-
-                            
-                        
-
-
-                            
-                            <!-----------------Next Button----------------->
-                            <div class="form-content">
-                                <input id="auth-submit" type="submit" value="Next">
-                            </div>
-
-                            <!-----------------Separator----------------->
-                            <div class="form-content separator">
-                                <span>or</span>
-                            </div>
-
-                            <!-----------------cancel button----------------->
-                            <div class="form-content login-container">
-                                <a href="../login/login.html">Cancel</a>
-                            </div>
-
-                        </div>
-                        
-                    </form>
+                        </form>
+                    </div>
+                    <!------------------------------------------------------------->
                 </div>
                 <!------------------------------------------------------------->
             </div>
-    
-
-
-            <!-----------------------programs Stage---------------------------------->
-            <div class="stage-uni-programs">
-                <!------------------Cart University Details--------------------->
-                <div class="auth-card">
-                    <form action="">
-                        <div class="auth-cart-title">Programs</div>
-                        <div class="form-content-container">
-                            <div class="choosen-programs-container">
-                                
-                                <!---------------------choosen program---------------------->
-                                <!-- <div class="form-content choosen-program">
-                                    <input class="choosen-program-input" type="text" name="email" id="user-email" placeholder="program namessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss" disabled>
-                                    <i class="fas fa-times fa-1x choosen-program-remove"></i>
-                                </div> -->
-
-                                <!---------------------choosen program---------------------->
-                                <!-- <div class="form-content choosen-program">
-                                    <input class="choosen-program-input" type="text" name="email" id="user-email" placeholder="program name" disabled>
-                                    <i class="fas fa-times fa-1x choosen-program-remove"></i>
-                                </div> -->
-                                
-                            </div>
-
-                            
-
-
-                            <!---------------------add program Button---------------------->
-                            <div class="form-content add-program">
-                                <input class="add-program-input" type="text" name="email" id="user-email" placeholder="program name" disabled>
-                                <i class="fas fa-plus fa-2x add-program-icon"></i>
-                            </div>
-
-                            <!-----------------Separator----------------->
-                            <div class="form-content separator">
-                                <span></span>
-                            </div>
-
-                            <!-----------------submit university data----------------->
-                            <div class="form-content">
-                                <input id="auth-submit" type="submit" value="Submit">
-                            </div>
-
-                            <!-----------------Separator----------------->
-                            <div class="form-content separator">
-                                <span>or</span>
-                            </div>
-
-                            <!-----------------cancel button----------------->
-                            <div class="form-content login-container">
-                                <a href="#" class="back-to-uni-btn">Back to University</a>
-                            </div>
-                            
-                        </div>
-                    </form>
-                </div>
-                <!------------------------------------------------------------->
-            </div>
-            <!------------------------------------------------------------->
         </div>
         
 
