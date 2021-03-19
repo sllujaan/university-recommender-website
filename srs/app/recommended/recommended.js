@@ -36,7 +36,7 @@ var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
 var body = document.querySelectorAll("body")[0];
 var serverError = document.querySelectorAll(".server-error")[0];
 var appBodyContent = document.querySelectorAll(".app-body-content")[0];
-
+var uniSearch = document.querySelectorAll(".uni-search")[0];
 
 
 var universitiesContainer = document.querySelectorAll(".Universities-container")[1];
@@ -290,6 +290,15 @@ const setUniDetails = (universityDetails) => {
 const showUniDetailsSomethingWentWrong = () => {
     //display appropriate message when university details are loaded correctly.
 }
+
+
+uniSearch.addEventListener("keyup", e => {
+    console.log(e.keyCode);
+    if(e.keyCode === 13) {
+        openInNewTab(`../search/search.html?name=${e.target.value}`);
+    }
+    
+})
 
 
 
