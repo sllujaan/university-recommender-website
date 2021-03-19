@@ -46,15 +46,20 @@ body {
 
 /*--------------------app body container--------------------------*/
 
+.app-body-content {
+    width: 100%;
+    max-width: calc(var(--app-maximum-width) + 300px);
+    background-color: orange;
+}
+
 .app-body-container {
     /* background-color: orange; */
     display: flex;
     align-items: flex-start;
     justify-content: center;
     flex-wrap: wrap;
-    width: calc(var(--app-maximum-width) + 300px);
-
-
+    width: 100%;
+    /* width: calc(var(--app-maximum-width) + 300px); */
 }
 
 .find-uni-title {
