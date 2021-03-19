@@ -1,5 +1,9 @@
 
 import { loadHeaderJS } from "../header/header.js";
+import {
+    URL_VERIFY_LOGIN
+} from "../urls/urlResolver.js";
+
 
 export const HEADER_FILE_URL = "../header/header.html";
 export const FOOTER_FILE_URL = "../footer/footer.html";
@@ -121,18 +125,35 @@ const hideAuthorizedFeatures = (authorizedContainers) => {
 
 
 //make sure that header has been loaded
-const initAuthorizedUserFeatures = () => {
+const initAuthorizedUserFeatures = async () => {
     const authorizedContainers = document.querySelectorAll(".authorized-container");
     if(!authorizedContainers) return;
 
-    if(isUserLoggedIn()) {
+    //live verify login. !!new
+
+    
+    try {
+        //verify login
+        const status = await verifyLogin();
+        //login succeeded
         console.warn("user is logged in!");
         showAuthorizedFeatures(authorizedContainers);
-    }
-    else {
+    } catch (error) {
         console.warn("user is not logged in!");
         hideAuthorizedFeatures(authorizedContainers);
     }
+
+
+
+
+    // if(isUserLoggedIn()) {
+    //     console.warn("user is logged in!");
+    //     showAuthorizedFeatures(authorizedContainers);
+    // }
+    // else {
+    //     console.warn("user is not logged in!");
+    //     hideAuthorizedFeatures(authorizedContainers);
+    // }
 
     console.log(authorizedContainers);
 }
@@ -174,4 +195,48 @@ export const getUserCredentialsLocalStorage = () => {
 
     return {session_id:sessionID, user_id:userID};
 }
+
+
+const verifyLogin = () => {
+
+    const userCredentials = getUserCredentialsLocalStorage();
+    const requestData = `session_id=${userCredentials.session_id}&user_id=${userCredentials.user_id}`;
+
+    const myPromise = new Promise((resolve, reject) => {
+        fetch(URL_VERIFY_LOGIN, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: requestData // body data type must match "Content-Type" header
+        })
+        .then(res => {
+            if(res.status === 200) {resolve(200);}
+            else reject("login verification failed.");
+        })
+        .catch(err => {
+            reject("login verification failed.");
+        });
+    });
+
+    return myPromise;
+    
+}
+
+
+// verifyLogin()
+// .then(data => {
+//     console.log(data);
+// })
+// .catch(err => {
+//     console.error(err);
+// })
+
+
+// try {
+//     const status = await verifyLogin();
+//     console.log(status);
+// } catch (error) {
+//     console.error(error);
+// }
+
 
