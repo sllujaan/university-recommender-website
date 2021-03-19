@@ -49,7 +49,7 @@ body {
 .app-body-content {
     width: 100%;
     max-width: calc(var(--app-maximum-width) + 300px);
-    background-color: orange;
+    /* background-color: orange; */
 }
 
 .app-body-container {

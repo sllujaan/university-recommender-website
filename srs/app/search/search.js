@@ -18,6 +18,8 @@ const LOAD_MORE = 0xf12
 const RECOMMENDED = 0xc10;
 const SAVED_SEARCH = 0xc12;
 
+var PERFORMING_SEARCH = false;
+
 var UNI_LOAD_TYPE = FIRST_LOAD;
 var UNI_TYPE = RECOMMENDED;
 
@@ -153,7 +155,7 @@ document.addEventListener("click", e => {
         case isClearFilters:
             clearAllSearchFilters();
             //perform search on the event
-            performUniSearchOnEvents();
+            if(!PERFORMING_SEARCH) performUniSearchOnEvents();
             break;
         case isBtnFilterSearch:
             showSideBarResp();
@@ -1023,6 +1025,7 @@ loadFirst();
 
 const performUniSearchOnEvents = () => {
 
+    PERFORMING_SEARCH = true;
     CURRENT_PAGE = 0;
     emptyContainer(uniContainerWrapper);
     showContainerBusy();
@@ -1034,6 +1037,7 @@ const performUniSearchOnEvents = () => {
     setTimeout(() => {
         hideContainerBusy();
         performUniSearch(requestData, FIRST_LOAD);
+        PERFORMING_SEARCH = false;
     }, 1000);
     
 }
@@ -1146,6 +1150,12 @@ const addSearchFilterSingleVal = (name, category, id) => {
 
 const clearAllSearchFilters = () => {
     containerSearchFilters.innerHTML = `<div class="clear-filters" style="color: #48a000; font-weight: bold; font-size: large;cursor: pointer;">Clear filters</div>`;
+    userCountry.selectedIndex = 0;
+    userCity.selectedIndex = 0;
+    userProram.selectedIndex = 0;
+    userAdmissionDate.selectedIndex = 0;
+    userBudget.value = "";
+    userMinMarksPct.value = "";
 }
 
 
