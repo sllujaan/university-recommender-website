@@ -266,8 +266,11 @@ document.forms[0].addEventListener("submit", e => {
     }, 1000);
 });
 
-userSearchName.addEventListener("change", e => {
+userSearchName.addEventListener("keyup", e => {
     console.log(e.target.value);
+    if(e.keyCode === 13) {
+        performUniSearchOnEvents();
+    }
 });
 
 /*fired when user selects country.*/
@@ -1058,9 +1061,21 @@ const performUrlParamsOperation = () => {
         addSearchFilter("auto date", SEARCH_CATEGORIES.ADMI_DATE, date);
     }
 
+    //set budget
+    userBudget.value = budget;
+    if(userBudget.value === "") {
+        userBudget.selectedIndex = 0;
+    }
+    else {
+        addSearchFilter(`${budget}$`, SEARCH_CATEGORIES.BUDGET, budget);
+    }
 
 
-
+    //set min marks
+    if((parseInt(minMarks) >= 0) && (parseInt(minMarks) <= 100)) {
+        addSearchFilter(`${minMarks}%`, SEARCH_CATEGORIES.MIN_MARKS, minMarks);
+        userMinMarksPct.value = minMarks;
+    }
 
     
 }
