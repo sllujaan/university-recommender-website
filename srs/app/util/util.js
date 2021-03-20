@@ -222,6 +222,41 @@ const verifyLogin = () => {
     
 }
 
+const MERITCAL_STRUCT = {
+    S_EDUCATION_PCT: null,
+    H_EDUCATION_PCT: null,
+    ETM_PCT: null,
+    S_EDUCATION_MC_PCT: null,
+    H_EDUCATION_MC_PCT: null,
+    ETM_MC_PCT: null,
+}
+
+export const calculateMerit = (MERITCAL_STRUCT = MERITCAL_STRUCT) => {
+    const total_merit = (MERITCAL_STRUCT.S_EDUCATION_MC_PCT + MERITCAL_STRUCT.H_EDUCATION_MC_PCT + MERITCAL_STRUCT.ETM_MC_PCT);
+
+    const MC_INVALID = (total_merit < 1 || total_merit > 100);
+    if(MC_INVALID) return null;
+
+    const totalSEduPct = (MERITCAL_STRUCT.S_EDUCATION_PCT / 100 ) * MERITCAL_STRUCT.S_EDUCATION_MC_PCT;
+    const totalHEduPct = (MERITCAL_STRUCT.H_EDUCATION_PCT / 100 ) * MERITCAL_STRUCT.H_EDUCATION_MC_PCT;
+    const totalMCPct = (MERITCAL_STRUCT.ETM_PCT / 100 ) * MERITCAL_STRUCT.ETM_MC_PCT;
+    return totalSEduPct + totalHEduPct + totalMCPct;
+}
+
+var cal = MERITCAL_STRUCT;
+cal.S_EDUCATION_PCT = 90;
+cal.H_EDUCATION_PCT = 90;
+cal.ETM_PCT = 90;
+
+cal.S_EDUCATION_MC_PCT = 30;
+cal.H_EDUCATION_MC_PCT = 30;
+cal.ETM_MC_PCT = 40;
+
+
+//console.log(calculateMerit(cal) );
+
+
+
 
 // verifyLogin()
 // .then(data => {

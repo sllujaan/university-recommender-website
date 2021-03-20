@@ -1314,6 +1314,7 @@ const clearAllSearchFilters = () => {
     userAdmissionDate.selectedIndex = 0;
     userBudget.value = "";
     userMinMarksPct.value = "";
+    userSearchName.value = "";
 }
 
 
