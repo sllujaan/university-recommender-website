@@ -72,6 +72,22 @@ var CITY_EVENT = {
 }
 
 
+var PROGRAM_EVENT = {
+    aPROGRAM_LOADED: false,
+    aListener: function(val) {},
+    set PROGRAM_LOADED(val) {
+      this.aPROGRAM_LOADED = val;
+      this.aListener(val);
+    },
+    get PROGRAM_LOADED() {
+      return this.aPROGRAM_LOADED;
+    },
+    registerListener: function(listener) {
+      this.aListener = listener;
+    }
+}
+
+
 /*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
@@ -398,6 +414,7 @@ const getCitiesDB = (CountryID) => {
     })
     .then(cities => {
         initCityInForm(cities);
+        CITY_EVENT.CITY_LOADED = true;
     })
     .catch(err => {
         displayServerError();
@@ -417,6 +434,7 @@ const getProgramsDB = () => {
     })
     .then(programs => {
         initProgramInForm(programs);
+        PROGRAM_EVENT.PROGRAM_LOADED = true;
     })
     .catch(err => {
         //displayServerError();
@@ -860,6 +878,30 @@ const ClearUniFounNum = () => {
     uniFoundNumber.innerText = 0;
 }
 
+const generateSearchFilter = (name, category, id) => {
+    var div = document.createElement("div");
+    div.classList.add("search-filter-item-wrapper");
+    div.setAttribute("data-filter-category", category);
+    div.setAttribute("id", id);
+
+    div.innerHTML = `
+                        <div class="search-filter-item">${name}
+                            <i class="fa fa-times filter-item-close"></i>
+                        </div>
+                    `;
+    return div;
+
+}
+
+
+
+const addSearchFilter = (name, category, id) => {
+    var clearFilters = document.querySelectorAll(".clear-filters")[0];
+    var filterItem = generateSearchFilter(name, category, id);
+
+    containerSearchFilters.insertBefore(filterItem, clearFilters);
+
+}
 
 
 
@@ -953,28 +995,73 @@ const getUrlParam = (key) => {
 
 const performUrlParamsOperation = () => {
     const name = getUrlParam("name");
-    const countryid = getUrlParam("countryid");
-    const city = getUrlParam("city");
-    const program = getUrlParam("program");
+    const countryID = getUrlParam("countryid");
+    const cityID = getUrlParam("cityid");
+    const programID = getUrlParam("programid");
     const date = getUrlParam("date");
     const budget = getUrlParam("budget");
     const minMarks = getUrlParam("minmarks");
     
     if(name) userSearchName.value = name;
 
+
     //set country  when ready or fetched from database---
     COUNTRY_EVENT.registerListener(() => {
         if(COUNTRY_EVENT.COUNTRY_LOADED === true) {
-            userCountry.value = countryid;
+            userCountry.value = countryID;
             if(userCountry.value === "") {
                 userCountry.selectedIndex = 0;
             }
             else {
-                addSearchFilter("auto country", SEARCH_CATEGORIES.COUNTRY, countryid);
+                addSearchFilter("auto country", SEARCH_CATEGORIES.COUNTRY, countryID);
+                userCountry.dispatchEvent(new Event("change"));
             }
             //if(countryid) {userCountry.value = countryid;}
         }  
-    })
+    });
+
+    //set city  when ready or fetched from database---
+    CITY_EVENT.registerListener(() => {
+        if(CITY_EVENT.CITY_LOADED === true) {
+            userCity.value = cityID;
+            if(userCity.value === "") {
+                userCity.selectedIndex = 0;
+            }
+            else {
+                addSearchFilter("auto city", SEARCH_CATEGORIES.CITY, cityID);                
+            }
+            //if(countryid) {userCountry.value = countryid;}
+        }  
+    });
+
+
+    //set city  when ready or fetched from database---
+    PROGRAM_EVENT.registerListener(() => {
+        if(PROGRAM_EVENT.PROGRAM_LOADED === true) {
+            userProram.value = programID;
+            if(userProram.value === "") {
+                userProram.selectedIndex = 0;
+            }
+            else {
+                addSearchFilter("auto program", SEARCH_CATEGORIES.PROGRAM, programID);
+            }
+        }  
+    });
+
+
+    //set admission date
+    userAdmissionDate.value = date;
+    if(userAdmissionDate.value === "") {
+        userAdmissionDate.selectedIndex = 0;
+    }
+    else {
+        addSearchFilter("auto date", SEARCH_CATEGORIES.ADMI_DATE, date);
+    }
+
+
+
+
+
     
 }
 
@@ -1146,28 +1233,7 @@ const performUniSearchOnEvents = () => {
 //     performUniSearch(requestData, FIRST_LOAD);
 // })
 
-const generateSearchFilter = (name, category, id) => {
-    var div = document.createElement("div");
-    div.classList.add("search-filter-item-wrapper");
-    div.setAttribute("data-filter-category", category);
-    div.setAttribute("id", id);
 
-    div.innerHTML = `
-                        <div class="search-filter-item">${name}
-                            <i class="fa fa-times filter-item-close"></i>
-                        </div>
-                    `;
-    return div;
-
-}
-
-const addSearchFilter = (name, category, id) => {
-    var clearFilters = document.querySelectorAll(".clear-filters")[0];
-    var filterItem = generateSearchFilter(name, category, id);
-
-    containerSearchFilters.insertBefore(filterItem, clearFilters);
-
-}
 
 const isSearchFilterExists = (category, id) => {
     var searchFilters = document.querySelectorAll(".search-filter-item-wrapper");
