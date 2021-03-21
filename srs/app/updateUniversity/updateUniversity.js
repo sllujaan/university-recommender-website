@@ -714,7 +714,7 @@ const setProgramFormValues = (program) => {
     programTuitionFee.value = program.Tuition_Fee_per_Credit_Hour;
     programConvocFee.value = program.Convocation_Fee;
     feeDescription.value = program.Fee_Description;
-    programMinMarksPct.value = program.MM_PCT;
+    programMinMarksPct.value = program.MM_PCT*100;
     programMinMarkProgramName.value = program.MM_PN;
 
     //disable user program selection
