@@ -287,11 +287,10 @@ meritCalcForm.addEventListener("submit", e => {
     cal.H_EDUCATION_PCT = meritCalcFormValues.H_EDUCATION_PCT;
     cal.ETM_PCT = meritCalcFormValues.ETM_PCT;
 
-    cal.S_EDUCATION_MC_PCT = 20;
+    cal.S_EDUCATION_MC_PCT = 10;
     cal.H_EDUCATION_MC_PCT = 40;
     cal.ETM_MC_PCT = 50;
 
-    setUniMeritCalcValues(cal.S_EDUCATION_MC_PCT, cal.H_EDUCATION_MC_PCT, cal.ETM_MC_PCT);
 
     const meritResult = calculateMerit(cal);
 
@@ -370,6 +369,16 @@ const setUniDetails = (universityDetails) => {
     uniUpdateBtn.id = University.University_ID;
 
 
+    console.log(University);
+
+    //set merit calculator values
+    setUniMeritCalcValues(
+        parseFloat(University.S_Education_MC_PCT*100),
+        parseFloat(University.H_Education_MC_PCT*100),
+        parseFloat(University.PCT_MC_ETM*100)
+    );
+
+
     loadPrograms(universityDetails);
 
 }
@@ -412,6 +421,7 @@ const showUniDetailsContainer = (universityDetails) => {
     console.log(universityDetails);
     disableScroll(body);
     setUniDetails(universityDetails);
+
     console.log(window.innerWidth);
     console.log(getWindowWidth());
 
