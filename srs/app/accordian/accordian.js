@@ -153,7 +153,11 @@ const getProgramAccordian = (universityDetails, programDetails) => {
       <div id="Admission Criteria" class="tabcontent AdmissionCriteria">
         <h3>Admission Criteria</h3>
         <h4>Local and International Applicants</h4>
-        <!---<h4>Your Aggregate Marsks: 400</h4>--->
+        <h4>Minimum Marks:</h4>
+        <ul>
+          <li>This program requires ${programDetails.MM_PCT*100}% marks in ${programDetails.MM_PN}</li>
+        </ul>
+        <p>Admission Requirements</p>
         <p class="text-break-line">${universityDetails.Admission_Criteria}</p> 
       </div>
       
@@ -225,4 +229,4 @@ export const loadPrograms = (universityDetails) => {
 
 }
 
-//loadPrograms(UNIVERSITY_DETAILS);
+loadPrograms(UNIVERSITY_DETAILS);

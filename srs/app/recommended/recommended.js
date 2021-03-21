@@ -1052,6 +1052,6 @@ verifyLogin();
 changeRespOptsTitle("new title");
 
 
-showMeritCalculator();
+//showMeritCalculator();
 
 
