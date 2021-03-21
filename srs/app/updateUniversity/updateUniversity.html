@@ -57,7 +57,7 @@
                     <div class="auth-card">
 
                         <form action="#" method="post">
-                            <div class="auth-cart-title">Add University</div>
+                            <div class="auth-cart-title">Update University</div>
                             <div class="form-content-container">
 
                                 <!---------------------Name---------------------->
@@ -141,18 +141,19 @@
 
                                 
 
+                                <!-----------------percentage merit criteria of Entry Test Marks----------------->
+                                <!---Abbrevations:
+                                        etm_pct: entry test marsk percentage---->
+                                <div class="form-content percentage">
+                                    <input type="number" name="etm_pct" id="uni-etm_mc_pct" placeholder="ET Merit Criteria Percentage" min="0" max="100" required>
+                                    <div>%</div>
+                                </div>
+
+
 
                                 <!--------------------------Entry Test Marks----------------->
                                 <div class="form-content">
                                     <input type="number" name="budget_US_$" id="uni-ETM" placeholder="Total Entry (ET) Test Marks" min="1" required>
-                                </div>
-
-                                <!-----------------percentage merit criteria of Entry Test Marks----------------->
-                                <!---Abbrevations:
-                                    etm_pct: entry test marsk percentage---->
-                                <div class="form-content percentage">
-                                    <input type="number" name="etm_pct" id="uni-etm_mc_pct" placeholder="ET Merit Criteria Percentage" min="0" max="100" required>
-                                    <div>%</div>
                                 </div>
 
 
@@ -220,7 +221,7 @@
                 <!-----------------------programs Stage---------------------------------->
                 <div class="stage-uni-programs">
                     <!------------------Cart University Details--------------------->
-                    <div class="auth-card">
+                    <div class="auth-card container-programs">
                         <form action="">
                             <div class="auth-cart-title">Programs</div>
                             <div class="form-content-container">
@@ -255,8 +256,8 @@
                                 </div>
 
                                 <!-----------------submit university data----------------->
-                                <div class="form-content">
-                                    <input id="auth-submit" type="submit" value="Submit">
+                                <div class="form-content" id="">
+                                    <input id="uni-submit-final" type="submit" value="Submit">
                                 </div>
 
                                 <!-----------------Separator----------------->

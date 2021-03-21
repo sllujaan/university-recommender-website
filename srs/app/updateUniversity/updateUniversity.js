@@ -85,6 +85,8 @@ const PROGRAM_SAMPLE = {"Program_ID": 2, "Description": "saaaaaaaaaaa", "Admissi
 var body = document.getElementsByTagName("body")[0];
 var serverError = document.querySelectorAll(".server-error")[0];
 var appBodyContent = document.querySelectorAll(".app-body-content")[0];
+var uinSubmitFinal = document.getElementById("uni-submit-final");
+
 
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
 var footerContainer = document.querySelectorAll(".footer-container-wrapper")[0];
@@ -1007,7 +1009,7 @@ const handleProgramFormSubmit = () => {
         program.Tuition_Fee_per_Credit_Hour = programTuitionFee.value;
         program.Convocation_Fee = programConvocFee.value;
         program.Fee_Description = feeDescription.value;
-        program.MM_PCT = programMinMarksPct.value;
+        program.MM_PCT = programMinMarksPct.value/100;
         program.MM_PN = programMinMarkProgramName.value;
 
         return program;
@@ -1124,6 +1126,7 @@ const addNewChosenProgram = (program, name) => {
         generateNewChoosenProgram(program.Program_ID, name)
     );
     CHOSEN_PROGRAMS.push(program)
+    console.log(CHOSEN_PROGRAMS);
 }
 
 const setUniProgFromsData = (universityDetails) => {
@@ -1168,6 +1171,8 @@ const verifyAdminAndFetchUniDetails = (universityID) => {
 
 const submitFinalFormData = (universityDetails) => {
 
+    showSumbmittingFormFinal();
+
     fetch(URL_UPDATE_UNIVERSITY, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -1175,10 +1180,12 @@ const submitFinalFormData = (universityDetails) => {
         body: JSON.stringify(universityDetails) // body data type must match "Content-Type" header
     })
     .then(res => {
+        resotreSubmitFormFinal();
         if(res.status !== 200) {throw new Error("Something went wrong while processing the request!");}
         else {alert("Request Processed Successfully!");window.location=`../search/search.html`;}
     })
     .catch(err => {
+        resotreSubmitFormFinal();
         console.error(err);
         alert(err);
     })
@@ -1266,6 +1273,31 @@ const getProg = () => {
         }, 1000);
       });
     return myPromise;
+}
+
+
+
+
+const showSumbmittingFormFinal = () => {
+    var containerPrograms = document.querySelectorAll(".container-programs")[0];
+
+    uinSubmitFinal.value = "Submitting...";
+    uinSubmitFinal.style.setProperty("color", "gray");
+    uinSubmitFinal.style.setProperty("background-color", "lightgray");
+    containerPrograms.style.setProperty("pointer-events", "none");
+
+    //saveSearchSubmit.style.setProperty("background-color", "gray");
+    //saveSearchSubmit.style.setProperty("pointer-events", "none");
+    //saveSearchSubmit.value = "Saving...";
+}
+
+const resotreSubmitFormFinal = () => {
+    var containerPrograms = document.querySelectorAll(".container-programs")[0];
+
+    uinSubmitFinal.value = "Submit";
+    uinSubmitFinal.style.setProperty("color", "white");
+    uinSubmitFinal.style.setProperty("background-color", "#37a000");
+    containerPrograms.style.setProperty("pointer-events", "all");
 }
 
 
