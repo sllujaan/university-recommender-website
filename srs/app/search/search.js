@@ -1,6 +1,6 @@
 import { 
     loadHeaderFooter, enableScroll, disableScroll,
-    getBusyContainer,
+    getBusyContainer, MERITCAL_STRUCT, calculateMerit,
     getUserCredentialsLocalStorage
  } from "../util/util.js";
 import { loadPrograms, UNIVERSITY_DETAILS } from "../accordian/accordian.js";
@@ -126,6 +126,11 @@ var containerSaveSearchWrapper = document.querySelectorAll(".container-save-sear
 var saveSearchName = document.getElementById("save-search-name");
 var saveSearchError = document.getElementById("save-search-error");
 var saveSearchSubmit = document.getElementById("save-search-submit");
+var uniUpdateBtn = document.querySelectorAll(".uni-update")[1];
+var meritCalcForm = document.getElementById("merit-calc-form");
+var calculatorResult = document.getElementById("calculator-result-field");
+
+
 
 
 
@@ -335,6 +340,79 @@ userMinMarksPct.addEventListener("change", e => {
 
     addSearchFilterSingleVal(minMarksPct+"%", SEARCH_CATEGORIES.MIN_MARKS, minMarksPct);
 })
+
+
+
+
+
+
+
+const setMeritResult = (value, danger) => {
+    calculatorResult.innerText = value;
+    if(danger) {calculatorResult.style.setProperty("color", "red");}
+    else {calculatorResult.style.setProperty("color", "balck");}
+
+}
+
+const getMeritCalcFormValues = () => {
+    var sEdu = document.getElementById("user-s_education_pct");
+    var hEdu = document.getElementById("user-h_education_pct");
+    var etm = document.getElementById("user-etm_pct");
+
+    const userMeritValues =  {
+        S_EDUCATION_PCT: sEdu.value,
+        H_EDUCATION_PCT: hEdu.value,
+        ETM_PCT: etm.value
+    };
+    return userMeritValues;
+}
+
+
+meritCalcForm.addEventListener("submit", e => {
+    e.preventDefault();
+    console.log(e.target);
+    console.log(getMeritCalcFormValues());
+
+    const meritCalcFormValues = getMeritCalcFormValues();
+
+
+    var cal = MERITCAL_STRUCT;
+    cal.S_EDUCATION_PCT = meritCalcFormValues.S_EDUCATION_PCT;
+    cal.H_EDUCATION_PCT = meritCalcFormValues.H_EDUCATION_PCT;
+    cal.ETM_PCT = meritCalcFormValues.ETM_PCT;
+
+    cal.S_EDUCATION_MC_PCT = 10;
+    cal.H_EDUCATION_MC_PCT = 40;
+    cal.ETM_MC_PCT = 50;
+
+
+    const meritResult = calculateMerit(cal);
+
+    if(meritResult === null) {
+        setMeritResult("Somthing went wrong while calculating the merit!", true);
+        return;
+    }
+
+    
+
+    setMeritResult(`You Aggragate is ${meritResult}%`, false);
+
+})
+
+
+const setUniMeritCalcValues = (sEduPct, hEduPct, etmPct) => {
+    var uniSEduList = document.getElementById("uni-s-edu-list");
+    var uniHEduList = document.getElementById("uni-h-edu-list");
+    var uniEtmEduList = document.getElementById("uni-etm-list");
+
+    uniSEduList.innerText = `Secondary Education: ${sEduPct}%`;
+    uniHEduList.innerText = `Higher Education: ${hEduPct}%`;
+    uniEtmEduList.innerText = `Entry Test Marks: ${etmPct}%`;
+
+}
+
+
+
 
 
 
@@ -659,6 +737,20 @@ const setUniDetails = (universityDetails) => {
     detailsAddress.innerText = University.Address;
     detailsUniLink.setAttribute("placeholder", University.Web_Link);
     detailsUniLinkCopy.setAttribute("data-uni-link", University.Web_Link);
+
+
+    //set update button id
+    uniUpdateBtn.id = University.University_ID;
+
+
+    console.log(University);
+
+    //set merit calculator values
+    setUniMeritCalcValues(
+        parseFloat(University.S_Education_MC_PCT*100),
+        parseFloat(University.H_Education_MC_PCT*100),
+        parseFloat(University.PCT_MC_ETM*100)
+    );
 
 
     loadPrograms(universityDetails);
@@ -1365,6 +1457,8 @@ const handleSearchFilterRemove = (e) => {
 
 //loadFirst();
 changeRespOptsTitle("new title");
+
+showMeritCalculator();
 
 
 

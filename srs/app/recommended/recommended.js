@@ -246,12 +246,6 @@ const hideMeritCalculator = () => {
 // }
 
 
-const sampleUniMerit = {
-    S_EDUCATION_MC_PCT: 10,
-    H_EDUCATION_MC_PCT: 40,
-    ETM_MC_PCT: 50,
-};
-
 
 const setMeritResult = (value, danger) => {
     calculatorResult.innerText = value;
