@@ -157,7 +157,7 @@ const getProgramAccordian = (universityDetails, programDetails) => {
         <ul>
           <li>This program requires ${programDetails.MM_PCT*100}% marks in ${programDetails.MM_PN}</li>
         </ul>
-        <p>Admission Requirements</p>
+        <h6>Admission Requirements:</h6>
         <p class="text-break-line">${universityDetails.Admission_Criteria}</p> 
       </div>
       
@@ -168,35 +168,35 @@ const getProgramAccordian = (universityDetails, programDetails) => {
             <table>
               <tr>
                 <th>Admission Fee</th>
-                <td>${programDetails.Admission_Fee}</td>
+                <td>$${programDetails.Admission_Fee}</td>
               </tr>
               <tr>
                 <th>Registration Fee</th>
-                <td>${programDetails.Registration_Fee}</td>
+                <td>$${programDetails.Registration_Fee}</td>
               </tr>
               <tr>
                 <th>Security Fee</th>
-                <td>${programDetails.Security_Fee}</td>
+                <td>$${programDetails.Security_Fee}</td>
               </tr>
               <tr>
                 <th>Admission Processing Fee</th>
-                <td>${programDetails.Admission_Processing_Fee}</td>
+                <td>$${programDetails.Admission_Processing_Fee}</td>
               </tr>
               <tr>
                 <th>Enrollment Fee Per Semester</th>
-                <td>${programDetails.Enrollment_Fee_Per_Semester}</td>
+                <td>$${programDetails.Enrollment_Fee_Per_Semester}</td>
               </tr>
               <tr>
                 <th>Tuition Fee per credit hour</th>
-                <td>${programDetails.Tuition_Fee_per_Credit_Hour}</td>
+                <td>$${programDetails.Tuition_Fee_per_Credit_Hour}</td>
               </tr>
               <tr>
                 <th>Convocation Fee</th>
-                <td>${programDetails.Convocation_Fee}</td>
+                <td>$${programDetails.Convocation_Fee}</td>
               </tr>
               <tr>
                 <th>Total Fee (Semester)</th>
-                <td>${programDetails.Fee_Total}</td>
+                <td>$${programDetails.Fee_Total}</td>
               </tr>
             </table>
           </div>

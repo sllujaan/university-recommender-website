@@ -268,6 +268,7 @@ body {
     .header-sidebar {
         display: block;
         flex-wrap: wrap;
+        overflow: auto;
     }
 
     .header-sidebar > .wrapper {
@@ -276,7 +277,6 @@ body {
         align-items: center;
         justify-content: center;
         flex-wrap: wrap;
-        
     }
 
     .header-sidebar > .wrapper > * {

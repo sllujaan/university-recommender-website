@@ -1467,6 +1467,28 @@ const handleSearchFilterRemove = (e) => {
 
 
 
+
+const updateUniDetailsContainerOnWinResize = () => {
+    const isUniDetailsHidden = uniDetailsBackCover.classList.contains("hide");
+
+    if(!isUniDetailsHidden) {
+        if(window.innerWidth > getWindowWidth()) {
+            const leftOffset = window.innerWidth - getWindowWidth();
+            containerUniDetails.style.setProperty("left", leftOffset+"px");
+        }
+        else {
+            containerUniDetails.style.setProperty("left", "0%");
+        } 
+    }
+}
+
+
+window.addEventListener("resize", e => {
+    updateUniDetailsContainerOnWinResize();
+})
+
+
+
 //loadFirst();
 changeRespOptsTitle("new title");
 
