@@ -698,6 +698,13 @@ table td {
     cursor: pointer;
 }
 
+.uni-merit-details {
+    padding: 20px 0px;
+}
+
+.uni-merit-details > ul {
+    padding-left: 20px;
+}
 
 
 /*----------------------------------------------------------*/

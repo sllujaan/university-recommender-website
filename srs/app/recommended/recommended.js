@@ -1,6 +1,7 @@
 import { 
     loadHeaderFooter, enableScroll, disableScroll,
-    getBusyContainer, getUserCredentialsLocalStorage
+    getBusyContainer, getUserCredentialsLocalStorage,
+    MERITCAL_STRUCT, calculateMerit
  } from "../util/util.js";
 import { loadPrograms, UNIVERSITY_DETAILS } from "../accordian/accordian.js";
 import {
@@ -278,8 +279,44 @@ meritCalcForm.addEventListener("submit", e => {
     console.log(e.target);
     console.log(getMeritCalcFormValues());
 
-    setMeritResult("you merit", true);
+    const meritCalcFormValues = getMeritCalcFormValues();
+
+
+    var cal = MERITCAL_STRUCT;
+    cal.S_EDUCATION_PCT = meritCalcFormValues.S_EDUCATION_PCT;
+    cal.H_EDUCATION_PCT = meritCalcFormValues.H_EDUCATION_PCT;
+    cal.ETM_PCT = meritCalcFormValues.ETM_PCT;
+
+    cal.S_EDUCATION_MC_PCT = 20;
+    cal.H_EDUCATION_MC_PCT = 40;
+    cal.ETM_MC_PCT = 50;
+
+    setUniMeritCalcValues(cal.S_EDUCATION_MC_PCT, cal.H_EDUCATION_MC_PCT, cal.ETM_MC_PCT);
+
+    const meritResult = calculateMerit(cal);
+
+    if(meritResult === null) {
+        setMeritResult("Somthing went wrong while calculating the merit!", true);
+        return;
+    }
+
+    
+
+    setMeritResult(`You Aggragate is ${meritResult}%`, false);
+
 })
+
+
+const setUniMeritCalcValues = (sEduPct, hEduPct, etmPct) => {
+    var uniSEduList = document.getElementById("uni-s-edu-list");
+    var uniHEduList = document.getElementById("uni-h-edu-list");
+    var uniEtmEduList = document.getElementById("uni-etm-list");
+
+    uniSEduList.innerText = `Secondary Education: ${sEduPct}%`;
+    uniHEduList.innerText = `Higher Education: ${hEduPct}%`;
+    uniEtmEduList.innerText = `Entry Test Marks: ${etmPct}%`;
+
+}
 
 
 
