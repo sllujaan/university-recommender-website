@@ -147,14 +147,14 @@ const getProgramAccordian = (universityDetails, programDetails) => {
 
       <div id="Overview" class="tabcontent Overview">
         <h3>Program Duration (${programDetails.Duration_Years}-Years)</h3>
-        <p>${programDetails.Description}</p>
+        <p class="text-break-line">${programDetails.Description}</p>
       </div>
       
       <div id="Admission Criteria" class="tabcontent AdmissionCriteria">
         <h3>Admission Criteria</h3>
         <h4>Local and International Applicants</h4>
         <!---<h4>Your Aggregate Marsks: 400</h4>--->
-        <p>${universityDetails.Admission_Criteria}</p> 
+        <p class="text-break-line">${universityDetails.Admission_Criteria}</p> 
       </div>
       
       <div id="Fees" class="tabcontent Fees">
@@ -197,7 +197,7 @@ const getProgramAccordian = (universityDetails, programDetails) => {
             </table>
           </div>
         </p>
-        <p>${programDetails.Fee_Description}</p>
+        <p class="text-break-line">${programDetails.Fee_Description}</p>
       </div>
 
       <!------------------------------------------------>

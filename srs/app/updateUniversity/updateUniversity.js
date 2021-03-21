@@ -744,6 +744,27 @@ const verifyUniversityFormInputs = () => {
         return false;
     }
 
+
+    const merit100 = parseInt(uniSEduMcPct.value) + parseInt(uniHEduMcPct.value) + parseInt(uniEtmMcPct.value);
+    if(merit100 !== 100) {
+        uniSEduMcPct.style.setProperty("border-color", "red");
+        uniHEduMcPct.style.setProperty("border-color", "red");
+        uniEtmMcPct.style.setProperty("border-color", "red");
+        alert(`The following 3 fields should add upto 100
+                \r\n1.  Secondary Education Percentage.
+                \r\n2.  Higher Education Percentage.
+                \r\n3.  Entry Test Marks Merit Criteria Percentage.
+        `);
+        return false;
+    }
+    else {
+        uniSEduMcPct.style.setProperty("border-color", "lightgray");
+        uniHEduMcPct.style.setProperty("border-color", "lightgray");
+        uniEtmMcPct.style.setProperty("border-color", "lightgray");
+    }
+
+    
+
     if(universityDescription.value === "") {
         universityDescription.style.setProperty("border-color", "red");
         return false;
