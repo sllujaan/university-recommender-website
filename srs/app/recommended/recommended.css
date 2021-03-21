@@ -348,19 +348,19 @@ body {
 
 @keyframes busy_motion_1 {
     0%   {width: 0%;}
-    50%   {width: 90%;}
+    50%   {width: 30%;}
     100% {width: 0%;}
 }
 
 @keyframes busy_motion_2 {
     0%   {width: 0%;}
-    50%   {width: 70%;}
+    50%   {width: 60%;}
     100% {width: 0%;}
 }
 
 @keyframes busy_motion_3 {
     0%   {width: 0%;}
-    50%   {width: 40%;}
+    50%   {width: 90%;}
     100% {width: 0%;}
 }
 

@@ -140,6 +140,10 @@ var programConvocFee = document.getElementById("program-convoc-fee");
 var feeDescription = document.getElementById("program-fee-description");
 var programMinMarksPct = document.getElementById("program-min-marks-pct");
 var programMinMarkProgramName = document.getElementById("program-min-mark-program-name");
+var authSubmitFinal = document.getElementById("auth-submit-final");
+
+
+
 /*-----------------------------------------------------------------------------------------*/
 
 var programContainerWrapper = document.querySelectorAll(".program-container-wrapper")[0];
@@ -696,12 +700,32 @@ const showProgramContainer = () => {
 }
 
 
+
 const verifyUniversityFormInputs = () => {
 
     if(NAME_VALID === false) {
         uniName.focus();
         return false;
     }
+
+    const merit100 = parseInt(uniSEduMcPct.value) + parseInt(uniHEduMcPct.value) + parseInt(uniEtmMcPct.value);
+    if(merit100 !== 100) {
+        uniSEduMcPct.style.setProperty("border-color", "red");
+        uniHEduMcPct.style.setProperty("border-color", "red");
+        uniEtmMcPct.style.setProperty("border-color", "red");
+        alert(`The following 3 fields should add upto 100
+                \r\n1.  Secondary Education Percentage.
+                \r\n2.  Higher Education Percentage.
+                \r\n3.  Entry Test Marks Merit Criteria Percentage.
+        `);
+        return false;
+    }
+    else {
+        uniSEduMcPct.style.setProperty("border-color", "lightgray");
+        uniHEduMcPct.style.setProperty("border-color", "lightgray");
+        uniEtmMcPct.style.setProperty("border-color", "lightgray");
+    }
+
 
     if(universityDescription.value === "") {
         universityDescription.style.setProperty("border-color", "red");
@@ -1142,6 +1166,34 @@ const verifyAdminAndShowAddUniFrom = () => {
         //alert("Something went wrong while verifying the login!");
     });
 }
+
+
+
+
+const showSavingSearch = () => {
+    saveSearchError.innerText = "*";
+    saveSearchError.style.setProperty("color", "lightgray");
+    saveSearchName.style.setProperty("border-color", "lightgray");
+    saveSearchName.disabled = true;
+
+    saveSearchSubmit.style.setProperty("background-color", "gray");
+    saveSearchSubmit.style.setProperty("pointer-events", "none");
+    saveSearchSubmit.value = "Saving...";
+}
+
+const restoreSaveSearch = () => {
+    saveSearchError.innerText = "*";
+    saveSearchError.style.setProperty("color", "red");
+    saveSearchName.style.removeProperty("border-color");
+    saveSearchName.disabled = false;
+
+    saveSearchSubmit.style.removeProperty("background-color");
+    saveSearchSubmit.style.removeProperty("pointer-events");
+    saveSearchSubmit.value = "Save";
+}
+
+goToProgramsStage();
+
 
 
 
