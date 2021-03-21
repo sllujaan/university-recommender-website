@@ -140,7 +140,7 @@ var programConvocFee = document.getElementById("program-convoc-fee");
 var feeDescription = document.getElementById("program-fee-description");
 var programMinMarksPct = document.getElementById("program-min-marks-pct");
 var programMinMarkProgramName = document.getElementById("program-min-mark-program-name");
-var authSubmitFinal = document.getElementById("auth-submit-final");
+var uinSubmitFinal = document.getElementById("uni-submit-final");
 
 
 
@@ -1122,6 +1122,8 @@ const setUniProgFromsData = (universityDetails) => {
 
 
 const submitFinalFormData = (universityDetails) => {
+    
+    showSumbmittingFormFinal();
 
     fetch(URL_ADD_UNIVERSITY, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -1130,10 +1132,12 @@ const submitFinalFormData = (universityDetails) => {
         body: JSON.stringify(universityDetails) // body data type must match "Content-Type" header
     })
     .then(res => {
+        resotreSubmitFormFinal();
         if(res.status !== 200) {throw new Error("Something went wrong while processing the request!");}
         else {alert("Request Processed Successfully!");window.location=`../search/search.html`;}
     })
     .catch(err => {
+        resotreSubmitFormFinal();
         console.error(err);
         alert(err);
     })
@@ -1170,30 +1174,31 @@ const verifyAdminAndShowAddUniFrom = () => {
 
 
 
-const showSavingSearch = () => {
-    saveSearchError.innerText = "*";
-    saveSearchError.style.setProperty("color", "lightgray");
-    saveSearchName.style.setProperty("border-color", "lightgray");
-    saveSearchName.disabled = true;
+const showSumbmittingFormFinal = () => {
+    var containerPrograms = document.querySelectorAll(".container-programs")[0];
 
-    saveSearchSubmit.style.setProperty("background-color", "gray");
-    saveSearchSubmit.style.setProperty("pointer-events", "none");
-    saveSearchSubmit.value = "Saving...";
+    uinSubmitFinal.value = "Submitting...";
+    uinSubmitFinal.style.setProperty("color", "gray");
+    uinSubmitFinal.style.setProperty("background-color", "lightgray");
+    containerPrograms.style.setProperty("pointer-events", "none");
+
+    //saveSearchSubmit.style.setProperty("background-color", "gray");
+    //saveSearchSubmit.style.setProperty("pointer-events", "none");
+    //saveSearchSubmit.value = "Saving...";
 }
 
-const restoreSaveSearch = () => {
-    saveSearchError.innerText = "*";
-    saveSearchError.style.setProperty("color", "red");
-    saveSearchName.style.removeProperty("border-color");
-    saveSearchName.disabled = false;
+const resotreSubmitFormFinal = () => {
+    var containerPrograms = document.querySelectorAll(".container-programs")[0];
 
-    saveSearchSubmit.style.removeProperty("background-color");
-    saveSearchSubmit.style.removeProperty("pointer-events");
-    saveSearchSubmit.value = "Save";
+    uinSubmitFinal.value = "Submit";
+    uinSubmitFinal.style.setProperty("color", "white");
+    uinSubmitFinal.style.setProperty("background-color", "#37a000");
+    containerPrograms.style.setProperty("pointer-events", "all");
 }
 
-goToProgramsStage();
-
+// goToProgramsStage();
+// showSumbmittingFormFinal();
+// resotreSubmitFormFinal();
 
 
 

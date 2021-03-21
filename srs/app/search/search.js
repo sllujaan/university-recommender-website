@@ -1,7 +1,7 @@
 import { 
     loadHeaderFooter, enableScroll, disableScroll,
     getBusyContainer, MERITCAL_STRUCT, calculateMerit,
-    getUserCredentialsLocalStorage
+    getUserCredentialsLocalStorage, openInNewTab
  } from "../util/util.js";
 import { loadPrograms, UNIVERSITY_DETAILS } from "../accordian/accordian.js";
 import {
@@ -174,6 +174,7 @@ document.addEventListener("click", e => {
     const isSideBarRespClose = e.target.classList.contains("side-bar-resp-close");
     const isBtnSaveSearch = e.target.parentElement.classList.contains("btn-save-search");
     const userSearchBtn = e.target.classList.contains("user-search-btn");
+    const isUniUpdate = e.target.parentElement.classList.contains("uni-update");
 
     const isUniCalculator = e.target.parentElement.classList.contains("uni-calculator");
     const isUniCalculatorClose = e.target.classList.contains("calculator-close") || e.target.classList.contains("container-calculator-wrapper");
@@ -192,7 +193,7 @@ document.addEventListener("click", e => {
             loadMore();
             break;
         case idUniDetails:
-            const uniID = parseInt(e.target.id);
+            var uniID = parseInt(e.target.id);
             showUniDetails(uniID);
             break;
         case isBackCaret:
@@ -235,6 +236,11 @@ document.addEventListener("click", e => {
             break;
         case isSaveSearchClose:
             hideSaveSearchContainer();
+            break;
+        case isUniUpdate:
+            var uniID = parseInt(e.target.parentElement.id);
+            console.log("update uni", uniID);
+            openInNewTab(`../updateUniversity/updateUniversity.html?id=${uniID}`);
             break;
 
             

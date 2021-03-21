@@ -222,6 +222,12 @@ const verifyLogin = () => {
     
 }
 
+export const openInNewTab = (url) => {
+    var win = window.open(url, '_blank');
+    win.focus();
+}
+
+
 
 
 export const MERITCAL_STRUCT = {
