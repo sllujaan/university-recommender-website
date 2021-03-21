@@ -12,6 +12,7 @@ import {
 
 const RECOMMENDED_SEARCH_ID = -123;
 var CURRENT_PAGE = 0;
+var CURRENT_VIEWD_UNI_DETAILS = null;
 
 const FIRST_LOAD = 0xf10
 const LOAD_MORE = 0xf12
@@ -281,9 +282,9 @@ meritCalcForm.addEventListener("submit", e => {
     cal.H_EDUCATION_PCT = meritCalcFormValues.H_EDUCATION_PCT;
     cal.ETM_PCT = meritCalcFormValues.ETM_PCT;
 
-    cal.S_EDUCATION_MC_PCT = 10;
-    cal.H_EDUCATION_MC_PCT = 40;
-    cal.ETM_MC_PCT = 50;
+    cal.S_EDUCATION_MC_PCT = parseFloat(CURRENT_VIEWD_UNI_DETAILS.S_Education_MC_PCT)*100;
+    cal.H_EDUCATION_MC_PCT = parseFloat(CURRENT_VIEWD_UNI_DETAILS.H_Education_MC_PCT)*100;
+    cal.ETM_MC_PCT = parseFloat(CURRENT_VIEWD_UNI_DETAILS.PCT_MC_ETM)*100;
 
 
     const meritResult = calculateMerit(cal);
@@ -371,6 +372,9 @@ const setUniDetails = (universityDetails) => {
         parseFloat(University.H_Education_MC_PCT*100),
         parseFloat(University.PCT_MC_ETM*100)
     );
+
+    //set university details for future use i.e merit calculations
+    CURRENT_VIEWD_UNI_DETAILS = University;
 
 
     loadPrograms(universityDetails);
