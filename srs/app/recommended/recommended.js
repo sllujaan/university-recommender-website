@@ -48,6 +48,11 @@ var containerCalculatorWrapper = document.querySelectorAll(".container-calculato
 
 var sidebar = document.querySelectorAll(".side-bar")[0];
 var uniUpdateBtn = document.querySelectorAll(".uni-update")[1];
+var meritCalcForm = document.getElementById("merit-calc-form");
+var calculatorResult = document.getElementById("calculator-result-field");
+
+
+
 /*load header and footer*/
 loadHeaderFooter(headerContainer, footerContainer);
 
@@ -229,6 +234,52 @@ const hideMeritCalculator = () => {
     containerCalculatorWrapper.style.setProperty("display", "none");
 }
 
+
+// const MERITCAL_STRUCT = {
+//     S_EDUCATION_PCT: null,
+//     H_EDUCATION_PCT: null,
+//     ETM_PCT: null,
+//     S_EDUCATION_MC_PCT: null,
+//     H_EDUCATION_MC_PCT: null,
+//     ETM_MC_PCT: null,
+// }
+
+
+const sampleUniMerit = {
+    S_EDUCATION_MC_PCT: 10,
+    H_EDUCATION_MC_PCT: 40,
+    ETM_MC_PCT: 50,
+};
+
+
+const setMeritResult = (value, danger) => {
+    calculatorResult.innerText = value;
+    if(danger) {calculatorResult.style.setProperty("color", "red");}
+    else {calculatorResult.style.setProperty("color", "balck");}
+
+}
+
+const getMeritCalcFormValues = () => {
+    var sEdu = document.getElementById("user-s_education_pct");
+    var hEdu = document.getElementById("user-h_education_pct");
+    var etm = document.getElementById("user-etm_pct");
+
+    const userMeritValues =  {
+        S_EDUCATION_PCT: sEdu.value,
+        H_EDUCATION_PCT: hEdu.value,
+        ETM_PCT: etm.value
+    };
+    return userMeritValues;
+}
+
+
+meritCalcForm.addEventListener("submit", e => {
+    e.preventDefault();
+    console.log(e.target);
+    console.log(getMeritCalcFormValues());
+
+    setMeritResult("you merit", true);
+})
 
 
 
@@ -945,5 +996,8 @@ verifyLogin();
 //showUniDetails(50);
 
 changeRespOptsTitle("new title");
+
+
+showMeritCalculator();
 
 
