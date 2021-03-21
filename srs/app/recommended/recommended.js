@@ -561,10 +561,19 @@ const performSavedSearch = (e, searchID) => {
     console.log(search);
 
     CURRENT_PAGE = 0;
-    const requestData = prepareSavedSearchRequestData(search);
+    UNI_CONTAINER_TITLE = search.Name;
+    console.log(UNI_CONTAINER_TITLE);
+    
+    
+    //to improve the search results remove the search name
+    var improvedSearch = {...search};
+    improvedSearch.Name = "";
+
+    const requestData = prepareSavedSearchRequestData(improvedSearch);
+    
     console.log(requestData);
 
-    UNI_CONTAINER_TITLE = search.Name;
+    
 
     performSavedSearchesUni(requestData, FIRST_LOAD);
 
