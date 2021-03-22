@@ -376,6 +376,19 @@ const getMeritCalcFormValues = () => {
     return userMeritValues;
 }
 
+const resetMeritCalcFormValues = () => {
+    
+    var sEdu = document.getElementById("user-s_education_pct");
+    var hEdu = document.getElementById("user-h_education_pct");
+    var etm = document.getElementById("user-etm_pct");
+
+    sEdu.value = "";
+    hEdu.value = "";
+    etm.value = "";
+
+    setMeritResult("*", false);
+}
+
 
 meritCalcForm.addEventListener("submit", e => {
     e.preventDefault();
@@ -685,6 +698,7 @@ const addLoadMoreButton = () => {
 }
 
 const showUniDetails = (id) => {
+    resetMeritCalcFormValues();
     fetchUniverstyDetails(id);
 
     //setUniDetails(UNIVERSITY_DETAILS);
