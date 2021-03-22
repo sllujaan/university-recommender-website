@@ -1,7 +1,7 @@
 
 import { loadHeaderJS } from "../header/header.js";
 import {
-    URL_VERIFY_LOGIN
+    URL_VERIFY_LOGIN, URL_VERIFY_ADMIN
 } from "../urls/urlResolver.js";
 
 
@@ -55,6 +55,7 @@ export const loadHeaderFooter = (headerContainer, footerContainer) => {
         headerContainer.append(header[0])
         loadHeaderJS(document);
         initAuthorizedUserFeatures();
+        initAdminFeatures();
     })
 
     getAppFooter(FOOTER_FILE_URL, footerContainer)
@@ -114,6 +115,12 @@ const showAuthorizedFeatures = (authorizedContainers) => {
 
 }
 
+const showAdminFeatures = (authorizedContainersAdmin) => {
+    authorizedContainersAdmin.forEach(container => {
+        container.classList.remove("authorized-container-admin");
+    });
+}
+
 const hideAuthorizedFeatures = (authorizedContainers) => {
     authorizedContainers.forEach(container => {
         container.classList.add("authorized-container");
@@ -121,6 +128,12 @@ const hideAuthorizedFeatures = (authorizedContainers) => {
     })
 
     showLoginButtons();
+}
+
+const hideAdminFeatures = (authorizedContainersAdmin) => {
+    authorizedContainersAdmin.forEach(container => {
+        container.classList.add("authorized-container-admin");
+    });
 }
 
 
@@ -156,6 +169,41 @@ const initAuthorizedUserFeatures = async () => {
     // }
 
     console.log(authorizedContainers);
+}
+
+
+//make sure that header has been loaded
+const initAdminFeatures = async () => {
+    const authorizedContainersAdmin = document.querySelectorAll(".authorized-container-admin");
+    if(!authorizedContainersAdmin) return;
+
+    //live verify login. !!new
+
+    
+    try {
+        //verify login
+        const status = await verifyAdmin();
+        //login succeeded
+        console.warn("admin is verified!");
+        showAdminFeatures(authorizedContainersAdmin);
+    } catch (error) {
+        console.warn("admin is not verified!");
+        hideAdminFeatures(authorizedContainersAdmin);
+    }
+
+
+
+
+    // if(isUserLoggedIn()) {
+    //     console.warn("user is logged in!");
+    //     showAuthorizedFeatures(authorizedContainers);
+    // }
+    // else {
+    //     console.warn("user is not logged in!");
+    //     hideAuthorizedFeatures(authorizedContainers);
+    // }
+
+    console.log(authorizedContainersAdmin);
 }
 
 
@@ -220,6 +268,32 @@ const verifyLogin = () => {
 
     return myPromise;
     
+}
+
+
+
+const verifyAdmin = () =>   {
+
+    const userCredentials = getUserCredentialsLocalStorage();
+    const requestData = `session_id=${userCredentials.session_id}&user_id=${userCredentials.user_id}`;
+
+    const myPromise = new Promise((resolve, reject) => {
+        fetch(URL_VERIFY_ADMIN, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: requestData // body data type must match "Content-Type" header
+        })
+        .then(res => {
+            if(res.status === 200) {resolve(200);}
+            else reject("admin verification failed.");
+        })
+        .catch(err => {
+            reject("admin verification failed.");
+        });
+    });
+
+    return myPromise;    
 }
 
 export const openInNewTab = (url) => {

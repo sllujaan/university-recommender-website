@@ -229,4 +229,4 @@ export const loadPrograms = (universityDetails) => {
 
 }
 
-loadPrograms(UNIVERSITY_DETAILS);
+//loadPrograms(UNIVERSITY_DETAILS);

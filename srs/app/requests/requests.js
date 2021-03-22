@@ -250,10 +250,15 @@ const rejectRequest = (userID) => {
 const processFetchRequest = (requestType, userID) => {
     const requestData = prepareRequestData(userID);
     console.log(requestData);
+    console.log(requestType);
 
     var url = null;
-    url = (requestType === REQUEST_ACCEPT ? (URL_REQUEST_ACCEPT) : (null))
-    url = (requestType === REQUEST_REJECT ? (URL_REQUEST_REJECT) : (null))
+    if(requestType === REQUEST_ACCEPT) {
+        url = URL_REQUEST_ACCEPT;
+    }else if(requestType === REQUEST_REJECT) {
+        url = URL_REQUEST_REJECT;
+    }
+    
 
     fetch(url, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -267,6 +272,7 @@ const processFetchRequest = (requestType, userID) => {
     })
     .catch(err => {     //there was an error while sending the request or server did not response.
         console.error(err);
+        alert(err.message);
     })
 }
 
