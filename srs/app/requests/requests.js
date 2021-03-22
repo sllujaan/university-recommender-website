@@ -208,9 +208,10 @@ const clearCurrentViewedUser = () => {
 
 
 document.addEventListener("click", e => {
-    const isbackCoverRequestDetails = (e.target === backCoverRequestDetails);
+    const isbackCoverRequestDetails = (e.target === backCoverRequestDetails) || (e.target.id === "request-view-close");
     const isRequestAccept = (e.target.id === "request-accept");
     const isRequestReject = (e.target.id === "request-reject");
+
     const TRUE_VALUE = true;
 
     console.log(e.target);
