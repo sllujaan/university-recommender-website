@@ -155,7 +155,7 @@ document.forms[0].addEventListener("submit", e => {
 const disableInputs = (e) => {
     e.target.setAttribute("style", "pointer-events: none; user-select: none;");
     submitInput.setAttribute("style", "background-color: #d1d1d1; color: gray; cursor: default;");
-    submitInput.value = "Signing In...";
+    submitInput.value = "Submitting...";
 }
 
 /**
@@ -164,8 +164,8 @@ const disableInputs = (e) => {
  */
 const EnableInputs = (e) => {
     e.target.setAttribute("style", "pointer-events: all; user-select: auto;");
-    submitInput.setAttribute("style", "background-color: #5f0f4e; color: white; cursor: pointer;");
-    submitInput.value = "Sign in";
+    submitInput.setAttribute("style", "background-color: #37a000; color: white; cursor: pointer;");
+    submitInput.value = "Submit";
 }
 
 /**
@@ -310,12 +310,13 @@ const sumbitForm = (e, URL, requestData) => {
         body: requestData // body data type must match "Content-Type" header
     })
     .then(res => {
-        if(res.status !== 200) {EnableInputs(e);alert("Error while serving the request!")}
+        if(res.status !== 200) {throw new Error("Something went wrong while processing the request!");}
         else {window.location.href = "../user/user.html";}
     })
     .catch(err => {
         EnableInputs(e);
         console.error(err);
+        alert(err.message);
     })
 }
 
