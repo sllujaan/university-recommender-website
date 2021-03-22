@@ -30,6 +30,8 @@ const resolveLinkColorActivation = (DOM) => {
     var linkSearch = DOM.getElementById("link-search");
     var linkSearchResp = DOM.getElementById("link-search-resp");
     
+    var linkRequests = DOM.getElementById("link-requests");
+    var linkRequestsResp = DOM.getElementById("link-requests-resp");
 
     switch (page) {
         case "userAuth.html":
@@ -59,6 +61,10 @@ const resolveLinkColorActivation = (DOM) => {
         case "search.html":
             linkSearch.setAttribute("style", "color: #6fda44;");
             linkSearchResp.setAttribute("style", "color: #6fda44;");
+            break;
+        case "requests.html":
+            linkRequests.setAttribute("style", "color: #6fda44;");
+            linkRequestsResp.setAttribute("style", "color: #6fda44;");
             break;
 
 
