@@ -1405,7 +1405,7 @@ const addSearchFilterSingleVal = (name, category, id) => {
         if(exists) {
             console.log("exists");
             searchFilters[i].id = id;
-            searchFilters[i].firstElementChild.innerHTML = name + `<i class="fa fa-times"></i>`;
+            searchFilters[i].firstElementChild.innerHTML = name + `<i class="fa fa-times filter-item-close"></i>`;
             //perform search on the event
             performUniSearchOnEvents();
             return true;
@@ -1433,6 +1433,9 @@ const clearAllSearchFilters = () => {
     userBudget.value = "";
     userMinMarksPct.value = "";
     userSearchName.value = "";
+
+    //disable city options
+    userCity.disabled = true;
 }
 
 
@@ -1464,8 +1467,21 @@ const resetSearchFilterByCategory = (category) => {
 }
 
 const handleSearchFilterRemove = (e) => {
-    console.log(e.target.parentElement);
-    const _filterCategory = e.target.parentElement.getAttribute("data-filter-category");
+    console.log(e.target);
+
+    var isParentEl = e.target.parentElement.classList.contains("search-filter-item-wrapper");
+    var isGrandParentEl = e.target.parentElement.parentElement.classList.contains("search-filter-item-wrapper");
+    var filterEl = null;
+
+    if(isParentEl) {
+        filterEl = e.target.parentElement;
+    }
+    else if(isGrandParentEl) {
+        filterEl = e.target.parentElement.parentElement;
+    }
+    else {return;}
+    
+    const _filterCategory = filterEl.getAttribute("data-filter-category");
     resetSearchFilterByCategory(_filterCategory);
     
     //check if country then remove city filter as well
@@ -1473,7 +1489,7 @@ const handleSearchFilterRemove = (e) => {
         removeSearchFilterItem(SEARCH_CATEGORIES.CITY);
     }
 
-    e.target.parentElement.remove();
+    filterEl.remove();
     
     //perform search on the event
     performUniSearchOnEvents();
