@@ -277,7 +277,7 @@ const verifyLogin = () => {
 
 
 
-const verifyAdmin = () =>   {
+export const verifyAdmin = () => {
 
     const userCredentials = getUserCredentialsLocalStorage();
     const requestData = `session_id=${userCredentials.session_id}&user_id=${userCredentials.user_id}`;

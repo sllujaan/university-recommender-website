@@ -104,6 +104,10 @@ body {
     color: white;
 }
 
+.person {
+    min-width: 40px;
+}
+
 
 
 .person {

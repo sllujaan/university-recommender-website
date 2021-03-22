@@ -1,5 +1,7 @@
 import { loadHeaderFooter, getUserCredentialsLocalStorage } from "../util/util.js";
-import { URL_REQUESTS, URL_REQUEST_ACCEPT, URL_REQUEST_REJECT } from "../urls/urlResolver.js";
+import { URL_REQUESTS, URL_REQUEST_ACCEPT, URL_REQUEST_REJECT,
+    URL_VERIFY_ADMIN
+} from "../urls/urlResolver.js";
 
 /*dom elements*/
 var headerContainer = document.querySelectorAll(".header-container-wrapper")[0];
@@ -41,6 +43,7 @@ const showRequestServiceFailed = () => {
     serverError.setAttribute("style", "display: block; color: red;");
 }
 
+
 const displayStandardMsg = (msg, danger) => {
     var serverError = document.getElementById("server-error");
     hideBusy();
@@ -48,6 +51,7 @@ const displayStandardMsg = (msg, danger) => {
     if(danger) {serverError.setAttribute("style", "display: block; color: red;");}
     else {serverError.setAttribute("style", "display: block; color: #37a000;");}
 }
+
 
 /**
  * display server error.
@@ -277,6 +281,36 @@ const processFetchRequest = (requestType, userID) => {
 }
 
 
+
+
+const verifyAdminAndShowRequests = () => {
+
+    const userCredentials = getUserCredentialsLocalStorage();
+    const requestData = `session_id=${userCredentials.session_id}&user_id=${userCredentials.user_id}`;
+
+    fetch(URL_VERIFY_ADMIN, {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: requestData // body data type must match "Content-Type" header
+    })
+    .then(res => {
+        if(res.status === 200) {
+            /*get and initialize users in users table*/
+            getRequestsDB();
+        }
+        else if(res.status === 401) {displayStandardMsg("Unauthorized! Only Admin is allowed to use this feature.", true);}
+        else {displayStandardMsg("Server Error: Unable to verify Admin! Please try again.", true);}
+    })
+    .catch(err => {
+        displayStandardMsg("Server Error: Unable to verify login!", true);
+        //alert("Something went wrong while verifying the login!");
+    });
+}
+
+
+verifyAdminAndShowRequests();
+
 /*get and initialize users in users table*/
-getRequestsDB();
+//getRequestsDB();
 
