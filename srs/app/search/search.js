@@ -1492,7 +1492,7 @@ window.addEventListener("resize", e => {
 //loadFirst();
 changeRespOptsTitle("new title");
 
-showMeritCalculator();
+//showMeritCalculator();
 
 
 

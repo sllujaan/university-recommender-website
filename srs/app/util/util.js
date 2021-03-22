@@ -122,12 +122,17 @@ const showAdminFeatures = (authorizedContainersAdmin) => {
 }
 
 const hideAuthorizedFeatures = (authorizedContainers) => {
+    
     authorizedContainers.forEach(container => {
         container.classList.add("authorized-container");
         
     })
 
     showLoginButtons();
+
+    //set 100% width of search bar
+    var searchBarUniSerch = document.querySelectorAll(".search-bar-uni-serch")[0];
+    searchBarUniSerch.style.setProperty("width", "100%");
 }
 
 const hideAdminFeatures = (authorizedContainersAdmin) => {
