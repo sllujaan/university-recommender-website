@@ -132,7 +132,7 @@ const hideAuthorizedFeatures = (authorizedContainers) => {
 
     //set 100% width of search bar
     var searchBarUniSerch = document.querySelectorAll(".search-bar-uni-serch")[0];
-    searchBarUniSerch.style.setProperty("width", "100%");
+    if(searchBarUniSerch) searchBarUniSerch.style.setProperty("width", "100%");
 }
 
 const hideAdminFeatures = (authorizedContainersAdmin) => {
