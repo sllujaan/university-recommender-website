@@ -13,9 +13,12 @@ import {
 const RECOMMENDED_SEARCH_ID = -123;
 var CURRENT_PAGE = 0;
 var CURRENT_VIEWD_UNI_DETAILS = null;
+var CURRENT_SEARCH_OBJ = null;
 
+//for first load or load more
 const FIRST_LOAD = 0xf10
 const LOAD_MORE = 0xf12
+//for saved searches
 const RECOMMENDED = 0xc10;
 const SAVED_SEARCH = 0xc12;
 
@@ -69,7 +72,7 @@ const UNIVERSITES = [
 
 
 const SAVED_SEARCHES = [
-    {"Search_ID":"1","User_ID":"3","Name":"uni","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null},
+    {"Search_ID":"1","User_ID":"3","Name":"","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null},
     {"Search_ID":"2","User_ID":"3","Name":"mySearch2","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null},
     {"Search_ID":"3","User_ID":"3","Name":"mySearch3","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null},
     {"Search_ID":"4","User_ID":"3","Name":"mySearch4","Country_ID":null,"City_ID":null,"Program_ID":null,"budget_US_$":null,"MM_PCT":null}
@@ -541,12 +544,14 @@ const performSavedSearchesUni = (requestData, loadType) => {
     ulStruct.loadType = loadType;
     ulStruct.requestData = requestData;
 
-    emptyContainer(universitiesContainer);
-    showContainerBusy();
+    if(loadType === FIRST_LOAD) {
+        emptyContainer(universitiesContainer);
+        showContainerBusy();
+    }
     
     setTimeout(() => {
         fetchUniversities(ulStruct);
-        hideContainerBusy();
+        //hideContainerBusy();
     }, 1000);
     
 }
@@ -563,6 +568,8 @@ const performSavedSearch = (e, searchID) => {
         console.log("rrrrrrrrrrrecommended");
         UNI_CONTAINER_TITLE = "Recommended";
         CURRENT_PAGE = 0;
+        UNI_TYPE = RECOMMENDED;
+        CURRENT_SEARCH_OBJ = SAVED_SEARCHES[0];
         loadFirst();
         return;
     }
@@ -584,11 +591,13 @@ const performSavedSearch = (e, searchID) => {
     var improvedSearch = {...search};
     improvedSearch.Name = "";
 
-    const requestData = prepareSavedSearchRequestData(improvedSearch);
+    //set search parameters
+    UNI_TYPE = SAVED_SEARCH;
+    CURRENT_SEARCH_OBJ = improvedSearch;
+
+    const requestData = prepareSavedSearchRequestData(CURRENT_SEARCH_OBJ);
     
     console.log(requestData);
-
-    
 
     performSavedSearchesUni(requestData, FIRST_LOAD);
 
@@ -699,7 +708,9 @@ const fetchUniversities = (uniLoadStruct = UNI_LOAD_STRUCT) => {
         const aboutUniversities = universities[0];
         var _universities = universities[1];
         loadUniversites(_universities);
-        addLoadMoreButton();
+        hideContainerBusy();
+        //add load more button if there are 10 universites found
+        if(_universities.length > 9) addLoadMoreButton();
     })
     .catch(err => {     //there was an error while sending the request or server did not response.
         //alert("error while fetching recommeded universites");
@@ -763,9 +774,15 @@ const loadFirst = () => {
         //changeContainerTitle("Recommneded aaaaaa");
         hideContainerBusy();
         //fetchRecommendedUniversities(12, ++CURRENT_PAGE, FIRST_LOAD);
-        if(UNI_TYPE === RECOMMENDED) fetchRecommendedUniversitiesEx(`id=${userCredentials.user_id}`, FIRST_LOAD);
+        
+        if(UNI_TYPE === RECOMMENDED) {
+            //set the current search for future search i.e. load more
+            CURRENT_SEARCH_OBJ = SAVED_SEARCHES[0];
+            fetchRecommendedUniversitiesEx(`id=${userCredentials.user_id}`, FIRST_LOAD);
+        }
         else {
-            const requestData = prepareSavedSearchRequestData(SAVED_SEARCHES[0]);
+            if(CURRENT_SEARCH_OBJ === null) {alert("Current Search Object was empty!");return;}
+            const requestData = prepareSavedSearchRequestData(CURRENT_SEARCH_OBJ);
             console.log(requestData);
             performSavedSearchesUni(requestData, FIRST_LOAD);
         }
@@ -777,12 +794,17 @@ const loadMore = () => {
     removeLoadMoreButton();
     showContainerBusy();
 
+    const userCredentials = getUserCredentialsLocalStorage();
+
     setTimeout(() => {
-        hideContainerBusy();
+        //hideContainerBusy();
         //fetchRecommendedUniversities(12, ++CURRENT_PAGE, LOAD_MORE);
-        if(UNI_TYPE === RECOMMENDED) fetchRecommendedUniversitiesEx("id=12", LOAD_MORE);
+        if(UNI_TYPE === RECOMMENDED) {
+            fetchRecommendedUniversitiesEx(`id=${userCredentials.user_id}`, LOAD_MORE);
+        }
         else {
-            const requestData = prepareSavedSearchRequestData(SAVED_SEARCHES[0]);
+            if(CURRENT_SEARCH_OBJ === null) {alert("Current Search Object was empty!");return;}
+            const requestData = prepareSavedSearchRequestData(CURRENT_SEARCH_OBJ);
             console.log(requestData);
             performSavedSearchesUni(requestData, LOAD_MORE);
         }

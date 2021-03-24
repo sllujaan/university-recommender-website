@@ -1068,6 +1068,7 @@ const hideMeritCalculator = () => {
 const showSaveSearchContainer = (name) => {
     saveSearchName.value = name;
     containerSaveSearchWrapper.style.removeProperty("display");
+    saveSearchName.focus();
 }
 
 const hideSaveSearchContainer = () => {
