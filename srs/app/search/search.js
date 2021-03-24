@@ -14,6 +14,7 @@ const RECOMMENDED_SEARCH_ID = -123;
 var CURRENT_PAGE = 0;
 
 var CURRENT_VIEWD_UNI_DETAILS = null;
+var CURRENT_SEARCH_OBJ = null;
 
 
 const FIRST_LOAD = 0xf10
@@ -948,7 +949,8 @@ const fetchUniversities = (uniLoadStruct = UNI_LOAD_STRUCT) => {
         const _universities = universities[1];
         if(uniLoadStruct.loadType === FIRST_LOAD) setUniFounNum(aboutUniversities.Total_Universities);
         loadUniversites(_universities);
-        addLoadMoreButton();
+        //add load more button if there are 10 universites found
+        if(_universities.length > 9) addLoadMoreButton();
     })
     .catch(err => {     //there was an error while sending the request or server did not response.
         //alert("error while fetching recommeded universites");
@@ -1270,8 +1272,12 @@ const loadFirst = () => {
         hideContainerBusy();
         //retrieve the search
         //getSearch();
-        const requestData = prepareSavedSearchRequestData(SAVED_SEARCHES[0]);
+
+        //set the current search for future search i.e. load more
+        CURRENT_SEARCH_OBJ = SAVED_SEARCHES[0];
+        const requestData = prepareSavedSearchRequestData(CURRENT_SEARCH_OBJ);
         console.log(requestData);
+        console.log(CURRENT_SEARCH_OBJ);
         performUniSearch(requestData, FIRST_LOAD);
     }, 1000);
 }
@@ -1284,7 +1290,8 @@ const loadMore = () => {
     setTimeout(() => {
         hideContainerBusy();
         getSearch();
-        const requestData = prepareSavedSearchRequestData(SAVED_SEARCHES[0]);
+        if(CURRENT_SEARCH_OBJ === null) {alert("Current Search Object was empty!");return;}
+        const requestData = prepareSavedSearchRequestData(CURRENT_SEARCH_OBJ);
         console.log(requestData);
         performUniSearch(requestData, LOAD_MORE);
     }, 1000);
@@ -1328,7 +1335,10 @@ const performUniSearchOnEvents = () => {
     showContainerBusy();
     //retrieve the search from dom
     const search = getSearch();
-    const requestData = prepareSavedSearchRequestData(search);
+
+    //set the current search for future search i.e. load more
+    CURRENT_SEARCH_OBJ = search;
+    const requestData = prepareSavedSearchRequestData(CURRENT_SEARCH_OBJ);
     console.log(requestData);
 
     setTimeout(() => {
