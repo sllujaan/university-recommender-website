@@ -716,6 +716,7 @@ const fetchUniversities = (uniLoadStruct = UNI_LOAD_STRUCT) => {
         //alert("error while fetching recommeded universites");
         //displayWentWrongFirstLoad();
         //console.log();
+        hideContainerBusy();
         console.error(err);
     });
 }
@@ -772,7 +773,7 @@ const loadFirst = () => {
 
     setTimeout(() => {
         //changeContainerTitle("Recommneded aaaaaa");
-        hideContainerBusy();
+        //hideContainerBusy();
         //fetchRecommendedUniversities(12, ++CURRENT_PAGE, FIRST_LOAD);
         
         if(UNI_TYPE === RECOMMENDED) {
